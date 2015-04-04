@@ -60,6 +60,15 @@ class InstructionsSpec: QuickSpec {
             }
         }
 
+        describe("EOR") {
+            it("should load a memory address into the A register") {
+                cpu.memory.write(0x2000, 0x5F)
+                cpu.LDA(0x2000)
+
+                expect(cpu.A).to(equal(0x5F))
+            }
+        }
+
         describe("ORA") {
             it("should perform bitwise OR on A and the contents of a byte of memory") {
                 cpu.A = 0x01

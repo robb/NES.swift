@@ -19,6 +19,11 @@ public extension CPU {
         AZN = A ^ memory.read(address)
     }
 
+    /// `LDA` - Load Accumulator
+    public mutating func LDA(address: UInt16) {
+        AZN = memory.read(address)
+    }
+
     /// `ORA` - Logical Inclusive OR
     public mutating func ORA(address: UInt16) {
         AZN = A | memory.read(address)
