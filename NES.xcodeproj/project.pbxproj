@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		546054A31AD018CE00CFD098 /* Instructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546054A21AD018CE00CFD098 /* Instructions.swift */; };
+		546054A51AD01A5700CFD098 /* InstructionsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546054A41AD01A5700CFD098 /* InstructionsSpec.swift */; };
 		548605EE1ACFFF1C00198A72 /* NES.h in Headers */ = {isa = PBXBuildFile; fileRef = 548605ED1ACFFF1C00198A72 /* NES.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		548605F41ACFFF1C00198A72 /* NES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 548605E81ACFFF1B00198A72 /* NES.framework */; };
 		548606051ACFFF2D00198A72 /* CPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548606041ACFFF2D00198A72 /* CPU.swift */; };
@@ -44,6 +46,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		546054A21AD018CE00CFD098 /* Instructions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instructions.swift; sourceTree = "<group>"; };
+		546054A41AD01A5700CFD098 /* InstructionsSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionsSpec.swift; sourceTree = "<group>"; };
 		548605E81ACFFF1B00198A72 /* NES.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NES.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		548605EC1ACFFF1B00198A72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		548605ED1ACFFF1C00198A72 /* NES.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NES.h; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 			children = (
 				548605ED1ACFFF1C00198A72 /* NES.h */,
 				548606041ACFFF2D00198A72 /* CPU.swift */,
+				546054A21AD018CE00CFD098 /* Instructions.swift */,
 				548606061AD0073000198A72 /* Memory.swift */,
 				548605EB1ACFFF1B00198A72 /* Supporting Files */,
 			);
@@ -119,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				5486060F1AD0146500198A72 /* CPUSpec.swift */,
+				546054A41AD01A5700CFD098 /* InstructionsSpec.swift */,
 				548605F81ACFFF1C00198A72 /* Supporting Files */,
 			);
 			path = Specs;
@@ -250,6 +256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				548606071AD0073000198A72 /* Memory.swift in Sources */,
+				546054A31AD018CE00CFD098 /* Instructions.swift in Sources */,
 				548606051ACFFF2D00198A72 /* CPU.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,6 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				548606101AD0146500198A72 /* CPUSpec.swift in Sources */,
+				546054A51AD01A5700CFD098 /* InstructionsSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +466,7 @@
 				548606001ACFFF1C00198A72 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		548606011ACFFF1C00198A72 /* Build configuration list for PBXNativeTarget "Specs" */ = {
 			isa = XCConfigurationList;
@@ -466,6 +475,7 @@
 				548606031ACFFF1C00198A72 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -28,7 +28,7 @@ public struct CPU {
     /// The Y register.
     public var Y: UInt8 = 0
 
-    internal var memory: Memory = Memory()
+    public var memory: Memory = Memory()
 
     public init() { }
 }
@@ -111,10 +111,12 @@ public extension CPU {
     }
 }
 
+public extension CPU {
+    public static let StackOffset: UInt16 = 0x0100
+}
+
 /// Stack access.
 internal extension CPU {
-    private static let StackOffset: UInt16 = 0x0100
-
     mutating func push(byte: UInt8) {
         memory[CPU.StackOffset | UInt16(SP)] = byte
         SP = SP &- 1
@@ -122,7 +124,7 @@ internal extension CPU {
 
     mutating func push(value: UInt16) {
         push(UInt8(value >> 8))
-        push(UInt8(value))
+        push(UInt8(value & 0xFF))
     }
 
     mutating func pop() -> UInt8 {
