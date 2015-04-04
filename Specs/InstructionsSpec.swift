@@ -11,6 +11,16 @@ class InstructionsSpec: QuickSpec {
             cpu = CPU()
         }
 
+        describe("AND") {
+            it("should perform bitwise AND on A and the contents of a byte of memory") {
+                cpu.A = 0xF5
+                cpu.memory.write(0x2000, 0x5F)
+                cpu.AND(0x2000)
+
+                expect(cpu.A).to(equal(0x55))
+            }
+        }
+
         describe("BRK") {
             beforeEach {
                 cpu.PC = 0xABBA

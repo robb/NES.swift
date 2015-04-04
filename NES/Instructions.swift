@@ -1,6 +1,11 @@
 import Foundation
 
 public extension CPU {
+    /// `AND` - Logical AND
+    public mutating func AND(address: UInt16) {
+        AZN = A & memory.read(address)
+    }
+
     /// `BRK` - Force Interrupt
     public mutating func BRK() {
         push16(PC)
