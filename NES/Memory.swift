@@ -1,7 +1,7 @@
 import Foundation
 
 public struct Memory {
-    private var bytes: Array<UInt8> = Array(count: 0x10000, repeatedValue: 0)
+    private var bytes: Array<UInt8> = Array(count: 0x10000, repeatedValue: 0xFF)
 
     public subscript(address: UInt16) -> UInt8 {
         get {
