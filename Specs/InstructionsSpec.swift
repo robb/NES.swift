@@ -50,6 +50,16 @@ class InstructionsSpec: QuickSpec {
             }
         }
 
+        describe("EOR") {
+            it("should perform bitwise XOR on A and the contents of a byte of memory") {
+                cpu.A = 0xF5
+                cpu.memory.write(0x2000, 0x5F)
+                cpu.EOR(0x2000)
+
+                expect(cpu.A).to(equal(0xAA))
+            }
+        }
+
         describe("ORA") {
             it("should perform bitwise OR on A and the contents of a byte of memory") {
                 cpu.A = 0x01

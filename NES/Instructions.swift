@@ -14,6 +14,11 @@ public extension CPU {
         PC = memory.read16(0xFFFE)
     }
 
+    /// `EOR` - Logical Exclusive OR
+    public mutating func EOR(address: UInt16) {
+        AZN = A ^ memory.read(address)
+    }
+
     /// `ORA` - Logical Inclusive OR
     public mutating func ORA(address: UInt16) {
         AZN = A | memory.read(address)
