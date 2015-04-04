@@ -15,18 +15,18 @@ class InstructionsSpec: QuickSpec {
             beforeEach {
                 cpu.PC = 0xABBA
                 cpu.P = 0x24
-                cpu.memory[0xFFFE] = UInt16(0x1234)
+                cpu.memory.write16(0xFFFE, 0x1234)
                 cpu.BRK()
             }
 
             it("should push the program counter to the stack") {
-                let PC = cpu.memory[CPU.StackOffset | UInt16(cpu.SP + 2)] as UInt16
+                let PC = cpu.memory.read16(CPU.StackOffset | UInt16(cpu.SP + 2))
 
                 expect(PC).to(equal(0xABBA))
             }
 
             it("should push the processor status to the stack") {
-                let P: UInt8 = cpu.memory[CPU.StackOffset | UInt16(cpu.SP + 1)]
+                let P = cpu.memory.read(CPU.StackOffset | UInt16(cpu.SP + 1))
 
                 expect(P).to(equal(0x24))
             }
@@ -43,7 +43,7 @@ class InstructionsSpec: QuickSpec {
         describe("ORA") {
             it("should perform bitwise OR on A and the contents of a byte of memory") {
                 cpu.A = 0x01
-                cpu.memory[0x2000] = UInt8(0xF0)
+                cpu.memory.write(0x2000, 0xF0)
                 cpu.ORA(0x2000)
 
                 expect(cpu.A).to(equal(0xF1))
@@ -57,7 +57,7 @@ class InstructionsSpec: QuickSpec {
             }
 
             it("should push the processor status to the stack") {
-                let P: UInt8 = cpu.memory[CPU.StackOffset | UInt16(cpu.SP + 1)]
+                let P = cpu.memory.read(CPU.StackOffset | UInt16(cpu.SP + 1))
 
                 expect(P).to(equal(0x24))
             }

@@ -6,12 +6,12 @@ public extension CPU {
         push(PC)
         push(P)
         breakCommand = true
-        PC = memory[0xFFFE]
+        PC = memory.read16(0xFFFE)
     }
 
     /// `ORA` - Logical Inclusive OR
     public mutating func ORA(address: UInt16) {
-        setAZN(A | memory[address])
+        setAZN(A | memory.read(address))
     }
 
     /// `PHP` - Push Processor Status

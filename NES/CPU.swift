@@ -124,7 +124,7 @@ public extension CPU {
 /// Stack access.
 internal extension CPU {
     mutating func push(byte: UInt8) {
-        memory[CPU.StackOffset | UInt16(SP)] = byte
+        memory.write(CPU.StackOffset | UInt16(SP), byte)
         SP = SP &- 1
     }
 
@@ -135,7 +135,7 @@ internal extension CPU {
 
     mutating func pop() -> UInt8 {
         SP = SP &+ 1
-        return memory[CPU.StackOffset | UInt16(SP)]
+        return memory.read(CPU.StackOffset | UInt16(SP))
     }
 
     mutating func pop() -> UInt16 {
