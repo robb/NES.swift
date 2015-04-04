@@ -1,6 +1,18 @@
 import Foundation
 
 public extension CPU {
+    /// `ADC` - Add with Carry
+    public mutating func ADC(address: UInt16) {
+        let a: UInt8 = A
+        let b: UInt8 = memory.read(address)
+        let c: UInt8 = carryFlag ? 1 : 0
+
+        AZN = a &+ b &+ c
+
+        carryFlag = UInt16(a) + UInt16(b) + UInt16(c) > 0xFF
+        overflowFlag = (a ^ b) & 0x80 == 0 && (a ^ A) & 0x80 != 0
+    }
+
     /// `AND` - Logical AND
     public mutating func AND(address: UInt16) {
         AZN = A & memory.read(address)

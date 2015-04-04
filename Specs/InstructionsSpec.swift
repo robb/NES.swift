@@ -11,6 +11,52 @@ class InstructionsSpec: QuickSpec {
             cpu = CPU()
         }
 
+        describe("ADC") {
+            it("should add contents of a byte of memory to the A register") {
+                cpu.A = 0x12
+                cpu.memory.write(0x2000, 0x13)
+                cpu.ADC(0x2000)
+
+                expect(cpu.A).to(equal(0x25))
+            }
+
+            it("should set the carry flag to false if no overflow occurred") {
+                cpu.A = 0x00
+                cpu.memory.write(0x2000, 0x10)
+                cpu.ADC(0x2000)
+
+                expect(cpu.A).to(equal(0x10))
+                expect(cpu.carryFlag).to(beFalse())
+            }
+
+            it("should set the carry flag to true if overflow occurred") {
+                cpu.A = 0xF0
+                cpu.memory.write(0x2000, 0x20)
+                cpu.ADC(0x2000)
+
+                expect(cpu.A).to(equal(0x10))
+                expect(cpu.carryFlag).to(beTrue())
+            }
+
+            it("should set the overflow flag to false if no two's complement overflow occurred") {
+                cpu.A = 0x40
+                cpu.memory.write(0x2000, 0x20)
+                cpu.ADC(0x2000)
+
+                expect(cpu.A).to(equal(0x60)) // 96 in Two's complement
+                expect(cpu.overflowFlag).to(beFalse())
+            }
+
+            it("should set the overflow flag to true if two's complement overflow occurred") {
+                cpu.A = 0x40
+                cpu.memory.write(0x2000, 0x40)
+                cpu.ADC(0x2000)
+
+                expect(cpu.A).to(equal(0x80)) // -128 in Two's complement
+                expect(cpu.overflowFlag).to(beTrue())
+            }
+        }
+
         describe("AND") {
             it("should perform bitwise AND on A and the contents of a byte of memory") {
                 cpu.A = 0xF5
