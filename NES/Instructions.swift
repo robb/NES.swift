@@ -11,7 +11,7 @@ public extension CPU {
 
     /// `ORA` - Logical Inclusive OR
     public mutating func ORA(address: UInt16) {
-        setAZN(A | memory.read(address))
+        AZN = A | memory.read(address)
     }
 
     /// `PHP` - Push Processor Status

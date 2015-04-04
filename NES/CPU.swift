@@ -110,10 +110,17 @@ public extension CPU {
         }
     }
 
-    internal mutating func setAZN(value: UInt8) {
-        A = value
-        zeroFlag = value == 0
-        negativeFlag = value & 0x80 != 0
+    /// A convenience proxy for the A register as well as the Zero and Negative
+    /// flags.
+    internal var AZN: UInt8 {
+        get {
+            return A
+        }
+        set {
+            A = newValue
+            zeroFlag = newValue == 0
+            negativeFlag = newValue & 0x80 != 0
+        }
     }
 }
 
