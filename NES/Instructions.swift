@@ -9,6 +9,11 @@ public extension CPU {
         PC = memory[0xFFFE]
     }
 
+    /// `ORA` - Logical Inclusive OR
+    public mutating func ORA(address: UInt16) {
+        setAZN(A | memory[address])
+    }
+
     /// `PHP` - Push Processor Status
     public mutating func PHP() {
         push(P)

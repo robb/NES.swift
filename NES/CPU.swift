@@ -109,6 +109,12 @@ public extension CPU {
             setFlag(0x80, newValue)
         }
     }
+
+    internal mutating func setAZN(value: UInt8) {
+        A = value
+        zeroFlag = value == 0
+        negativeFlag = value & 0x80 != 0
+    }
 }
 
 public extension CPU {

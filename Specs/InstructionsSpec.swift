@@ -40,6 +40,16 @@ class InstructionsSpec: QuickSpec {
             }
         }
 
+        describe("ORA") {
+            it("should perform bitwise OR on A and the contents of a byte of memory") {
+                cpu.A = 0x01
+                cpu.memory[0x2000] = UInt8(0xF0)
+                cpu.ORA(0x2000)
+
+                expect(cpu.A).to(equal(0xF1))
+            }
+        }
+
         describe("PHP") {
             beforeEach {
                 cpu.P = 0x24
