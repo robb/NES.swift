@@ -128,7 +128,7 @@ internal extension CPU {
         SP = SP &- 1
     }
 
-    mutating func push(value: UInt16) {
+    mutating func push16(value: UInt16) {
         push(UInt8(value >> 8))
         push(UInt8(value & 0xFF))
     }
@@ -138,7 +138,7 @@ internal extension CPU {
         return memory.read(CPU.StackOffset | UInt16(SP))
     }
 
-    mutating func pop() -> UInt16 {
+    mutating func pop16() -> UInt16 {
         let low: UInt8 = pop()
         let high: UInt8 = pop()
 

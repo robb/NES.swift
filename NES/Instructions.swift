@@ -3,7 +3,7 @@ import Foundation
 public extension CPU {
     /// `BRK` - Force Interrupt
     public mutating func BRK() {
-        push(PC)
+        push16(PC)
         push(P)
         breakCommand = true
         PC = memory.read16(0xFFFE)
