@@ -2,9 +2,9 @@ import Foundation
 
 public extension CPU {
     /// `ADC` - Add with Carry
-    public mutating func ADC(address: UInt16) {
+    public mutating func ADC(value: UInt8) {
         let a: UInt8 = A
-        let b: UInt8 = memory.read(address)
+        let b: UInt8 = value
         let c: UInt8 = carryFlag ? 1 : 0
 
         AZN = a &+ b &+ c
@@ -14,8 +14,8 @@ public extension CPU {
     }
 
     /// `AND` - Logical AND
-    public mutating func AND(address: UInt16) {
-        AZN = A & memory.read(address)
+    public mutating func AND(value: UInt8) {
+        AZN = A & value
     }
 
     /// `BRK` - Force Interrupt
@@ -27,18 +27,18 @@ public extension CPU {
     }
 
     /// `EOR` - Logical Exclusive OR
-    public mutating func EOR(address: UInt16) {
-        AZN = A ^ memory.read(address)
+    public mutating func EOR(value: UInt8) {
+        AZN = A ^ value
     }
 
     /// `LDA` - Load Accumulator
-    public mutating func LDA(address: UInt16) {
-        AZN = memory.read(address)
+    public mutating func LDA(value: UInt8) {
+        AZN = value
     }
 
     /// `ORA` - Logical Inclusive OR
-    public mutating func ORA(address: UInt16) {
-        AZN = A | memory.read(address)
+    public mutating func ORA(value: UInt8) {
+        AZN = A | value
     }
 
     /// `PHP` - Push Processor Status

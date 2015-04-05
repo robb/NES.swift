@@ -12,18 +12,16 @@ class InstructionsSpec: QuickSpec {
         }
 
         describe("ADC") {
-            it("should add contents of a byte of memory to the A register") {
+            it("should add a value to the A register") {
                 cpu.A = 0x12
-                cpu.memory.write(0x2000, 0x13)
-                cpu.ADC(0x2000)
+                cpu.ADC(0x13)
 
                 expect(cpu.A).to(equal(0x25))
             }
 
             it("should set the carry flag to false if no overflow occurred") {
                 cpu.A = 0x00
-                cpu.memory.write(0x2000, 0x10)
-                cpu.ADC(0x2000)
+                cpu.ADC(0x10)
 
                 expect(cpu.A).to(equal(0x10))
                 expect(cpu.carryFlag).to(beFalse())
@@ -31,8 +29,7 @@ class InstructionsSpec: QuickSpec {
 
             it("should set the carry flag to true if overflow occurred") {
                 cpu.A = 0xF0
-                cpu.memory.write(0x2000, 0x20)
-                cpu.ADC(0x2000)
+                cpu.ADC(0x20)
 
                 expect(cpu.A).to(equal(0x10))
                 expect(cpu.carryFlag).to(beTrue())
@@ -40,8 +37,7 @@ class InstructionsSpec: QuickSpec {
 
             it("should set the overflow flag to false if no two's complement overflow occurred") {
                 cpu.A = 0x40
-                cpu.memory.write(0x2000, 0x20)
-                cpu.ADC(0x2000)
+                cpu.ADC(0x20)
 
                 expect(cpu.A).to(equal(0x60)) // 96 in Two's complement
                 expect(cpu.overflowFlag).to(beFalse())
@@ -49,8 +45,7 @@ class InstructionsSpec: QuickSpec {
 
             it("should set the overflow flag to true if two's complement overflow occurred") {
                 cpu.A = 0x40
-                cpu.memory.write(0x2000, 0x40)
-                cpu.ADC(0x2000)
+                cpu.ADC(0x40)
 
                 expect(cpu.A).to(equal(0x80)) // -128 in Two's complement
                 expect(cpu.overflowFlag).to(beTrue())
@@ -60,8 +55,7 @@ class InstructionsSpec: QuickSpec {
         describe("AND") {
             it("should perform bitwise AND on A and the contents of a byte of memory") {
                 cpu.A = 0xF5
-                cpu.memory.write(0x2000, 0x5F)
-                cpu.AND(0x2000)
+                cpu.AND(0x5F)
 
                 expect(cpu.A).to(equal(0x55))
             }
@@ -97,29 +91,26 @@ class InstructionsSpec: QuickSpec {
         }
 
         describe("EOR") {
-            it("should perform bitwise XOR on A and the contents of a byte of memory") {
+            it("should perform bitwise XOR on A and a value") {
                 cpu.A = 0xF5
-                cpu.memory.write(0x2000, 0x5F)
-                cpu.EOR(0x2000)
+                cpu.EOR(0x5F)
 
                 expect(cpu.A).to(equal(0xAA))
             }
         }
 
-        describe("EOR") {
-            it("should load a memory address into the A register") {
-                cpu.memory.write(0x2000, 0x5F)
-                cpu.LDA(0x2000)
+        describe("LDA") {
+            it("should store a value in the A register") {
+                cpu.LDA(0x5F)
 
                 expect(cpu.A).to(equal(0x5F))
             }
         }
 
         describe("ORA") {
-            it("should perform bitwise OR on A and the contents of a byte of memory") {
+            it("should perform bitwise OR on A and a value") {
                 cpu.A = 0x01
-                cpu.memory.write(0x2000, 0xF0)
-                cpu.ORA(0x2000)
+                cpu.ORA(0xF0)
 
                 expect(cpu.A).to(equal(0xF1))
             }
