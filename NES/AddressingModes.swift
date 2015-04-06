@@ -1,11 +1,11 @@
 import Foundation
 import Prelude
 
-private func differentPages(a: UInt16, b: UInt16) -> Bool {
-    return (a & 0xFF00) != (b & 0xFF00)
+private func differentPages(a: Address, b: Address) -> Bool {
+    return a.page != b.page
 }
 
-public func absolute(instruction: (CPU, UInt16) -> CPU, # cycles: UInt64)(var cpu: CPU) -> CPU {
+public func absolute(instruction: (CPU, Address) -> CPU, # cycles: UInt64)(var cpu: CPU) -> CPU {
     let address = cpu.memory.read16(cpu.PC + 1)
 
     cpu.cycles += cycles
@@ -14,26 +14,26 @@ public func absolute(instruction: (CPU, UInt16) -> CPU, # cycles: UInt64)(var cp
     return instruction(cpu, address)
 }
 
-public func absoluteX(instruction: (CPU, UInt16) -> CPU, # cycles: UInt64, pageBoundaryCost: UInt64 = 0)(var cpu: CPU) -> CPU {
+public func absoluteX(instruction: (CPU, Address) -> CPU, # cycles: UInt64, pageBoundaryCost: UInt64 = 0)(var cpu: CPU) -> CPU {
     let address = cpu.memory.read16(cpu.PC + 1) + UInt16(cpu.X)
 
     cpu.PC += 3
     cpu.cycles += cycles
 
-    if differentPages(address, address - UInt16(cpu.X)) {
+    if differentPages(address, address - Address(cpu.X)) {
         cpu.cycles += pageBoundaryCost
     }
 
     return instruction(cpu, address)
 }
 
-public func absoluteY(instruction: (CPU, UInt16) -> CPU, # cycles: UInt64, pageBoundaryCost: UInt64 = 0)(var cpu: CPU) -> CPU {
-    let address = cpu.memory.read16(cpu.PC + 1) + UInt16(cpu.Y)
+public func absoluteY(instruction: (CPU, Address) -> CPU, # cycles: UInt64, pageBoundaryCost: UInt64 = 0)(var cpu: CPU) -> CPU {
+    let address = cpu.memory.read16(cpu.PC + 1) + Address(cpu.Y)
 
     cpu.cycles += cycles
     cpu.PC += 3
 
-    if differentPages(address, address &- UInt16(cpu.Y)) {
+    if differentPages(address, address &- Address(cpu.Y)) {
         cpu.cycles += pageBoundaryCost
     }
 
@@ -64,7 +64,7 @@ public func implicied(instruction: CPU -> CPU, # cycles: UInt64)(var cpu: CPU) -
 }
 
 public func indexedIndirect(instruction: (CPU, UInt8) -> CPU, # cycles: UInt64)(var cpu: CPU) -> CPU {
-    let address = UInt16(cpu.memory.read(cpu.PC + 1) &+ cpu.X)
+    let address = Address(cpu.memory.read(cpu.PC + 1) &+ cpu.X)
     let operand = cpu.memory.read(address)
 
     cpu.cycles += cycles
@@ -73,7 +73,7 @@ public func indexedIndirect(instruction: (CPU, UInt8) -> CPU, # cycles: UInt64)(
     return instruction(cpu, operand)
 }
 
-public func indirect(instruction: (CPU, UInt16) -> CPU, # cycles: UInt64)(var cpu: CPU) -> CPU {
+public func indirect(instruction: (CPU, Address) -> CPU, # cycles: UInt64)(var cpu: CPU) -> CPU {
     let address = cpu.memory.read16(cpu.PC + 1)
     let operand = cpu.memory.read16(address)
 
@@ -84,13 +84,13 @@ public func indirect(instruction: (CPU, UInt16) -> CPU, # cycles: UInt64)(var cp
 }
 
 public func indirectIndexed(instruction: (CPU, UInt8) -> CPU, # cycles: UInt64, pageBoundaryCost: UInt64 = 0)(var cpu: CPU) -> CPU {
-    let address = UInt16(cpu.memory.read(cpu.PC + 1)) &+ UInt16(cpu.Y)
+    let address = Address(cpu.memory.read(cpu.PC + 1)) &+ Address(cpu.Y)
     let operand = cpu.memory.read(address)
 
     cpu.cycles += cycles
     cpu.PC += 3
 
-    if differentPages(address, address &- UInt16(cpu.Y)) {
+    if differentPages(address, address &- Address(cpu.Y)) {
         cpu.cycles += pageBoundaryCost
     }
 
