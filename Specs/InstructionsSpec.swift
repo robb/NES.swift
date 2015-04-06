@@ -144,5 +144,35 @@ class InstructionsSpec: QuickSpec {
                 expect(cpu.interruptDisable).to(beTrue())
             }
         }
+
+        describe("STA") {
+            it("should store the contents of the A register at a memory location") {
+                cpu.A = 0x12
+
+                cpu = STA(cpu, 0x1234)
+
+                expect(cpu.memory.read(0x1234)).to(equal(0x12))
+            }
+        }
+
+        describe("STX") {
+            it("should store the contents of the X register at a memory location") {
+                cpu.X = 0x12
+
+                cpu = STX(cpu, 0x1234)
+
+                expect(cpu.memory.read(0x1234)).to(equal(0x12))
+            }
+        }
+
+        describe("STY") {
+            it("should store the contents of the Y register at a memory location") {
+                cpu.Y = 0x12
+
+                cpu = STY(cpu, 0x1234)
+
+                expect(cpu.memory.read(0x1234)).to(equal(0x12))
+            }
+        }
     }
 }

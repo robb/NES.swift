@@ -65,3 +65,24 @@ public func SEI(var cpu: CPU) -> CPU {
 
     return cpu
 }
+
+/// `STA` - Store accumulator
+public func STA(var cpu: CPU, address: UInt16) -> CPU {
+    cpu.memory.write(address, cpu.A)
+
+    return cpu
+}
+
+/// `STX` - Store X register
+public func STX(var cpu: CPU, address: UInt16) -> CPU {
+    cpu.memory.write(address, cpu.X)
+
+    return cpu
+}
+
+/// `STY` - Store Y register
+public func STY(var cpu: CPU, address: UInt16) -> CPU {
+    cpu.memory.write(address, cpu.Y)
+
+    return cpu
+}
