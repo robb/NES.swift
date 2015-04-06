@@ -241,6 +241,18 @@ class InstructionsSpec: QuickSpec {
             }
         }
 
+        describe("PHA") {
+            it("should push the A register to the stack") {
+                cpu.A = 0x24
+
+                cpu = PHA(cpu)
+
+                let P = cpu.memory.read(CPU.StackOffset | UInt16(cpu.SP + 1))
+
+                expect(P).to(equal(0x24))
+            }
+        }
+
         describe("PHP") {
             it("should push the processor status to the stack") {
                 cpu.P = 0x24

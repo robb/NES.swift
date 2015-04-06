@@ -97,6 +97,13 @@ public func ORA(var cpu: CPU, value: UInt8) -> CPU {
     return cpu
 }
 
+/// `PHA` - Push Accumulator
+public func PHA(var cpu: CPU) -> CPU {
+    cpu.push(cpu.A)
+
+    return cpu
+}
+
 /// `PHP` - Push Processor Status
 public func PHP(var cpu: CPU) -> CPU {
     cpu.push(cpu.P)
