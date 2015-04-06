@@ -265,6 +265,26 @@ class InstructionsSpec: QuickSpec {
             }
         }
 
+        describe("PLA") {
+            it("should pull the A register from the stack") {
+                cpu.memory.write(CPU.StackOffset | UInt16(cpu.SP &+ 1), 0x24)
+
+                cpu = PLA(cpu)
+
+                expect(cpu.A).to(equal(0x24))
+            }
+        }
+
+        describe("PLP") {
+            it("should pull the processor status from the stack") {
+                cpu.memory.write(CPU.StackOffset | UInt16(cpu.SP &+ 1), 0x24)
+
+                cpu = PLP(cpu)
+
+                expect(cpu.P).to(equal(0x24))
+            }
+        }
+
         describe("SEI") {
             it("should set the interrupt disable flag") {
                 cpu = SEI(cpu)

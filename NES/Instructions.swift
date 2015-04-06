@@ -111,6 +111,20 @@ public func PHP(var cpu: CPU) -> CPU {
     return cpu
 }
 
+/// `PLA` - Pull Accumulator
+public func PLA(var cpu: CPU) -> CPU {
+    cpu.A = cpu.pop()
+
+    return cpu
+}
+
+/// `PLP` - Pull Processor Status
+public func PLP(var cpu: CPU) -> CPU {
+    cpu.P = cpu.pop()
+
+    return cpu
+}
+
 /// `SEI` - Set Interrupt Disable
 public func SEI(var cpu: CPU) -> CPU {
     cpu.interruptDisable = true
