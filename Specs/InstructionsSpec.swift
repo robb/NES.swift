@@ -285,6 +285,126 @@ class InstructionsSpec: QuickSpec {
             }
         }
 
+        describe("ROL") {
+            describe("when called without an address") {
+                it("should should rotate all bits of the accumulator one bit to the left") {
+                    cpu.carryFlag = true
+                    cpu.A = 0x40
+
+                    cpu = ROL(cpu)
+
+                    expect(cpu.A).to(equal(0x81))
+                }
+
+                it("should set the carry flag to true if bit 7 was 1") {
+                    cpu.A = 0x81
+
+                    cpu = ROL(cpu)
+
+                    expect(cpu.A).to(equal(0x02))
+                    expect(cpu.carryFlag).to(beTrue())
+                }
+
+                it("should set the carry flag to false if bit 7 was 0") {
+                    cpu.A = 0x01
+
+                    cpu = ROL(cpu)
+
+                    expect(cpu.A).to(equal(0x02))
+                    expect(cpu.carryFlag).to(beFalse())
+                }
+            }
+
+            describe("when called with an address") {
+                it("should should rotate all bits of the memory contents one bit to the left") {
+                    cpu.carryFlag = true
+                    cpu.memory.write(0x1234, 0x40)
+
+                    cpu = ROL(cpu, 0x1234)
+
+                    expect(cpu.memory.read(0x1234)).to(equal(0x81))
+                }
+
+                it("should set the carry flag to true if bit 7 was 1") {
+                    cpu.memory.write(0x1234, 0x81)
+
+                    cpu = ROL(cpu, 0x1234)
+
+                    expect(cpu.memory.read(0x1234)).to(equal(0x02))
+                    expect(cpu.carryFlag).to(beTrue())
+                }
+
+                it("should set the carry flag to true if bit 7 was 0") {
+                    cpu.memory.write(0x1234, 0x01)
+
+                    cpu = ROL(cpu, 0x1234)
+
+                    expect(cpu.memory.read(0x1234)).to(equal(0x02))
+                    expect(cpu.carryFlag).to(beFalse())
+                }
+            }
+        }
+
+        describe("ROR") {
+            describe("when called without an address") {
+                it("should should rotate all bits of the accumulator one bit to the right") {
+                    cpu.carryFlag = true
+                    cpu.A = 0x04
+
+                    cpu = ROR(cpu)
+
+                    expect(cpu.A).to(equal(0x82))
+                }
+
+                it("should set the carry flag to true if bit 0 was 1") {
+                    cpu.A = 0x81
+
+                    cpu = ROR(cpu)
+
+                    expect(cpu.A).to(equal(0x40))
+                    expect(cpu.carryFlag).to(beTrue())
+                }
+
+                it("should set the carry flag to false if bit 0 was 0") {
+                    cpu.A = 0x80
+
+                    cpu = ROR(cpu)
+
+                    expect(cpu.A).to(equal(0x40))
+                    expect(cpu.carryFlag).to(beFalse())
+                }
+            }
+
+            describe("when called with an address") {
+                it("should should rotate all bits of the memory contents one bit to the right") {
+                    cpu.carryFlag = true
+                    cpu.memory.write(0x1234, 0x04)
+
+                    cpu = ROR(cpu, 0x1234)
+
+                    expect(cpu.memory.read(0x1234)).to(equal(0x82))
+                }
+
+                it("should set the carry flag to true if bit 0 was 1") {
+                    cpu.memory.write(0x1234, 0x81)
+
+                    cpu = ROR(cpu, 0x1234)
+
+                    expect(cpu.memory.read(0x1234)).to(equal(0x40))
+                    expect(cpu.carryFlag).to(beTrue())
+                }
+
+                it("should set the carry flag to false if bit 0 was 0") {
+                    cpu.memory.write(0x1234, 0x80)
+
+                    cpu = ROR(cpu, 0x1234)
+
+                    expect(cpu.memory.read(0x1234)).to(equal(0x40))
+                    expect(cpu.carryFlag).to(beFalse())
+                }
+            }
+        }
+
         describe("SEI") {
             it("should set the interrupt disable flag") {
                 cpu = SEI(cpu)

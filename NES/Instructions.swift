@@ -125,6 +125,54 @@ public func PLP(var cpu: CPU) -> CPU {
     return cpu
 }
 
+/// `ROL` - Rotate Left
+public func ROL(var cpu: CPU) -> CPU {
+    let existing: UInt8 = cpu.carryFlag ? 0x01 : 0x00
+
+    cpu.carryFlag = (cpu.A & 0x80) != 0
+    cpu.updateAZN((cpu.A << 1) | existing)
+
+    return cpu
+}
+
+/// `ROL` - Rotate Left
+public func ROL(var cpu: CPU, address: Address) -> CPU {
+    let existing: UInt8 = cpu.carryFlag ? 0x01 : 0x00
+
+    let value = cpu.memory.read(address)
+    cpu.carryFlag = (value & 0x80) != 0
+
+    let result = (value << 1) | existing
+    cpu.updateZN(result)
+    cpu.memory.write(address, result)
+
+    return cpu
+}
+
+/// `ROR` - Rotate Right
+public func ROR(var cpu: CPU) -> CPU {
+    let existing: UInt8 = cpu.carryFlag ? 0x80 : 0x00
+
+    cpu.carryFlag = (cpu.A & 0x01) != 0
+    cpu.updateAZN((cpu.A >> 1) | existing)
+
+    return cpu
+}
+
+/// `ROR` - Rotate Right
+public func ROR(var cpu: CPU, address: Address) -> CPU {
+    let existing: UInt8 = cpu.carryFlag ? 0x80 : 0x00
+
+    let value = cpu.memory.read(address)
+    cpu.carryFlag = (value & 0x01) != 0
+
+    let result = (value >> 1) | existing
+    cpu.updateZN(result)
+    cpu.memory.write(address, result)
+
+    return cpu
+}
+
 /// `SEI` - Set Interrupt Disable
 public func SEI(var cpu: CPU) -> CPU {
     cpu.interruptDisable = true
