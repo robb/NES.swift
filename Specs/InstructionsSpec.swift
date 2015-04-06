@@ -173,6 +173,64 @@ class InstructionsSpec: QuickSpec {
             }
         }
 
+        describe("LSR") {
+            describe("when called without an address") {
+                it("should should shift all bits of the accumulator one bit to the right") {
+                    cpu.A = 0x40
+
+                    cpu = LSR(cpu)
+
+                    expect(cpu.A).to(equal(0x20))
+                }
+
+                it("should set the carry flag to true if bit 0 was 1") {
+                    cpu.A = 0x81
+
+                    cpu = LSR(cpu)
+
+                    expect(cpu.A).to(equal(0x40))
+                    expect(cpu.carryFlag).to(beTrue())
+                }
+
+                it("should set the carry flag to false if bit 0 was 0") {
+                    cpu.A = 0x80
+
+                    cpu = LSR(cpu)
+
+                    expect(cpu.A).to(equal(0x40))
+                    expect(cpu.carryFlag).to(beFalse())
+                }
+            }
+
+            describe("when called with an address") {
+                it("should should shift all bits of the memory contents one bit to the right") {
+                    cpu.memory.write(0x1234, 0x40)
+
+                    cpu = LSR(cpu, 0x1234)
+
+                    expect(cpu.memory.read(0x1234)).to(equal(0x20))
+                }
+
+                it("should set the carry flag to true if bit 0 was 1") {
+                    cpu.memory.write(0x1234, 0x81)
+
+                    cpu = LSR(cpu, 0x1234)
+
+                    expect(cpu.memory.read(0x1234)).to(equal(0x40))
+                    expect(cpu.carryFlag).to(beTrue())
+                }
+
+                it("should set the carry flag to false if bit 0 was 0") {
+                    cpu.memory.write(0x1234, 0x80)
+
+                    cpu = LSR(cpu, 0x1234)
+
+                    expect(cpu.memory.read(0x1234)).to(equal(0x40))
+                    expect(cpu.carryFlag).to(beFalse())
+                }
+            }
+        }
+
         describe("ORA") {
             it("should perform bitwise OR on A and a value") {
                 cpu.A = 0x01

@@ -65,6 +65,26 @@ public func LDA(var cpu: CPU, value: UInt8) -> CPU {
     return cpu
 }
 
+/// `LSR` - Logical Shift Right
+public func LSR(var cpu: CPU) -> CPU {
+    cpu.carryFlag = (cpu.A & 0x01) != 0
+    cpu.updateAZN(cpu.A >> 1)
+
+    return cpu
+}
+
+/// `LSR` - Logical Shift Right
+public func LSR(var cpu: CPU, address: Address) -> CPU {
+    let value = cpu.memory.read(address)
+    cpu.carryFlag = (value & 0x01) != 0
+
+    let result = value >> 1
+    cpu.updateZN(result)
+    cpu.memory.write(address, result)
+
+    return cpu
+}
+
 /// `ORA` - Logical Inclusive OR
 public func ORA(var cpu: CPU, value: UInt8) -> CPU {
     cpu.updateAZN(cpu.A | value)
