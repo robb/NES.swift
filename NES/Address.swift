@@ -15,3 +15,7 @@ extension Address {
         return UInt8(self & 0xFF)
     }
 }
+
+internal func differentPages(a: Address, b: Address) -> Bool {
+    return a.page != b.page
+}

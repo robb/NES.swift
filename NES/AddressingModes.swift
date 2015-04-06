@@ -1,10 +1,6 @@
 import Foundation
 import Prelude
 
-private func differentPages(a: Address, b: Address) -> Bool {
-    return a.page != b.page
-}
-
 public func absolute(instruction: (CPU, Address) -> CPU, # cycles: UInt64)(var cpu: CPU) -> CPU {
     let address = cpu.memory.read16(cpu.PC + 1)
 
