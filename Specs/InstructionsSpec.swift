@@ -126,13 +126,11 @@ class InstructionsSpec: QuickSpec {
         }
 
         describe("PHP") {
-            beforeEach {
+            it("should push the processor status to the stack") {
                 cpu.P = 0x24
 
                 cpu = PHP(cpu)
-            }
 
-            it("should push the processor status to the stack") {
                 let P = cpu.memory.read(CPU.StackOffset | UInt16(cpu.SP + 1))
 
                 expect(P).to(equal(0x24))
@@ -140,11 +138,9 @@ class InstructionsSpec: QuickSpec {
         }
 
         describe("SEI") {
-            beforeEach {
-                cpu = SEI(cpu)
-            }
-
             it("should set the interrupt disable flag") {
+                cpu = SEI(cpu)
+
                 expect(cpu.interruptDisable).to(beTrue())
             }
         }
