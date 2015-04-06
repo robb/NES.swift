@@ -106,9 +106,27 @@ public func BVS(var cpu: CPU, offset: UInt8) -> CPU {
     return cpu.overflowFlag ? branch(cpu, offset) : cpu
 }
 
+/// `DEC` - Increment Memory
+public func DEC(var cpu: CPU, address: Address) -> CPU {
+    let result = cpu.memory.read(address) &- 1
+    cpu.updateZN(result)
+    cpu.memory.write(address, result)
+
+    return cpu
+}
+
 /// `EOR` - Logical Exclusive OR
 public func EOR(var cpu: CPU, value: UInt8) -> CPU {
     cpu.updateAZN(cpu.A ^ value)
+
+    return cpu
+}
+
+/// `INC` - Increment Memory
+public func INC(var cpu: CPU, address: Address) -> CPU {
+    let result = cpu.memory.read(address) &+ 1
+    cpu.updateZN(result)
+    cpu.memory.write(address, result)
 
     return cpu
 }

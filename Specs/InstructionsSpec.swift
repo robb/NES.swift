@@ -427,6 +427,16 @@ class InstructionsSpec: QuickSpec {
             }
         }
 
+        describe("DEC") {
+            it("should increase the value of a memory location") {
+                cpu.memory.write(0x1234, 0x10)
+
+                cpu = DEC(cpu, 0x1234)
+
+                expect(cpu.memory.read(0x1234)).to(equal(0x0F))
+            }
+        }
+
         describe("EOR") {
             it("should perform bitwise XOR on A and a value") {
                 cpu.A = 0xF5
@@ -434,6 +444,16 @@ class InstructionsSpec: QuickSpec {
                 cpu = EOR(cpu, 0x5F)
 
                 expect(cpu.A).to(equal(0xAA))
+            }
+        }
+
+        describe("INC") {
+            it("should increase the value of a memory location") {
+                cpu.memory.write(0x1234, 0x10)
+
+                cpu = INC(cpu, 0x1234)
+
+                expect(cpu.memory.read(0x1234)).to(equal(0x11))
             }
         }
 
