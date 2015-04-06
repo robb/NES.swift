@@ -67,6 +67,64 @@ class InstructionsSpec: QuickSpec {
             }
         }
 
+        describe("ASL") {
+            describe("when called without an address") {
+                it("should should shift all bits of the accumulator one bit to the left") {
+                    cpu.A = 0x40
+
+                    cpu = ASL(cpu)
+
+                    expect(cpu.A).to(equal(0x80))
+                }
+
+                it("should set the carry flag to true if overflow occurred") {
+                    cpu.A = 0x81
+
+                    cpu = ASL(cpu)
+
+                    expect(cpu.A).to(equal(0x02))
+                    expect(cpu.carryFlag).to(beTrue())
+                }
+
+                it("should set the carry flag to false if no overflow occurred") {
+                    cpu.A = 0x41
+
+                    cpu = ASL(cpu)
+
+                    expect(cpu.A).to(equal(0x82))
+                    expect(cpu.carryFlag).to(beFalse())
+                }
+            }
+
+            describe("when called with an address") {
+                it("should should shift all bits of the memory contents one bit to the left") {
+                    cpu.memory.write(0x1234, 0x40)
+
+                    cpu = ASL(cpu, 0x1234)
+
+                    expect(cpu.memory.read(0x1234)).to(equal(0x80))
+                }
+
+                it("should set the carry flag to true if overflow occurred") {
+                    cpu.memory.write(0x1234, 0x81)
+
+                    cpu = ASL(cpu, 0x1234)
+
+                    expect(cpu.memory.read(0x1234)).to(equal(0x02))
+                    expect(cpu.carryFlag).to(beTrue())
+                }
+
+                it("should set the carry flag to false if no overflow occurred") {
+                    cpu.memory.write(0x1234, 0x41)
+
+                    cpu = ASL(cpu, 0x1234)
+
+                    expect(cpu.memory.read(0x1234)).to(equal(0x82))
+                    expect(cpu.carryFlag).to(beFalse())
+                }
+            }
+        }
+
         describe("BRK") {
             beforeEach {
                 cpu.PC = 0xABBA

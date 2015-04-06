@@ -21,6 +21,26 @@ public func AND(var cpu: CPU, value: UInt8) -> CPU {
     return cpu
 }
 
+/// `ASL` - Arithmetic Shift Left
+public func ASL(var cpu: CPU) -> CPU {
+    cpu.carryFlag = (cpu.A & 0x80) != 0
+    cpu.updateAZN(cpu.A << 1)
+
+    return cpu
+}
+
+/// `ASL` - Arithmetic Shift Left
+public func ASL(var cpu: CPU, address: Address) -> CPU {
+    let value = cpu.memory.read(address)
+    cpu.carryFlag = (value & 0x80) != 0
+
+    let result = value << 1
+    cpu.updateZN(result)
+    cpu.memory.write(address, result)
+
+    return cpu
+}
+
 /// `BRK` - Force Interrupt
 public func BRK(var cpu: CPU) -> CPU {
     cpu.push16(cpu.PC)
