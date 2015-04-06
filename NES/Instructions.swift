@@ -85,6 +85,11 @@ public func LSR(var cpu: CPU, address: Address) -> CPU {
     return cpu
 }
 
+/// `NOP` - No Operation
+public func NOP(cpu: CPU) -> CPU {
+    return cpu
+}
+
 /// `ORA` - Logical Inclusive OR
 public func ORA(var cpu: CPU, value: UInt8) -> CPU {
     cpu.updateAZN(cpu.A | value)
