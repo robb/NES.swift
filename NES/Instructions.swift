@@ -1,53 +1,67 @@
 import Foundation
 
-public extension CPU {
-    /// `ADC` - Add with Carry
-    public mutating func ADC(value: UInt8) {
-        let a: UInt8 = A
-        let b: UInt8 = value
-        let c: UInt8 = carryFlag ? 1 : 0
+/// `ADC` - Add with Carry
+public func ADC(var cpu: CPU, value: UInt8) -> CPU {
+    let a: UInt8 = cpu.A
+    let b: UInt8 = value
+    let c: UInt8 = cpu.carryFlag ? 1 : 0
 
-        AZN = a &+ b &+ c
+    cpu.AZN = a &+ b &+ c
 
-        carryFlag = UInt16(a) + UInt16(b) + UInt16(c) > 0xFF
-        overflowFlag = (a ^ b) & 0x80 == 0 && (a ^ A) & 0x80 != 0
-    }
+    cpu.carryFlag = UInt16(a) + UInt16(b) + UInt16(c) > 0xFF
+    cpu.overflowFlag = (a ^ b) & 0x80 == 0 && (a ^ cpu.A) & 0x80 != 0
 
-    /// `AND` - Logical AND
-    public mutating func AND(value: UInt8) {
-        AZN = A & value
-    }
+    return cpu
+}
 
-    /// `BRK` - Force Interrupt
-    public mutating func BRK() {
-        push16(PC)
-        push(P)
-        breakCommand = true
-        PC = memory.read16(0xFFFE)
-    }
+/// `AND` - Logical AND
+public func AND(var cpu: CPU, value: UInt8) -> CPU {
+    cpu.AZN = cpu.A & value
 
-    /// `EOR` - Logical Exclusive OR
-    public mutating func EOR(value: UInt8) {
-        AZN = A ^ value
-    }
+    return cpu
+}
 
-    /// `LDA` - Load Accumulator
-    public mutating func LDA(value: UInt8) {
-        AZN = value
-    }
+/// `BRK` - Force Interrupt
+public func BRK(var cpu: CPU) -> CPU {
+    cpu.push16(cpu.PC)
+    cpu.push(cpu.P)
+    cpu.breakCommand = true
+    cpu.PC = cpu.memory.read16(0xFFFE)
 
-    /// `ORA` - Logical Inclusive OR
-    public mutating func ORA(value: UInt8) {
-        AZN = A | value
-    }
+    return cpu
+}
 
-    /// `PHP` - Push Processor Status
-    public mutating func PHP() {
-        push(P)
-    }
+/// `EOR` - Logical Exclusive OR
+public func EOR(var cpu: CPU, value: UInt8) -> CPU {
+    cpu.AZN = cpu.A ^ value
 
-    /// `SEI` - Set Interrupt Disable
-    public mutating func SEI() {
-        interruptDisable = true
-    }
+    return cpu
+}
+
+/// `LDA` - Load Accumulator
+public func LDA(var cpu: CPU, value: UInt8) -> CPU {
+    cpu.AZN = value
+
+    return cpu
+}
+
+/// `ORA` - Logical Inclusive OR
+public func ORA(var cpu: CPU, value: UInt8) -> CPU {
+    cpu.AZN = cpu.A | value
+
+    return cpu
+}
+
+/// `PHP` - Push Processor Status
+public func PHP(var cpu: CPU) -> CPU {
+    cpu.push(cpu.P)
+
+    return cpu
+}
+
+/// `SEI` - Set Interrupt Disable
+public func SEI(var cpu: CPU) -> CPU {
+    cpu.interruptDisable = true
+
+    return cpu
 }

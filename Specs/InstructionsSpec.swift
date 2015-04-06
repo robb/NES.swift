@@ -14,14 +14,16 @@ class InstructionsSpec: QuickSpec {
         describe("ADC") {
             it("should add a value to the A register") {
                 cpu.A = 0x12
-                cpu.ADC(0x13)
+
+                cpu = ADC(cpu, 0x13)
 
                 expect(cpu.A).to(equal(0x25))
             }
 
             it("should set the carry flag to false if no overflow occurred") {
                 cpu.A = 0x00
-                cpu.ADC(0x10)
+
+                cpu = ADC(cpu, 0x10)
 
                 expect(cpu.A).to(equal(0x10))
                 expect(cpu.carryFlag).to(beFalse())
@@ -29,7 +31,8 @@ class InstructionsSpec: QuickSpec {
 
             it("should set the carry flag to true if overflow occurred") {
                 cpu.A = 0xF0
-                cpu.ADC(0x20)
+
+                cpu = ADC(cpu, 0x20)
 
                 expect(cpu.A).to(equal(0x10))
                 expect(cpu.carryFlag).to(beTrue())
@@ -37,7 +40,8 @@ class InstructionsSpec: QuickSpec {
 
             it("should set the overflow flag to false if no two's complement overflow occurred") {
                 cpu.A = 0x40
-                cpu.ADC(0x20)
+
+                cpu = ADC(cpu, 0x20)
 
                 expect(cpu.A).to(equal(0x60)) // 96 in Two's complement
                 expect(cpu.overflowFlag).to(beFalse())
@@ -45,7 +49,8 @@ class InstructionsSpec: QuickSpec {
 
             it("should set the overflow flag to true if two's complement overflow occurred") {
                 cpu.A = 0x40
-                cpu.ADC(0x40)
+
+                cpu = ADC(cpu, 0x40)
 
                 expect(cpu.A).to(equal(0x80)) // -128 in Two's complement
                 expect(cpu.overflowFlag).to(beTrue())
@@ -55,7 +60,8 @@ class InstructionsSpec: QuickSpec {
         describe("AND") {
             it("should perform bitwise AND on A and the contents of a byte of memory") {
                 cpu.A = 0xF5
-                cpu.AND(0x5F)
+
+                cpu = AND(cpu, 0x5F)
 
                 expect(cpu.A).to(equal(0x55))
             }
@@ -66,7 +72,8 @@ class InstructionsSpec: QuickSpec {
                 cpu.PC = 0xABBA
                 cpu.P = 0x24
                 cpu.memory.write16(0xFFFE, 0x1234)
-                cpu.BRK()
+
+                cpu = BRK(cpu)
             }
 
             it("should push the program counter to the stack") {
@@ -93,7 +100,8 @@ class InstructionsSpec: QuickSpec {
         describe("EOR") {
             it("should perform bitwise XOR on A and a value") {
                 cpu.A = 0xF5
-                cpu.EOR(0x5F)
+
+                cpu = EOR(cpu, 0x5F)
 
                 expect(cpu.A).to(equal(0xAA))
             }
@@ -101,7 +109,7 @@ class InstructionsSpec: QuickSpec {
 
         describe("LDA") {
             it("should store a value in the A register") {
-                cpu.LDA(0x5F)
+                cpu = LDA(cpu, 0x5F)
 
                 expect(cpu.A).to(equal(0x5F))
             }
@@ -110,7 +118,8 @@ class InstructionsSpec: QuickSpec {
         describe("ORA") {
             it("should perform bitwise OR on A and a value") {
                 cpu.A = 0x01
-                cpu.ORA(0xF0)
+
+                cpu = ORA(cpu, 0xF0)
 
                 expect(cpu.A).to(equal(0xF1))
             }
@@ -119,7 +128,8 @@ class InstructionsSpec: QuickSpec {
         describe("PHP") {
             beforeEach {
                 cpu.P = 0x24
-                cpu.PHP()
+
+                cpu = PHP(cpu)
             }
 
             it("should push the processor status to the stack") {
@@ -131,7 +141,7 @@ class InstructionsSpec: QuickSpec {
 
         describe("SEI") {
             beforeEach {
-                cpu.SEI()
+                cpu = SEI(cpu)
             }
 
             it("should set the interrupt disable flag") {
