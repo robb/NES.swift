@@ -117,6 +117,12 @@ public extension CPU {
         zeroFlag = value == 0
         negativeFlag = value & 0x80 != 0
     }
+
+    /// A convenience method for setting the Zero and Negative flags.
+    internal mutating func updateZN(value: UInt8) {
+        zeroFlag = value == 0
+        negativeFlag = value & 0x80 != 0
+    }
 }
 
 public extension CPU {

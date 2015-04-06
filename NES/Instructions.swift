@@ -86,3 +86,19 @@ public func STY(var cpu: CPU, address: UInt16) -> CPU {
 
     return cpu
 }
+
+/// `TAX` - Transfer Accumulator to X
+public func TAX(var cpu: CPU) -> CPU {
+    cpu.X = cpu.A
+    cpu.updateZN(cpu.X)
+
+    return cpu
+}
+
+/// `TAY` - Transfer Accumulator to Y
+public func TAY(var cpu: CPU) -> CPU {
+    cpu.Y = cpu.A
+    cpu.updateZN(cpu.Y)
+
+    return cpu
+}

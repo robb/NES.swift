@@ -174,5 +174,25 @@ class InstructionsSpec: QuickSpec {
                 expect(cpu.memory.read(0x1234)).to(equal(0x12))
             }
         }
+
+        describe("TAX") {
+            it("should store the contents of the accumulator into the X register") {
+                cpu.A = 0x12
+
+                cpu = TAX(cpu)
+
+                expect(cpu.X).to(equal(0x12))
+            }
+        }
+
+        describe("TAY") {
+            it("should store the contents of the accumulator into the Y register") {
+                cpu.A = 0x12
+
+                cpu = TAY(cpu)
+
+                expect(cpu.Y).to(equal(0x12))
+            }
+        }
     }
 }
