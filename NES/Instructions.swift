@@ -41,6 +41,51 @@ public func ASL(var cpu: CPU, address: Address) -> CPU {
     return cpu
 }
 
+private func branch(var cpu: CPU, offset: UInt8) -> CPU {
+    let address: Address
+
+    if (offset & 0x80) == 0 {
+        address = cpu.PC &+ UInt16(offset)
+    } else {
+        address = cpu.PC &+ UInt16(offset) &- 0x0100
+    }
+
+    cpu.cycles += differentPages(cpu.PC, address) ? 2 : 1
+    cpu.PC = address
+
+    return cpu
+}
+
+/// `BCC` - Branch if Carry Clear
+public func BCC(var cpu: CPU, offset: UInt8) -> CPU {
+    return !cpu.carryFlag ? branch(cpu, offset) : cpu
+}
+
+/// `BCS` - Branch if Carry Set
+public func BCS(var cpu: CPU, offset: UInt8) -> CPU {
+    return cpu.carryFlag ? branch(cpu, offset) : cpu
+}
+
+/// `BEQ` - Branch if Equal
+public func BEQ(var cpu: CPU, offset: UInt8) -> CPU {
+    return cpu.zeroFlag ? branch(cpu, offset) : cpu
+}
+
+/// `BMI` - Branch if Minus
+public func BMI(var cpu: CPU, offset: UInt8) -> CPU {
+    return cpu.negativeFlag ? branch(cpu, offset) : cpu
+}
+
+/// `BNE` - Branch if Not Equal
+public func BNE(var cpu: CPU, offset: UInt8) -> CPU {
+    return !cpu.zeroFlag ? branch(cpu, offset) : cpu
+}
+
+/// `BPL` - Branch if Positive
+public func BPL(var cpu: CPU, offset: UInt8) -> CPU {
+    return !cpu.negativeFlag ? branch(cpu, offset) : cpu
+}
+
 /// `BRK` - Force Interrupt
 public func BRK(var cpu: CPU) -> CPU {
     cpu.push16(cpu.PC)
@@ -49,6 +94,16 @@ public func BRK(var cpu: CPU) -> CPU {
     cpu.PC = cpu.memory.read16(0xFFFE)
 
     return cpu
+}
+
+/// `BVC` - Branch if Overflow Clear
+public func BVC(var cpu: CPU, offset: UInt8) -> CPU {
+    return !cpu.overflowFlag ? branch(cpu, offset) : cpu
+}
+
+/// `BVS` - Branch if Overflow Clear
+public func BVS(var cpu: CPU, offset: UInt8) -> CPU {
+    return cpu.overflowFlag ? branch(cpu, offset) : cpu
 }
 
 /// `EOR` - Logical Exclusive OR

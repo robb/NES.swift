@@ -125,6 +125,210 @@ class InstructionsSpec: QuickSpec {
             }
         }
 
+        describe("BCC") {
+            beforeEach {
+                cpu.PC = 0x4000
+            }
+
+            describe("if the carry flag is set") {
+                beforeEach {
+                    cpu.carryFlag = true
+
+                    cpu = BCC(cpu, UInt8(bitPattern: -32))
+                }
+
+                it("should not branch") {
+                    expect(cpu.PC).to(equal(0x4000))
+                }
+            }
+
+            describe("if the carry flag is clear") {
+                beforeEach {
+                    cpu.carryFlag = false
+
+                    cpu = BCC(cpu, UInt8(bitPattern: -32))
+                }
+
+                it("should branch") {
+                    expect(cpu.PC).to(equal(0x3FE0))
+                }
+
+                it("consume additional cycles") {
+                    expect(cpu.cycles).to(equal(2))
+                }
+            }
+        }
+
+        describe("BCS") {
+            beforeEach {
+                cpu.PC = 0x4000
+            }
+
+            describe("if the carry flag is set") {
+                beforeEach {
+                    cpu.carryFlag = true
+
+                    cpu = BCS(cpu, UInt8(bitPattern: -32))
+                }
+
+                it("should branch") {
+                    expect(cpu.PC).to(equal(0x3FE0))
+                }
+
+                it("consume additional cycles") {
+                    expect(cpu.cycles).to(equal(2))
+                }
+            }
+
+            describe("if the carry flag is clear") {
+                beforeEach {
+                    cpu.carryFlag = false
+
+                    cpu = BCS(cpu, UInt8(bitPattern: -32))
+                }
+
+                it("should not branch") {
+                    expect(cpu.PC).to(equal(0x4000))
+                }
+            }
+        }
+
+        describe("BEQ") {
+            beforeEach {
+                cpu.PC = 0x4000
+            }
+
+            describe("if the zero flag is set") {
+                beforeEach {
+                    cpu.zeroFlag = true
+
+                    cpu = BEQ(cpu, UInt8(bitPattern: -32))
+                }
+
+                it("should branch") {
+                    expect(cpu.PC).to(equal(0x3FE0))
+                }
+
+                it("consume additional cycles") {
+                    expect(cpu.cycles).to(equal(2))
+                }
+            }
+
+            describe("if the zero flag is clear") {
+                beforeEach {
+                    cpu.zeroFlag = false
+
+                    cpu = BEQ(cpu, UInt8(bitPattern: -32))
+                }
+
+                it("should not branch") {
+                    expect(cpu.PC).to(equal(0x4000))
+                }
+            }
+        }
+
+        describe("BMI") {
+            beforeEach {
+                cpu.PC = 0x4000
+            }
+
+            describe("if the negative flag is set") {
+                beforeEach {
+                    cpu.negativeFlag = true
+
+                    cpu = BMI(cpu, UInt8(bitPattern: -32))
+                }
+
+                it("should branch") {
+                    expect(cpu.PC).to(equal(0x3FE0))
+                }
+
+                it("consume additional cycles") {
+                    expect(cpu.cycles).to(equal(2))
+                }
+            }
+
+            describe("if the negative flag is clear") {
+                beforeEach {
+                    cpu.negativeFlag = false
+
+                    cpu = BMI(cpu, UInt8(bitPattern: -32))
+                }
+
+                it("should not branch") {
+                    expect(cpu.PC).to(equal(0x4000))
+                }
+            }
+        }
+
+        describe("BNE") {
+            beforeEach {
+                cpu.PC = 0x4000
+            }
+
+            describe("if the zero flag is set") {
+                beforeEach {
+                    cpu.zeroFlag = true
+
+                    cpu = BNE(cpu, UInt8(bitPattern: -32))
+                }
+
+                it("should not branch") {
+                    expect(cpu.PC).to(equal(0x4000))
+                }
+            }
+
+            describe("if the zero flag is clear") {
+                beforeEach {
+                    cpu.zeroFlag = false
+
+                    cpu = BNE(cpu, UInt8(bitPattern: -32))
+                }
+
+                it("should branch") {
+                    expect(cpu.PC).to(equal(0x3FE0))
+                }
+
+                it("consume additional cycles") {
+                    expect(cpu.cycles).to(equal(2))
+                }
+            }
+        }
+
+        describe("BPL") {
+            beforeEach {
+                cpu.PC = 0x4000
+            }
+
+            describe("if the negative flag is set") {
+                beforeEach {
+                    cpu.negativeFlag = true
+
+                    cpu = BPL(cpu, UInt8(bitPattern: -32))
+                }
+
+                it("should not branch") {
+                    expect(cpu.PC).to(equal(0x4000))
+                }
+            }
+
+            describe("if the negative flag is clear") {
+                beforeEach {
+                    cpu.negativeFlag = false
+
+                    cpu = BPL(cpu, UInt8(bitPattern: -32))
+                }
+
+                it("should branch") {
+                    expect(cpu.PC).to(equal(0x3FE0))
+                }
+
+                it("consume additional cycles") {
+                    expect(cpu.cycles).to(equal(2))
+                }
+            }
+        }
+
         describe("BRK") {
             beforeEach {
                 cpu.PC = 0xABBA
@@ -152,6 +356,74 @@ class InstructionsSpec: QuickSpec {
 
             it("should set the break flag") {
                 expect(cpu.breakCommand).to(beTrue())
+            }
+        }
+
+        describe("BVC") {
+            beforeEach {
+                cpu.PC = 0x4000
+            }
+
+            describe("if the overflow flag is set") {
+                beforeEach {
+                    cpu.overflowFlag = true
+
+                    cpu = BVC(cpu, UInt8(bitPattern: -32))
+                }
+
+                it("should not branch") {
+                    expect(cpu.PC).to(equal(0x4000))
+                }
+            }
+
+            describe("if the overflow flag is clear") {
+                beforeEach {
+                    cpu.overflowFlag = false
+
+                    cpu = BVC(cpu, UInt8(bitPattern: -32))
+                }
+
+                it("should branch") {
+                    expect(cpu.PC).to(equal(0x3FE0))
+                }
+
+                it("consume additional cycles") {
+                    expect(cpu.cycles).to(equal(2))
+                }
+            }
+        }
+
+        describe("BVS") {
+            beforeEach {
+                cpu.PC = 0x4000
+            }
+
+            describe("if the overflow flag is set") {
+                beforeEach {
+                    cpu.overflowFlag = true
+
+                    cpu = BVS(cpu, UInt8(bitPattern: -32))
+                }
+
+                it("should branch") {
+                    expect(cpu.PC).to(equal(0x3FE0))
+                }
+
+                it("consume additional cycles") {
+                    expect(cpu.cycles).to(equal(2))
+                }
+            }
+
+            describe("if the overflow flag is clear") {
+                beforeEach {
+                    cpu.overflowFlag = false
+
+                    cpu = BVS(cpu, UInt8(bitPattern: -32))
+                }
+
+                it("should not branch") {
+                    expect(cpu.PC).to(equal(0x4000))
+                }
             }
         }
 
