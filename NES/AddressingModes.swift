@@ -1,130 +1,139 @@
 import Foundation
 import Prelude
 
-public func absolute(instruction: (CPU, Address) -> CPU, # cycles: UInt64)(var cpu: CPU) -> CPU {
-    let address = cpu.memory.read16(cpu.PC + 1)
+public extension CPU {
+    public mutating func absolute(instruction: Address -> Void, cyclesSpent: UInt64) {
+        let address = memory.read16(PC + 1)
 
-    cpu.cycles += cycles
-    cpu.PC += 3
+        cycles += cyclesSpent
+        PC += 3
 
-    return instruction(cpu, address)
-}
-
-public func absoluteX(instruction: (CPU, Address) -> CPU, # cycles: UInt64, pageBoundaryCost: UInt64 = 0)(var cpu: CPU) -> CPU {
-    let address = cpu.memory.read16(cpu.PC + 1) + UInt16(cpu.X)
-
-    cpu.PC += 3
-    cpu.cycles += cycles
-
-    if differentPages(address, address - Address(cpu.X)) {
-        cpu.cycles += pageBoundaryCost
+        instruction(address)
     }
 
-    return instruction(cpu, address)
-}
+    public mutating func absolute(instruction: UInt8 -> Void, cyclesSpent: UInt64) {
+        let address = memory.read16(PC + 1)
+        let operand = memory.read(address)
 
-public func absoluteY(instruction: (CPU, Address) -> CPU, # cycles: UInt64, pageBoundaryCost: UInt64 = 0)(var cpu: CPU) -> CPU {
-    let address = cpu.memory.read16(cpu.PC + 1) + Address(cpu.Y)
+        cycles += cyclesSpent
+        PC += 3
 
-    cpu.cycles += cycles
-    cpu.PC += 3
-
-    if differentPages(address, address &- Address(cpu.Y)) {
-        cpu.cycles += pageBoundaryCost
+        instruction(operand)
     }
 
-    return instruction(cpu, address)
-}
+    public mutating func absoluteX(instruction: Address -> Void, cyclesSpent: UInt64) {
+        let address = memory.read16(PC + 1) + UInt16(X)
 
-public func accumulator(instruction: (CPU, UInt8) -> CPU, # cycles: UInt64)(var cpu: CPU) -> CPU {
-    cpu.cycles += cycles
-    cpu.PC += 2
+        PC += 3
+        cycles += cyclesSpent
 
-    return instruction(cpu, cpu.A)
-}
-
-public func immediate(instruction: (CPU, UInt8) -> CPU, # cycles: UInt64)(var cpu: CPU) -> CPU {
-    let operand = cpu.memory.read(cpu.PC + 1)
-
-    cpu.cycles += cycles
-    cpu.PC += 2
-
-    return instruction(cpu, operand)
-}
-
-public func implicied(instruction: CPU -> CPU, # cycles: UInt64)(var cpu: CPU) -> CPU {
-    cpu.cycles += cycles
-    cpu.PC += 1
-
-    return instruction(cpu)
-}
-
-public func indexedIndirect(instruction: (CPU, UInt8) -> CPU, # cycles: UInt64)(var cpu: CPU) -> CPU {
-    let address = Address(cpu.memory.read(cpu.PC + 1) &+ cpu.X)
-    let operand = cpu.memory.read(address)
-
-    cpu.cycles += cycles
-    cpu.PC += 3
-
-    return instruction(cpu, operand)
-}
-
-public func indirect(instruction: (CPU, Address) -> CPU, # cycles: UInt64)(var cpu: CPU) -> CPU {
-    let address = cpu.memory.read16(cpu.PC + 1)
-    let operand = cpu.memory.read16(address)
-
-    cpu.cycles += cycles
-    cpu.PC += 3
-
-    return instruction(cpu, address)
-}
-
-public func indirectIndexed(instruction: (CPU, UInt8) -> CPU, # cycles: UInt64, pageBoundaryCost: UInt64 = 0)(var cpu: CPU) -> CPU {
-    let address = Address(cpu.memory.read(cpu.PC + 1)) &+ Address(cpu.Y)
-    let operand = cpu.memory.read(address)
-
-    cpu.cycles += cycles
-    cpu.PC += 3
-
-    if differentPages(address, address &- Address(cpu.Y)) {
-        cpu.cycles += pageBoundaryCost
+        instruction(address)
     }
 
-    return instruction(cpu, operand)
-}
+    public mutating func absoluteY(instruction: Address -> Void, cyclesSpent: UInt64) {
+        let address = memory.read16(PC + 1) + Address(Y)
 
-public func relative(instruction: (CPU, UInt8) -> CPU, # cycles: UInt64)(var cpu: CPU) -> CPU {
-    var offset = cpu.memory.read(cpu.PC + 1)
+        cycles += cyclesSpent
+        PC += 3
 
-    cpu.cycles += cycles
-    cpu.PC += 2
+        instruction(address)
+    }
 
-    return instruction(cpu, offset)
-}
+    public mutating func accumulator(instruction: Void -> Void, cyclesSpent: UInt64) {
+        cycles += cyclesSpent
+        PC += 2
 
-public func zeroPage(instruction: (CPU, UInt8) -> CPU, # cycles: UInt64)(var cpu: CPU) -> CPU {
-    let operand = cpu.memory.read(cpu.PC + 1)
+        instruction()
+    }
 
-    cpu.cycles += cycles
-    cpu.PC += 2
+    public mutating func immediate(instruction: UInt8 -> Void, cyclesSpent: UInt64) {
+        let operand = memory.read(PC + 1)
 
-    return instruction(cpu, operand)
-}
+        cycles += cyclesSpent
+        PC += 2
 
-public func zeroPageX(instruction: (CPU, UInt8) -> CPU, # cycles: UInt64)(var cpu: CPU) -> CPU {
-    let operand = cpu.memory.read(cpu.PC + 1) &+ cpu.X
+        instruction(operand)
+    }
 
-    cpu.cycles += cycles
-    cpu.PC += 2
+    public mutating func implied(instruction: Void -> Void, cyclesSpent: UInt64) {
+        cycles += cyclesSpent
+        PC += 1
 
-    return instruction(cpu, operand)
-}
+        instruction()
+    }
 
-public func zeroPageY(instruction: (CPU, UInt8) -> CPU, # cycles: UInt64)(var cpu: CPU) -> CPU {
-    let operand = cpu.memory.read(cpu.PC + 1) &+ cpu.Y
+    public mutating func indexedIndirect(instruction: UInt8 -> Void, cyclesSpent: UInt64) {
+        let address = Address(memory.read(PC + 1) &+ X)
+        let operand = memory.read(address)
 
-    cpu.cycles += cycles
-    cpu.PC += 2
+        cycles += cyclesSpent
+        PC += 3
 
-    return instruction(cpu, operand)
+        instruction(operand)
+    }
+
+    public mutating func indirect(instruction: Address -> Void, cyclesSpent: UInt64) {
+        let address = memory.read16(PC + 1)
+        let operand = memory.read16(address)
+
+        cycles += cyclesSpent
+        PC += 3
+
+        instruction(address)
+    }
+
+    public mutating func indirectIndexed(instruction: UInt8 -> Void, cyclesSpent: UInt64) {
+        let address = Address(memory.read(PC + 1)) &+ Address(Y)
+        let operand = memory.read(address)
+
+        cycles += cyclesSpent
+        PC += 3
+
+        instruction(operand)
+    }
+
+    public mutating func relative(instruction: UInt8 -> Void, cyclesSpent: UInt64) {
+        var offset = memory.read(PC + 1)
+
+        cycles += cyclesSpent
+        PC += 2
+
+        instruction(offset)
+    }
+
+    public mutating func zeroPage(instruction: UInt8 -> Void, cyclesSpent: UInt64) {
+        let operand = memory.read(PC + 1)
+
+        cycles += cyclesSpent
+        PC += 2
+
+        instruction(operand)
+    }
+
+    public mutating func zeroPage(instruction: Address -> Void, cyclesSpent: UInt64) {
+        let address = Address(0, memory.read(PC + 1))
+
+        cycles += cyclesSpent
+        PC += 2
+
+        instruction(address)
+    }
+
+    public mutating func zeroPageX(instruction: UInt8 -> Void, cyclesSpent: UInt64) {
+        let operand = memory.read(PC + 1) &+ X
+
+        cycles += cyclesSpent
+        PC += 2
+
+        instruction(operand)
+    }
+
+    public mutating func zeroPageY(instruction: UInt8 -> Void, cyclesSpent: UInt64) {
+        let operand = memory.read(PC + 1) &+ Y
+
+        cycles += cyclesSpent
+        PC += 2
+
+        instruction(operand)
+    }
 }

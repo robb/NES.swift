@@ -47,7 +47,7 @@ public extension CPU {
         }
     }
 
-    var carryFlag: Bool {
+    var C: Bool {
         get {
             return getFlag(0x01)
         }
@@ -56,7 +56,7 @@ public extension CPU {
         }
     }
 
-    var zeroFlag: Bool {
+    var Z: Bool {
         get {
             return getFlag(0x02)
         }
@@ -65,7 +65,7 @@ public extension CPU {
         }
     }
 
-    var interruptDisable: Bool {
+    var I: Bool {
         get {
             return getFlag(0x04)
         }
@@ -74,7 +74,7 @@ public extension CPU {
         }
     }
 
-    var decimalMode: Bool {
+    var D: Bool {
         get {
             return getFlag(0x08)
         }
@@ -83,7 +83,7 @@ public extension CPU {
         }
     }
 
-    var breakCommand: Bool {
+    var B: Bool {
         get {
             return getFlag(0x10)
         }
@@ -92,7 +92,7 @@ public extension CPU {
         }
     }
 
-    var overflowFlag: Bool {
+    var V: Bool {
         get {
             return getFlag(0x40)
         }
@@ -101,7 +101,7 @@ public extension CPU {
         }
     }
 
-    var negativeFlag: Bool {
+    var N: Bool {
         get {
             return getFlag(0x80)
         }
@@ -114,14 +114,14 @@ public extension CPU {
     /// Negative flags.
     internal mutating func updateAZN(value: UInt8) {
         A = value
-        zeroFlag = value == 0
-        negativeFlag = value & 0x80 != 0
+        Z = value == 0
+        N = value & 0x80 != 0
     }
 
     /// A convenience method for setting the Zero and Negative flags.
     internal mutating func updateZN(value: UInt8) {
-        zeroFlag = value == 0
-        negativeFlag = value & 0x80 != 0
+        Z = value == 0
+        N = value & 0x80 != 0
     }
 }
 

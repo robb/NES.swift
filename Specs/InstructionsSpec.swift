@@ -15,7 +15,7 @@ class InstructionsSpec: QuickSpec {
             it("should add a value to the A register") {
                 cpu.A = 0x12
 
-                cpu = ADC(cpu, 0x13)
+                cpu.ADC(0x13)
 
                 expect(cpu.A).to(equal(0x25))
             }
@@ -23,37 +23,37 @@ class InstructionsSpec: QuickSpec {
             it("should set the carry flag to false if no overflow occurred") {
                 cpu.A = 0x00
 
-                cpu = ADC(cpu, 0x10)
+                cpu.ADC(0x10)
 
                 expect(cpu.A).to(equal(0x10))
-                expect(cpu.carryFlag).to(beFalse())
+                expect(cpu.C).to(beFalse())
             }
 
             it("should set the carry flag to true if overflow occurred") {
                 cpu.A = 0xF0
 
-                cpu = ADC(cpu, 0x20)
+                cpu.ADC(0x20)
 
                 expect(cpu.A).to(equal(0x10))
-                expect(cpu.carryFlag).to(beTrue())
+                expect(cpu.C).to(beTrue())
             }
 
             it("should set the overflow flag to false if no two's complement overflow occurred") {
                 cpu.A = 0x40
 
-                cpu = ADC(cpu, 0x20)
+                cpu.ADC(0x20)
 
                 expect(cpu.A).to(equal(0x60)) // 96 in Two's complement
-                expect(cpu.overflowFlag).to(beFalse())
+                expect(cpu.V).to(beFalse())
             }
 
             it("should set the overflow flag to true if two's complement overflow occurred") {
                 cpu.A = 0x40
 
-                cpu = ADC(cpu, 0x40)
+                cpu.ADC(0x40)
 
                 expect(cpu.A).to(equal(0x80)) // -128 in Two's complement
-                expect(cpu.overflowFlag).to(beTrue())
+                expect(cpu.V).to(beTrue())
             }
         }
 
@@ -61,7 +61,7 @@ class InstructionsSpec: QuickSpec {
             it("should perform bitwise AND on A and the contents of a byte of memory") {
                 cpu.A = 0xF5
 
-                cpu = AND(cpu, 0x5F)
+                cpu.AND(0x5F)
 
                 expect(cpu.A).to(equal(0x55))
             }
@@ -72,7 +72,7 @@ class InstructionsSpec: QuickSpec {
                 it("should should shift all bits of the accumulator one bit to the left") {
                     cpu.A = 0x40
 
-                    cpu = ASL(cpu)
+                    cpu.ASL()
 
                     expect(cpu.A).to(equal(0x80))
                 }
@@ -80,19 +80,19 @@ class InstructionsSpec: QuickSpec {
                 it("should set the carry flag to true if overflow occurred") {
                     cpu.A = 0x81
 
-                    cpu = ASL(cpu)
+                    cpu.ASL()
 
                     expect(cpu.A).to(equal(0x02))
-                    expect(cpu.carryFlag).to(beTrue())
+                    expect(cpu.C).to(beTrue())
                 }
 
                 it("should set the carry flag to false if no overflow occurred") {
                     cpu.A = 0x41
 
-                    cpu = ASL(cpu)
+                    cpu.ASL()
 
                     expect(cpu.A).to(equal(0x82))
-                    expect(cpu.carryFlag).to(beFalse())
+                    expect(cpu.C).to(beFalse())
                 }
             }
 
@@ -100,7 +100,7 @@ class InstructionsSpec: QuickSpec {
                 it("should should shift all bits of the memory contents one bit to the left") {
                     cpu.memory.write(0x1234, 0x40)
 
-                    cpu = ASL(cpu, 0x1234)
+                    cpu.ASL(0x1234)
 
                     expect(cpu.memory.read(0x1234)).to(equal(0x80))
                 }
@@ -108,19 +108,19 @@ class InstructionsSpec: QuickSpec {
                 it("should set the carry flag to true if overflow occurred") {
                     cpu.memory.write(0x1234, 0x81)
 
-                    cpu = ASL(cpu, 0x1234)
+                    cpu.ASL(0x1234)
 
                     expect(cpu.memory.read(0x1234)).to(equal(0x02))
-                    expect(cpu.carryFlag).to(beTrue())
+                    expect(cpu.C).to(beTrue())
                 }
 
                 it("should set the carry flag to false if no overflow occurred") {
                     cpu.memory.write(0x1234, 0x41)
 
-                    cpu = ASL(cpu, 0x1234)
+                    cpu.ASL(0x1234)
 
                     expect(cpu.memory.read(0x1234)).to(equal(0x82))
-                    expect(cpu.carryFlag).to(beFalse())
+                    expect(cpu.C).to(beFalse())
                 }
             }
         }
@@ -132,9 +132,9 @@ class InstructionsSpec: QuickSpec {
 
             describe("if the carry flag is set") {
                 beforeEach {
-                    cpu.carryFlag = true
+                    cpu.C = true
 
-                    cpu = BCC(cpu, UInt8(bitPattern: -32))
+                    cpu.BCC(UInt8(bitPattern: -32))
                 }
 
                 it("should not branch") {
@@ -144,9 +144,9 @@ class InstructionsSpec: QuickSpec {
 
             describe("if the carry flag is clear") {
                 beforeEach {
-                    cpu.carryFlag = false
+                    cpu.C = false
 
-                    cpu = BCC(cpu, UInt8(bitPattern: -32))
+                    cpu.BCC(UInt8(bitPattern: -32))
                 }
 
                 it("should branch") {
@@ -166,9 +166,9 @@ class InstructionsSpec: QuickSpec {
 
             describe("if the carry flag is set") {
                 beforeEach {
-                    cpu.carryFlag = true
+                    cpu.C = true
 
-                    cpu = BCS(cpu, UInt8(bitPattern: -32))
+                    cpu.BCS(UInt8(bitPattern: -32))
                 }
 
                 it("should branch") {
@@ -182,9 +182,9 @@ class InstructionsSpec: QuickSpec {
 
             describe("if the carry flag is clear") {
                 beforeEach {
-                    cpu.carryFlag = false
+                    cpu.C = false
 
-                    cpu = BCS(cpu, UInt8(bitPattern: -32))
+                    cpu.BCS(UInt8(bitPattern: -32))
                 }
 
                 it("should not branch") {
@@ -200,9 +200,9 @@ class InstructionsSpec: QuickSpec {
 
             describe("if the zero flag is set") {
                 beforeEach {
-                    cpu.zeroFlag = true
+                    cpu.Z = true
 
-                    cpu = BEQ(cpu, UInt8(bitPattern: -32))
+                    cpu.BEQ(UInt8(bitPattern: -32))
                 }
 
                 it("should branch") {
@@ -216,9 +216,9 @@ class InstructionsSpec: QuickSpec {
 
             describe("if the zero flag is clear") {
                 beforeEach {
-                    cpu.zeroFlag = false
+                    cpu.Z = false
 
-                    cpu = BEQ(cpu, UInt8(bitPattern: -32))
+                    cpu.BEQ(UInt8(bitPattern: -32))
                 }
 
                 it("should not branch") {
@@ -234,9 +234,9 @@ class InstructionsSpec: QuickSpec {
 
             describe("if the negative flag is set") {
                 beforeEach {
-                    cpu.negativeFlag = true
+                    cpu.N = true
 
-                    cpu = BMI(cpu, UInt8(bitPattern: -32))
+                    cpu.BMI(UInt8(bitPattern: -32))
                 }
 
                 it("should branch") {
@@ -250,9 +250,9 @@ class InstructionsSpec: QuickSpec {
 
             describe("if the negative flag is clear") {
                 beforeEach {
-                    cpu.negativeFlag = false
+                    cpu.N = false
 
-                    cpu = BMI(cpu, UInt8(bitPattern: -32))
+                    cpu.BMI(UInt8(bitPattern: -32))
                 }
 
                 it("should not branch") {
@@ -268,9 +268,9 @@ class InstructionsSpec: QuickSpec {
 
             describe("if the zero flag is set") {
                 beforeEach {
-                    cpu.zeroFlag = true
+                    cpu.Z = true
 
-                    cpu = BNE(cpu, UInt8(bitPattern: -32))
+                    cpu.BNE(UInt8(bitPattern: -32))
                 }
 
                 it("should not branch") {
@@ -280,9 +280,9 @@ class InstructionsSpec: QuickSpec {
 
             describe("if the zero flag is clear") {
                 beforeEach {
-                    cpu.zeroFlag = false
+                    cpu.Z = false
 
-                    cpu = BNE(cpu, UInt8(bitPattern: -32))
+                    cpu.BNE(UInt8(bitPattern: -32))
                 }
 
                 it("should branch") {
@@ -302,9 +302,9 @@ class InstructionsSpec: QuickSpec {
 
             describe("if the negative flag is set") {
                 beforeEach {
-                    cpu.negativeFlag = true
+                    cpu.N = true
 
-                    cpu = BPL(cpu, UInt8(bitPattern: -32))
+                    cpu.BPL(UInt8(bitPattern: -32))
                 }
 
                 it("should not branch") {
@@ -314,9 +314,9 @@ class InstructionsSpec: QuickSpec {
 
             describe("if the negative flag is clear") {
                 beforeEach {
-                    cpu.negativeFlag = false
+                    cpu.N = false
 
-                    cpu = BPL(cpu, UInt8(bitPattern: -32))
+                    cpu.BPL(UInt8(bitPattern: -32))
                 }
 
                 it("should branch") {
@@ -335,7 +335,7 @@ class InstructionsSpec: QuickSpec {
                 cpu.P = 0x24
                 cpu.memory.write16(0xFFFE, 0x1234)
 
-                cpu = BRK(cpu)
+                cpu.BRK()
             }
 
             it("should push the program counter to the stack") {
@@ -355,7 +355,7 @@ class InstructionsSpec: QuickSpec {
             }
 
             it("should set the break flag") {
-                expect(cpu.breakCommand).to(beTrue())
+                expect(cpu.B).to(beTrue())
             }
         }
 
@@ -366,9 +366,9 @@ class InstructionsSpec: QuickSpec {
 
             describe("if the overflow flag is set") {
                 beforeEach {
-                    cpu.overflowFlag = true
+                    cpu.V = true
 
-                    cpu = BVC(cpu, UInt8(bitPattern: -32))
+                    cpu.BVC(UInt8(bitPattern: -32))
                 }
 
                 it("should not branch") {
@@ -378,9 +378,9 @@ class InstructionsSpec: QuickSpec {
 
             describe("if the overflow flag is clear") {
                 beforeEach {
-                    cpu.overflowFlag = false
+                    cpu.V = false
 
-                    cpu = BVC(cpu, UInt8(bitPattern: -32))
+                    cpu.BVC(UInt8(bitPattern: -32))
                 }
 
                 it("should branch") {
@@ -400,9 +400,9 @@ class InstructionsSpec: QuickSpec {
 
             describe("if the overflow flag is set") {
                 beforeEach {
-                    cpu.overflowFlag = true
+                    cpu.V = true
 
-                    cpu = BVS(cpu, UInt8(bitPattern: -32))
+                    cpu.BVS(UInt8(bitPattern: -32))
                 }
 
                 it("should branch") {
@@ -416,9 +416,9 @@ class InstructionsSpec: QuickSpec {
 
             describe("if the overflow flag is clear") {
                 beforeEach {
-                    cpu.overflowFlag = false
+                    cpu.V = false
 
-                    cpu = BVS(cpu, UInt8(bitPattern: -32))
+                    cpu.BVS(UInt8(bitPattern: -32))
                 }
 
                 it("should not branch") {
@@ -431,7 +431,7 @@ class InstructionsSpec: QuickSpec {
             it("should increase the value of a memory location") {
                 cpu.memory.write(0x1234, 0x10)
 
-                cpu = DEC(cpu, 0x1234)
+                cpu.DEC(0x1234)
 
                 expect(cpu.memory.read(0x1234)).to(equal(0x0F))
             }
@@ -441,7 +441,7 @@ class InstructionsSpec: QuickSpec {
             it("should perform bitwise XOR on A and a value") {
                 cpu.A = 0xF5
 
-                cpu = EOR(cpu, 0x5F)
+                cpu.EOR(0x5F)
 
                 expect(cpu.A).to(equal(0xAA))
             }
@@ -451,7 +451,7 @@ class InstructionsSpec: QuickSpec {
             it("should increase the value of a memory location") {
                 cpu.memory.write(0x1234, 0x10)
 
-                cpu = INC(cpu, 0x1234)
+                cpu.INC(0x1234)
 
                 expect(cpu.memory.read(0x1234)).to(equal(0x11))
             }
@@ -459,7 +459,7 @@ class InstructionsSpec: QuickSpec {
 
         describe("LDA") {
             it("should store a value in the A register") {
-                cpu = LDA(cpu, 0x5F)
+                cpu.LDA(0x5F)
 
                 expect(cpu.A).to(equal(0x5F))
             }
@@ -470,7 +470,7 @@ class InstructionsSpec: QuickSpec {
                 it("should should shift all bits of the accumulator one bit to the right") {
                     cpu.A = 0x40
 
-                    cpu = LSR(cpu)
+                    cpu.LSR()
 
                     expect(cpu.A).to(equal(0x20))
                 }
@@ -478,19 +478,19 @@ class InstructionsSpec: QuickSpec {
                 it("should set the carry flag to true if bit 0 was 1") {
                     cpu.A = 0x81
 
-                    cpu = LSR(cpu)
+                    cpu.LSR()
 
                     expect(cpu.A).to(equal(0x40))
-                    expect(cpu.carryFlag).to(beTrue())
+                    expect(cpu.C).to(beTrue())
                 }
 
                 it("should set the carry flag to false if bit 0 was 0") {
                     cpu.A = 0x80
 
-                    cpu = LSR(cpu)
+                    cpu.LSR()
 
                     expect(cpu.A).to(equal(0x40))
-                    expect(cpu.carryFlag).to(beFalse())
+                    expect(cpu.C).to(beFalse())
                 }
             }
 
@@ -498,7 +498,7 @@ class InstructionsSpec: QuickSpec {
                 it("should should shift all bits of the memory contents one bit to the right") {
                     cpu.memory.write(0x1234, 0x40)
 
-                    cpu = LSR(cpu, 0x1234)
+                    cpu.LSR(0x1234)
 
                     expect(cpu.memory.read(0x1234)).to(equal(0x20))
                 }
@@ -506,19 +506,19 @@ class InstructionsSpec: QuickSpec {
                 it("should set the carry flag to true if bit 0 was 1") {
                     cpu.memory.write(0x1234, 0x81)
 
-                    cpu = LSR(cpu, 0x1234)
+                    cpu.LSR(0x1234)
 
                     expect(cpu.memory.read(0x1234)).to(equal(0x40))
-                    expect(cpu.carryFlag).to(beTrue())
+                    expect(cpu.C).to(beTrue())
                 }
 
                 it("should set the carry flag to false if bit 0 was 0") {
                     cpu.memory.write(0x1234, 0x80)
 
-                    cpu = LSR(cpu, 0x1234)
+                    cpu.LSR(0x1234)
 
                     expect(cpu.memory.read(0x1234)).to(equal(0x40))
-                    expect(cpu.carryFlag).to(beFalse())
+                    expect(cpu.C).to(beFalse())
                 }
             }
         }
@@ -527,7 +527,7 @@ class InstructionsSpec: QuickSpec {
             it("should perform bitwise OR on A and a value") {
                 cpu.A = 0x01
 
-                cpu = ORA(cpu, 0xF0)
+                cpu.ORA(0xF0)
 
                 expect(cpu.A).to(equal(0xF1))
             }
@@ -537,7 +537,7 @@ class InstructionsSpec: QuickSpec {
             it("should push the A register to the stack") {
                 cpu.A = 0x24
 
-                cpu = PHA(cpu)
+                cpu.PHA()
 
                 let P = cpu.memory.read(CPU.StackOffset | UInt16(cpu.SP + 1))
 
@@ -549,7 +549,7 @@ class InstructionsSpec: QuickSpec {
             it("should push the processor status to the stack") {
                 cpu.P = 0x24
 
-                cpu = PHP(cpu)
+                cpu.PHP()
 
                 let P = cpu.memory.read(CPU.StackOffset | UInt16(cpu.SP + 1))
 
@@ -561,7 +561,7 @@ class InstructionsSpec: QuickSpec {
             it("should pull the A register from the stack") {
                 cpu.memory.write(CPU.StackOffset | UInt16(cpu.SP &+ 1), 0x24)
 
-                cpu = PLA(cpu)
+                cpu.PLA()
 
                 expect(cpu.A).to(equal(0x24))
             }
@@ -571,7 +571,7 @@ class InstructionsSpec: QuickSpec {
             it("should pull the processor status from the stack") {
                 cpu.memory.write(CPU.StackOffset | UInt16(cpu.SP &+ 1), 0x24)
 
-                cpu = PLP(cpu)
+                cpu.PLP()
 
                 expect(cpu.P).to(equal(0x24))
             }
@@ -580,10 +580,10 @@ class InstructionsSpec: QuickSpec {
         describe("ROL") {
             describe("when called without an address") {
                 it("should should rotate all bits of the accumulator one bit to the left") {
-                    cpu.carryFlag = true
+                    cpu.C = true
                     cpu.A = 0x40
 
-                    cpu = ROL(cpu)
+                    cpu.ROL()
 
                     expect(cpu.A).to(equal(0x81))
                 }
@@ -591,28 +591,28 @@ class InstructionsSpec: QuickSpec {
                 it("should set the carry flag to true if bit 7 was 1") {
                     cpu.A = 0x81
 
-                    cpu = ROL(cpu)
+                    cpu.ROL()
 
                     expect(cpu.A).to(equal(0x02))
-                    expect(cpu.carryFlag).to(beTrue())
+                    expect(cpu.C).to(beTrue())
                 }
 
                 it("should set the carry flag to false if bit 7 was 0") {
                     cpu.A = 0x01
 
-                    cpu = ROL(cpu)
+                    cpu.ROL()
 
                     expect(cpu.A).to(equal(0x02))
-                    expect(cpu.carryFlag).to(beFalse())
+                    expect(cpu.C).to(beFalse())
                 }
             }
 
             describe("when called with an address") {
                 it("should should rotate all bits of the memory contents one bit to the left") {
-                    cpu.carryFlag = true
+                    cpu.C = true
                     cpu.memory.write(0x1234, 0x40)
 
-                    cpu = ROL(cpu, 0x1234)
+                    cpu.ROL(0x1234)
 
                     expect(cpu.memory.read(0x1234)).to(equal(0x81))
                 }
@@ -620,19 +620,19 @@ class InstructionsSpec: QuickSpec {
                 it("should set the carry flag to true if bit 7 was 1") {
                     cpu.memory.write(0x1234, 0x81)
 
-                    cpu = ROL(cpu, 0x1234)
+                    cpu.ROL(0x1234)
 
                     expect(cpu.memory.read(0x1234)).to(equal(0x02))
-                    expect(cpu.carryFlag).to(beTrue())
+                    expect(cpu.C).to(beTrue())
                 }
 
                 it("should set the carry flag to true if bit 7 was 0") {
                     cpu.memory.write(0x1234, 0x01)
 
-                    cpu = ROL(cpu, 0x1234)
+                    cpu.ROL(0x1234)
 
                     expect(cpu.memory.read(0x1234)).to(equal(0x02))
-                    expect(cpu.carryFlag).to(beFalse())
+                    expect(cpu.C).to(beFalse())
                 }
             }
         }
@@ -640,10 +640,10 @@ class InstructionsSpec: QuickSpec {
         describe("ROR") {
             describe("when called without an address") {
                 it("should should rotate all bits of the accumulator one bit to the right") {
-                    cpu.carryFlag = true
+                    cpu.C = true
                     cpu.A = 0x04
 
-                    cpu = ROR(cpu)
+                    cpu.ROR()
 
                     expect(cpu.A).to(equal(0x82))
                 }
@@ -651,28 +651,28 @@ class InstructionsSpec: QuickSpec {
                 it("should set the carry flag to true if bit 0 was 1") {
                     cpu.A = 0x81
 
-                    cpu = ROR(cpu)
+                    cpu.ROR()
 
                     expect(cpu.A).to(equal(0x40))
-                    expect(cpu.carryFlag).to(beTrue())
+                    expect(cpu.C).to(beTrue())
                 }
 
                 it("should set the carry flag to false if bit 0 was 0") {
                     cpu.A = 0x80
 
-                    cpu = ROR(cpu)
+                    cpu.ROR()
 
                     expect(cpu.A).to(equal(0x40))
-                    expect(cpu.carryFlag).to(beFalse())
+                    expect(cpu.C).to(beFalse())
                 }
             }
 
             describe("when called with an address") {
                 it("should should rotate all bits of the memory contents one bit to the right") {
-                    cpu.carryFlag = true
+                    cpu.C = true
                     cpu.memory.write(0x1234, 0x04)
 
-                    cpu = ROR(cpu, 0x1234)
+                    cpu.ROR(0x1234)
 
                     expect(cpu.memory.read(0x1234)).to(equal(0x82))
                 }
@@ -680,28 +680,28 @@ class InstructionsSpec: QuickSpec {
                 it("should set the carry flag to true if bit 0 was 1") {
                     cpu.memory.write(0x1234, 0x81)
 
-                    cpu = ROR(cpu, 0x1234)
+                    cpu.ROR(0x1234)
 
                     expect(cpu.memory.read(0x1234)).to(equal(0x40))
-                    expect(cpu.carryFlag).to(beTrue())
+                    expect(cpu.C).to(beTrue())
                 }
 
                 it("should set the carry flag to false if bit 0 was 0") {
                     cpu.memory.write(0x1234, 0x80)
 
-                    cpu = ROR(cpu, 0x1234)
+                    cpu.ROR(0x1234)
 
                     expect(cpu.memory.read(0x1234)).to(equal(0x40))
-                    expect(cpu.carryFlag).to(beFalse())
+                    expect(cpu.C).to(beFalse())
                 }
             }
         }
 
         describe("SEI") {
             it("should set the interrupt disable flag") {
-                cpu = SEI(cpu)
+                cpu.SEI()
 
-                expect(cpu.interruptDisable).to(beTrue())
+                expect(cpu.I).to(beTrue())
             }
         }
 
@@ -709,7 +709,7 @@ class InstructionsSpec: QuickSpec {
             it("should store the contents of the A register at a memory location") {
                 cpu.A = 0x12
 
-                cpu = STA(cpu, 0x1234)
+                cpu.STA(0x1234)
 
                 expect(cpu.memory.read(0x1234)).to(equal(0x12))
             }
@@ -719,7 +719,7 @@ class InstructionsSpec: QuickSpec {
             it("should store the contents of the X register at a memory location") {
                 cpu.X = 0x12
 
-                cpu = STX(cpu, 0x1234)
+                cpu.STX(0x1234)
 
                 expect(cpu.memory.read(0x1234)).to(equal(0x12))
             }
@@ -729,7 +729,7 @@ class InstructionsSpec: QuickSpec {
             it("should store the contents of the Y register at a memory location") {
                 cpu.Y = 0x12
 
-                cpu = STY(cpu, 0x1234)
+                cpu.STY(0x1234)
 
                 expect(cpu.memory.read(0x1234)).to(equal(0x12))
             }
@@ -739,7 +739,7 @@ class InstructionsSpec: QuickSpec {
             it("should store the contents of the accumulator into the X register") {
                 cpu.A = 0x12
 
-                cpu = TAX(cpu)
+                cpu.TAX()
 
                 expect(cpu.X).to(equal(0x12))
             }
@@ -749,7 +749,7 @@ class InstructionsSpec: QuickSpec {
             it("should store the contents of the accumulator into the Y register") {
                 cpu.A = 0x12
 
-                cpu = TAY(cpu)
+                cpu.TAY()
 
                 expect(cpu.Y).to(equal(0x12))
             }

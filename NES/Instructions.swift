@@ -1,291 +1,254 @@
 import Foundation
 
-/// `ADC` - Add with Carry
-public func ADC(var cpu: CPU, value: UInt8) -> CPU {
-    let a: UInt8 = cpu.A
-    let b: UInt8 = value
-    let c: UInt8 = cpu.carryFlag ? 1 : 0
+public extension CPU {
+    /// `ADC` - Add with Carry
+    public mutating func ADC(value: UInt8) {
+        let a: UInt8 = A
+        let b: UInt8 = value
+        let c: UInt8 = C ? 1 : 0
 
-    cpu.updateAZN(a &+ b &+ c)
+        updateAZN(a &+ b &+ c)
 
-    cpu.carryFlag = UInt16(a) + UInt16(b) + UInt16(c) > 0xFF
-    cpu.overflowFlag = (a ^ b) & 0x80 == 0 && (a ^ cpu.A) & 0x80 != 0
-
-    return cpu
-}
-
-/// `AND` - Logical AND
-public func AND(var cpu: CPU, value: UInt8) -> CPU {
-    cpu.updateAZN(cpu.A & value)
-
-    return cpu
-}
-
-/// `ASL` - Arithmetic Shift Left
-public func ASL(var cpu: CPU) -> CPU {
-    cpu.carryFlag = (cpu.A & 0x80) != 0
-    cpu.updateAZN(cpu.A << 1)
-
-    return cpu
-}
-
-/// `ASL` - Arithmetic Shift Left
-public func ASL(var cpu: CPU, address: Address) -> CPU {
-    let value = cpu.memory.read(address)
-    cpu.carryFlag = (value & 0x80) != 0
-
-    let result = value << 1
-    cpu.updateZN(result)
-    cpu.memory.write(address, result)
-
-    return cpu
-}
-
-private func branch(var cpu: CPU, offset: UInt8) -> CPU {
-    let address: Address
-
-    if (offset & 0x80) == 0 {
-        address = cpu.PC &+ UInt16(offset)
-    } else {
-        address = cpu.PC &+ UInt16(offset) &- 0x0100
+        C = UInt16(a) + UInt16(b) + UInt16(c) > 0xFF
+        V = (a ^ b) & 0x80 == 0 && (a ^ A) & 0x80 != 0
     }
 
-    cpu.cycles += differentPages(cpu.PC, address) ? 2 : 1
-    cpu.PC = address
+    /// `AND` - Logical AND
+    public mutating func AND(value: UInt8) {
+        updateAZN(A & value)
+    }
 
-    return cpu
-}
+    /// `ASL` - Arithmetic Shift Left
+    public mutating func ASL() {
+        C = (A & 0x80) != 0
+        updateAZN(A << 1)
+    }
 
-/// `BCC` - Branch if Carry Clear
-public func BCC(var cpu: CPU, offset: UInt8) -> CPU {
-    return !cpu.carryFlag ? branch(cpu, offset) : cpu
-}
+    /// `ASL` - Arithmetic Shift Left
+    public mutating func ASL(address: Address) {
+        let value = memory.read(address)
+        C = (value & 0x80) != 0
 
-/// `BCS` - Branch if Carry Set
-public func BCS(var cpu: CPU, offset: UInt8) -> CPU {
-    return cpu.carryFlag ? branch(cpu, offset) : cpu
-}
+        let result = value << 1
+        updateZN(result)
+        memory.write(address, result)
+    }
 
-/// `BEQ` - Branch if Equal
-public func BEQ(var cpu: CPU, offset: UInt8) -> CPU {
-    return cpu.zeroFlag ? branch(cpu, offset) : cpu
-}
+    private mutating func branch(offset: UInt8) {
+        let address: Address
 
-/// `BMI` - Branch if Minus
-public func BMI(var cpu: CPU, offset: UInt8) -> CPU {
-    return cpu.negativeFlag ? branch(cpu, offset) : cpu
-}
+        if (offset & 0x80) == 0 {
+            address = PC &+ UInt16(offset)
+        } else {
+            address = PC &+ UInt16(offset) &- 0x0100
+        }
 
-/// `BNE` - Branch if Not Equal
-public func BNE(var cpu: CPU, offset: UInt8) -> CPU {
-    return !cpu.zeroFlag ? branch(cpu, offset) : cpu
-}
+        cycles += differentPages(PC, address) ? 2 : 1
+        PC = address
+    }
 
-/// `BPL` - Branch if Positive
-public func BPL(var cpu: CPU, offset: UInt8) -> CPU {
-    return !cpu.negativeFlag ? branch(cpu, offset) : cpu
-}
+    /// `BCC` - Branch if Carry Clear
+    public mutating func BCC(offset: UInt8) {
+        if !C {
+            branch(offset)
+        }
+    }
 
-/// `BRK` - Force Interrupt
-public func BRK(var cpu: CPU) -> CPU {
-    cpu.push16(cpu.PC)
-    cpu.push(cpu.P)
-    cpu.breakCommand = true
-    cpu.PC = cpu.memory.read16(0xFFFE)
+    /// `BCS` - Branch if Carry Set
+    public mutating func BCS(offset: UInt8) {
+        if C {
+            branch(offset)
+        }
+    }
 
-    return cpu
-}
+    /// `BEQ` - Branch if Equal
+    public mutating func BEQ(offset: UInt8) {
+        if Z {
+            branch(offset)
+        }
+    }
 
-/// `BVC` - Branch if Overflow Clear
-public func BVC(var cpu: CPU, offset: UInt8) -> CPU {
-    return !cpu.overflowFlag ? branch(cpu, offset) : cpu
-}
+    /// `BMI` - Branch if Minus
+    public mutating func BMI(offset: UInt8) {
+        if N {
+            branch(offset)
+        }
+    }
 
-/// `BVS` - Branch if Overflow Clear
-public func BVS(var cpu: CPU, offset: UInt8) -> CPU {
-    return cpu.overflowFlag ? branch(cpu, offset) : cpu
-}
+    /// `BNE` - Branch if Not Equal
+    public mutating func BNE(offset: UInt8) {
+        if !Z {
+            branch(offset)
+        }
+    }
 
-/// `DEC` - Increment Memory
-public func DEC(var cpu: CPU, address: Address) -> CPU {
-    let result = cpu.memory.read(address) &- 1
-    cpu.updateZN(result)
-    cpu.memory.write(address, result)
+    /// `BPL` - Branch if Positive
+    public mutating func BPL(offset: UInt8) {
+        if !N {
+            branch(offset)
+        }
+    }
 
-    return cpu
-}
+    /// `BRK` - Force Interrupt
+    public mutating func BRK() {
+        push16(PC)
+        push(P)
+        B = true
+        PC = memory.read16(0xFFFE)
+    }
 
-/// `EOR` - Logical Exclusive OR
-public func EOR(var cpu: CPU, value: UInt8) -> CPU {
-    cpu.updateAZN(cpu.A ^ value)
+    /// `BVC` - Branch if Overflow Clear
+    public mutating func BVC(offset: UInt8) {
+        if !V {
+            branch(offset)
+        }
+    }
 
-    return cpu
-}
+    /// `BVS` - Branch if Overflow Clear
+    public mutating func BVS(offset: UInt8) {
+        if V {
+            branch(offset)
+        }
+    }
 
-/// `INC` - Increment Memory
-public func INC(var cpu: CPU, address: Address) -> CPU {
-    let result = cpu.memory.read(address) &+ 1
-    cpu.updateZN(result)
-    cpu.memory.write(address, result)
+    /// `DEC` - Increment Memory
+    public mutating func DEC(address: Address) {
+        let result = memory.read(address) &- 1
+        updateZN(result)
+        memory.write(address, result)
+    }
 
-    return cpu
-}
+    /// `EOR` - Logical Exclusive OR
+    public mutating func EOR(value: UInt8) {
+        updateAZN(A ^ value)
+    }
 
-/// `LDA` - Load Accumulator
-public func LDA(var cpu: CPU, value: UInt8) -> CPU {
-    cpu.updateAZN(value)
+    /// `INC` - Increment Memory
+    public mutating func INC(address: Address) {
+        let result = memory.read(address) &+ 1
+        updateZN(result)
+        memory.write(address, result)
+    }
 
-    return cpu
-}
+    /// `LDA` - Load Accumulator
+    public mutating func LDA(value: UInt8) {
+        updateAZN(value)
+    }
 
-/// `LSR` - Logical Shift Right
-public func LSR(var cpu: CPU) -> CPU {
-    cpu.carryFlag = (cpu.A & 0x01) != 0
-    cpu.updateAZN(cpu.A >> 1)
+    /// `LSR` - Logical Shift Right
+    public mutating func LSR() {
+        C = (A & 0x01) != 0
+        updateAZN(A >> 1)
+    }
 
-    return cpu
-}
+    /// `LSR` - Logical Shift Right
+    public mutating func LSR(address: Address) {
+        let value = memory.read(address)
+        C = (value & 0x01) != 0
 
-/// `LSR` - Logical Shift Right
-public func LSR(var cpu: CPU, address: Address) -> CPU {
-    let value = cpu.memory.read(address)
-    cpu.carryFlag = (value & 0x01) != 0
+        let result = value >> 1
+        updateZN(result)
+        memory.write(address, result)
+    }
 
-    let result = value >> 1
-    cpu.updateZN(result)
-    cpu.memory.write(address, result)
+    /// `NOP` - No Operation
+    public mutating func NOP(cpu: CPU) {
+    }
 
-    return cpu
-}
+    /// `ORA` - Logical Inclusive OR
+    public mutating func ORA(value: UInt8) {
+        updateAZN(A | value)
+    }
 
-/// `NOP` - No Operation
-public func NOP(cpu: CPU) -> CPU {
-    return cpu
-}
+    /// `PHA` - Push Accumulator
+    public mutating func PHA() {
+        push(A)
+    }
 
-/// `ORA` - Logical Inclusive OR
-public func ORA(var cpu: CPU, value: UInt8) -> CPU {
-    cpu.updateAZN(cpu.A | value)
+    /// `PHP` - Push Processor Status
+    public mutating func PHP() {
+        push(P)
+    }
 
-    return cpu
-}
+    /// `PLA` - Pull Accumulator
+    public mutating func PLA() {
+        A = pop()
+    }
 
-/// `PHA` - Push Accumulator
-public func PHA(var cpu: CPU) -> CPU {
-    cpu.push(cpu.A)
+    /// `PLP` - Pull Processor Status
+    public mutating func PLP() {
+        P = pop()
+    }
 
-    return cpu
-}
+    /// `ROL` - Rotate Left
+    public mutating func ROL() {
+        let existing: UInt8 = C ? 0x01 : 0x00
 
-/// `PHP` - Push Processor Status
-public func PHP(var cpu: CPU) -> CPU {
-    cpu.push(cpu.P)
+        C = (A & 0x80) != 0
+        updateAZN((A << 1) | existing)
+    }
 
-    return cpu
-}
+    /// `ROL` - Rotate Left
+    public mutating func ROL(address: Address) {
+        let existing: UInt8 = C ? 0x01 : 0x00
 
-/// `PLA` - Pull Accumulator
-public func PLA(var cpu: CPU) -> CPU {
-    cpu.A = cpu.pop()
+        let value = memory.read(address)
+        C = (value & 0x80) != 0
 
-    return cpu
-}
+        let result = (value << 1) | existing
+        updateZN(result)
+        memory.write(address, result)
+    }
 
-/// `PLP` - Pull Processor Status
-public func PLP(var cpu: CPU) -> CPU {
-    cpu.P = cpu.pop()
+    /// `ROR` - Rotate Right
+    public mutating func ROR() {
+        let existing: UInt8 = C ? 0x80 : 0x00
 
-    return cpu
-}
+        C = (A & 0x01) != 0
+        updateAZN((A >> 1) | existing)
+    }
 
-/// `ROL` - Rotate Left
-public func ROL(var cpu: CPU) -> CPU {
-    let existing: UInt8 = cpu.carryFlag ? 0x01 : 0x00
+    /// `ROR` - Rotate Right
+    public mutating func ROR(address: Address) {
+        let existing: UInt8 = C ? 0x80 : 0x00
 
-    cpu.carryFlag = (cpu.A & 0x80) != 0
-    cpu.updateAZN((cpu.A << 1) | existing)
+        let value = memory.read(address)
+        C = (value & 0x01) != 0
 
-    return cpu
-}
+        let result = (value >> 1) | existing
+        updateZN(result)
+        memory.write(address, result)
+    }
 
-/// `ROL` - Rotate Left
-public func ROL(var cpu: CPU, address: Address) -> CPU {
-    let existing: UInt8 = cpu.carryFlag ? 0x01 : 0x00
+    /// `SEI` - Set Interrupt Disable
+    public mutating func SEI() {
+        I = true
+    }
 
-    let value = cpu.memory.read(address)
-    cpu.carryFlag = (value & 0x80) != 0
+    /// `STA` - Store accumulator
+    public mutating func STA(address: Address) {
+        memory.write(address, A)
+    }
 
-    let result = (value << 1) | existing
-    cpu.updateZN(result)
-    cpu.memory.write(address, result)
+    /// `STX` - Store X register
+    public mutating func STX(address: Address) {
+        memory.write(address, X)
+    }
 
-    return cpu
-}
+    /// `STY` - Store Y register
+    public mutating func STY(address: Address) {
+        memory.write(address, Y)
+    }
 
-/// `ROR` - Rotate Right
-public func ROR(var cpu: CPU) -> CPU {
-    let existing: UInt8 = cpu.carryFlag ? 0x80 : 0x00
+    /// `TAX` - Transfer Accumulator to X
+    public mutating func TAX() {
+        X = A
+        updateZN(X)
+    }
 
-    cpu.carryFlag = (cpu.A & 0x01) != 0
-    cpu.updateAZN((cpu.A >> 1) | existing)
-
-    return cpu
-}
-
-/// `ROR` - Rotate Right
-public func ROR(var cpu: CPU, address: Address) -> CPU {
-    let existing: UInt8 = cpu.carryFlag ? 0x80 : 0x00
-
-    let value = cpu.memory.read(address)
-    cpu.carryFlag = (value & 0x01) != 0
-
-    let result = (value >> 1) | existing
-    cpu.updateZN(result)
-    cpu.memory.write(address, result)
-
-    return cpu
-}
-
-/// `SEI` - Set Interrupt Disable
-public func SEI(var cpu: CPU) -> CPU {
-    cpu.interruptDisable = true
-
-    return cpu
-}
-
-/// `STA` - Store accumulator
-public func STA(var cpu: CPU, address: Address) -> CPU {
-    cpu.memory.write(address, cpu.A)
-
-    return cpu
-}
-
-/// `STX` - Store X register
-public func STX(var cpu: CPU, address: Address) -> CPU {
-    cpu.memory.write(address, cpu.X)
-
-    return cpu
-}
-
-/// `STY` - Store Y register
-public func STY(var cpu: CPU, address: Address) -> CPU {
-    cpu.memory.write(address, cpu.Y)
-
-    return cpu
-}
-
-/// `TAX` - Transfer Accumulator to X
-public func TAX(var cpu: CPU) -> CPU {
-    cpu.X = cpu.A
-    cpu.updateZN(cpu.X)
-
-    return cpu
-}
-
-/// `TAY` - Transfer Accumulator to Y
-public func TAY(var cpu: CPU) -> CPU {
-    cpu.Y = cpu.A
-    cpu.updateZN(cpu.Y)
-
-    return cpu
+    /// `TAY` - Transfer Accumulator to Y
+    public mutating func TAY() {
+        Y = A
+        updateZN(Y)
+    }
 }

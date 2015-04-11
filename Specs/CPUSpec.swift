@@ -13,7 +13,7 @@ class CPUSpec: QuickSpec {
             }
 
             it("should have interrupts disabled") {
-                expect(cpu.interruptDisable).to(beTrue())
+                expect(cpu.I).to(beTrue())
             }
         }
     }
