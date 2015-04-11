@@ -120,6 +120,26 @@ public extension CPU {
         }
     }
 
+    /// `CLC` - Clear Carry Flag
+    public mutating func CLC() {
+        C = false
+    }
+
+    /// `CLD` - Clear Decimal Mode
+    public mutating func CLD() {
+        D = false
+    }
+
+    /// `CLI` - Clear Interrupt Disable
+    public mutating func CLI() {
+        I = false
+    }
+
+    /// `CLV` - Clear Overflow Flag
+    public mutating func CLV() {
+        V = false
+    }
+
     /// `DEC` - Increment Memory
     public mutating func DEC(address: Address) {
         let result = memory.read(address) &- 1

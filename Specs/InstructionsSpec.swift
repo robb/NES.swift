@@ -483,6 +483,46 @@ class InstructionsSpec: QuickSpec {
             }
         }
 
+        describe("CLC") {
+            it("should clear the carry flag") {
+                cpu.C = true
+
+                cpu.CLC()
+
+                expect(cpu.C).to(beFalse())
+            }
+        }
+
+        describe("CLD") {
+            it("should clear the decomal mode flag") {
+                cpu.D = true
+
+                cpu.CLD()
+
+                expect(cpu.D).to(beFalse())
+            }
+        }
+
+        describe("CLI") {
+            it("should clear the interrupt disable flag") {
+                cpu.I = true
+
+                cpu.CLI()
+
+                expect(cpu.I).to(beFalse())
+            }
+        }
+
+        describe("CLV") {
+            it("should clear the overflow flag") {
+                cpu.V = true
+
+                cpu.CLV()
+
+                expect(cpu.V).to(beFalse())
+            }
+        }
+
         describe("DEC") {
             it("should increase the value of a memory location") {
                 cpu.memory.write(0x1234, 0x10)
