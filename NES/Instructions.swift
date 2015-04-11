@@ -68,6 +68,15 @@ public extension CPU {
         }
     }
 
+    /// `BIT` - Bit Test
+    public mutating func BIT(address: UInt16) {
+        let value = memory.read(address)
+
+        Z = (A & value) == 0
+        V = (0x40 & value) != 0
+        N = (0x80 & value) != 0
+    }
+
     /// `BMI` - Branch if Minus
     public mutating func BMI(offset: UInt8) {
         if N {
