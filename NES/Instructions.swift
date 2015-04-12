@@ -170,11 +170,13 @@ public extension CPU {
     /// `DEX` - Decrement X Register
     public mutating func DEX() {
         X = X &- 1
+        updateZN(X)
     }
 
     /// `DEY` - Decrement Y Register
     public mutating func DEY() {
         Y = Y &- 1
+        updateZN(Y)
     }
 
     /// `EOR` - Logical Exclusive OR
@@ -192,11 +194,13 @@ public extension CPU {
     /// `INX` - Increment X Register
     public mutating func INX() {
         X = X &+ 1
+        updateZN(X)
     }
 
     /// `INY` - Increment Y Register
     public mutating func INY() {
         Y = Y &+ 1
+        updateZN(Y)
     }
 
     /// `LDA` - Load Accumulator
