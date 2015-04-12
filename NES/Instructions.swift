@@ -140,6 +140,26 @@ public extension CPU {
         V = false
     }
 
+    private mutating func compare(a: UInt8, _ b: UInt8) {
+        updateZN(a &- b)
+        C = a >= b
+    }
+
+    /// `CMP` - Compare
+    public mutating func CMP(value: UInt8) {
+        compare(A, value)
+    }
+
+    /// `CPX` - Compare X Register
+    public mutating func CPX(value: UInt8) {
+        compare(X, value)
+    }
+
+    /// `CPY` - Compare Y Register
+    public mutating func CPY(value: UInt8) {
+        compare(Y, value)
+    }
+
     /// `DEC` - Increment Memory
     public mutating func DEC(address: Address) {
         let result = memory.read(address) &- 1

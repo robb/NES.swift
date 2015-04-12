@@ -523,6 +523,156 @@ class InstructionsSpec: QuickSpec {
             }
         }
 
+        describe("CMP") {
+            it("should set the carry flag if A is greater than or equal to a value") {
+                cpu.A = 0x02
+
+                cpu.CMP(0x01)
+
+                expect(cpu.C).to(beTrue())
+            }
+
+            it("should clear the carry flag if A is less than a value") {
+                cpu.A = 0x01
+
+                cpu.CMP(0x02)
+
+                expect(cpu.C).to(beFalse())
+            }
+
+            it("should set the zero flag if A is equal to a value") {
+                cpu.A = 0x01
+
+                cpu.CMP(0x01)
+
+                expect(cpu.Z).to(beTrue())
+            }
+
+            it("should clear the zero flag if A is not equal to a value") {
+                cpu.A = 0x02
+
+                cpu.CMP(0x01)
+
+                expect(cpu.Z).to(beFalse())
+            }
+
+            it("should set the negative flag if bit 7 of A - a value is 1") {
+                cpu.A = 0x81
+
+                cpu.CMP(0x01)
+
+                expect(cpu.N).to(beTrue())
+            }
+
+            it("should clear the negative flag if bit 7 of A - a value is 0") {
+                cpu.A = 0x81
+
+                cpu.CMP(0x02)
+
+                expect(cpu.N).to(beFalse())
+            }
+        }
+
+        describe("CPX") {
+            it("should set the carry flag if X is greater than or equal to a value") {
+                cpu.X = 0x02
+
+                cpu.CPX(0x01)
+
+                expect(cpu.C).to(beTrue())
+            }
+
+            it("should clear the carry flag if X is less than a value") {
+                cpu.X = 0x01
+
+                cpu.CPX(0x02)
+
+                expect(cpu.C).to(beFalse())
+            }
+
+            it("should set the zero flag if X is equal to a value") {
+                cpu.X = 0x01
+
+                cpu.CPX(0x01)
+
+                expect(cpu.Z).to(beTrue())
+            }
+
+            it("should clear the zero flag if X is not equal to a value") {
+                cpu.X = 0x02
+
+                cpu.CPX(0x01)
+
+                expect(cpu.Z).to(beFalse())
+            }
+
+            it("should set the negative flag if bit 7 of X - a value is 1") {
+                cpu.X = 0x81
+
+                cpu.CPX(0x01)
+
+                expect(cpu.N).to(beTrue())
+            }
+
+            it("should clear the negative flag if bit 7 of X - a value is 0") {
+                cpu.X = 0x81
+
+                cpu.CPX(0x02)
+
+                expect(cpu.N).to(beFalse())
+            }
+        }
+
+        describe("CPY") {
+            it("should set the carry flag if Y is greater than or equal to a value") {
+                cpu.Y = 0x02
+
+                cpu.CPY(0x01)
+
+                expect(cpu.C).to(beTrue())
+            }
+
+            it("should clear the carry flag if Y is less than a value") {
+                cpu.Y = 0x01
+
+                cpu.CPY(0x02)
+
+                expect(cpu.C).to(beFalse())
+            }
+
+            it("should set the zero flag if Y is equal to a value") {
+                cpu.Y = 0x01
+
+                cpu.CPY(0x01)
+
+                expect(cpu.Z).to(beTrue())
+            }
+
+            it("should clear the zero flag if Y is not equal to a value") {
+                cpu.Y = 0x02
+
+                cpu.CPY(0x01)
+
+                expect(cpu.Z).to(beFalse())
+            }
+
+            it("should set the negative flag if bit 7 of Y - a value is 1") {
+                cpu.Y = 0x81
+
+                cpu.CPY(0x01)
+
+                expect(cpu.N).to(beTrue())
+            }
+
+            it("should clear the negative flag if bit 7 of Y - a value is 0") {
+                cpu.Y = 0x81
+
+                cpu.CPY(0x02)
+
+                expect(cpu.N).to(beFalse())
+            }
+        }
+
         describe("DEC") {
             it("should decrease the value of a memory location") {
                 cpu.memory.write(0x1234, 0x10)
