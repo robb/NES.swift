@@ -273,7 +273,7 @@ class InstructionsSpec: QuickSpec {
                 expect(cpu.N).to(beTrue())
             }
 
-            it("should clear the negative bit if bit 7 of M is 1") {
+            it("should clear the negative bit if bit 7 of M is 0") {
                 cpu.memory.write(0x2000, 0x00)
                 cpu.A = 0x00
 
