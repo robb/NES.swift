@@ -344,6 +344,16 @@ public extension CPU {
         I = true
     }
 
+    /// `SEC` - Set Carry Flag
+    public mutating func SEC() {
+        C = true
+    }
+
+    /// `SED` - Set Decimal Flag
+    public mutating func SED() {
+        D = true
+    }
+
     /// `STA` - Store accumulator
     public mutating func STA(address: Address) {
         memory.write(address, A)

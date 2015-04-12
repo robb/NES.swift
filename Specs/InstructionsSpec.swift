@@ -1107,6 +1107,22 @@ class InstructionsSpec: QuickSpec {
             }
         }
 
+        describe("SEC") {
+            it("should set the carry flag") {
+                cpu.SEC()
+
+                expect(cpu.C).to(beTrue())
+            }
+        }
+
+        describe("SED") {
+            it("should set the decimal mode flag") {
+                cpu.SED()
+
+                expect(cpu.D).to(beTrue())
+            }
+        }
+
         describe("SEI") {
             it("should set the interrupt disable flag") {
                 cpu.SEI()
