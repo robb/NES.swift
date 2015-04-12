@@ -219,6 +219,18 @@ public extension CPU {
         updateAZN(value)
     }
 
+    /// `LDX` - Load X Register
+    public mutating func LDX(value: UInt8) {
+        X = value
+        updateZN(value)
+    }
+
+    /// `LDY` - Load Y Register
+    public mutating func LDY(value: UInt8) {
+        Y = value
+        updateZN(value)
+    }
+
     /// `LSR` - Logical Shift Right
     public mutating func LSR() {
         C = (A & 0x01) != 0

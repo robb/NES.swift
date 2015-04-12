@@ -779,6 +779,22 @@ class InstructionsSpec: QuickSpec {
             }
         }
 
+        describe("LDX") {
+            it("should store a value in the A register") {
+                cpu.LDX(0x5F)
+
+                expect(cpu.X).to(equal(0x5F))
+            }
+        }
+
+        describe("LDY") {
+            it("should store a value in the A register") {
+                cpu.LDY(0x5F)
+
+                expect(cpu.Y).to(equal(0x5F))
+            }
+        }
+
         describe("LSR") {
             describe("when called without an address") {
                 it("should should shift all bits of the accumulator one bit to the right") {
