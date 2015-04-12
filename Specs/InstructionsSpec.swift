@@ -723,6 +723,26 @@ class InstructionsSpec: QuickSpec {
             }
         }
 
+        describe("INX") {
+            it("should increase the value of the X register") {
+                cpu.X = 0x10
+
+                cpu.INX()
+
+                expect(cpu.X).to(equal(0x11))
+            }
+        }
+
+        describe("INY") {
+            it("should increase the value of the X register") {
+                cpu.Y = 0x10
+
+                cpu.INY()
+
+                expect(cpu.Y).to(equal(0x11))
+            }
+        }
+
         describe("LDA") {
             it("should store a value in the A register") {
                 cpu.LDA(0x5F)

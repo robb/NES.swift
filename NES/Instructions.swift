@@ -189,6 +189,16 @@ public extension CPU {
         memory.write(address, result)
     }
 
+    /// `INX` - Increment X Register
+    public mutating func INX() {
+        X = X &+ 1
+    }
+
+    /// `INY` - Increment Y Register
+    public mutating func INY() {
+        Y = Y &+ 1
+    }
+
     /// `LDA` - Load Accumulator
     public mutating func LDA(value: UInt8) {
         updateAZN(value)
