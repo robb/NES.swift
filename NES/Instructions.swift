@@ -208,6 +208,12 @@ public extension CPU {
         PC = address
     }
 
+    /// `JSR` - Jump to Subroutine
+    public mutating func JSR(address: Address) {
+        push16(PC - 1)
+        PC = address
+    }
+
     /// `LDA` - Load Accumulator
     public mutating func LDA(value: UInt8) {
         updateAZN(value)

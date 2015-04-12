@@ -753,6 +753,24 @@ class InstructionsSpec: QuickSpec {
             }
         }
 
+        describe("JSR") {
+            beforeEach {
+                cpu.PC = 0x6543
+
+                cpu.JSR(0x1234)
+            }
+
+            it("should push the current address - 1 to the stack") {
+                let address = cpu.memory.read16(CPU.StackOffset | UInt16(cpu.SP + 1))
+
+                expect(address).to(equal(0x6542))
+            }
+
+            it("should set the PC register") {
+                expect(cpu.PC).to(equal(0x1234))
+            }
+        }
+
         describe("LDA") {
             it("should store a value in the A register") {
                 cpu.LDA(0x5F)
