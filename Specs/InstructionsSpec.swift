@@ -524,7 +524,7 @@ class InstructionsSpec: QuickSpec {
         }
 
         describe("DEC") {
-            it("should increase the value of a memory location") {
+            it("should decrease the value of a memory location") {
                 cpu.memory.write(0x1234, 0x10)
 
                 cpu.DEC(0x1234)
