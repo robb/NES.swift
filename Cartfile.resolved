@@ -1,2 +1,3 @@
-github "Quick/Nimble" "v0.4.1"
-github "Quick/Quick" "v0.3.0"
+github "Quick/Nimble" "v0.4.2"
+github "robrix/Prelude" "1.4"
+github "Quick/Quick" "v0.3.1"
