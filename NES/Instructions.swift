@@ -304,6 +304,17 @@ public extension CPU {
         updateAZN((A >> 1) | existing)
     }
 
+    /// `RTI` - Return from Interrupt
+    public mutating func RTI() {
+        P = pop()
+        PC = pop16()
+    }
+
+    /// `RTS` - Return from Subroutine
+    public mutating func RTS() {
+        PC = pop16() + 1
+    }
+
     /// `ROR` - Rotate Right
     public mutating func ROR(address: Address) {
         let existing: UInt8 = C ? 0x80 : 0x00

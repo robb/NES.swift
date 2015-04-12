@@ -1027,6 +1027,40 @@ class InstructionsSpec: QuickSpec {
             }
         }
 
+        describe("RTI") {
+            beforeEach {
+                cpu.PC = 0xABBA
+                cpu.P = 0x24
+                cpu.memory.write16(0xFFFE, 0x1234)
+
+                cpu.BRK()
+
+                cpu.PC = 0x1234
+                cpu.P = 0xFF
+
+                cpu.RTI()
+            }
+
+            it("should pull the program counter from the stack") {
+                expect(cpu.PC).to(equal(0xABBA))
+            }
+
+            it("should pull the processor status from the stack") {
+                expect(cpu.P).to(equal(0x24))
+            }
+        }
+
+        describe("RTS") {
+            it("should pull the program counter from the stack") {
+                cpu.memory.write16(CPU.StackOffset | UInt16(cpu.SP - 1), 0x1233)
+                cpu.SP = cpu.SP &- 2
+
+                cpu.RTS()
+
+                expect(cpu.PC).to(equal(0x1234))
+            }
+        }
+
         describe("SEI") {
             it("should set the interrupt disable flag") {
                 cpu.SEI()
