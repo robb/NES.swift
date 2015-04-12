@@ -167,6 +167,16 @@ public extension CPU {
         memory.write(address, result)
     }
 
+    /// `DEX` - Decrement X Register
+    public mutating func DEX() {
+        X = X &- 1
+    }
+
+    /// `DEY` - Decrement Y Register
+    public mutating func DEY() {
+        Y = Y &- 1
+    }
+
     /// `EOR` - Logical Exclusive OR
     public mutating func EOR(value: UInt8) {
         updateAZN(A ^ value)

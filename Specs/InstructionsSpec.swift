@@ -683,6 +683,26 @@ class InstructionsSpec: QuickSpec {
             }
         }
 
+        describe("DEX") {
+            it("should decrease the value of the X register") {
+                cpu.X = 0x10
+
+                cpu.DEX()
+
+                expect(cpu.X).to(equal(0x0F))
+            }
+        }
+
+        describe("DEY") {
+            it("should decrease the value of the X register") {
+                cpu.Y = 0x10
+
+                cpu.DEY()
+
+                expect(cpu.Y).to(equal(0x0F))
+            }
+        }
+
         describe("EOR") {
             it("should perform bitwise XOR on A and a value") {
                 cpu.A = 0xF5
