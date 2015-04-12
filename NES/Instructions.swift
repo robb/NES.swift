@@ -380,4 +380,25 @@ public extension CPU {
         Y = A
         updateZN(Y)
     }
+
+    /// `TSX` - Transfer Stack Pointer to X
+    public mutating func TSX() {
+        X = SP
+        updateZN(X)
+    }
+
+    /// `TXA` - Transfer X to Accumulator
+    public mutating func TXA() {
+        updateAZN(X)
+    }
+
+    /// `TXS` - Transfer X to Stack Pointer
+    public mutating func TXS() {
+        SP = X
+    }
+
+    /// `TYA` - Transfer Y to Accumulator
+    public mutating func TYA() {
+        updateAZN(Y)
+    }
 }

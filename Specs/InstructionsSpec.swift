@@ -1180,5 +1180,45 @@ class InstructionsSpec: QuickSpec {
                 expect(cpu.Y).to(equal(0x12))
             }
         }
+
+        describe("TSX") {
+            it("should store the stack pointer in the X register") {
+                cpu.SP = 0x12
+
+                cpu.TSX()
+
+                expect(cpu.X).to(equal(0x12))
+            }
+        }
+
+        describe("TXA") {
+            it("should store the X register in the Accumulator") {
+                cpu.X = 0x12
+
+                cpu.TXA()
+
+                expect(cpu.A).to(equal(0x12))
+            }
+        }
+
+        describe("TXS") {
+            it("should set the Stack Pointer to the current value of the X register") {
+                cpu.X = 0x12
+
+                cpu.TXS()
+
+                expect(cpu.SP).to(equal(0x12))
+            }
+        }
+
+        describe("TYA") {
+            it("should store the X register in the Accumulator") {
+                cpu.Y = 0x12
+
+                cpu.TYA()
+
+                expect(cpu.A).to(equal(0x12))
+            }
+        }
     }
 }
