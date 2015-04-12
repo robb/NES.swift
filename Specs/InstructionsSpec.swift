@@ -1061,6 +1061,52 @@ class InstructionsSpec: QuickSpec {
             }
         }
 
+        describe("SBC") {
+            it("should subtract a value from the A register") {
+                cpu.A = 0x50
+
+                cpu.SBC(0xF0)
+
+                expect(cpu.A).to(equal(0x60))
+            }
+
+            it("should set the carry flag to false if no overflow occurred") {
+                cpu.A = 0x50
+
+                cpu.SBC(0x70)
+
+                expect(cpu.A).to(equal(0xE0))
+                expect(cpu.C).to(beFalse())
+            }
+
+            it("should set the carry flag to true if overflow occurred") {
+                cpu.A = 0x50
+
+                cpu.SBC(0x30)
+
+                expect(cpu.A).to(equal(0x20))
+                expect(cpu.C).to(beTrue())
+            }
+
+            it("should set the overflow flag to false if no two's complement overflow occurred") {
+                cpu.A = 0x50
+
+                cpu.SBC(0xF0)
+
+                expect(cpu.A).to(equal(0x60)) // 96 in Two's complement
+                expect(cpu.V).to(beFalse())
+            }
+
+            it("should set the overflow flag to true if two's complement overflow occurred") {
+                cpu.A = 0x50
+
+                cpu.SBC(0xB0)
+
+                expect(cpu.A).to(equal(0xA0)) // 96 in Two's complement
+                expect(cpu.V).to(beTrue())
+            }
+        }
+
         describe("SEI") {
             it("should set the interrupt disable flag") {
                 cpu.SEI()
