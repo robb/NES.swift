@@ -743,6 +743,16 @@ class InstructionsSpec: QuickSpec {
             }
         }
 
+        describe("JMP") {
+            it("should set the PC register") {
+                cpu.PC = 0
+
+                cpu.JMP(0x1234)
+
+                expect(cpu.PC).to(equal(0x1234))
+            }
+        }
+
         describe("LDA") {
             it("should store a value in the A register") {
                 cpu.LDA(0x5F)

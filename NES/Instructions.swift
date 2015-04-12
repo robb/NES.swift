@@ -203,6 +203,11 @@ public extension CPU {
         updateZN(Y)
     }
 
+    /// `JMP` - Jump
+    public mutating func JMP(address: Address) {
+        PC = address
+    }
+
     /// `LDA` - Load Accumulator
     public mutating func LDA(value: UInt8) {
         updateAZN(value)
