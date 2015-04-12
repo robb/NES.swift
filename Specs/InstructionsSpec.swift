@@ -494,7 +494,7 @@ class InstructionsSpec: QuickSpec {
         }
 
         describe("CLD") {
-            it("should clear the decomal mode flag") {
+            it("should clear the decimal mode flag") {
                 cpu.D = true
 
                 cpu.CLD()
