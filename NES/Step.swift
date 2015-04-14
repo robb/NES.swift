@@ -145,6 +145,7 @@ public extension CPU {
         case 0xE6: (INC, 5, 0) |> zeroPage
         case 0xE8: (INX, 2, 0) |> implied
         case 0xE9: (SBC, 2, 0) |> immediate
+        case 0xEA: (NOP, 2, 0) |> implied
         case 0xEB: (SBC, 2, 0) |> immediate
         case 0xEC: (CPX, 4, 0) |> absolute
         case 0xED: (SBC, 4, 0) |> absolute

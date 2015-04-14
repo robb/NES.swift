@@ -248,7 +248,7 @@ public extension CPU {
     }
 
     /// `NOP` - No Operation
-    public mutating func NOP(cpu: CPU) {
+    public mutating func NOP() {
     }
 
     /// `ORA` - Logical Inclusive OR
