@@ -6,7 +6,7 @@ import Quick
 class CPUSpec: QuickSpec {
     override func spec() {
         describe("A new CPU") {
-            let cpu = CPU()
+            let cpu = CPU(memory: Memory(mapper: DummyMapper()))
 
             it("should initialize with no cycles") {
                 expect(cpu.cycles).to(equal(0))

@@ -28,9 +28,11 @@ public struct CPU {
     /// The Y register.
     public var Y: UInt8 = 0
 
-    public var memory: Memory = Memory()
+    public var memory: Memory
 
-    public init() { }
+    public init(memory: Memory) {
+        self.memory = memory
+    }
 }
 
 /// Convenient access to the processor flags in the `P` register.

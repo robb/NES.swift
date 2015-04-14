@@ -8,7 +8,7 @@ class InstructionsSpec: QuickSpec {
         var cpu: CPU!
 
         beforeEach {
-            cpu = CPU()
+            cpu = CPU(memory: Memory(mapper: DummyMapper()))
         }
 
         describe("ADC") {
