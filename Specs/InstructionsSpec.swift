@@ -229,55 +229,55 @@ class InstructionsSpec: QuickSpec {
 
         describe("BIT") {
             it("should set the zero flag if A & M is 0") {
-                cpu.memory.write(0x2000, 0x0F)
+                cpu.memory.write(0x1000, 0x0F)
                 cpu.A = 0xF0
 
-                cpu.BIT(0x2000)
+                cpu.BIT(0x1000)
 
                 expect(cpu.Z).to(beTrue())
             }
 
             it("should clear the zero flag if A & M is not 0") {
-                cpu.memory.write(0x2000, 0xFF)
+                cpu.memory.write(0x1000, 0xFF)
                 cpu.A = 0xF0
 
-                cpu.BIT(0x2000)
+                cpu.BIT(0x1000)
 
                 expect(cpu.Z).to(beFalse())
             }
 
             it("should set the overflow bit if bit 6 of M is 1") {
-                cpu.memory.write(0x2000, 0x40)
+                cpu.memory.write(0x1000, 0x40)
                 cpu.A = 0x00
 
-                cpu.BIT(0x2000)
+                cpu.BIT(0x1000)
 
                 expect(cpu.V).to(beTrue())
             }
 
             it("should clear the overflow bit if bit 6 of M is 1") {
-                cpu.memory.write(0x2000, 0x00)
+                cpu.memory.write(0x1000, 0x00)
                 cpu.A = 0x00
 
-                cpu.BIT(0x2000)
+                cpu.BIT(0x1000)
 
                 expect(cpu.V).to(beFalse())
             }
 
             it("should set the negative bit if bit 7 of M is 1") {
-                cpu.memory.write(0x2000, 0x80)
+                cpu.memory.write(0x1000, 0x80)
                 cpu.A = 0x00
 
-                cpu.BIT(0x2000)
+                cpu.BIT(0x1000)
 
                 expect(cpu.N).to(beTrue())
             }
 
             it("should clear the negative bit if bit 7 of M is 0") {
-                cpu.memory.write(0x2000, 0x00)
+                cpu.memory.write(0x1000, 0x00)
                 cpu.A = 0x00
 
-                cpu.BIT(0x2000)
+                cpu.BIT(0x1000)
 
                 expect(cpu.N).to(beFalse())
             }

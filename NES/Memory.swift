@@ -1,7 +1,7 @@
 import Foundation
 
 public struct Memory {
-    private var RAM: Array<UInt8> = Array(count: 0x10000, repeatedValue: 0xFF)
+    private var RAM: Array<UInt8> = Array(count: 0x10000, repeatedValue: 0x00)
 
     private var mapper: Mapper
 
