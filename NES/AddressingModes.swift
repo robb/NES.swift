@@ -87,7 +87,7 @@ public extension CPU {
         let operand = memory.read(address)
 
         cycles += cyclesSpent
-        PC += 3
+        PC += 2
 
         instruction(operand)
     }
