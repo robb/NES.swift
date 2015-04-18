@@ -268,7 +268,7 @@ public extension CPU {
 
     /// `PLA` - Pull Accumulator
     public mutating func PLA() {
-        A = pop()
+        updateAZN(pop())
     }
 
     /// `PLP` - Pull Processor Status
