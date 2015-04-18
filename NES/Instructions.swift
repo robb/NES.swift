@@ -273,7 +273,7 @@ public extension CPU {
 
     /// `PLP` - Pull Processor Status
     public mutating func PLP() {
-        P = pop()
+        P = pop() & 0xEF | 0x20
     }
 
     /// `ROL` - Rotate Left
