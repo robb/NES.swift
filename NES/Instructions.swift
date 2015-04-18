@@ -263,7 +263,7 @@ public extension CPU {
 
     /// `PHP` - Push Processor Status
     public mutating func PHP() {
-        push(P)
+        push(P | 0x10)
     }
 
     /// `PLA` - Pull Accumulator

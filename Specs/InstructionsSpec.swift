@@ -877,13 +877,13 @@ class InstructionsSpec: QuickSpec {
 
         describe("PHP") {
             it("should push the processor status to the stack") {
-                cpu.P = 0x24
+                cpu.P = 0x34
 
                 cpu.PHP()
 
                 let P = cpu.memory.read(CPU.StackOffset | UInt16(cpu.SP + 1))
 
-                expect(P).to(equal(0x24))
+                expect(P).to(equal(0x34))
             }
         }
 
