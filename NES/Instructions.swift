@@ -306,7 +306,7 @@ public extension CPU {
 
     /// `RTI` - Return from Interrupt
     public mutating func RTI() {
-        P = pop()
+        P = pop() & 0xEF | 0x20
         PC = pop16()
     }
 
