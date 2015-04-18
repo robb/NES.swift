@@ -41,7 +41,7 @@ public extension CPU {
 
     public mutating func accumulator(instruction: Void -> Void, cyclesSpent: UInt64) {
         cycles += cyclesSpent
-        PC += 2
+        PC += 1
 
         instruction()
     }
