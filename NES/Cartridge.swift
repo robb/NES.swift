@@ -1,7 +1,15 @@
 import Foundation
 
 public struct Cartridge {
+    public var CHRROM: Array<UInt8>
+
     public let mapper: UInt8
+
+    public var PRGRAM: Array<UInt8>
+
+    public let PRGROM: Array<UInt8>
+
+    public var SRAM: Array<UInt8>
 
     public static func load(path: String) -> Cartridge? {
         return NSData(contentsOfFile: path)
@@ -26,12 +34,29 @@ public struct Cartridge {
 
         if magic != 0x4E45531A { return nil }
 
-        let PRGROMSize = array[4]
-        let CHRROMSize = array[5]
+        let PRGROMSize = Int(array[4])
+        let CHRROMSize = Int(array[5])
         let flags6 = array[6]
         let flags7 = array[7]
-        let PRGRAMSize = array[8]
+        let PRGRAMSize = Int(array[8])
         let flags9 = array[7]
+
+        var offset = 16
+
+        // Check if a trainer is present
+        if (flags6 & 0x04) != 0 {
+            offset += 512
+        }
+
+        PRGROM = Array(array[offset..<offset + 16384 * PRGROMSize])
+        offset += 16384 * PRGROMSize
+
+        CHRROM = Array(array[offset..<offset + 8192 * PRGROMSize])
+        offset += 8192 * PRGROMSize
+
+        PRGRAM = Array<UInt8>(count: PRGRAMSize, repeatedValue: 0x00)
+
+        SRAM = Array<UInt8>(count: 0x2000, repeatedValue: 0x00)
 
         mapper = (flags7 & 0xF0) | (flags6 >> 4)
     }
