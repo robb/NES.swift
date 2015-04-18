@@ -333,9 +333,9 @@ public extension CPU {
         let b: UInt8 = value
         let c: UInt8 = C ? 1 : 0
 
-        updateAZN(a &- b &- c)
+        updateAZN(a &- b &- (1 - c))
 
-        C = Int16(a) - Int16(b) - Int16(c) >= 0
+        C = Int16(a) - Int16(b) - Int16(1 - c) >= 0
         V = (a ^ b) & 0x80 != 0 && (a ^ A) & 0x80 != 0
     }
 

@@ -1062,6 +1062,10 @@ class InstructionsSpec: QuickSpec {
         }
 
         describe("SBC") {
+            beforeEach {
+                cpu.C = true
+            }
+
             it("should subtract a value from the A register") {
                 cpu.A = 0x50
 
