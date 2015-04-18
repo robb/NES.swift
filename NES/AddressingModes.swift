@@ -136,4 +136,13 @@ public extension CPU {
 
         instruction(operand)
     }
+
+    public mutating func zeroPageY(instruction: Address -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
+        let address = Address(memory.read(PC &+ 1) &+ Y)
+
+        cycles += cyclesSpent
+        PC += 2
+
+        instruction(address)
+    }
 }
