@@ -402,3 +402,61 @@ public extension CPU {
         updateAZN(Y)
     }
 }
+
+public extension CPU {
+    /// `DCP` - ???
+    public mutating func DCP(address: Address) {
+        let value = memory.read(address) &- 1
+        memory.write(address, value)
+        CMP(value)
+    }
+
+    /// `DOP` - Double NOP
+    public mutating func DOP(_: UInt8) { }
+
+    /// `ISC` - ???
+    public mutating func ISC(address: Address) {
+        INC(address)
+        SBC(memory.read(address))
+    }
+
+    /// `LAX` - ???
+    public mutating func LAX(address: Address) {
+        let value = memory.read(address)
+        A = value
+        X = value
+        updateZN(value)
+    }
+
+    /// `SAX` - ???
+    public mutating func SAX(address: Address) {
+        memory.write(address, A & X)
+    }
+
+    /// `SLO` - ???
+    public mutating func SLO(address: Address) {
+        ASL(address)
+        ORA(memory.read(address))
+    }
+
+    /// `SRE` - ???
+    public mutating func SRE(address: Address) {
+        LSR(address)
+        EOR(memory.read(address))
+    }
+
+    /// `RLA` - ???
+    public mutating func RLA(address: Address) {
+        ROL(address)
+        AND(memory.read(address))
+    }
+
+    /// `RRA` - ???
+    public mutating func RRA(address: Address) {
+        ROR(address)
+        ADC(memory.read(address))
+    }
+
+    /// `TOP` - Triple NOP
+    public mutating func TOP(_: UInt16) { }
+}
