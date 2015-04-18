@@ -23,6 +23,13 @@ public struct Memory {
         return UInt16(high, low)
     }
 
+    public func buggyRead16(address: Address) -> UInt16 {
+        let low  = read(address)
+        let high = read((address & 0xFF00) | UInt16(UInt8(address & 0xFF) &+ 1))
+
+        return UInt16(high, low)
+    }
+
     public mutating func write(address: Address, _ value: UInt8) {
         switch address {
         case 0...0x2000:
