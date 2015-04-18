@@ -69,7 +69,7 @@ public extension CPU {
     }
 
     /// `BIT` - Bit Test
-    public mutating func BIT(address: UInt16) {
+    public mutating func BIT(address: Address) {
         let value = memory.read(address)
 
         Z = (A & value) == 0
