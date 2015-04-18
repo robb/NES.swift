@@ -31,11 +31,22 @@ public struct Memory {
     }
 
     public mutating func write(address: Address, _ value: UInt8) {
-        switch address {
-        case 0...0x2000:
+        switch Int(address) {
+        case 0x0000..<0x2000:
             RAM[Int(address % 0x0800)] = value
-        default:
+        case 0x2000..<0x4000:
+            // TODO: Implement PPU
+            break
+        case 0x4000..<0x4016, 0x04017:
+            // TODO: Implement APU
+            break
+        case 0x4016:
+            // TODO: Implement Controller
+            break
+        case 0x6000..<0x10000:
             mapper.write(address, value)
+        default:
+            fatalError("Illegal memory address")
         }
     }
 
