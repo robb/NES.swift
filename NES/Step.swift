@@ -6,237 +6,237 @@ public extension CPU {
         let opcode: UInt8 = memory.read(PC)
 
         switch opcode {
-        case 0x00: (BRK, 7, 0) |> implied
-        case 0x01: (ORA, 6, 0) |> indexedIndirect
-        case 0x03: (SLO, 8, 0) |> indexedIndirect
-        case 0x04: (DOP, 3, 0) |> zeroPage
-        case 0x05: (ORA, 3, 0) |> zeroPage
-        case 0x06: (ASL, 5, 0) |> zeroPage
-        case 0x07: (SLO, 5, 0) |> zeroPage
-        case 0x08: (PHP, 3, 0) |> implied
-        case 0x09: (ORA, 2, 0) |> immediate
-        case 0x0A: (ASL, 2, 0) |> accumulator
-        case 0x0C: (TOP, 4, 0) |> absolute
-        case 0x0D: (ORA, 4, 0) |> absolute
-        case 0x0E: (ASL, 6, 0) |> absolute
-        case 0x0F: (SLO, 6, 0) |> absolute
-        case 0x10: (BPL, 2, 1) |> relative
-        case 0x11: (ORA, 5, 1) |> indirectIndexed
-        case 0x13: (SLO, 8, 0) |> indirectIndexed
-        case 0x14: (DOP, 4, 0) |> zeroPageX
-        case 0x15: (ORA, 4, 0) |> zeroPageX
-        case 0x16: (ASL, 6, 0) |> zeroPageX
-        case 0x17: (SLO, 6, 0) |> zeroPageX
-        case 0x18: (CLC, 2, 0) |> implied
-        case 0x19: (ORA, 4, 1) |> absoluteY
-        case 0x1A: (NOP, 2, 0) |> implied
-        case 0x1B: (SLO, 7, 0) |> absoluteY
-        case 0x1C: (TOP, 4, 1) |> absoluteX
-        case 0x1D: (ORA, 4, 1) |> absoluteX
-        case 0x1E: (ASL, 7, 0) |> absoluteX
-        case 0x1F: (SLO, 7, 0) |> absoluteX
-        case 0x20: (JSR, 6, 0) |> absolute
-        case 0x21: (AND, 6, 0) |> indexedIndirect
-        case 0x23: (RLA, 8, 0) |> indexedIndirect
-        case 0x24: (BIT, 3, 0) |> zeroPage
-        case 0x25: (AND, 3, 0) |> zeroPage
-        case 0x26: (ROL, 5, 0) |> zeroPage
-        case 0x27: (RLA, 5, 0) |> zeroPage
-        case 0x28: (PLP, 4, 0) |> implied
-        case 0x29: (AND, 2, 0) |> immediate
-        case 0x2A: (ROL, 2, 0) |> accumulator
-        case 0x2C: (BIT, 4, 0) |> absolute
-        case 0x2D: (AND, 4, 0) |> absolute
-        case 0x2E: (ROL, 6, 0) |> absolute
-        case 0x2F: (RLA, 6, 0) |> absolute
-        case 0x30: (BMI, 2, 1) |> relative
-        case 0x31: (AND, 5, 1) |> indirectIndexed
-        case 0x33: (RLA, 8, 0) |> indirectIndexed
-        case 0x34: (DOP, 4, 0) |> zeroPageX
-        case 0x35: (AND, 4, 0) |> zeroPageX
-        case 0x36: (ROL, 6, 0) |> zeroPageX
-        case 0x37: (RLA, 6, 0) |> zeroPageX
-        case 0x38: (SEC, 2, 0) |> implied
-        case 0x39: (AND, 4, 1) |> absoluteY
-        case 0x3A: (NOP, 2, 0) |> implied
-        case 0x3B: (RLA, 7, 0) |> absoluteY
-        case 0x3C: (TOP, 4, 1) |> absoluteX
-        case 0x3D: (AND, 4, 1) |> absoluteX
-        case 0x3E: (ROL, 7, 0) |> absoluteX
-        case 0x3F: (RLA, 7, 0) |> absoluteX
-        case 0x40: (RTI, 6, 0) |> implied
-        case 0x41: (EOR, 6, 0) |> indexedIndirect
-        case 0x43: (SRE, 8, 0) |> indexedIndirect
-        case 0x44: (DOP, 3, 0) |> zeroPage
-        case 0x45: (EOR, 3, 0) |> zeroPage
-        case 0x46: (LSR, 5, 0) |> zeroPage
-        case 0x47: (SRE, 5, 0) |> zeroPage
-        case 0x48: (PHA, 3, 0) |> implied
-        case 0x49: (EOR, 2, 0) |> immediate
-        case 0x4A: (LSR, 2, 0) |> accumulator
-        case 0x4C: (JMP, 3, 0) |> absolute
-        case 0x4D: (EOR, 4, 0) |> absolute
-        case 0x4E: (LSR, 6, 0) |> absolute
-        case 0x4F: (SRE, 6, 0) |> absolute
-        case 0x50: (BVC, 2, 1) |> relative
-        case 0x51: (EOR, 5, 1) |> indirectIndexed
-        case 0x53: (SRE, 8, 0) |> indirectIndexed
-        case 0x54: (DOP, 4, 0) |> zeroPageX
-        case 0x55: (EOR, 4, 0) |> zeroPageX
-        case 0x56: (LSR, 6, 0) |> zeroPageX
-        case 0x57: (SRE, 6, 0) |> zeroPageX
-        case 0x58: (CLI, 2, 0) |> implied
-        case 0x59: (EOR, 4, 1) |> absoluteY
-        case 0x5A: (NOP, 2, 0) |> implied
-        case 0x5B: (SRE, 7, 0) |> absoluteY
-        case 0x5C: (TOP, 4, 1) |> absoluteX
-        case 0x5D: (EOR, 4, 1) |> absoluteX
-        case 0x5E: (LSR, 7, 0) |> absoluteX
-        case 0x5F: (SRE, 7, 0) |> absoluteX
-        case 0x60: (RTS, 6, 0) |> implied
-        case 0x61: (ADC, 6, 0) |> indexedIndirect
-        case 0x63: (RRA, 8, 0) |> indexedIndirect
-        case 0x64: (DOP, 3, 0) |> zeroPage
-        case 0x65: (ADC, 3, 0) |> zeroPage
-        case 0x66: (ROR, 5, 0) |> zeroPage
-        case 0x67: (RRA, 5, 0) |> zeroPage
-        case 0x68: (PLA, 4, 0) |> implied
-        case 0x69: (ADC, 2, 0) |> immediate
-        case 0x6A: (ROR, 2, 0) |> accumulator
-        case 0x6C: (JMP, 5, 0) |> indirect
-        case 0x6D: (ADC, 4, 0) |> absolute
-        case 0x6E: (ROR, 6, 0) |> absolute
-        case 0x6F: (RRA, 6, 0) |> absolute
-        case 0x70: (BVS, 2, 1) |> relative
-        case 0x71: (ADC, 5, 1) |> indirectIndexed
-        case 0x73: (RRA, 8, 0) |> indirectIndexed
-        case 0x74: (DOP, 4, 0) |> zeroPageX
-        case 0x75: (ADC, 4, 0) |> zeroPageX
-        case 0x76: (ROR, 6, 0) |> zeroPageX
-        case 0x77: (RRA, 6, 0) |> zeroPageX
-        case 0x78: (SEI, 2, 0) |> implied
-        case 0x79: (ADC, 4, 1) |> absoluteY
-        case 0x7A: (NOP, 2, 0) |> implied
-        case 0x7B: (RRA, 7, 0) |> absoluteY
-        case 0x7C: (TOP, 4, 1) |> absoluteX
-        case 0x7D: (ADC, 4, 1) |> absoluteX
-        case 0x7E: (ROR, 7, 0) |> absoluteX
-        case 0x7F: (RRA, 7, 0) |> absoluteX
-        case 0x80: (DOP, 2, 0) |> immediate
-        case 0x81: (STA, 6, 0) |> indexedIndirect
-        case 0x82: (DOP, 2, 0) |> immediate
-        case 0x83: (SAX, 6, 0) |> indexedIndirect
-        case 0x84: (STY, 3, 0) |> zeroPage
-        case 0x85: (STA, 3, 0) |> zeroPage
-        case 0x86: (STX, 3, 0) |> zeroPage
-        case 0x87: (SAX, 3, 0) |> zeroPage
-        case 0x88: (DEY, 2, 0) |> implied
-        case 0x89: (DOP, 2, 0) |> immediate
-        case 0x8A: (TXA, 2, 0) |> implied
-        case 0x8C: (STY, 4, 0) |> absolute
-        case 0x8D: (STA, 4, 0) |> absolute
-        case 0x8E: (STX, 4, 0) |> absolute
-        case 0x8F: (SAX, 4, 0) |> absolute
-        case 0x90: (BCC, 2, 1) |> relative
-        case 0x91: (STA, 6, 0) |> indirectIndexed
-        case 0x94: (STY, 4, 0) |> zeroPageX
-        case 0x95: (STA, 4, 0) |> zeroPageX
-        case 0x96: (STX, 4, 0) |> zeroPageY
-        case 0x97: (SAX, 4, 0) |> zeroPageY
-        case 0x98: (TYA, 2, 0) |> implied
-        case 0x99: (STA, 5, 0) |> absoluteY
-        case 0x9A: (TXS, 2, 0) |> implied
-        case 0x9D: (STA, 5, 0) |> absoluteX
-        case 0xA0: (LDY, 2, 0) |> immediate
-        case 0xA1: (LDA, 6, 0) |> indexedIndirect
-        case 0xA2: (LDX, 2, 0) |> immediate
-        case 0xA3: (LAX, 6, 0) |> indexedIndirect
-        case 0xA4: (LDY, 3, 0) |> zeroPage
-        case 0xA5: (LDA, 3, 0) |> zeroPage
-        case 0xA6: (LDX, 3, 0) |> zeroPage
-        case 0xA7: (LAX, 3, 0) |> zeroPage
-        case 0xA8: (TAY, 2, 0) |> implied
-        case 0xA9: (LDA, 2, 0) |> immediate
-        case 0xAA: (TAX, 2, 0) |> implied
-        case 0xAC: (LDY, 4, 0) |> absolute
-        case 0xAD: (LDA, 4, 0) |> absolute
-        case 0xAE: (LDX, 4, 0) |> absolute
-        case 0xAF: (LAX, 4, 0) |> absolute
-        case 0xB0: (BCS, 2, 1) |> relative
-        case 0xB1: (LDA, 5, 1) |> indirectIndexed
-        case 0xB3: (LAX, 5, 1) |> indirectIndexed
-        case 0xB4: (LDY, 4, 0) |> zeroPageX
-        case 0xB5: (LDA, 4, 0) |> zeroPageX
-        case 0xB6: (LDX, 4, 0) |> zeroPageY
-        case 0xB7: (LAX, 4, 0) |> zeroPageY
-        case 0xB8: (CLV, 2, 0) |> implied
-        case 0xB9: (LDA, 4, 1) |> absoluteY
-        case 0xBA: (TSX, 2, 0) |> implied
-        case 0xBC: (LDY, 4, 1) |> absoluteX
-        case 0xBD: (LDA, 4, 1) |> absoluteX
-        case 0xBE: (LDX, 4, 1) |> absoluteY
-        case 0xBF: (LAX, 4, 1) |> absoluteY
-        case 0xC0: (CPY, 2, 0) |> immediate
-        case 0xC1: (CMP, 6, 0) |> indexedIndirect
-        case 0xC2: (DOP, 2, 0) |> immediate
-        case 0xC3: (DCP, 8, 0) |> indexedIndirect
-        case 0xC4: (CPY, 3, 0) |> zeroPage
-        case 0xC5: (CMP, 3, 0) |> zeroPage
-        case 0xC6: (DEC, 5, 0) |> zeroPage
-        case 0xC7: (DCP, 5, 0) |> zeroPage
-        case 0xC8: (INY, 2, 0) |> implied
-        case 0xC9: (CMP, 2, 0) |> immediate
-        case 0xCA: (DEX, 2, 0) |> implied
-        case 0xCC: (CPY, 4, 0) |> absolute
-        case 0xCD: (CMP, 4, 0) |> absolute
-        case 0xCE: (DEC, 6, 0) |> absolute
-        case 0xCF: (DCP, 6, 0) |> absolute
-        case 0xD0: (BNE, 2, 1) |> relative
-        case 0xD1: (CMP, 5, 1) |> indirectIndexed
-        case 0xD3: (DCP, 8, 0) |> indirectIndexed
-        case 0xD4: (DOP, 4, 0) |> zeroPageX
-        case 0xD5: (CMP, 4, 0) |> zeroPageX
-        case 0xD6: (DEC, 6, 0) |> zeroPageX
-        case 0xD7: (DCP, 6, 0) |> zeroPageX
-        case 0xD8: (CLD, 2, 0) |> implied
-        case 0xD9: (CMP, 4, 1) |> absoluteY
-        case 0xDA: (NOP, 2, 0) |> implied
-        case 0xDB: (DCP, 7, 0) |> absoluteY
-        case 0xDC: (TOP, 4, 1) |> absoluteX
-        case 0xDD: (CMP, 4, 1) |> absoluteX
-        case 0xDE: (DEC, 7, 0) |> absoluteX
-        case 0xDF: (DCP, 7, 0) |> absoluteX
-        case 0xE0: (CPX, 2, 0) |> immediate
-        case 0xE1: (SBC, 6, 0) |> indexedIndirect
-        case 0xE2: (DOP, 2, 0) |> immediate
-        case 0xE3: (ISC, 8, 0) |> indexedIndirect
-        case 0xE4: (CPX, 3, 0) |> zeroPage
-        case 0xE5: (SBC, 3, 0) |> zeroPage
-        case 0xE6: (INC, 5, 0) |> zeroPage
-        case 0xE7: (ISC, 5, 0) |> zeroPage
-        case 0xE8: (INX, 2, 0) |> implied
-        case 0xE9: (SBC, 2, 0) |> immediate
-        case 0xEA: (NOP, 2, 0) |> implied
-        case 0xEB: (SBC, 2, 0) |> immediate
-        case 0xEC: (CPX, 4, 0) |> absolute
-        case 0xED: (SBC, 4, 0) |> absolute
-        case 0xEE: (INC, 6, 0) |> absolute
-        case 0xEF: (ISC, 6, 0) |> absolute
-        case 0xF0: (BEQ, 2, 1) |> relative
-        case 0xF1: (SBC, 5, 1) |> indirectIndexed
-        case 0xF3: (ISC, 8, 0) |> indirectIndexed
-        case 0xF4: (DOP, 4, 0) |> zeroPageX
-        case 0xF5: (SBC, 4, 0) |> zeroPageX
-        case 0xF6: (INC, 6, 0) |> zeroPageX
-        case 0xF7: (ISC, 6, 0) |> zeroPageX
-        case 0xF8: (SED, 2, 0) |> implied
-        case 0xF9: (SBC, 4, 1) |> absoluteY
-        case 0xFA: (NOP, 2, 0) |> implied
-        case 0xFB: (ISC, 7, 0) |> absoluteY
-        case 0xFC: (TOP, 4, 1) |> absoluteX
-        case 0xFD: (SBC, 4, 1) |> absoluteX
-        case 0xFE: (INC, 7, 0) |> absoluteX
-        case 0xFF: (ISC, 7, 0) |> absoluteX
+        case 0x00: BRK(        implied(7, 0))
+        case 0x01: ORA(indexedIndirect(6, 0))
+        case 0x03: SLO(indexedIndirect(8, 0))
+        case 0x04: DOP(       zeroPage(3, 0))
+        case 0x05: ORA(       zeroPage(3, 0))
+        case 0x06: ASL(       zeroPage(5, 0))
+        case 0x07: SLO(       zeroPage(5, 0))
+        case 0x08: PHP(        implied(3, 0))
+        case 0x09: ORA(      immediate(2, 0))
+        case 0x0A: ASL(    accumulator(2, 0))
+        case 0x0C: TOP(       absolute(4, 0))
+        case 0x0D: ORA(       absolute(4, 0))
+        case 0x0E: ASL(       absolute(6, 0))
+        case 0x0F: SLO(       absolute(6, 0))
+        case 0x10: BPL(       relative(2, 1))
+        case 0x11: ORA(indirectIndexed(5, 1))
+        case 0x13: SLO(indirectIndexed(8, 0))
+        case 0x14: DOP(      zeroPageX(4, 0))
+        case 0x15: ORA(      zeroPageX(4, 0))
+        case 0x16: ASL(      zeroPageX(6, 0))
+        case 0x17: SLO(      zeroPageX(6, 0))
+        case 0x18: CLC(        implied(2, 0))
+        case 0x19: ORA(      absoluteY(4, 1))
+        case 0x1A: NOP(        implied(2, 0))
+        case 0x1B: SLO(      absoluteY(7, 0))
+        case 0x1C: TOP(      absoluteX(4, 1))
+        case 0x1D: ORA(      absoluteX(4, 1))
+        case 0x1E: ASL(      absoluteX(7, 0))
+        case 0x1F: SLO(      absoluteX(7, 0))
+        case 0x20: JSR(       absolute(6, 0))
+        case 0x21: AND(indexedIndirect(6, 0))
+        case 0x23: RLA(indexedIndirect(8, 0))
+        case 0x24: BIT(       zeroPage(3, 0))
+        case 0x25: AND(       zeroPage(3, 0))
+        case 0x26: ROL(       zeroPage(5, 0))
+        case 0x27: RLA(       zeroPage(5, 0))
+        case 0x28: PLP(        implied(4, 0))
+        case 0x29: AND(      immediate(2, 0))
+        case 0x2A: ROL(    accumulator(2, 0))
+        case 0x2C: BIT(       absolute(4, 0))
+        case 0x2D: AND(       absolute(4, 0))
+        case 0x2E: ROL(       absolute(6, 0))
+        case 0x2F: RLA(       absolute(6, 0))
+        case 0x30: BMI(       relative(2, 1))
+        case 0x31: AND(indirectIndexed(5, 1))
+        case 0x33: RLA(indirectIndexed(8, 0))
+        case 0x34: DOP(      zeroPageX(4, 0))
+        case 0x35: AND(      zeroPageX(4, 0))
+        case 0x36: ROL(      zeroPageX(6, 0))
+        case 0x37: RLA(      zeroPageX(6, 0))
+        case 0x38: SEC(        implied(2, 0))
+        case 0x39: AND(      absoluteY(4, 1))
+        case 0x3A: NOP(        implied(2, 0))
+        case 0x3B: RLA(      absoluteY(7, 0))
+        case 0x3C: TOP(      absoluteX(4, 1))
+        case 0x3D: AND(      absoluteX(4, 1))
+        case 0x3E: ROL(      absoluteX(7, 0))
+        case 0x3F: RLA(      absoluteX(7, 0))
+        case 0x40: RTI(        implied(6, 0))
+        case 0x41: EOR(indexedIndirect(6, 0))
+        case 0x43: SRE(indexedIndirect(8, 0))
+        case 0x44: DOP(       zeroPage(3, 0))
+        case 0x45: EOR(       zeroPage(3, 0))
+        case 0x46: LSR(       zeroPage(5, 0))
+        case 0x47: SRE(       zeroPage(5, 0))
+        case 0x48: PHA(        implied(3, 0))
+        case 0x49: EOR(      immediate(2, 0))
+        case 0x4A: LSR(    accumulator(2, 0))
+        case 0x4C: JMP(       absolute(3, 0))
+        case 0x4D: EOR(       absolute(4, 0))
+        case 0x4E: LSR(       absolute(6, 0))
+        case 0x4F: SRE(       absolute(6, 0))
+        case 0x50: BVC(       relative(2, 1))
+        case 0x51: EOR(indirectIndexed(5, 1))
+        case 0x53: SRE(indirectIndexed(8, 0))
+        case 0x54: DOP(      zeroPageX(4, 0))
+        case 0x55: EOR(      zeroPageX(4, 0))
+        case 0x56: LSR(      zeroPageX(6, 0))
+        case 0x57: SRE(      zeroPageX(6, 0))
+        case 0x58: CLI(        implied(2, 0))
+        case 0x59: EOR(      absoluteY(4, 1))
+        case 0x5A: NOP(        implied(2, 0))
+        case 0x5B: SRE(      absoluteY(7, 0))
+        case 0x5C: TOP(      absoluteX(4, 1))
+        case 0x5D: EOR(      absoluteX(4, 1))
+        case 0x5E: LSR(      absoluteX(7, 0))
+        case 0x5F: SRE(      absoluteX(7, 0))
+        case 0x60: RTS(        implied(6, 0))
+        case 0x61: ADC(indexedIndirect(6, 0))
+        case 0x63: RRA(indexedIndirect(8, 0))
+        case 0x64: DOP(       zeroPage(3, 0))
+        case 0x65: ADC(       zeroPage(3, 0))
+        case 0x66: ROR(       zeroPage(5, 0))
+        case 0x67: RRA(       zeroPage(5, 0))
+        case 0x68: PLA(        implied(4, 0))
+        case 0x69: ADC(      immediate(2, 0))
+        case 0x6A: ROR(    accumulator(2, 0))
+        case 0x6C: JMP(       indirect(5, 0))
+        case 0x6D: ADC(       absolute(4, 0))
+        case 0x6E: ROR(       absolute(6, 0))
+        case 0x6F: RRA(       absolute(6, 0))
+        case 0x70: BVS(       relative(2, 1))
+        case 0x71: ADC(indirectIndexed(5, 1))
+        case 0x73: RRA(indirectIndexed(8, 0))
+        case 0x74: DOP(      zeroPageX(4, 0))
+        case 0x75: ADC(      zeroPageX(4, 0))
+        case 0x76: ROR(      zeroPageX(6, 0))
+        case 0x77: RRA(      zeroPageX(6, 0))
+        case 0x78: SEI(        implied(2, 0))
+        case 0x79: ADC(      absoluteY(4, 1))
+        case 0x7A: NOP(        implied(2, 0))
+        case 0x7B: RRA(      absoluteY(7, 0))
+        case 0x7C: TOP(      absoluteX(4, 1))
+        case 0x7D: ADC(      absoluteX(4, 1))
+        case 0x7E: ROR(      absoluteX(7, 0))
+        case 0x7F: RRA(      absoluteX(7, 0))
+        case 0x80: DOP(      immediate(2, 0))
+        case 0x81: STA(indexedIndirect(6, 0))
+        case 0x82: DOP(      immediate(2, 0))
+        case 0x83: SAX(indexedIndirect(6, 0))
+        case 0x84: STY(       zeroPage(3, 0))
+        case 0x85: STA(       zeroPage(3, 0))
+        case 0x86: STX(       zeroPage(3, 0))
+        case 0x87: SAX(       zeroPage(3, 0))
+        case 0x88: DEY(        implied(2, 0))
+        case 0x89: DOP(      immediate(2, 0))
+        case 0x8A: TXA(        implied(2, 0))
+        case 0x8C: STY(       absolute(4, 0))
+        case 0x8D: STA(       absolute(4, 0))
+        case 0x8E: STX(       absolute(4, 0))
+        case 0x8F: SAX(       absolute(4, 0))
+        case 0x90: BCC(       relative(2, 1))
+        case 0x91: STA(indirectIndexed(6, 0))
+        case 0x94: STY(      zeroPageX(4, 0))
+        case 0x95: STA(      zeroPageX(4, 0))
+        case 0x96: STX(      zeroPageY(4, 0))
+        case 0x97: SAX(      zeroPageY(4, 0))
+        case 0x98: TYA(        implied(2, 0))
+        case 0x99: STA(      absoluteY(5, 0))
+        case 0x9A: TXS(        implied(2, 0))
+        case 0x9D: STA(      absoluteX(5, 0))
+        case 0xA0: LDY(      immediate(2, 0))
+        case 0xA1: LDA(indexedIndirect(6, 0))
+        case 0xA2: LDX(      immediate(2, 0))
+        case 0xA3: LAX(indexedIndirect(6, 0))
+        case 0xA4: LDY(       zeroPage(3, 0))
+        case 0xA5: LDA(       zeroPage(3, 0))
+        case 0xA6: LDX(       zeroPage(3, 0))
+        case 0xA7: LAX(       zeroPage(3, 0))
+        case 0xA8: TAY(        implied(2, 0))
+        case 0xA9: LDA(      immediate(2, 0))
+        case 0xAA: TAX(        implied(2, 0))
+        case 0xAC: LDY(       absolute(4, 0))
+        case 0xAD: LDA(       absolute(4, 0))
+        case 0xAE: LDX(       absolute(4, 0))
+        case 0xAF: LAX(       absolute(4, 0))
+        case 0xB0: BCS(       relative(2, 1))
+        case 0xB1: LDA(indirectIndexed(5, 1))
+        case 0xB3: LAX(indirectIndexed(5, 1))
+        case 0xB4: LDY(      zeroPageX(4, 0))
+        case 0xB5: LDA(      zeroPageX(4, 0))
+        case 0xB6: LDX(      zeroPageY(4, 0))
+        case 0xB7: LAX(      zeroPageY(4, 0))
+        case 0xB8: CLV(        implied(2, 0))
+        case 0xB9: LDA(      absoluteY(4, 1))
+        case 0xBA: TSX(        implied(2, 0))
+        case 0xBC: LDY(      absoluteX(4, 1))
+        case 0xBD: LDA(      absoluteX(4, 1))
+        case 0xBE: LDX(      absoluteY(4, 1))
+        case 0xBF: LAX(      absoluteY(4, 1))
+        case 0xC0: CPY(      immediate(2, 0))
+        case 0xC1: CMP(indexedIndirect(6, 0))
+        case 0xC2: DOP(      immediate(2, 0))
+        case 0xC3: DCP(indexedIndirect(8, 0))
+        case 0xC4: CPY(       zeroPage(3, 0))
+        case 0xC5: CMP(       zeroPage(3, 0))
+        case 0xC6: DEC(       zeroPage(5, 0))
+        case 0xC7: DCP(       zeroPage(5, 0))
+        case 0xC8: INY(        implied(2, 0))
+        case 0xC9: CMP(      immediate(2, 0))
+        case 0xCA: DEX(        implied(2, 0))
+        case 0xCC: CPY(       absolute(4, 0))
+        case 0xCD: CMP(       absolute(4, 0))
+        case 0xCE: DEC(       absolute(6, 0))
+        case 0xCF: DCP(       absolute(6, 0))
+        case 0xD0: BNE(       relative(2, 1))
+        case 0xD1: CMP(indirectIndexed(5, 1))
+        case 0xD3: DCP(indirectIndexed(8, 0))
+        case 0xD4: DOP(      zeroPageX(4, 0))
+        case 0xD5: CMP(      zeroPageX(4, 0))
+        case 0xD6: DEC(      zeroPageX(6, 0))
+        case 0xD7: DCP(      zeroPageX(6, 0))
+        case 0xD8: CLD(        implied(2, 0))
+        case 0xD9: CMP(      absoluteY(4, 1))
+        case 0xDA: NOP(        implied(2, 0))
+        case 0xDB: DCP(      absoluteY(7, 0))
+        case 0xDC: TOP(      absoluteX(4, 1))
+        case 0xDD: CMP(      absoluteX(4, 1))
+        case 0xDE: DEC(      absoluteX(7, 0))
+        case 0xDF: DCP(      absoluteX(7, 0))
+        case 0xE0: CPX(      immediate(2, 0))
+        case 0xE1: SBC(indexedIndirect(6, 0))
+        case 0xE2: DOP(      immediate(2, 0))
+        case 0xE3: ISC(indexedIndirect(8, 0))
+        case 0xE4: CPX(       zeroPage(3, 0))
+        case 0xE5: SBC(       zeroPage(3, 0))
+        case 0xE6: INC(       zeroPage(5, 0))
+        case 0xE7: ISC(       zeroPage(5, 0))
+        case 0xE8: INX(        implied(2, 0))
+        case 0xE9: SBC(      immediate(2, 0))
+        case 0xEA: NOP(        implied(2, 0))
+        case 0xEB: SBC(      immediate(2, 0))
+        case 0xEC: CPX(       absolute(4, 0))
+        case 0xED: SBC(       absolute(4, 0))
+        case 0xEE: INC(       absolute(6, 0))
+        case 0xEF: ISC(       absolute(6, 0))
+        case 0xF0: BEQ(       relative(2, 1))
+        case 0xF1: SBC(indirectIndexed(5, 1))
+        case 0xF3: ISC(indirectIndexed(8, 0))
+        case 0xF4: DOP(      zeroPageX(4, 0))
+        case 0xF5: SBC(      zeroPageX(4, 0))
+        case 0xF6: INC(      zeroPageX(6, 0))
+        case 0xF7: ISC(      zeroPageX(6, 0))
+        case 0xF8: SED(        implied(2, 0))
+        case 0xF9: SBC(      absoluteY(4, 1))
+        case 0xFA: NOP(        implied(2, 0))
+        case 0xFB: ISC(      absoluteY(7, 0))
+        case 0xFC: TOP(      absoluteX(4, 1))
+        case 0xFD: SBC(      absoluteX(4, 1))
+        case 0xFE: INC(      absoluteX(7, 0))
+        case 0xFF: ISC(      absoluteX(7, 0))
 
         default:
             fatalError("Unknown opcode \(opcode)")

@@ -2,26 +2,26 @@ import Foundation
 import Prelude
 
 public extension CPU {
-    public mutating func absolute(instruction: Address -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
+    public mutating func absolute(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Address {
         let address = memory.read16(PC &+ 1)
 
         cycles += cyclesSpent
         PC += 3
 
-        instruction(address)
+        return address
     }
 
-    public mutating func absolute(instruction: UInt8 -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
+    public mutating func absolute(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> UInt8 {
         let address = memory.read16(PC &+ 1)
         let operand = memory.read(address)
 
         cycles += cyclesSpent
         PC += 3
 
-        instruction(operand)
+        return operand
     }
 
-    public mutating func absoluteX(instruction: Address -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
+    public mutating func absoluteX(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Address {
         let address = memory.read16(PC &+ 1) &+ Address(X)
 
         PC += 3
@@ -31,10 +31,10 @@ public extension CPU {
             cycles += pageBoundaryCost
         }
 
-        instruction(address)
+        return address
     }
 
-    public mutating func absoluteX(instruction: UInt8 -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
+    public mutating func absoluteX(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> UInt8 {
         let address = memory.read16(PC &+ 1) &+ Address(X)
         let operand = memory.read(address)
 
@@ -45,10 +45,10 @@ public extension CPU {
             cycles += pageBoundaryCost
         }
 
-        instruction(operand)
+        return operand
     }
 
-    public mutating func absoluteY(instruction: Address -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
+    public mutating func absoluteY(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Address {
         let address = memory.read16(PC &+ 1) &+ Address(Y)
 
         cycles += cyclesSpent
@@ -58,10 +58,10 @@ public extension CPU {
             cycles += pageBoundaryCost
         }
 
-        instruction(address)
+        return address
     }
 
-    public mutating func absoluteY(instruction: UInt8 -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
+    public mutating func absoluteY(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> UInt8 {
         let address = memory.read16(PC &+ 1) &+ Address(Y)
         let operand = memory.read(address)
 
@@ -72,63 +72,61 @@ public extension CPU {
             cycles += pageBoundaryCost
         }
 
-        instruction(operand)
+        return operand
     }
 
-    public mutating func accumulator(instruction: Void -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
+    public mutating func accumulator(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Void {
         cycles += cyclesSpent
         PC += 1
 
-        instruction()
+        return
     }
 
-    public mutating func immediate(instruction: UInt8 -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
+    public mutating func immediate(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> UInt8 {
         let operand = memory.read(PC &+ 1)
 
         cycles += cyclesSpent
         PC += 2
 
-        instruction(operand)
+        return operand
     }
 
-    public mutating func implied(instruction: Void -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
+    public mutating func implied(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Void {
         cycles += cyclesSpent
         PC += 1
-
-        instruction()
     }
 
-    public mutating func indexedIndirect(instruction: UInt8 -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
+    public mutating func indexedIndirect(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> UInt8 {
         let address = memory.buggyRead16(UInt16(memory.read(PC &+ 1) &+ X))
         let operand = memory.read(address)
 
         cycles += cyclesSpent
         PC += 2
 
-        instruction(operand)
+        return operand
     }
 
-    public mutating func indexedIndirect(instruction: Address -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
+    public mutating func indexedIndirect(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Address {
         let direct = UInt16(memory.read(PC &+ 1) &+ X)
         let address = memory.buggyRead16(direct)
 
         cycles += cyclesSpent
         PC += 2
 
-        instruction(address)
+        return address
     }
 
-    public mutating func indirect(instruction: Address -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
+    public mutating func indirect(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Address {
         let address = memory.read16(PC &+ 1)
         let operand = memory.buggyRead16(address)
 
         cycles += cyclesSpent
         PC += 3
 
-        instruction(operand)
+        return operand
     }
 
-    public mutating func indirectIndexed(instruction: UInt8 -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
+    public mutating func indirectIndexed(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> UInt8 {
         let address = memory.buggyRead16(Address(memory.read(PC &+ 1))) &+ Address(Y)
         let operand = memory.read(address)
 
@@ -139,10 +137,10 @@ public extension CPU {
             cycles += pageBoundaryCost
         }
 
-        instruction(operand)
+        return operand
     }
 
-    public mutating func indirectIndexed(instruction: Address -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
+    public mutating func indirectIndexed(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Address {
         let address = memory.buggyRead16(Address(memory.read(PC &+ 1))) &+ Address(Y)
 
         cycles += cyclesSpent
@@ -152,72 +150,72 @@ public extension CPU {
             cycles += pageBoundaryCost
         }
 
-        instruction(address)
+        return address
     }
 
-    public mutating func relative(instruction: UInt8 -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
-        var offset = memory.read(PC &+ 1)
+    public mutating func relative(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> UInt8 {
+        let offset = memory.read(PC &+ 1)
 
         cycles += cyclesSpent
         PC += 2
 
-        instruction(offset)
+        return offset
     }
 
-    public mutating func zeroPage(instruction: UInt8 -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
+    public mutating func zeroPage(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> UInt8 {
         let address = Address(0, memory.read(PC &+ 1))
         let operand = memory.read(address)
 
         cycles += cyclesSpent
         PC += 2
 
-        instruction(operand)
+        return operand
     }
 
-    public mutating func zeroPage(instruction: Address -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
+    public mutating func zeroPage(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Address {
         let address = Address(0, memory.read(PC &+ 1))
 
         cycles += cyclesSpent
         PC += 2
 
-        instruction(address)
+        return address
     }
 
-    public mutating func zeroPageX(instruction: UInt8 -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
+    public mutating func zeroPageX(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> UInt8 {
         let address = Address(memory.read(PC &+ 1) &+ X)
         let operand = memory.read(address)
 
         cycles += cyclesSpent
         PC += 2
 
-        instruction(operand)
+        return operand
     }
 
-    public mutating func zeroPageX(instruction: Address -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
+    public mutating func zeroPageX(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Address {
         let address = Address(memory.read(PC &+ 1) &+ X)
 
         cycles += cyclesSpent
         PC += 2
 
-        instruction(address)
+        return address
     }
 
-    public mutating func zeroPageY(instruction: UInt8 -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
+    public mutating func zeroPageY(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> UInt8 {
         let address = Address(memory.read(PC &+ 1) &+ Y)
         let operand = memory.read(address)
 
         cycles += cyclesSpent
         PC += 2
 
-        instruction(operand)
+        return operand
     }
 
-    public mutating func zeroPageY(instruction: Address -> Void, cyclesSpent: UInt64, pageBoundaryCost: UInt64) {
+    public mutating func zeroPageY(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Address {
         let address = Address(memory.read(PC &+ 1) &+ Y)
 
         cycles += cyclesSpent
         PC += 2
 
-        instruction(address)
+        return address
     }
 }

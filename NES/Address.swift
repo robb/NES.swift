@@ -16,6 +16,6 @@ extension Address {
     }
 }
 
-internal func differentPages(a: Address, b: Address) -> Bool {
+internal func differentPages(a: Address, _ b: Address) -> Bool {
     return a.page != b.page
 }
