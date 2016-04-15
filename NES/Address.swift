@@ -1,8 +1,8 @@
 import Foundation
 
-public typealias Address = UInt16
+internal typealias Address = UInt16
 
-extension Address {
+internal extension Address {
     init(_ page: UInt8, _ offset: UInt8) {
         self = UInt16(page) << 8 | UInt16(offset)
     }

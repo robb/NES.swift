@@ -1,4 +1,4 @@
-import NES
+@testable import NES
 
 import Nimble
 import Quick

@@ -1,8 +1,8 @@
 import Foundation
 
-public extension CPU {
+internal extension CPU {
     /// `ADC` - Add with Carry
-    public mutating func ADC(value: UInt8) {
+    mutating func ADC(value: UInt8) {
         let a: UInt8 = A
         let b: UInt8 = value
         let c: UInt8 = C ? 1 : 0
@@ -14,18 +14,18 @@ public extension CPU {
     }
 
     /// `AND` - Logical AND
-    public mutating func AND(value: UInt8) {
+    mutating func AND(value: UInt8) {
         updateAZN(A & value)
     }
 
     /// `ASL` - Arithmetic Shift Left
-    public mutating func ASL() {
+    mutating func ASL() {
         C = (A & 0x80) != 0
         updateAZN(A << 1)
     }
 
     /// `ASL` - Arithmetic Shift Left
-    public mutating func ASL(address: Address) {
+    mutating func ASL(address: Address) {
         let value = memory.read(address)
         C = (value & 0x80) != 0
 
@@ -48,28 +48,28 @@ public extension CPU {
     }
 
     /// `BCC` - Branch if Carry Clear
-    public mutating func BCC(offset: UInt8) {
+    mutating func BCC(offset: UInt8) {
         if !C {
             branch(offset)
         }
     }
 
     /// `BCS` - Branch if Carry Set
-    public mutating func BCS(offset: UInt8) {
+    mutating func BCS(offset: UInt8) {
         if C {
             branch(offset)
         }
     }
 
     /// `BEQ` - Branch if Equal
-    public mutating func BEQ(offset: UInt8) {
+    mutating func BEQ(offset: UInt8) {
         if Z {
             branch(offset)
         }
     }
 
     /// `BIT` - Bit Test
-    public mutating func BIT(address: Address) {
+    mutating func BIT(address: Address) {
         let value = memory.read(address)
 
         Z = (A & value) == 0
@@ -78,28 +78,28 @@ public extension CPU {
     }
 
     /// `BMI` - Branch if Minus
-    public mutating func BMI(offset: UInt8) {
+    mutating func BMI(offset: UInt8) {
         if N {
             branch(offset)
         }
     }
 
     /// `BNE` - Branch if Not Equal
-    public mutating func BNE(offset: UInt8) {
+    mutating func BNE(offset: UInt8) {
         if !Z {
             branch(offset)
         }
     }
 
     /// `BPL` - Branch if Positive
-    public mutating func BPL(offset: UInt8) {
+    mutating func BPL(offset: UInt8) {
         if !N {
             branch(offset)
         }
     }
 
     /// `BRK` - Force Interrupt
-    public mutating func BRK() {
+    mutating func BRK() {
         push16(PC)
         push(P)
         B = true
@@ -107,36 +107,36 @@ public extension CPU {
     }
 
     /// `BVC` - Branch if Overflow Clear
-    public mutating func BVC(offset: UInt8) {
+    mutating func BVC(offset: UInt8) {
         if !V {
             branch(offset)
         }
     }
 
     /// `BVS` - Branch if Overflow Clear
-    public mutating func BVS(offset: UInt8) {
+    mutating func BVS(offset: UInt8) {
         if V {
             branch(offset)
         }
     }
 
     /// `CLC` - Clear Carry Flag
-    public mutating func CLC() {
+    mutating func CLC() {
         C = false
     }
 
     /// `CLD` - Clear Decimal Mode
-    public mutating func CLD() {
+    mutating func CLD() {
         D = false
     }
 
     /// `CLI` - Clear Interrupt Disable
-    public mutating func CLI() {
+    mutating func CLI() {
         I = false
     }
 
     /// `CLV` - Clear Overflow Flag
-    public mutating func CLV() {
+    mutating func CLV() {
         V = false
     }
 
@@ -146,99 +146,99 @@ public extension CPU {
     }
 
     /// `CMP` - Compare
-    public mutating func CMP(value: UInt8) {
+    mutating func CMP(value: UInt8) {
         compare(A, value)
     }
 
     /// `CPX` - Compare X Register
-    public mutating func CPX(value: UInt8) {
+    mutating func CPX(value: UInt8) {
         compare(X, value)
     }
 
     /// `CPY` - Compare Y Register
-    public mutating func CPY(value: UInt8) {
+    mutating func CPY(value: UInt8) {
         compare(Y, value)
     }
 
     /// `DEC` - Increment Memory
-    public mutating func DEC(address: Address) {
+    mutating func DEC(address: Address) {
         let result = memory.read(address) &- 1
         updateZN(result)
         memory.write(address, result)
     }
 
     /// `DEX` - Decrement X Register
-    public mutating func DEX() {
+    mutating func DEX() {
         X = X &- 1
         updateZN(X)
     }
 
     /// `DEY` - Decrement Y Register
-    public mutating func DEY() {
+    mutating func DEY() {
         Y = Y &- 1
         updateZN(Y)
     }
 
     /// `EOR` - Logical Exclusive OR
-    public mutating func EOR(value: UInt8) {
+    mutating func EOR(value: UInt8) {
         updateAZN(A ^ value)
     }
 
     /// `INC` - Increment Memory
-    public mutating func INC(address: Address) {
+    mutating func INC(address: Address) {
         let result = memory.read(address) &+ 1
         updateZN(result)
         memory.write(address, result)
     }
 
     /// `INX` - Increment X Register
-    public mutating func INX() {
+    mutating func INX() {
         X = X &+ 1
         updateZN(X)
     }
 
     /// `INY` - Increment Y Register
-    public mutating func INY() {
+    mutating func INY() {
         Y = Y &+ 1
         updateZN(Y)
     }
 
     /// `JMP` - Jump
-    public mutating func JMP(address: Address) {
+    mutating func JMP(address: Address) {
         PC = address
     }
 
     /// `JSR` - Jump to Subroutine
-    public mutating func JSR(address: Address) {
+    mutating func JSR(address: Address) {
         push16(PC - 1)
         PC = address
     }
 
     /// `LDA` - Load Accumulator
-    public mutating func LDA(value: UInt8) {
+    mutating func LDA(value: UInt8) {
         updateAZN(value)
     }
 
     /// `LDX` - Load X Register
-    public mutating func LDX(value: UInt8) {
+    mutating func LDX(value: UInt8) {
         X = value
         updateZN(value)
     }
 
     /// `LDY` - Load Y Register
-    public mutating func LDY(value: UInt8) {
+    mutating func LDY(value: UInt8) {
         Y = value
         updateZN(value)
     }
 
     /// `LSR` - Logical Shift Right
-    public mutating func LSR() {
+    mutating func LSR() {
         C = (A & 0x01) != 0
         updateAZN(A >> 1)
     }
 
     /// `LSR` - Logical Shift Right
-    public mutating func LSR(address: Address) {
+    mutating func LSR(address: Address) {
         let value = memory.read(address)
         C = (value & 0x01) != 0
 
@@ -248,36 +248,36 @@ public extension CPU {
     }
 
     /// `NOP` - No Operation
-    public mutating func NOP() {
+    mutating func NOP() {
     }
 
     /// `ORA` - Logical Inclusive OR
-    public mutating func ORA(value: UInt8) {
+    mutating func ORA(value: UInt8) {
         updateAZN(A | value)
     }
 
     /// `PHA` - Push Accumulator
-    public mutating func PHA() {
+    mutating func PHA() {
         push(A)
     }
 
     /// `PHP` - Push Processor Status
-    public mutating func PHP() {
+    mutating func PHP() {
         push(P | 0x10)
     }
 
     /// `PLA` - Pull Accumulator
-    public mutating func PLA() {
+    mutating func PLA() {
         updateAZN(pop())
     }
 
     /// `PLP` - Pull Processor Status
-    public mutating func PLP() {
+    mutating func PLP() {
         P = pop() & 0xEF | 0x20
     }
 
     /// `ROL` - Rotate Left
-    public mutating func ROL() {
+    mutating func ROL() {
         let existing: UInt8 = C ? 0x01 : 0x00
 
         C = (A & 0x80) != 0
@@ -285,7 +285,7 @@ public extension CPU {
     }
 
     /// `ROL` - Rotate Left
-    public mutating func ROL(address: Address) {
+    mutating func ROL(address: Address) {
         let existing: UInt8 = C ? 0x01 : 0x00
 
         let value = memory.read(address)
@@ -297,7 +297,7 @@ public extension CPU {
     }
 
     /// `ROR` - Rotate Right
-    public mutating func ROR() {
+    mutating func ROR() {
         let existing: UInt8 = C ? 0x80 : 0x00
 
         C = (A & 0x01) != 0
@@ -305,18 +305,18 @@ public extension CPU {
     }
 
     /// `RTI` - Return from Interrupt
-    public mutating func RTI() {
+    mutating func RTI() {
         P = pop() & 0xEF | 0x20
         PC = pop16()
     }
 
     /// `RTS` - Return from Subroutine
-    public mutating func RTS() {
+    mutating func RTS() {
         PC = pop16() + 1
     }
 
     /// `ROR` - Rotate Right
-    public mutating func ROR(address: Address) {
+    mutating func ROR(address: Address) {
         let existing: UInt8 = C ? 0x80 : 0x00
 
         let value = memory.read(address)
@@ -328,7 +328,7 @@ public extension CPU {
     }
 
     /// `SBC` - Subtract with Carry
-    public mutating func SBC(value: UInt8) {
+    mutating func SBC(value: UInt8) {
         let a: UInt8 = A
         let b: UInt8 = value
         let c: UInt8 = C ? 1 : 0
@@ -340,88 +340,88 @@ public extension CPU {
     }
 
     /// `SEI` - Set Interrupt Disable
-    public mutating func SEI() {
+    mutating func SEI() {
         I = true
     }
 
     /// `SEC` - Set Carry Flag
-    public mutating func SEC() {
+    mutating func SEC() {
         C = true
     }
 
     /// `SED` - Set Decimal Flag
-    public mutating func SED() {
+    mutating func SED() {
         D = true
     }
 
     /// `STA` - Store accumulator
-    public mutating func STA(address: Address) {
+    mutating func STA(address: Address) {
         memory.write(address, A)
     }
 
     /// `STX` - Store X register
-    public mutating func STX(address: Address) {
+    mutating func STX(address: Address) {
         memory.write(address, X)
     }
 
     /// `STY` - Store Y register
-    public mutating func STY(address: Address) {
+    mutating func STY(address: Address) {
         memory.write(address, Y)
     }
 
     /// `TAX` - Transfer Accumulator to X
-    public mutating func TAX() {
+    mutating func TAX() {
         X = A
         updateZN(X)
     }
 
     /// `TAY` - Transfer Accumulator to Y
-    public mutating func TAY() {
+    mutating func TAY() {
         Y = A
         updateZN(Y)
     }
 
     /// `TSX` - Transfer Stack Pointer to X
-    public mutating func TSX() {
+    mutating func TSX() {
         X = SP
         updateZN(X)
     }
 
     /// `TXA` - Transfer X to Accumulator
-    public mutating func TXA() {
+    mutating func TXA() {
         updateAZN(X)
     }
 
     /// `TXS` - Transfer X to Stack Pointer
-    public mutating func TXS() {
+    mutating func TXS() {
         SP = X
     }
 
     /// `TYA` - Transfer Y to Accumulator
-    public mutating func TYA() {
+    mutating func TYA() {
         updateAZN(Y)
     }
 }
 
-public extension CPU {
+extension CPU {
     /// `DCP` - ???
-    public mutating func DCP(address: Address) {
+    mutating func DCP(address: Address) {
         let value = memory.read(address) &- 1
         memory.write(address, value)
         CMP(value)
     }
 
     /// `DOP` - Double NOP
-    public mutating func DOP(_: UInt8) { }
+    mutating func DOP(_: UInt8) { }
 
     /// `ISC` - ???
-    public mutating func ISC(address: Address) {
+    mutating func ISC(address: Address) {
         INC(address)
         SBC(memory.read(address))
     }
 
     /// `LAX` - ???
-    public mutating func LAX(address: Address) {
+    mutating func LAX(address: Address) {
         let value = memory.read(address)
         A = value
         X = value
@@ -429,34 +429,34 @@ public extension CPU {
     }
 
     /// `SAX` - ???
-    public mutating func SAX(address: Address) {
+    mutating func SAX(address: Address) {
         memory.write(address, A & X)
     }
 
     /// `SLO` - ???
-    public mutating func SLO(address: Address) {
+    mutating func SLO(address: Address) {
         ASL(address)
         ORA(memory.read(address))
     }
 
     /// `SRE` - ???
-    public mutating func SRE(address: Address) {
+    mutating func SRE(address: Address) {
         LSR(address)
         EOR(memory.read(address))
     }
 
     /// `RLA` - ???
-    public mutating func RLA(address: Address) {
+    mutating func RLA(address: Address) {
         ROL(address)
         AND(memory.read(address))
     }
 
     /// `RRA` - ???
-    public mutating func RRA(address: Address) {
+    mutating func RRA(address: Address) {
         ROR(address)
         ADC(memory.read(address))
     }
 
     /// `TOP` - Triple NOP
-    public mutating func TOP(_: UInt16) { }
+    mutating func TOP(_: UInt16) { }
 }

@@ -1,7 +1,7 @@
 import Foundation
 
-public extension CPU {
-    public mutating func step() {
+internal extension CPU {
+    mutating func step() {
         let opcode: UInt8 = memory.read(PC)
 
         switch opcode {

@@ -1,28 +1,28 @@
 import Foundation
 
-public protocol Mapper {
+internal protocol Mapper {
     func read(address: Address) -> UInt8
 
     mutating func write(address: Address, _ value: UInt8)
 }
 
-public typealias Mapper000 = Mapper002
+internal typealias Mapper000 = Mapper002
 
-public struct Mapper002: Mapper {
+internal struct Mapper002: Mapper {
     private var cartridge: Cartridge
 
     private var PRGBanks: (Int, Int)
 
     private let numberOfBanks: Int
 
-    public init(cartridge: Cartridge) {
+    init(cartridge: Cartridge) {
         self.cartridge = cartridge
 
         numberOfBanks = cartridge.PRGROM.count / 0x4000
         PRGBanks = (0, numberOfBanks - 1)
     }
 
-    public func read(address: Address) -> UInt8 {
+    func read(address: Address) -> UInt8 {
         switch Int(address) {
         case 0x0000..<0x2000:
             return cartridge.CHRROM[Int(address)]
@@ -42,7 +42,7 @@ public struct Mapper002: Mapper {
         }
     }
 
-    public mutating func write(address: Address, _ value: UInt8) {
+    mutating func write(address: Address, _ value: UInt8) {
         switch Int(address) {
         case 0x0000..<0x2000:
             cartridge.CHRROM[Int(address)] = value

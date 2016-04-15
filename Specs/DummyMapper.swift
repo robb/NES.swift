@@ -1,4 +1,4 @@
-import NES
+@testable import NES
 
 /// A mapper that has no internal logic.
 internal struct DummyMapper: Mapper {

@@ -1,42 +1,42 @@
 import Foundation
 
 /// The CPU of the NES.
-public struct CPU {
-    public var cycles: UInt64 = 0
+internal struct CPU {
+    var cycles: UInt64 = 0
 
     /// The PC register.
     ///
     /// This register holds the program counter.
-    public var PC: UInt16 = 0
+    var PC: UInt16 = 0
 
     /// The SP register.
     ///
     /// This register holds the stack pointer.
-    public var SP: UInt8 = 0xFD
+    var SP: UInt8 = 0xFD
 
     /// The P register.
     ///
     /// This register holds the processor flags.
-    public var P: UInt8 = 0x24
+    var P: UInt8 = 0x24
 
     /// The A register.
-    public var A: UInt8 = 0
+    var A: UInt8 = 0
 
     /// The X register.
-    public var X: UInt8 = 0
+    var X: UInt8 = 0
 
     /// The Y register.
-    public var Y: UInt8 = 0
+    var Y: UInt8 = 0
 
-    public var memory: Memory
+    var memory: Memory
 
-    public init(memory: Memory) {
+    init(memory: Memory) {
         self.memory = memory
     }
 }
 
 /// Convenient access to the processor flags in the `P` register.
-public extension CPU {
+internal extension CPU {
     private func getFlag(flag: UInt8) -> Bool {
         return P & flag != 0
     }
@@ -114,21 +114,21 @@ public extension CPU {
 
     /// A convenience method for setting the A register as well as the Zero and
     /// Negative flags.
-    internal mutating func updateAZN(value: UInt8) {
+    mutating func updateAZN(value: UInt8) {
         A = value
         Z = value == 0
         N = value & 0x80 != 0
     }
 
     /// A convenience method for setting the Zero and Negative flags.
-    internal mutating func updateZN(value: UInt8) {
+    mutating func updateZN(value: UInt8) {
         Z = value == 0
         N = value & 0x80 != 0
     }
 }
 
-public extension CPU {
-    public static let StackOffset: UInt16 = 0x0100
+internal extension CPU {
+    static let StackOffset: UInt16 = 0x0100
 }
 
 /// Stack access.
