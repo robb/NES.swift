@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		54339ADB1ADDB57600632DE9 /* Cartridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54339ADA1ADDB57600632DE9 /* Cartridge.swift */; };
 		54339ADD1ADDB5FC00632DE9 /* CartridgeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54339ADC1ADDB5FC00632DE9 /* CartridgeSpec.swift */; };
-		543AF1651ADAFE1300F7AE52 /* Prelude.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 543AF1641ADAFE1300F7AE52 /* Prelude.framework */; };
-		543AF1661ADAFE1900F7AE52 /* Prelude.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 543AF1641ADAFE1300F7AE52 /* Prelude.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5441466D1AD2C41C00EFDAD6 /* AddressingModes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5441466C1AD2C41C00EFDAD6 /* AddressingModes.swift */; };
 		544E4F531AE29116007C8DCD /* nestest.nes in Resources */ = {isa = PBXBuildFile; fileRef = 544E4F521AE29116007C8DCD /* nestest.nes */; };
 		546054A31AD018CE00CFD098 /* Instructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546054A21AD018CE00CFD098 /* Instructions.swift */; };
@@ -49,7 +47,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				548606121AD0153C00198A72 /* Nimble.framework in Copy Frameworks */,
-				543AF1661ADAFE1900F7AE52 /* Prelude.framework in Copy Frameworks */,
 				548606131AD0153D00198A72 /* Quick.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
@@ -60,7 +57,6 @@
 /* Begin PBXFileReference section */
 		54339ADA1ADDB57600632DE9 /* Cartridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cartridge.swift; sourceTree = "<group>"; };
 		54339ADC1ADDB5FC00632DE9 /* CartridgeSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartridgeSpec.swift; sourceTree = "<group>"; };
-		543AF1641ADAFE1300F7AE52 /* Prelude.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Prelude.framework; path = Carthage/Build/Mac/Prelude.framework; sourceTree = "<group>"; };
 		5441466C1AD2C41C00EFDAD6 /* AddressingModes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressingModes.swift; sourceTree = "<group>"; };
 		544E4F521AE29116007C8DCD /* nestest.nes */ = {isa = PBXFileReference; lastKnownFileType = file; path = nestest.nes; sourceTree = "<group>"; };
 		546054A21AD018CE00CFD098 /* Instructions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instructions.swift; sourceTree = "<group>"; };
@@ -87,7 +83,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				543AF1651ADAFE1300F7AE52 /* Prelude.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,7 +177,6 @@
 			isa = PBXGroup;
 			children = (
 				548606081AD0142900198A72 /* Nimble.framework */,
-				543AF1641ADAFE1300F7AE52 /* Prelude.framework */,
 				548606091AD0142900198A72 /* Quick.framework */,
 			);
 			name = Frameworks;

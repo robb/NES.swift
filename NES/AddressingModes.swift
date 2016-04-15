@@ -1,5 +1,4 @@
 import Foundation
-import Prelude
 
 public extension CPU {
     public mutating func absolute(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Address {
