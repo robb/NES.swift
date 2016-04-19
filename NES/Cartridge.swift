@@ -51,8 +51,8 @@ internal struct Cartridge {
         PRGROM = Array(array[offset..<offset + 16384 * PRGROMSize])
         offset += 16384 * PRGROMSize
 
-        CHRROM = Array(array[offset..<offset + 8192 * PRGROMSize])
-        offset += 8192 * PRGROMSize
+        CHRROM = Array(array[offset..<offset + 8192 * CHRROMSize])
+        offset += 8192 * CHRROMSize
 
         PRGRAM = Array<UInt8>(count: PRGRAMSize, repeatedValue: 0x00)
 
