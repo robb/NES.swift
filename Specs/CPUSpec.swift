@@ -17,7 +17,7 @@ class CPUSpec: QuickSpec {
             }
         }
 
-        describe("Performing a interrupt") {
+        describe("Performing an interrupt") {
             var CPU: NES.CPU! = nil
 
             beforeEach {
