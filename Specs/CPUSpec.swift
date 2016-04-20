@@ -6,7 +6,7 @@ import Quick
 class CPUSpec: QuickSpec {
     override func spec() {
         describe("A new CPU") {
-            let cpu = CPU(memory: Memory(mapper: DummyMapper()))
+            let cpu = CPU(mapper: DummyMapper())
 
             it("should initialize with no cycles") {
                 expect(cpu.cycles).to(equal(0))
@@ -24,12 +24,10 @@ class CPUSpec: QuickSpec {
                 // Set the entire RAM to `NOP` instructions.
                 let RAM = Array<UInt8>(count: 0x10000, repeatedValue: 0x1A)
 
-                let memory = Memory(mapper: DummyMapper(), RAM: RAM)
+                CPU = NES.CPU(mapper: DummyMapper(), RAM: RAM)
 
-                CPU = NES.CPU(memory: memory)
-
-                CPU.memory.write16(NES.CPU.IRQInterruptVector, 0x0100)
-                CPU.memory.write16(NES.CPU.NMIInterruptVector, 0x0200)
+                CPU.write16(NES.CPU.IRQInterruptVector, 0x0100)
+                CPU.write16(NES.CPU.NMIInterruptVector, 0x0200)
             }
 
             describe("with the I flag set") {

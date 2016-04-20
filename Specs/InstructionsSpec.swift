@@ -8,7 +8,7 @@ class InstructionsSpec: QuickSpec {
         var cpu: CPU!
 
         beforeEach {
-            cpu = CPU(memory: Memory(mapper: DummyMapper()))
+            cpu = CPU(mapper: DummyMapper())
         }
 
         describe("ADC") {
@@ -98,28 +98,28 @@ class InstructionsSpec: QuickSpec {
 
             describe("when called with an address") {
                 it("should should shift all bits of the memory contents one bit to the left") {
-                    cpu.memory.write(0x1234, 0x40)
+                    cpu.write(0x1234, 0x40)
 
                     cpu.ASL(0x1234)
 
-                    expect(cpu.memory.read(0x1234)).to(equal(0x80))
+                    expect(cpu.read(0x1234)).to(equal(0x80))
                 }
 
                 it("should set the carry flag to true if overflow occurred") {
-                    cpu.memory.write(0x1234, 0x81)
+                    cpu.write(0x1234, 0x81)
 
                     cpu.ASL(0x1234)
 
-                    expect(cpu.memory.read(0x1234)).to(equal(0x02))
+                    expect(cpu.read(0x1234)).to(equal(0x02))
                     expect(cpu.C).to(beTrue())
                 }
 
                 it("should set the carry flag to false if no overflow occurred") {
-                    cpu.memory.write(0x1234, 0x41)
+                    cpu.write(0x1234, 0x41)
 
                     cpu.ASL(0x1234)
 
-                    expect(cpu.memory.read(0x1234)).to(equal(0x82))
+                    expect(cpu.read(0x1234)).to(equal(0x82))
                     expect(cpu.C).to(beFalse())
                 }
             }
@@ -229,7 +229,7 @@ class InstructionsSpec: QuickSpec {
 
         describe("BIT") {
             it("should set the zero flag if A & M is 0") {
-                cpu.memory.write(0x1000, 0x0F)
+                cpu.write(0x1000, 0x0F)
                 cpu.A = 0xF0
 
                 cpu.BIT(0x1000)
@@ -238,7 +238,7 @@ class InstructionsSpec: QuickSpec {
             }
 
             it("should clear the zero flag if A & M is not 0") {
-                cpu.memory.write(0x1000, 0xFF)
+                cpu.write(0x1000, 0xFF)
                 cpu.A = 0xF0
 
                 cpu.BIT(0x1000)
@@ -247,7 +247,7 @@ class InstructionsSpec: QuickSpec {
             }
 
             it("should set the overflow bit if bit 6 of M is 1") {
-                cpu.memory.write(0x1000, 0x40)
+                cpu.write(0x1000, 0x40)
                 cpu.A = 0x00
 
                 cpu.BIT(0x1000)
@@ -256,7 +256,7 @@ class InstructionsSpec: QuickSpec {
             }
 
             it("should clear the overflow bit if bit 6 of M is 1") {
-                cpu.memory.write(0x1000, 0x00)
+                cpu.write(0x1000, 0x00)
                 cpu.A = 0x00
 
                 cpu.BIT(0x1000)
@@ -265,7 +265,7 @@ class InstructionsSpec: QuickSpec {
             }
 
             it("should set the negative bit if bit 7 of M is 1") {
-                cpu.memory.write(0x1000, 0x80)
+                cpu.write(0x1000, 0x80)
                 cpu.A = 0x00
 
                 cpu.BIT(0x1000)
@@ -274,7 +274,7 @@ class InstructionsSpec: QuickSpec {
             }
 
             it("should clear the negative bit if bit 7 of M is 0") {
-                cpu.memory.write(0x1000, 0x00)
+                cpu.write(0x1000, 0x00)
                 cpu.A = 0x00
 
                 cpu.BIT(0x1000)
@@ -389,19 +389,19 @@ class InstructionsSpec: QuickSpec {
             beforeEach {
                 cpu.PC = 0xABBA
                 cpu.P = 0x24
-                cpu.memory.write16(CPU.IRQInterruptVector, 0x1234)
+                cpu.write16(CPU.IRQInterruptVector, 0x1234)
 
                 cpu.BRK()
             }
 
             it("should push the program counter to the stack") {
-                let PC = cpu.memory.read16(CPU.StackOffset | UInt16(cpu.SP + 2))
+                let PC = cpu.read16(CPU.StackOffset | UInt16(cpu.SP + 2))
 
                 expect(PC).to(equal(0xABBA))
             }
 
             it("should push the processor status to the stack") {
-                let P = cpu.memory.read(CPU.StackOffset | UInt16(cpu.SP + 1))
+                let P = cpu.read(CPU.StackOffset | UInt16(cpu.SP + 1))
 
                 expect(P).to(equal(0x24))
             }
@@ -675,11 +675,11 @@ class InstructionsSpec: QuickSpec {
 
         describe("DEC") {
             it("should decrease the value of a memory location") {
-                cpu.memory.write(0x1234, 0x10)
+                cpu.write(0x1234, 0x10)
 
                 cpu.DEC(0x1234)
 
-                expect(cpu.memory.read(0x1234)).to(equal(0x0F))
+                expect(cpu.read(0x1234)).to(equal(0x0F))
             }
         }
 
@@ -715,11 +715,11 @@ class InstructionsSpec: QuickSpec {
 
         describe("INC") {
             it("should increase the value of a memory location") {
-                cpu.memory.write(0x1234, 0x10)
+                cpu.write(0x1234, 0x10)
 
                 cpu.INC(0x1234)
 
-                expect(cpu.memory.read(0x1234)).to(equal(0x11))
+                expect(cpu.read(0x1234)).to(equal(0x11))
             }
         }
 
@@ -761,7 +761,7 @@ class InstructionsSpec: QuickSpec {
             }
 
             it("should push the current address - 1 to the stack") {
-                let address = cpu.memory.read16(CPU.StackOffset | UInt16(cpu.SP + 1))
+                let address = cpu.read16(CPU.StackOffset | UInt16(cpu.SP + 1))
 
                 expect(address).to(equal(0x6542))
             }
@@ -826,28 +826,28 @@ class InstructionsSpec: QuickSpec {
 
             describe("when called with an address") {
                 it("should should shift all bits of the memory contents one bit to the right") {
-                    cpu.memory.write(0x1234, 0x40)
+                    cpu.write(0x1234, 0x40)
 
                     cpu.LSR(0x1234)
 
-                    expect(cpu.memory.read(0x1234)).to(equal(0x20))
+                    expect(cpu.read(0x1234)).to(equal(0x20))
                 }
 
                 it("should set the carry flag to true if bit 0 was 1") {
-                    cpu.memory.write(0x1234, 0x81)
+                    cpu.write(0x1234, 0x81)
 
                     cpu.LSR(0x1234)
 
-                    expect(cpu.memory.read(0x1234)).to(equal(0x40))
+                    expect(cpu.read(0x1234)).to(equal(0x40))
                     expect(cpu.C).to(beTrue())
                 }
 
                 it("should set the carry flag to false if bit 0 was 0") {
-                    cpu.memory.write(0x1234, 0x80)
+                    cpu.write(0x1234, 0x80)
 
                     cpu.LSR(0x1234)
 
-                    expect(cpu.memory.read(0x1234)).to(equal(0x40))
+                    expect(cpu.read(0x1234)).to(equal(0x40))
                     expect(cpu.C).to(beFalse())
                 }
             }
@@ -869,7 +869,7 @@ class InstructionsSpec: QuickSpec {
 
                 cpu.PHA()
 
-                let P = cpu.memory.read(CPU.StackOffset | UInt16(cpu.SP + 1))
+                let P = cpu.read(CPU.StackOffset | UInt16(cpu.SP + 1))
 
                 expect(P).to(equal(0x24))
             }
@@ -881,7 +881,7 @@ class InstructionsSpec: QuickSpec {
 
                 cpu.PHP()
 
-                let P = cpu.memory.read(CPU.StackOffset | UInt16(cpu.SP + 1))
+                let P = cpu.read(CPU.StackOffset | UInt16(cpu.SP + 1))
 
                 expect(P).to(equal(0x34))
             }
@@ -889,7 +889,7 @@ class InstructionsSpec: QuickSpec {
 
         describe("PLA") {
             it("should pull the A register from the stack") {
-                cpu.memory.write(CPU.StackOffset | UInt16(cpu.SP &+ 1), 0x24)
+                cpu.write(CPU.StackOffset | UInt16(cpu.SP &+ 1), 0x24)
 
                 cpu.PLA()
 
@@ -899,7 +899,7 @@ class InstructionsSpec: QuickSpec {
 
         describe("PLP") {
             it("should pull the processor status from the stack") {
-                cpu.memory.write(CPU.StackOffset | UInt16(cpu.SP &+ 1), 0x24)
+                cpu.write(CPU.StackOffset | UInt16(cpu.SP &+ 1), 0x24)
 
                 cpu.PLP()
 
@@ -940,28 +940,28 @@ class InstructionsSpec: QuickSpec {
             describe("when called with an address") {
                 it("should should rotate all bits of the memory contents one bit to the left") {
                     cpu.C = true
-                    cpu.memory.write(0x1234, 0x40)
+                    cpu.write(0x1234, 0x40)
 
                     cpu.ROL(0x1234)
 
-                    expect(cpu.memory.read(0x1234)).to(equal(0x81))
+                    expect(cpu.read(0x1234)).to(equal(0x81))
                 }
 
                 it("should set the carry flag to true if bit 7 was 1") {
-                    cpu.memory.write(0x1234, 0x81)
+                    cpu.write(0x1234, 0x81)
 
                     cpu.ROL(0x1234)
 
-                    expect(cpu.memory.read(0x1234)).to(equal(0x02))
+                    expect(cpu.read(0x1234)).to(equal(0x02))
                     expect(cpu.C).to(beTrue())
                 }
 
                 it("should set the carry flag to true if bit 7 was 0") {
-                    cpu.memory.write(0x1234, 0x01)
+                    cpu.write(0x1234, 0x01)
 
                     cpu.ROL(0x1234)
 
-                    expect(cpu.memory.read(0x1234)).to(equal(0x02))
+                    expect(cpu.read(0x1234)).to(equal(0x02))
                     expect(cpu.C).to(beFalse())
                 }
             }
@@ -1000,28 +1000,28 @@ class InstructionsSpec: QuickSpec {
             describe("when called with an address") {
                 it("should should rotate all bits of the memory contents one bit to the right") {
                     cpu.C = true
-                    cpu.memory.write(0x1234, 0x04)
+                    cpu.write(0x1234, 0x04)
 
                     cpu.ROR(0x1234)
 
-                    expect(cpu.memory.read(0x1234)).to(equal(0x82))
+                    expect(cpu.read(0x1234)).to(equal(0x82))
                 }
 
                 it("should set the carry flag to true if bit 0 was 1") {
-                    cpu.memory.write(0x1234, 0x81)
+                    cpu.write(0x1234, 0x81)
 
                     cpu.ROR(0x1234)
 
-                    expect(cpu.memory.read(0x1234)).to(equal(0x40))
+                    expect(cpu.read(0x1234)).to(equal(0x40))
                     expect(cpu.C).to(beTrue())
                 }
 
                 it("should set the carry flag to false if bit 0 was 0") {
-                    cpu.memory.write(0x1234, 0x80)
+                    cpu.write(0x1234, 0x80)
 
                     cpu.ROR(0x1234)
 
-                    expect(cpu.memory.read(0x1234)).to(equal(0x40))
+                    expect(cpu.read(0x1234)).to(equal(0x40))
                     expect(cpu.C).to(beFalse())
                 }
             }
@@ -1031,7 +1031,7 @@ class InstructionsSpec: QuickSpec {
             beforeEach {
                 cpu.PC = 0xABBA
                 cpu.P = 0x24
-                cpu.memory.write16(CPU.IRQInterruptVector, 0x1234)
+                cpu.write16(CPU.IRQInterruptVector, 0x1234)
 
                 cpu.BRK()
 
@@ -1052,7 +1052,7 @@ class InstructionsSpec: QuickSpec {
 
         describe("RTS") {
             it("should pull the program counter from the stack") {
-                cpu.memory.write16(CPU.StackOffset | UInt16(cpu.SP - 1), 0x1233)
+                cpu.write16(CPU.StackOffset | UInt16(cpu.SP - 1), 0x1233)
                 cpu.SP = cpu.SP &- 2
 
                 cpu.RTS()
@@ -1141,7 +1141,7 @@ class InstructionsSpec: QuickSpec {
 
                 cpu.STA(0x1234)
 
-                expect(cpu.memory.read(0x1234)).to(equal(0x12))
+                expect(cpu.read(0x1234)).to(equal(0x12))
             }
         }
 
@@ -1151,7 +1151,7 @@ class InstructionsSpec: QuickSpec {
 
                 cpu.STX(0x1234)
 
-                expect(cpu.memory.read(0x1234)).to(equal(0x12))
+                expect(cpu.read(0x1234)).to(equal(0x12))
             }
         }
 
@@ -1161,7 +1161,7 @@ class InstructionsSpec: QuickSpec {
 
                 cpu.STY(0x1234)
 
-                expect(cpu.memory.read(0x1234)).to(equal(0x12))
+                expect(cpu.read(0x1234)).to(equal(0x12))
             }
         }
 

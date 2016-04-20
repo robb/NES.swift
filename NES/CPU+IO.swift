@@ -1,17 +1,6 @@
 import Foundation
 
-internal final class Memory {
-    private var mapper: Mapper
-
-    private var RAM: Array<UInt8>
-
-    init(mapper: Mapper, RAM: Array<UInt8> = Array(count: 0x10000, repeatedValue: 0x00)) {
-        precondition(RAM.count == 0x10000)
-
-        self.mapper = mapper
-        self.RAM = RAM
-    }
-
+extension CPU: IO {
     func read(address: Address) -> UInt8 {
         switch address {
         case 0...0x2000:
@@ -21,20 +10,6 @@ internal final class Memory {
         default:
             return mapper.read(address)
         }
-    }
-
-    func read16(address: Address) -> UInt16 {
-        let low  = read(address)
-        let high = read(address + 1)
-
-        return UInt16(high, low)
-    }
-
-    func buggyRead16(address: Address) -> UInt16 {
-        let low  = read(address)
-        let high = read((address & 0xFF00) | UInt16(UInt8(address & 0xFF) &+ 1))
-
-        return UInt16(high, low)
     }
 
     func write(address: Address, _ value: UInt8) {
@@ -56,12 +31,31 @@ internal final class Memory {
             fatalError("Attempt to write illegal memory address \(format(address)).")
         }
     }
+}
 
-    func write16(address: Address, _ value: UInt16) {
-        let low  = UInt8(value & 0xFF)
-        let high = UInt8(value >> 8)
+/// Stack access.
+internal extension CPU {
+    static let StackOffset: Address = 0x0100
 
-        write(address, low)
-        write(address + 1, high)
+    func push(byte: UInt8) {
+        write(CPU.StackOffset | UInt16(SP), byte)
+        SP = SP &- 1
+    }
+
+    func push16(value: UInt16) {
+        push(UInt8(value >> 8))
+        push(UInt8(value & 0xFF))
+    }
+
+    func pop() -> UInt8 {
+        SP = SP &+ 1
+        return read(CPU.StackOffset | UInt16(SP))
+    }
+
+    func pop16() -> UInt16 {
+        let low: UInt8 = pop()
+        let high: UInt8 = pop()
+
+        return UInt16(high) << 8 | UInt16(low)
     }
 }

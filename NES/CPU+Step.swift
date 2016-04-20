@@ -4,7 +4,7 @@ internal extension CPU {
     private  func performInterrupt(address: Address) {
         push16(PC)
         PHP()
-        PC = memory.read16(address)
+        PC = read16(address)
         I = true
         cycles += 7
     }
@@ -21,7 +21,7 @@ internal extension CPU {
 
         interrupt = .None
 
-        let opcode: UInt8 = memory.read(PC)
+        let opcode: UInt8 = read(PC)
 
         switch opcode {
         case 0x00: BRK(        implied(7, 0))

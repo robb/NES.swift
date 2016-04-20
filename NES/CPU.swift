@@ -1,11 +1,5 @@
 import Foundation
 
-internal enum Interrupt {
-    case None
-    case IRQ
-    case NMI
-}
-
 /// The CPU of the NES.
 internal final class CPU {
     var cycles: UInt64 = 0
@@ -36,10 +30,13 @@ internal final class CPU {
 
     var interrupt: Interrupt = .None
 
-    var memory: Memory
+    var mapper: Mapper
 
-    init(memory: Memory) {
-        self.memory = memory
+    var RAM: Array<UInt8>
+
+    init(mapper: Mapper, RAM: Array<UInt8> = Array(count: 0x10000, repeatedValue: 0x00)) {
+        self.mapper = mapper
+        self.RAM = RAM
     }
 }
 
@@ -157,53 +154,5 @@ internal extension CPU {
     func updateZN(value: UInt8) {
         Z = value == 0
         N = value & 0x80 != 0
-    }
-}
-
-internal extension CPU {
-    static let StackOffset: Address = 0x0100
-
-    static let IRQInterruptVector: Address = 0xFFFE
-
-    static let NMIInterruptVector: Address = 0xFFFA
-}
-
-/// Stack access.
-internal extension CPU {
-    func push(byte: UInt8) {
-        memory.write(CPU.StackOffset | UInt16(SP), byte)
-        SP = SP &- 1
-    }
-
-    func push16(value: UInt16) {
-        push(UInt8(value >> 8))
-        push(UInt8(value & 0xFF))
-    }
-
-    func pop() -> UInt8 {
-        SP = SP &+ 1
-        return memory.read(CPU.StackOffset | UInt16(SP))
-    }
-
-    func pop16() -> UInt16 {
-        let low: UInt8 = pop()
-        let high: UInt8 = pop()
-
-        return UInt16(high) << 8 | UInt16(low)
-    }
-}
-
-/// Interrupts.
-internal extension CPU {
-    /// Causes a interrupt to occur, if it is not inhibited by the `I` flag.
-    func triggerIRQ() {
-        guard !I else { return }
-
-        interrupt = .IRQ
-    }
-
-    /// Causes a non-maskable interrupt to occur.
-    func triggerNMI() {
-        interrupt = .NMI
     }
 }

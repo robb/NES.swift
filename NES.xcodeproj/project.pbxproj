@@ -18,13 +18,15 @@
 		548605EE1ACFFF1C00198A72 /* NES.h in Headers */ = {isa = PBXBuildFile; fileRef = 548605ED1ACFFF1C00198A72 /* NES.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		548605F41ACFFF1C00198A72 /* NES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 548605E81ACFFF1B00198A72 /* NES.framework */; };
 		548606051ACFFF2D00198A72 /* CPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548606041ACFFF2D00198A72 /* CPU.swift */; };
-		548606071AD0073000198A72 /* Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548606061AD0073000198A72 /* Memory.swift */; };
 		5486060D1AD0144100198A72 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 548606081AD0142900198A72 /* Nimble.framework */; };
 		5486060E1AD0144100198A72 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 548606091AD0142900198A72 /* Quick.framework */; };
 		548606101AD0146500198A72 /* CPUSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5486060F1AD0146500198A72 /* CPUSpec.swift */; };
 		548606121AD0153C00198A72 /* Nimble.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 548606081AD0142900198A72 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		548606131AD0153D00198A72 /* Quick.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 548606091AD0142900198A72 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		548F59811AE292CE007EC4D2 /* NESTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548F59801AE292CE007EC4D2 /* NESTest.swift */; };
+		54C21E131CC8213500B96C00 /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C21E121CC8213500B96C00 /* IO.swift */; };
+		54C21E151CC822CD00B96C00 /* CPU+IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C21E141CC822CD00B96C00 /* CPU+IO.swift */; };
+		54C21E171CC823AE00B96C00 /* CPU+Interrupts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C21E161CC823AE00B96C00 /* CPU+Interrupts.swift */; };
 		54C573261AD2F8B000A37AE0 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C573251AD2F8B000A37AE0 /* Address.swift */; };
 		54D3FCE21ADDB255003CFF4C /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D3FCE11ADDB255003CFF4C /* Mapper.swift */; };
 		54E08FEE1CC67AC300C9AA49 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E08FED1CC67AC300C9AA49 /* Helper.swift */; };
@@ -70,11 +72,13 @@
 		548605F31ACFFF1C00198A72 /* Specs.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Specs.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		548605F91ACFFF1C00198A72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		548606041ACFFF2D00198A72 /* CPU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPU.swift; sourceTree = "<group>"; };
-		548606061AD0073000198A72 /* Memory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
 		548606081AD0142900198A72 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/Mac/Nimble.framework; sourceTree = "<group>"; };
 		548606091AD0142900198A72 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/Mac/Quick.framework; sourceTree = "<group>"; };
 		5486060F1AD0146500198A72 /* CPUSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPUSpec.swift; sourceTree = "<group>"; };
 		548F59801AE292CE007EC4D2 /* NESTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NESTest.swift; sourceTree = "<group>"; };
+		54C21E121CC8213500B96C00 /* IO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IO.swift; sourceTree = "<group>"; };
+		54C21E141CC822CD00B96C00 /* CPU+IO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPU+IO.swift"; sourceTree = "<group>"; };
+		54C21E161CC823AE00B96C00 /* CPU+Interrupts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPU+Interrupts.swift"; sourceTree = "<group>"; };
 		54C573251AD2F8B000A37AE0 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		54D3FCE11ADDB255003CFF4C /* Mapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
 		54E08FED1CC67AC300C9AA49 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
@@ -137,10 +141,12 @@
 				548606041ACFFF2D00198A72 /* CPU.swift */,
 				5441466C1AD2C41C00EFDAD6 /* CPU+AddressingModes.swift */,
 				546054A21AD018CE00CFD098 /* CPU+Instructions.swift */,
+				54C21E161CC823AE00B96C00 /* CPU+Interrupts.swift */,
+				54C21E141CC822CD00B96C00 /* CPU+IO.swift */,
 				5476128F1ADAF8D100AEBE14 /* CPU+Step.swift */,
 				54E08FED1CC67AC300C9AA49 /* Helper.swift */,
+				54C21E121CC8213500B96C00 /* IO.swift */,
 				54D3FCE11ADDB255003CFF4C /* Mapper.swift */,
-				548606061AD0073000198A72 /* Memory.swift */,
 				548605EB1ACFFF1B00198A72 /* Supporting Files */,
 			);
 			path = NES;
@@ -296,13 +302,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				5441466D1AD2C41C00EFDAD6 /* CPU+AddressingModes.swift in Sources */,
-				548606071AD0073000198A72 /* Memory.swift in Sources */,
 				54D3FCE21ADDB255003CFF4C /* Mapper.swift in Sources */,
 				546054A31AD018CE00CFD098 /* CPU+Instructions.swift in Sources */,
+				54C21E131CC8213500B96C00 /* IO.swift in Sources */,
+				54C21E151CC822CD00B96C00 /* CPU+IO.swift in Sources */,
 				54C573261AD2F8B000A37AE0 /* Address.swift in Sources */,
 				548606051ACFFF2D00198A72 /* CPU.swift in Sources */,
 				547612901ADAF8D100AEBE14 /* CPU+Step.swift in Sources */,
 				54339ADB1ADDB57600632DE9 /* Cartridge.swift in Sources */,
+				54C21E171CC823AE00B96C00 /* CPU+Interrupts.swift in Sources */,
 				54E08FEE1CC67AC300C9AA49 /* Helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

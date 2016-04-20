@@ -12,7 +12,7 @@ class NESTest: QuickSpec {
 
             let cartridge = Cartridge.load(path)
 
-            cpu = CPU(memory: Memory(mapper: Mapper000(cartridge: cartridge!)))
+            cpu = CPU(mapper: Mapper000(cartridge: cartridge!))
         }
 
         it("should pass the nestest.nes test") {
@@ -22,8 +22,8 @@ class NESTest: QuickSpec {
                 cpu.step()
             }
 
-            expect(cpu.memory.read(0x0002)).to(equal(0x00))
-            expect(cpu.memory.read(0x0003)).to(equal(0x00))
+            expect(cpu.read(0x0002)).to(equal(0x00))
+            expect(cpu.read(0x0003)).to(equal(0x00))
         }
     }
 }
