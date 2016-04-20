@@ -1,5 +1,11 @@
 import Foundation
 
+internal enum Interrupt {
+    case None
+    case IRQ
+    case NMI
+}
+
 /// The CPU of the NES.
 internal struct CPU {
     var cycles: UInt64 = 0
@@ -27,6 +33,8 @@ internal struct CPU {
 
     /// The Y register.
     var Y: UInt8 = 0
+
+    var interrupt: Interrupt = .None
 
     var memory: Memory
 
@@ -178,5 +186,20 @@ internal extension CPU {
         let high: UInt8 = pop()
 
         return UInt16(high) << 8 | UInt16(low)
+    }
+}
+
+/// Interrupts.
+internal extension CPU {
+    /// Causes a interrupt to occur, if it is not inhibited by the `I` flag.
+    mutating func triggerIRQ() {
+        guard !I else { return }
+
+        interrupt = .IRQ
+    }
+
+    /// Causes a non-maskable interrupt to occur.
+    mutating func triggerNMI() {
+        interrupt = .NMI
     }
 }

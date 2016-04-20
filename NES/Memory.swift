@@ -1,9 +1,16 @@
 import Foundation
 
 internal struct Memory {
-    private var RAM: Array<UInt8> = Array(count: 0x10000, repeatedValue: 0x00)
-
     private var mapper: Mapper
+
+    private var RAM: Array<UInt8>
+
+    init(mapper: Mapper, RAM: Array<UInt8> = Array(count: 0x10000, repeatedValue: 0x00)) {
+        precondition(RAM.count == 0x10000)
+
+        self.mapper = mapper
+        self.RAM = RAM
+    }
 
     func read(address: Address) -> UInt8 {
         switch address {
@@ -56,9 +63,5 @@ internal struct Memory {
 
         write(address, low)
         write(address + 1, high)
-    }
-
-    init(mapper: Mapper) {
-        self.mapper = mapper
     }
 }
