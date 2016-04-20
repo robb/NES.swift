@@ -49,6 +49,10 @@ internal extension CPU {
         }
     }
 
+    /// Carry.
+    ///
+    /// If `true`, the last addition or shift resulted in a carry or the last
+    /// subtraction resulted in no borrow.
     var C: Bool {
         get {
             return getFlag(0x01)
@@ -58,6 +62,9 @@ internal extension CPU {
         }
     }
 
+    /// Zero.
+    ///
+    /// If `true`, the last operation resulted in `0`.
     var Z: Bool {
         get {
             return getFlag(0x02)
@@ -67,6 +74,9 @@ internal extension CPU {
         }
     }
 
+    /// Interrupt inhibit.
+    ///
+    /// If `true`, only non-maskable interrupts can be triggered.
     var I: Bool {
         get {
             return getFlag(0x04)
@@ -76,6 +86,11 @@ internal extension CPU {
         }
     }
 
+    /// Decimal.
+    ///
+    /// If `true`, `ADC` and `SBC` _should_ use binary-coded decimals. However,
+    /// this flag has no effect on the NES and is only present here for sake of
+    /// completeness.
     var D: Bool {
         get {
             return getFlag(0x08)
@@ -85,6 +100,9 @@ internal extension CPU {
         }
     }
 
+    /// Break.
+    ///
+    /// Set by `BRK`.
     var B: Bool {
         get {
             return getFlag(0x10)
@@ -94,6 +112,10 @@ internal extension CPU {
         }
     }
 
+    /// Overflow.
+    ///
+    /// If `true`, the last `ADC` or `SBC` resulted in signed overflow, or the
+    /// 6th bit of the last `BIT` was set.
     var V: Bool {
         get {
             return getFlag(0x40)
@@ -103,6 +125,9 @@ internal extension CPU {
         }
     }
 
+    /// Negative.
+    ///
+    /// If `true`, the last operation resulted in a negative number.
     var N: Bool {
         get {
             return getFlag(0x80)
