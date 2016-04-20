@@ -1,7 +1,7 @@
 @testable import NES
 
 /// A mapper that has no internal logic.
-internal class DummyMapper: Mapper {
+internal class DummyMapper: IO {
     private var memory: Array<UInt8> = Array(count: 0x10000, repeatedValue: 0xFF)
 
     func read(address: Address) -> UInt8 {

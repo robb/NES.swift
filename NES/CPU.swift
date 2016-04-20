@@ -30,11 +30,11 @@ internal final class CPU {
 
     var interrupt: Interrupt = .None
 
-    var mapper: Mapper
+    var mapper: IO
 
     var RAM: Array<UInt8>
 
-    init(mapper: Mapper, RAM: Array<UInt8> = Array(count: 0x10000, repeatedValue: 0x00)) {
+    init(mapper: IO, RAM: Array<UInt8> = Array(count: 0x10000, repeatedValue: 0x00)) {
         self.mapper = mapper
         self.RAM = RAM
     }

@@ -1,14 +1,8 @@
 import Foundation
 
-internal protocol Mapper {
-    func read(address: Address) -> UInt8
-
-    func write(address: Address, _ value: UInt8)
-}
-
 internal typealias Mapper000 = Mapper002
 
-internal final class Mapper002: Mapper {
+internal final class Mapper002: IO {
     private var cartridge: Cartridge
 
     private var PRGBanks: (Int, Int)
