@@ -27,7 +27,7 @@ internal struct Mapper002: Mapper {
         case 0x0000..<0x2000:
             return cartridge.CHRROM[Int(address)]
         case 0x2000..<0x6000:
-            fatalError("Unhandled mapper address \(address)")
+            fatalError("Attempt to read illegal mapper address \(format(address)).")
         case 0x6000..<0x8000:
             let SRAMAddress = Int(address - 0x6000)
             return cartridge.SRAM[SRAMAddress]
@@ -38,7 +38,7 @@ internal struct Mapper002: Mapper {
             let PRGAddress = (PRGBanks.1 * Int(0x4000)) + (Int(address) - Int(0xC000))
             return cartridge.PRGROM[PRGAddress]
         default:
-            fatalError("Unhandled mapper address \(address)")
+            fatalError("Unhandled mapper address \(format(address)).")
         }
     }
 
@@ -47,14 +47,14 @@ internal struct Mapper002: Mapper {
         case 0x0000..<0x2000:
             cartridge.CHRROM[Int(address)] = value
         case 0x2000..<0x6000:
-            fatalError("Unhandled mapper address \(address)")
+            fatalError("Unhandled mapper address \(format(address)).")
         case 0x6000..<0x8000:
             let SRAMAddress = Int(address - 0x6000)
             cartridge.SRAM[SRAMAddress] = value
         case 0x8000..<0x10000:
             PRGBanks.0 = Int(value) % numberOfBanks
         default:
-            fatalError("Unhandled mapper address \(address)")
+            fatalError("Unhandled mapper address \(format(address)).")
         }
     }
 }

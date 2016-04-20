@@ -53,7 +53,7 @@ internal struct Memory {
         case 0x6000..<0x10000:
             mapper.write(address, value)
         default:
-            fatalError("Illegal memory address")
+            fatalError("Attempt to write illegal memory address \(format(address)).")
         }
     }
 

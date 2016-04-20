@@ -257,7 +257,7 @@ internal extension CPU {
         case 0xFF: ISC(      absoluteX(7, 0))
 
         default:
-            fatalError("Unknown opcode \(opcode)")
+            fatalError("Attempt to execute illegal opcode \(format(opcode)).")
         }
     }
 }

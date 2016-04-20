@@ -27,6 +27,7 @@
 		548F59811AE292CE007EC4D2 /* NESTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548F59801AE292CE007EC4D2 /* NESTest.swift */; };
 		54C573261AD2F8B000A37AE0 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C573251AD2F8B000A37AE0 /* Address.swift */; };
 		54D3FCE21ADDB255003CFF4C /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D3FCE11ADDB255003CFF4C /* Mapper.swift */; };
+		54E08FEE1CC67AC300C9AA49 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E08FED1CC67AC300C9AA49 /* Helper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		548F59801AE292CE007EC4D2 /* NESTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NESTest.swift; sourceTree = "<group>"; };
 		54C573251AD2F8B000A37AE0 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		54D3FCE11ADDB255003CFF4C /* Mapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
+		54E08FED1CC67AC300C9AA49 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				5441466C1AD2C41C00EFDAD6 /* CPU+AddressingModes.swift */,
 				546054A21AD018CE00CFD098 /* CPU+Instructions.swift */,
 				5476128F1ADAF8D100AEBE14 /* CPU+Step.swift */,
+				54E08FED1CC67AC300C9AA49 /* Helper.swift */,
 				54D3FCE11ADDB255003CFF4C /* Mapper.swift */,
 				548606061AD0073000198A72 /* Memory.swift */,
 				548605EB1ACFFF1B00198A72 /* Supporting Files */,
@@ -300,6 +303,7 @@
 				548606051ACFFF2D00198A72 /* CPU.swift in Sources */,
 				547612901ADAF8D100AEBE14 /* CPU+Step.swift in Sources */,
 				54339ADB1ADDB57600632DE9 /* Cartridge.swift in Sources */,
+				54E08FEE1CC67AC300C9AA49 /* Helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
