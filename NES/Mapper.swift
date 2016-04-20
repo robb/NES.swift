@@ -3,12 +3,12 @@ import Foundation
 internal protocol Mapper {
     func read(address: Address) -> UInt8
 
-    mutating func write(address: Address, _ value: UInt8)
+    func write(address: Address, _ value: UInt8)
 }
 
 internal typealias Mapper000 = Mapper002
 
-internal struct Mapper002: Mapper {
+internal class Mapper002: Mapper {
     private var cartridge: Cartridge
 
     private var PRGBanks: (Int, Int)
@@ -42,7 +42,7 @@ internal struct Mapper002: Mapper {
         }
     }
 
-    mutating func write(address: Address, _ value: UInt8) {
+    func write(address: Address, _ value: UInt8) {
         switch Int(address) {
         case 0x0000..<0x2000:
             cartridge.CHRROM[Int(address)] = value

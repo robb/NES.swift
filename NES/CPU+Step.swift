@@ -1,7 +1,7 @@
 import Foundation
 
 internal extension CPU {
-    private mutating  func performInterrupt(address: Address) {
+    private  func performInterrupt(address: Address) {
         push16(PC)
         PHP()
         PC = memory.read16(address)
@@ -9,7 +9,7 @@ internal extension CPU {
         cycles += 7
     }
 
-    mutating func step() {
+    func step() {
         switch interrupt {
         case .None:
             break

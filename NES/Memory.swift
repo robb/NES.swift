@@ -1,6 +1,6 @@
 import Foundation
 
-internal struct Memory {
+internal class Memory {
     private var mapper: Mapper
 
     private var RAM: Array<UInt8>
@@ -37,7 +37,7 @@ internal struct Memory {
         return UInt16(high, low)
     }
 
-    mutating func write(address: Address, _ value: UInt8) {
+    func write(address: Address, _ value: UInt8) {
         switch Int(address) {
         case 0x0000..<0x2000:
             RAM[Int(address % 0x0800)] = value
@@ -57,7 +57,7 @@ internal struct Memory {
         }
     }
 
-    mutating func write16(address: Address, _ value: UInt16) {
+    func write16(address: Address, _ value: UInt16) {
         let low  = UInt8(value & 0xFF)
         let high = UInt8(value >> 8)
 

@@ -7,7 +7,7 @@ internal enum Interrupt {
 }
 
 /// The CPU of the NES.
-internal struct CPU {
+internal class CPU {
     var cycles: UInt64 = 0
 
     /// The PC register.
@@ -49,7 +49,7 @@ internal extension CPU {
         return P & flag != 0
     }
 
-    private mutating func setFlag(flag: UInt8, _ value: Bool) {
+    private func setFlag(flag: UInt8, _ value: Bool) {
         if value {
             P |= flag
         } else {
@@ -147,14 +147,14 @@ internal extension CPU {
 
     /// A convenience method for setting the A register as well as the Zero and
     /// Negative flags.
-    mutating func updateAZN(value: UInt8) {
+    func updateAZN(value: UInt8) {
         A = value
         Z = value == 0
         N = value & 0x80 != 0
     }
 
     /// A convenience method for setting the Zero and Negative flags.
-    mutating func updateZN(value: UInt8) {
+    func updateZN(value: UInt8) {
         Z = value == 0
         N = value & 0x80 != 0
     }
@@ -170,22 +170,22 @@ internal extension CPU {
 
 /// Stack access.
 internal extension CPU {
-    mutating func push(byte: UInt8) {
+    func push(byte: UInt8) {
         memory.write(CPU.StackOffset | UInt16(SP), byte)
         SP = SP &- 1
     }
 
-    mutating func push16(value: UInt16) {
+    func push16(value: UInt16) {
         push(UInt8(value >> 8))
         push(UInt8(value & 0xFF))
     }
 
-    mutating func pop() -> UInt8 {
+    func pop() -> UInt8 {
         SP = SP &+ 1
         return memory.read(CPU.StackOffset | UInt16(SP))
     }
 
-    mutating func pop16() -> UInt16 {
+    func pop16() -> UInt16 {
         let low: UInt8 = pop()
         let high: UInt8 = pop()
 
@@ -196,14 +196,14 @@ internal extension CPU {
 /// Interrupts.
 internal extension CPU {
     /// Causes a interrupt to occur, if it is not inhibited by the `I` flag.
-    mutating func triggerIRQ() {
+    func triggerIRQ() {
         guard !I else { return }
 
         interrupt = .IRQ
     }
 
     /// Causes a non-maskable interrupt to occur.
-    mutating func triggerNMI() {
+    func triggerNMI() {
         interrupt = .NMI
     }
 }
