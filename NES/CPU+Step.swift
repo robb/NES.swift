@@ -14,9 +14,9 @@ internal extension CPU {
         case .None:
             break
         case .IRQ:
-            performInterrupt(0xFFFE)
+            performInterrupt(CPU.IRQInterruptVector)
         case .NMI:
-            performInterrupt(0xFFFA)
+            performInterrupt(CPU.NMIInterruptVector)
         }
 
         interrupt = .None

@@ -28,8 +28,8 @@ class CPUSpec: QuickSpec {
 
                 CPU = NES.CPU(memory: memory)
 
-                CPU.memory.write16(0xFFFA, 0x0200)
-                CPU.memory.write16(0xFFFE, 0x0100)
+                CPU.memory.write16(NES.CPU.IRQInterruptVector, 0x0100)
+                CPU.memory.write16(NES.CPU.NMIInterruptVector, 0x0200)
             }
 
             describe("with the I flag set") {

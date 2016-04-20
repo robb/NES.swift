@@ -161,7 +161,11 @@ internal extension CPU {
 }
 
 internal extension CPU {
-    static let StackOffset: UInt16 = 0x0100
+    static let StackOffset: Address = 0x0100
+
+    static let IRQInterruptVector: Address = 0xFFFE
+
+    static let NMIInterruptVector: Address = 0xFFFA
 }
 
 /// Stack access.

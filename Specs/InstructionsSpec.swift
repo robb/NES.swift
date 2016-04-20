@@ -389,7 +389,7 @@ class InstructionsSpec: QuickSpec {
             beforeEach {
                 cpu.PC = 0xABBA
                 cpu.P = 0x24
-                cpu.memory.write16(0xFFFE, 0x1234)
+                cpu.memory.write16(CPU.IRQInterruptVector, 0x1234)
 
                 cpu.BRK()
             }
@@ -1031,7 +1031,7 @@ class InstructionsSpec: QuickSpec {
             beforeEach {
                 cpu.PC = 0xABBA
                 cpu.P = 0x24
-                cpu.memory.write16(0xFFFE, 0x1234)
+                cpu.memory.write16(CPU.IRQInterruptVector, 0x1234)
 
                 cpu.BRK()
 

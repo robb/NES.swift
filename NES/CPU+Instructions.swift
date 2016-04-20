@@ -103,7 +103,7 @@ internal extension CPU {
         push16(PC)
         push(P)
         B = true
-        PC = memory.read16(0xFFFE)
+        PC = memory.read16(CPU.IRQInterruptVector)
     }
 
     /// `BVC` - Branch if Overflow Clear
