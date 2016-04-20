@@ -1,6 +1,6 @@
 import Foundation
 
-internal class Cartridge {
+internal final class Cartridge {
     var CHRROM: Array<UInt8>
 
     let mapper: UInt8

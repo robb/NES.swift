@@ -1,6 +1,6 @@
 import Foundation
 
-internal class Memory {
+internal final class Memory {
     private var mapper: Mapper
 
     private var RAM: Array<UInt8>

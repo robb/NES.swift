@@ -7,7 +7,7 @@ internal enum Interrupt {
 }
 
 /// The CPU of the NES.
-internal class CPU {
+internal final class CPU {
     var cycles: UInt64 = 0
 
     /// The PC register.

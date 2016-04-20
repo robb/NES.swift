@@ -8,7 +8,7 @@ internal protocol Mapper {
 
 internal typealias Mapper000 = Mapper002
 
-internal class Mapper002: Mapper {
+internal final class Mapper002: Mapper {
     private var cartridge: Cartridge
 
     private var PRGBanks: (Int, Int)
