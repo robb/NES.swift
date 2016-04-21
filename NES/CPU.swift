@@ -2,6 +2,7 @@ import Foundation
 
 /// The CPU of the NES.
 internal final class CPU {
+    /// The number of cycles the CPU has run for.
     var cycles: UInt64 = 0
 
     /// The PC register.
@@ -28,10 +29,13 @@ internal final class CPU {
     /// The Y register.
     var Y: UInt8 = 0
 
+    /// The interrupt that will be evaluated on the next step.
     var interrupt: Interrupt = .None
 
+    /// The mapper the CPU reads from.
     var mapper: IO
 
+    /// The RAM the CPU reads from.
     var RAM: Array<UInt8>
 
     init(mapper: IO, RAM: Array<UInt8> = Array(count: 0x10000, repeatedValue: 0x00)) {
