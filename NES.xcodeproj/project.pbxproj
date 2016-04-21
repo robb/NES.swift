@@ -27,6 +27,7 @@
 		54C21E131CC8213500B96C00 /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C21E121CC8213500B96C00 /* IO.swift */; };
 		54C21E151CC822CD00B96C00 /* CPU+IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C21E141CC822CD00B96C00 /* CPU+IO.swift */; };
 		54C21E171CC823AE00B96C00 /* CPU+Interrupts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C21E161CC823AE00B96C00 /* CPU+Interrupts.swift */; };
+		54C21E191CC937B600B96C00 /* CPU+Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C21E181CC937B600B96C00 /* CPU+Flags.swift */; };
 		54C573261AD2F8B000A37AE0 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C573251AD2F8B000A37AE0 /* Address.swift */; };
 		54D3FCE21ADDB255003CFF4C /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D3FCE11ADDB255003CFF4C /* Mapper.swift */; };
 		54E08FEE1CC67AC300C9AA49 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E08FED1CC67AC300C9AA49 /* Helper.swift */; };
@@ -79,6 +80,7 @@
 		54C21E121CC8213500B96C00 /* IO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IO.swift; sourceTree = "<group>"; };
 		54C21E141CC822CD00B96C00 /* CPU+IO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPU+IO.swift"; sourceTree = "<group>"; };
 		54C21E161CC823AE00B96C00 /* CPU+Interrupts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPU+Interrupts.swift"; sourceTree = "<group>"; };
+		54C21E181CC937B600B96C00 /* CPU+Flags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPU+Flags.swift"; sourceTree = "<group>"; };
 		54C573251AD2F8B000A37AE0 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		54D3FCE11ADDB255003CFF4C /* Mapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
 		54E08FED1CC67AC300C9AA49 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				54339ADA1ADDB57600632DE9 /* Cartridge.swift */,
 				548606041ACFFF2D00198A72 /* CPU.swift */,
 				5441466C1AD2C41C00EFDAD6 /* CPU+AddressingModes.swift */,
+				54C21E181CC937B600B96C00 /* CPU+Flags.swift */,
 				546054A21AD018CE00CFD098 /* CPU+Instructions.swift */,
 				54C21E161CC823AE00B96C00 /* CPU+Interrupts.swift */,
 				54C21E141CC822CD00B96C00 /* CPU+IO.swift */,
@@ -303,6 +306,7 @@
 			files = (
 				5441466D1AD2C41C00EFDAD6 /* CPU+AddressingModes.swift in Sources */,
 				54D3FCE21ADDB255003CFF4C /* Mapper.swift in Sources */,
+				54C21E191CC937B600B96C00 /* CPU+Flags.swift in Sources */,
 				546054A31AD018CE00CFD098 /* CPU+Instructions.swift in Sources */,
 				54C21E131CC8213500B96C00 /* IO.swift in Sources */,
 				54C21E151CC822CD00B96C00 /* CPU+IO.swift in Sources */,
