@@ -38,7 +38,7 @@ internal final class CPU {
     /// The RAM the CPU reads from.
     var RAM: Array<UInt8>
 
-    init(mapper: IO, RAM: Array<UInt8> = Array(count: 0x10000, repeatedValue: 0x00)) {
+    init(mapper: IO, RAM: Array<UInt8> = Array(count: 0x800, repeatedValue: 0x00)) {
         self.mapper = mapper
         self.RAM = RAM
     }
