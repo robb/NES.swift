@@ -1,7 +1,7 @@
 import Foundation
 
 internal extension CPU {
-    private  func performInterrupt(address: Address) {
+    private func performInterrupt(address: Address) {
         push16(PC)
         PHP()
         PC = read16(address)
