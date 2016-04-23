@@ -1,7 +1,7 @@
 import Foundation
 
 /// Classes conforming to this protocol can perform IO.
-internal protocol IO {
+internal protocol IO: class {
     func read(address: Address) -> UInt8
 
     func write(address: Address, _ value: UInt8)   

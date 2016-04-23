@@ -12,3 +12,9 @@ internal class DummyMapper: IO {
         memory[Int(address)] = value
     }
 }
+
+internal extension Console {
+    static func consoleWithDummyMapper() -> Console {
+        return Console(mapper: DummyMapper())
+    }
+}

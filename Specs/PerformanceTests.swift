@@ -8,13 +8,13 @@ class PerformanceTest: XCTestCase {
 
         let cartridge = Cartridge.load(path)
 
-        let CPU = NES.CPU(mapper: Mapper000(cartridge: cartridge!))
+        let console = Console(cartridge: cartridge!)
 
         measureBlock {
-            CPU.PC = 0xC000
+            console.CPU.PC = 0xC000
 
-            while (CPU.PC != 0xC66E) {
-                CPU.step()
+            while (console.CPU.PC != 0xC66E) {
+                console.CPU.step()
             }
         }
     }

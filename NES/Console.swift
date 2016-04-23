@@ -1,15 +1,24 @@
 import Foundation
 
 public final class Console {
-    internal let CPU: NES.CPU
+    internal private(set) var CPU: NES.CPU! = nil
 
-    internal let mapper: IO
+    internal private(set) var mapper: IO! = nil
 
-    public init(cartridge: Cartridge) {
+    internal private(set) var PPU: NES.PPU! = nil
+
+    public convenience init(cartridge: Cartridge) {
         precondition(cartridge.mapper == 000 || cartridge.mapper == 002)
 
-        mapper = Mapper002(cartridge: cartridge)
+        let mapper = Mapper002(cartridge: cartridge)
 
-        CPU = NES.CPU(mapper: mapper)
+        self.init(mapper: mapper)
+    }
+
+    init(mapper: IO) {
+        self.mapper = mapper
+
+        CPU = NES.CPU(console: self)
+        PPU = NES.PPU(console: self)
     }
 }

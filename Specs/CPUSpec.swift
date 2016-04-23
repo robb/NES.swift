@@ -5,28 +5,35 @@ import Quick
 
 class CPUSpec: QuickSpec {
     override func spec() {
-        describe("A new CPU") {
-            let cpu = CPU(mapper: DummyMapper())
+        var console: Console! = nil
 
+        var CPU: NES.CPU {
+            return console.CPU!
+        }
+
+        beforeEach {
+            console = .consoleWithDummyMapper()
+        }
+
+        describe("A new CPU") {
             it("should initialize with no cycles") {
-                expect(cpu.cycles).to(equal(0))
+                expect(CPU.cycles).to(equal(0))
             }
 
             it("should have interrupts disabled") {
-                expect(cpu.I).to(beTrue())
+                expect(CPU.I).to(beTrue())
             }
         }
 
         describe("Performing an interrupt") {
-            var CPU: NES.CPU! = nil
-
             beforeEach {
                 // Set the entire RAM to `NOP` instructions.
-                let RAM = Array<UInt8>(count: 0x10000, repeatedValue: 0x1A)
+                let RAM = Array<UInt8>(count: 0x0800, repeatedValue: 0x1A)
 
-                CPU = NES.CPU(mapper: DummyMapper(), RAM: RAM)
+                CPU.RAM[RAM.startIndex..<RAM.endIndex] = RAM[RAM.startIndex..<RAM.endIndex]
 
                 CPU.write16(NES.CPU.IRQInterruptVector, 0x0100)
+
                 CPU.write16(NES.CPU.NMIInterruptVector, 0x0200)
             }
 

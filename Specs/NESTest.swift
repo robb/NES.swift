@@ -5,14 +5,18 @@ import Quick
 
 class NESTest: QuickSpec {
     override func spec() {
-        var cpu: CPU! = nil
+        var console: Console! = nil
+
+        var cpu: CPU! {
+            return console.CPU
+        }
 
         beforeEach {
             let path = NSBundle(forClass: CartridgeSpec.self).pathForResource("nestest", ofType: "nes") ?? ""
 
             let cartridge = Cartridge.load(path)
 
-            cpu = CPU(mapper: Mapper000(cartridge: cartridge!))
+            console = Console(cartridge: cartridge!)
         }
 
         it("should pass the nestest.nes test") {

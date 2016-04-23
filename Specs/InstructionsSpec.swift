@@ -5,10 +5,14 @@ import Quick
 
 class InstructionsSpec: QuickSpec {
     override func spec() {
-        var cpu: CPU!
+        var console: Console! = nil
+
+        var cpu: CPU {
+            return console.CPU!
+        }
 
         beforeEach {
-            cpu = CPU(mapper: DummyMapper())
+            console = .consoleWithDummyMapper()
         }
 
         describe("ADC") {

@@ -32,14 +32,24 @@ internal final class CPU {
     /// The interrupt that will be evaluated on the next step.
     var interrupt: Interrupt = .None
 
+    /// The console this CPU is owned by.
+    unowned let console: Console
+
     /// The mapper the CPU reads from.
-    var mapper: IO
+    var mapper: IO! {
+        return console.mapper
+    }
+
+    /// The PPU.
+    var PPU: IO! {
+        return console.PPU
+    }
 
     /// The RAM the CPU reads from.
     var RAM: Array<UInt8>
 
-    init(mapper: IO, RAM: Array<UInt8> = Array(count: 0x800, repeatedValue: 0x00)) {
-        self.mapper = mapper
+    init(console: Console, RAM: Array<UInt8> = Array(count: 0x800, repeatedValue: 0x00)) {
+        self.console = console
         self.RAM = RAM
     }
 }
