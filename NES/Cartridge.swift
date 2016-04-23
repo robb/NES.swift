@@ -1,17 +1,17 @@
 import Foundation
 
-internal final class Cartridge {
-    var CHRROM: Array<UInt8>
+public final class Cartridge {
+    internal var CHRROM: Array<UInt8>
 
-    let mapper: UInt8
+    internal let mapper: UInt8
 
-    var PRGRAM: Array<UInt8>
+    internal var PRGRAM: Array<UInt8>
 
-    let PRGROM: Array<UInt8>
+    internal let PRGROM: Array<UInt8>
 
-    var SRAM: Array<UInt8>
+    internal var SRAM: Array<UInt8>
 
-    static func load(path: String) -> Cartridge? {
+    public static func load(path: String) -> Cartridge? {
         return NSData(contentsOfFile: path)
             .map { data -> [UInt8] in
                 let count = data.length / sizeof(UInt8)
