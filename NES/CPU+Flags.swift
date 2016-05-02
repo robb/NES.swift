@@ -2,28 +2,16 @@ import Foundation
 
 /// Convenient access to the processor flags in the `P` register.
 internal extension CPU {
-    private func getFlag(flag: UInt8) -> Bool {
-        return P & flag != 0
-    }
-
-    private func setFlag(flag: UInt8, _ value: Bool) {
-        if value {
-            P |= flag
-        } else {
-            P &= ~flag
-        }
-    }
-
     /// Carry.
     ///
     /// If `true`, the last addition or shift resulted in a carry or the last
     /// subtraction resulted in no borrow.
     var C: Bool {
         get {
-            return getFlag(0x01)
+            return P[0]
         }
         set {
-            setFlag(0x01, newValue)
+            P[0] = newValue
         }
     }
 
@@ -32,10 +20,10 @@ internal extension CPU {
     /// If `true`, the last operation resulted in `0`.
     var Z: Bool {
         get {
-            return getFlag(0x02)
+            return P[1]
         }
         set {
-            setFlag(0x02, newValue)
+            P[1] = newValue
         }
     }
 
@@ -44,10 +32,10 @@ internal extension CPU {
     /// If `true`, only non-maskable interrupts can be triggered.
     var I: Bool {
         get {
-            return getFlag(0x04)
+            return P[2]
         }
         set {
-            setFlag(0x04, newValue)
+            P[2] = newValue
         }
     }
 
@@ -58,10 +46,10 @@ internal extension CPU {
     /// completeness.
     var D: Bool {
         get {
-            return getFlag(0x08)
+            return P[3]
         }
         set {
-            setFlag(0x08, newValue)
+            P[3] = newValue
         }
     }
 
@@ -70,10 +58,10 @@ internal extension CPU {
     /// Set by `BRK`.
     var B: Bool {
         get {
-            return getFlag(0x10)
+            return P[5]
         }
         set {
-            setFlag(0x10, newValue)
+            P[5] = newValue
         }
     }
 
@@ -83,10 +71,10 @@ internal extension CPU {
     /// 6th bit of the last `BIT` was set.
     var V: Bool {
         get {
-            return getFlag(0x40)
+            return P[6]
         }
         set {
-            setFlag(0x40, newValue)
+            P[6] = newValue
         }
     }
 
@@ -95,10 +83,10 @@ internal extension CPU {
     /// If `true`, the last operation resulted in a negative number.
     var N: Bool {
         get {
-            return getFlag(0x80)
+            return P[7]
         }
         set {
-            setFlag(0x80, newValue)
+            P[7] = newValue
         }
     }
 

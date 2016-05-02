@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5423F73B1CECC83B009CE6D1 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5423F73A1CECC83B009CE6D1 /* PerformanceTests.swift */; };
+		542436651CD804BA0084DDDF /* UInt8+Bitset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542436641CD804BA0084DDDF /* UInt8+Bitset.swift */; };
 		542BC4341CD44987000E211F /* PPU+IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542BC4331CD44987000E211F /* PPU+IO.swift */; };
 		54339ADB1ADDB57600632DE9 /* Cartridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54339ADA1ADDB57600632DE9 /* Cartridge.swift */; };
 		54339ADD1ADDB5FC00632DE9 /* CartridgeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54339ADC1ADDB5FC00632DE9 /* CartridgeSpec.swift */; };
@@ -64,6 +65,7 @@
 
 /* Begin PBXFileReference section */
 		5423F73A1CECC83B009CE6D1 /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
+		542436641CD804BA0084DDDF /* UInt8+Bitset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt8+Bitset.swift"; sourceTree = "<group>"; };
 		542BC4331CD44987000E211F /* PPU+IO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PPU+IO.swift"; sourceTree = "<group>"; };
 		54339ADA1ADDB57600632DE9 /* Cartridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cartridge.swift; sourceTree = "<group>"; };
 		54339ADC1ADDB5FC00632DE9 /* CartridgeSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartridgeSpec.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				54D3FCE11ADDB255003CFF4C /* Mapper.swift */,
 				546E4ECE1CCBEDBA00DD2704 /* PPU.swift */,
 				542BC4331CD44987000E211F /* PPU+IO.swift */,
+				542436641CD804BA0084DDDF /* UInt8+Bitset.swift */,
 				548605EB1ACFFF1B00198A72 /* Supporting Files */,
 			);
 			path = NES;
@@ -323,6 +326,7 @@
 				546054A31AD018CE00CFD098 /* CPU+Instructions.swift in Sources */,
 				54C21E131CC8213500B96C00 /* IO.swift in Sources */,
 				542BC4341CD44987000E211F /* PPU+IO.swift in Sources */,
+				542436651CD804BA0084DDDF /* UInt8+Bitset.swift in Sources */,
 				54C21E151CC822CD00B96C00 /* CPU+IO.swift in Sources */,
 				546E4ECD1CCBEA4700DD2704 /* Console.swift in Sources */,
 				54C573261AD2F8B000A37AE0 /* Address.swift in Sources */,
