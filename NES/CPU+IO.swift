@@ -87,6 +87,8 @@ private extension PPU {
         switch address {
         case 0x2000:
             PPUCTRL = value
+        case 0x2001:
+            PPUMASK = value
         default:
             fatalError("Attempt to write illegal PPU register address \(format(address)).")
         }

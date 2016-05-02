@@ -48,5 +48,47 @@ class PPUSpec: QuickSpec {
                 expect(PPU.useLargeSprites).to(beTrue())
             }
         }
+
+        describe("Having the CPU write to memory address 0x2001") {
+            beforeEach {
+                CPU.write(0x2001, 0xFF)
+            }
+
+            it("should update the PPUMASK register") {
+                expect(PPU.PPUMASK).to(equal(0xFF))
+            }
+
+            it("should update the grayscale mode") {
+                expect(PPU.grayscale).to(beTrue())
+            }
+
+            it("should update the left background visibility") {
+                expect(PPU.showLeftBackground).to(beTrue())
+            }
+
+            it("should update the left sprite visibility") {
+                expect(PPU.showLeftSprites).to(beTrue())
+            }
+
+            it("should update the background visiblity") {
+                expect(PPU.showBackground).to(beTrue())
+            }
+
+            it("should update the sprite visibility") {
+                expect(PPU.showSprites).to(beTrue())
+            }
+
+            it("should update the red tint") {
+                expect(PPU.emphasizeRed).to(beTrue())
+            }
+
+            it("should update the greenTint") {
+                expect(PPU.emphasizeGreen).to(beTrue())
+            }
+
+            it("should update the blueTint") {
+                expect(PPU.emphasizeBlue).to(beTrue())
+            }
+        }
     }
 }
