@@ -1,6 +1,9 @@
 import Foundation
 
 internal final class PPU {
+    /// The PPU Control register.
+    var PPUCTRL: UInt8 = 0
+
     /// The console this CPU is owned by.
     unowned let console: Console
 

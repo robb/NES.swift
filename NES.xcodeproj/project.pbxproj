@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5423F73B1CECC83B009CE6D1 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5423F73A1CECC83B009CE6D1 /* PerformanceTests.swift */; };
 		542436651CD804BA0084DDDF /* UInt8+Bitset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542436641CD804BA0084DDDF /* UInt8+Bitset.swift */; };
+		540E001C1CD577C500C9669B /* PPU+Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540E001B1CD577C500C9669B /* PPU+Flags.swift */; };
+		540E00201CD5801B00C9669B /* PPUSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540E001F1CD5801B00C9669B /* PPUSpec.swift */; };
 		542BC4341CD44987000E211F /* PPU+IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542BC4331CD44987000E211F /* PPU+IO.swift */; };
 		54339ADB1ADDB57600632DE9 /* Cartridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54339ADA1ADDB57600632DE9 /* Cartridge.swift */; };
 		54339ADD1ADDB5FC00632DE9 /* CartridgeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54339ADC1ADDB5FC00632DE9 /* CartridgeSpec.swift */; };
@@ -66,6 +68,8 @@
 /* Begin PBXFileReference section */
 		5423F73A1CECC83B009CE6D1 /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
 		542436641CD804BA0084DDDF /* UInt8+Bitset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt8+Bitset.swift"; sourceTree = "<group>"; };
+		540E001B1CD577C500C9669B /* PPU+Flags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PPU+Flags.swift"; sourceTree = "<group>"; };
+		540E001F1CD5801B00C9669B /* PPUSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPUSpec.swift; sourceTree = "<group>"; };
 		542BC4331CD44987000E211F /* PPU+IO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PPU+IO.swift"; sourceTree = "<group>"; };
 		54339ADA1ADDB57600632DE9 /* Cartridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cartridge.swift; sourceTree = "<group>"; };
 		54339ADC1ADDB5FC00632DE9 /* CartridgeSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartridgeSpec.swift; sourceTree = "<group>"; };
@@ -162,6 +166,7 @@
 				54C21E121CC8213500B96C00 /* IO.swift */,
 				54D3FCE11ADDB255003CFF4C /* Mapper.swift */,
 				546E4ECE1CCBEDBA00DD2704 /* PPU.swift */,
+				540E001B1CD577C500C9669B /* PPU+Flags.swift */,
 				542BC4331CD44987000E211F /* PPU+IO.swift */,
 				542436641CD804BA0084DDDF /* UInt8+Bitset.swift */,
 				548605EB1ACFFF1B00198A72 /* Supporting Files */,
@@ -185,6 +190,7 @@
 				546054A41AD01A5700CFD098 /* InstructionsSpec.swift */,
 				548F59801AE292CE007EC4D2 /* NESTest.swift */,
 				5423F73A1CECC83B009CE6D1 /* PerformanceTests.swift */,
+				540E001F1CD5801B00C9669B /* PPUSpec.swift */,
 				548605F81ACFFF1C00198A72 /* Supporting Files */,
 				54339ADF1ADDB67000632DE9 /* Test ROMs */,
 			);
@@ -327,6 +333,7 @@
 				54C21E131CC8213500B96C00 /* IO.swift in Sources */,
 				542BC4341CD44987000E211F /* PPU+IO.swift in Sources */,
 				542436651CD804BA0084DDDF /* UInt8+Bitset.swift in Sources */,
+				540E001C1CD577C500C9669B /* PPU+Flags.swift in Sources */,
 				54C21E151CC822CD00B96C00 /* CPU+IO.swift in Sources */,
 				546E4ECD1CCBEA4700DD2704 /* Console.swift in Sources */,
 				54C573261AD2F8B000A37AE0 /* Address.swift in Sources */,
@@ -347,6 +354,7 @@
 				5423F73B1CECC83B009CE6D1 /* PerformanceTests.swift in Sources */,
 				547F2EE31ADDBB6900B9A8C6 /* DummyMapper.swift in Sources */,
 				546054A51AD01A5700CFD098 /* InstructionsSpec.swift in Sources */,
+				540E00201CD5801B00C9669B /* PPUSpec.swift in Sources */,
 				54339ADD1ADDB5FC00632DE9 /* CartridgeSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

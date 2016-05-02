@@ -41,7 +41,7 @@ internal final class CPU {
     }
 
     /// The PPU.
-    var PPU: IO! {
+    var PPU: NES.PPU! {
         return console.PPU
     }
 

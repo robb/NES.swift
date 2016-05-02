@@ -17,9 +17,12 @@ extension CPU: IO {
         case 0x0000..<0x2000:
             RAM[Int(address % 0x0800)] = value
         case 0x2000..<0x4000:
-            // TODO: Implement PPU
-            break
-        case 0x4000..<0x4016, 0x04017:
+            let wrappedAddress = 0x2000 + address % 8
+
+            PPU.writeRegister(wrappedAddress, value: value)
+        case 0x4014:
+            PPU.writeRegister(address, value: value)
+        case 0x4000..<0x4014, 0x04015:
             // TODO: Implement APU
             break
         case 0x4016:
@@ -75,5 +78,17 @@ internal extension CPU {
         let high: UInt8 = pop()
 
         return UInt16(high) << 8 | UInt16(low)
+    }
+}
+
+/// Maps CPU memory addresses to PPU registers.
+private extension PPU {
+    func writeRegister(address: Address, value: UInt8) {
+        switch address {
+        case 0x2000:
+            PPUCTRL = value
+        default:
+            fatalError("Attempt to write illegal PPU register address \(format(address)).")
+        }
     }
 }
