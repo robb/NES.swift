@@ -141,5 +141,32 @@ class PPUSpec: QuickSpec {
                 expect(PPU.OAMADDR).to(equal(0x3E))
             }
         }
+
+        describe("Having the CPU write to the OAMDATA register") {
+            beforeEach {
+                CPU.write(.OAMADDRAddress, 0x00)
+                CPU.write(.OAMDATAAddress, 0xFF)
+            }
+
+            it("should update the OAM at the memory location in the OAMADDR register") {
+                expect(PPU.OAM[0x00]).to(equal(0xFF))
+            }
+
+            it("should increment value in OAMADDR") {
+                expect(PPU.OAMADDR).to(equal(0x01))
+            }
+        }
+
+        describe("Having the CPU read from the OAMDATA register") {
+            beforeEach {
+                CPU.write(.OAMADDRAddress, 0x00)
+
+                PPU.OAM[0x00] = 0xFF
+            }
+
+            it("should return the value of the OAM at the memory location in the OAMADDR register") {
+                expect(CPU.read(.OAMDATAAddress)).to(equal(0xFF))
+            }
+        }
     }
 }

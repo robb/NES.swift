@@ -97,6 +97,9 @@ internal extension Address {
 
     /// The address of the PPU's OAMADDR register in the CPU's address space.
     static let OAMADDRAddress: Address = 0x2003
+
+    /// The address of the PPU's OAMDATA register in the CPU's address space.
+    static let OAMDATAAddress: Address = 0x2004
 }
 
 /// Maps CPU memory addresses to PPU registers.
@@ -107,6 +110,8 @@ private extension PPU {
             defer { didReadPPUSTATUS() }
 
             return PPUSTATUS
+        case Address.OAMDATAAddress:
+            return OAMDATA
         default:
             return register
         }
@@ -122,6 +127,10 @@ private extension PPU {
             PPUMASK = value
         case Address.OAMADDRAddress:
             OAMADDR = value
+        case Address.OAMDATAAddress:
+            defer { didWriteOAMDATA() }
+
+            OAMDATA = value
         default:
             fatalError("Attempt to write illegal PPU register address \(format(address)).")
         }
