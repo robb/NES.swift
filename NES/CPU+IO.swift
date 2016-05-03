@@ -103,6 +103,9 @@ internal extension Address {
 
     /// The address of the PPU's PPUSCROLL register in the CPU's address space.
     static let PPUSCROLLAddress: Address = 0x2005
+
+    /// The address of the PPU's PPUADDR register in the CPU's address space.
+    static let PPUADDRAddress: Address = 0x2006
 }
 
 /// Maps CPU memory addresses to PPU registers.
@@ -138,6 +141,10 @@ private extension PPU {
             defer { didWritePPUSCROLL() }
 
             PPUSCROLL = value
+        case Address.PPUADDRAddress:
+            defer { didWritePPUADDR() }
+
+            PPUADDR = value
         default:
             fatalError("Attempt to write illegal PPU register address \(format(address)).")
         }

@@ -30,6 +30,9 @@ internal final class PPU {
     /// The PPU scrolling position register.
     var PPUSCROLL: UInt8 = 0
 
+    /// The PPU address register.
+    var PPUADDR: UInt8 = 0
+
     /// Holds the last value written to any of the above registers.
     ///
     /// Setting this will also affect the five lowest bits of PPUSTATUS.
@@ -38,6 +41,8 @@ internal final class PPU {
             PPUSTATUS = (PPUSTATUS & 0xE0) | (register & 0x1F)
         }
     }
+
+    var VRAMAddress: Address = 0
 
     var temporaryVRAMAddress: Address = 0
 
@@ -90,6 +95,18 @@ internal final class PPU {
         } else {
             temporaryVRAMAddress = (temporaryVRAMAddress & 0x8FFF) | UInt16(PPUSCROLL & 0x07) << 12
             temporaryVRAMAddress = (temporaryVRAMAddress & 0xFC1F) | UInt16(PPUSCROLL & 0xF8) << 2
+        }
+
+        secondWrite = !secondWrite
+    }
+
+    /// Must be called after the CPU has written PPUADDR.
+    func didWritePPUADDR() {
+        if !secondWrite {
+            temporaryVRAMAddress = (temporaryVRAMAddress & 0x80FF) | UInt16(PPUADDR & 0x3F) << 8
+        } else {
+            temporaryVRAMAddress = (temporaryVRAMAddress & 0xFF00) | UInt16(PPUADDR)
+            VRAMAddress = temporaryVRAMAddress
         }
 
         secondWrite = !secondWrite

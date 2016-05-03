@@ -192,5 +192,19 @@ class PPUSpec: QuickSpec {
                 }
             }
         }
+
+        describe("Having the CPU write to PPUSCROLL & PPUADDR") {
+            beforeEach {
+                CPU.write(.PPUSCROLLAddress, 0x7D)
+                CPU.write(.PPUSCROLLAddress, 0x5E)
+
+                CPU.write(.PPUADDRAddress, 0x3D)
+                CPU.write(.PPUADDRAddress, 0xF0)
+            }
+
+            it("should update the VRAM address") {
+                expect(PPU.VRAMAddress).to(equal(0x3DF0))
+            }
+        }
     }
 }
