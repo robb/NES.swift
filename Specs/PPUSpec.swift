@@ -168,5 +168,29 @@ class PPUSpec: QuickSpec {
                 expect(CPU.read(.OAMDATAAddress)).to(equal(0xFF))
             }
         }
+
+        describe("Having the CPU write to the PPUSCROLL register once") {
+            beforeEach {
+                CPU.write(.PPUSCROLLAddress, 0x7D)
+            }
+
+            it("should enabled the write latch") {
+                expect(PPU.secondWrite).to(beTrue())
+            }
+
+            describe("and again") {
+                beforeEach {
+                    CPU.write(.PPUSCROLLAddress, 0x5E)
+                }
+
+                it("should update the horizontal scroll position") {
+                    expect(PPU.horizontalScrollPosition).to(equal(0x05))
+                }
+
+                it("should update the temporary VRAM address") {
+                    expect(PPU.temporaryVRAMAddress).to(equal(0x616F))
+                }
+            }
+        }
     }
 }
