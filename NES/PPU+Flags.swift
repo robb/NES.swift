@@ -70,3 +70,33 @@ internal extension PPU {
         return PPUMASK[7]
     }
 }
+
+/// Convenient access to the flags in the PPUSTATUS register.
+internal extension PPU {
+    var spriteOverflow: Bool {
+        get {
+            return PPUSTATUS[5]
+        }
+        set {
+            PPUSTATUS[5] = newValue
+        }
+    }
+
+    var spriteZeroHit: Bool {
+        get {
+            return PPUSTATUS[6]
+        }
+        set {
+            PPUSTATUS[6] = newValue
+        }
+    }
+
+    var VBlankStarted: Bool {
+        get {
+            return PPUSTATUS[7]
+        }
+        set {
+            PPUSTATUS[7] = newValue
+        }
+    }
+}

@@ -3,9 +3,13 @@ import Foundation
 extension CPU: IO {
     func read(address: Address) -> UInt8 {
         switch address {
-        case 0...0x2000:
+        case 0..<0x2000:
             return RAM[Int(address % 0x0800)]
-        case 0x2001...0x6000:
+        case 0x2000..<0x4000:
+            let wrappedAddress = 0x2000 + address % 8
+
+            return PPU.readRegister(wrappedAddress)
+        case 0x4000...0x6000:
             return 0x00
         default:
             return mapper.read(address)
@@ -81,13 +85,37 @@ internal extension CPU {
     }
 }
 
+internal extension Address {
+    /// The address of the PPU's PPUCTRL register in the CPU's address space.
+    static let PPUCTRLAddress: Address = 0x2000
+
+    /// The address of the PPU's PPUMASK register in the CPU's address space.
+    static let PPUMASKAddress: Address = 0x2001
+
+    /// The address of the PPU's PPUSTATUS register in the CPU's address space.
+    static let PPUSTATUSAddress: Address = 0x2002
+}
+
 /// Maps CPU memory addresses to PPU registers.
 private extension PPU {
-    func writeRegister(address: Address, value: UInt8) {
+    func readRegister(address: Address) -> UInt8 {
         switch address {
-        case 0x2000:
+        case Address.PPUSTATUSAddress:
+            defer { didReadPPUSTATUS() }
+
+            return PPUSTATUS
+        default:
+            return register
+        }
+    }
+
+    func writeRegister(address: Address, value: UInt8) {
+        register = value
+
+        switch address {
+        case Address.PPUCTRLAddress:
             PPUCTRL = value
-        case 0x2001:
+        case Address.PPUMASKAddress:
             PPUMASK = value
         default:
             fatalError("Attempt to write illegal PPU register address \(format(address)).")

@@ -19,9 +19,18 @@ class PPUSpec: QuickSpec {
             console = .consoleWithDummyMapper()
         }
 
-        describe("Having the CPU write to memory address 0x2000") {
+        describe("Reading a write-only register") {
+            it("should return the last value written to any register") {
+                CPU.write(.PPUCTRLAddress, 0x0F)
+                CPU.write(.PPUMASKAddress, 0xF0)
+
+                expect(CPU.read(.PPUCTRLAddress)).to(equal(0xF0))
+            }
+        }
+
+        describe("Having the CPU write to the PPUCTRL register") {
             beforeEach {
-                CPU.write(0x2000, 0x3E)
+                CPU.write(.PPUCTRLAddress, 0x3E)
             }
 
             it("should update the PPUCTRL register") {
@@ -49,9 +58,9 @@ class PPUSpec: QuickSpec {
             }
         }
 
-        describe("Having the CPU write to memory address 0x2001") {
+        describe("Having the CPU write to the PPUMASK register") {
             beforeEach {
-                CPU.write(0x2001, 0xFF)
+                CPU.write(.PPUMASKAddress, 0xFF)
             }
 
             it("should update the PPUMASK register") {
@@ -88,6 +97,38 @@ class PPUSpec: QuickSpec {
 
             it("should update the blueTint") {
                 expect(PPU.emphasizeBlue).to(beTrue())
+            }
+        }
+
+        describe("Having the CPU read the PPUSTATUS register") {
+            beforeEach {
+                PPU.spriteOverflow = true
+                PPU.spriteZeroHit = true
+                PPU.VBlankStarted = true
+            }
+
+            it("should be affected by the sprite overflow, sprite zero and VBlank flags") {
+                expect(CPU.read(.PPUSTATUSAddress)).to(equal(0xE0))
+            }
+
+            it("should contain the most recently written value in the lower five bits") {
+                CPU.write(.PPUCTRLAddress, 0x0F)
+
+                expect(CPU.read(.PPUSTATUSAddress)).to(equal(0xEF))
+            }
+
+            it("should reset the write latch") {
+                PPU.secondWrite = true
+
+                CPU.read(.PPUSTATUSAddress)
+
+                expect(PPU.secondWrite).to(beFalse())
+            }
+
+            it("should reset the VBlank flag") {
+                CPU.read(.PPUSTATUSAddress)
+
+                expect(PPU.VBlankStarted).to(beFalse())
             }
         }
     }
