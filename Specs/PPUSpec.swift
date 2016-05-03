@@ -131,5 +131,15 @@ class PPUSpec: QuickSpec {
                 expect(PPU.VBlankStarted).to(beFalse())
             }
         }
+
+        describe("Having the CPU write to the OAMADDR register") {
+            beforeEach {
+                CPU.write(.OAMADDRAddress, 0x3E)
+            }
+
+            it("should update the OAMADDR register") {
+                expect(PPU.OAMADDR).to(equal(0x3E))
+            }
+        }
     }
 }

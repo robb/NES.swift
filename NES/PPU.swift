@@ -12,6 +12,9 @@ internal final class PPU {
     /// Setting the lower five bit has no effect.
     var PPUSTATUS: UInt8 = 0
 
+    /// The OAM Address Port register.
+    var OAMADDR: UInt8 = 0
+
     /// Holds the last value written to any of the above registers.
     ///
     /// Setting this will also affect the five lowest bits of PPUSTATUS.
