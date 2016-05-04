@@ -206,5 +206,80 @@ class PPUSpec: QuickSpec {
                 expect(PPU.VRAMAddress).to(equal(0x3DF0))
             }
         }
+
+        describe("Having the CPU read PPUDATA") {
+            beforeEach {
+                PPU.VRAMAddress = 0x0000
+                PPU.VRAMBuffer = 0xFF
+
+                PPU.write(PPU.VRAMAddress, 0x12)
+            }
+
+            it("should return the buffered value first") {
+                expect(CPU.read(.PPUDATAAddress)).to(equal(0xFF))
+            }
+
+            it("should update the buffer") {
+                CPU.read(.PPUDATAAddress)
+
+                expect(PPU.VRAMBuffer).to(equal(0x12))
+            }
+
+            it("should return the value at the current VRAM address on the second read") {
+                CPU.read(.PPUDATAAddress)
+
+                expect(CPU.read(.PPUDATAAddress)).to(equal(0x12))
+            }
+
+            describe("if the VRAM increment flag is not set") {
+                beforeEach {
+                    PPU.PPUCTRL[2] = false
+                }
+
+                it("should increment the VRAM address by 1") {
+                    CPU.read(.PPUDATAAddress)
+
+                    expect(PPU.VRAMAddress).to(equal(0x0001))
+                }
+            }
+
+            describe("if the VRAM increment flag is set") {
+                beforeEach {
+                    PPU.PPUCTRL[2] = true
+                }
+
+                it("should increment the VRAM address by 32") {
+                    CPU.read(.PPUDATAAddress)
+
+                    expect(PPU.VRAMAddress).to(equal(0x0020))
+                }
+            }
+        }
+
+        describe("Having the CPU write to PPUDATA") {
+            describe("if the VRAM increment flag is not set") {
+                beforeEach {
+                    PPU.PPUCTRL[2] = false
+                }
+
+                it("should increment the VRAM address by 1") {
+                    CPU.write(.PPUDATAAddress, 0x12)
+
+                    expect(PPU.VRAMAddress).to(equal(0x0001))
+                }
+            }
+
+            describe("if the VRAM increment flag is set") {
+                beforeEach {
+                    PPU.PPUCTRL[2] = true
+                }
+
+                it("should increment the VRAM address by 32") {
+                    CPU.write(.PPUDATAAddress, 0x12)
+
+                    expect(PPU.VRAMAddress).to(equal(0x0020))
+                }
+            }
+        }
     }
 }

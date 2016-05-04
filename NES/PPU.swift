@@ -33,6 +33,34 @@ internal final class PPU {
     /// The PPU address register.
     var PPUADDR: UInt8 = 0
 
+    /// The PPU data port.
+    ///
+    /// This property proxies the PPU's VRAM at the address held by VRAMAddress.
+    var PPUDATA: UInt8 {
+        get {
+            return read(VRAMAddress)
+        }
+        set {
+            write(VRAMAddress, newValue)
+        }
+    }
+
+    /// This value holds buffered reads from PPUDATA.
+    var VRAMBuffer: UInt8 = 0
+
+    /// The buffered PPU data port.
+    var bufferedPPUDATA: UInt8 {
+        var data = PPUDATA
+
+        if VRAMAddress < 0x3F00 {
+            swap(&data, &VRAMBuffer)
+        } else {
+            VRAMBuffer = read(VRAMAddress &- 0x1000)
+        }
+
+        return data
+    }
+
     /// Holds the last value written to any of the above registers.
     ///
     /// Setting this will also affect the five lowest bits of PPUSTATUS.
@@ -110,5 +138,15 @@ internal final class PPU {
         }
 
         secondWrite = !secondWrite
+    }
+
+    /// Must be called after the CPU has read PPUDATA.
+    func didReadPPUDATA() {
+        VRAMAddress += VRAMAddressIncrement
+    }
+
+    /// Must be called after the CPU has written PPUDATA.
+    func didWritePPUDATA() {
+        VRAMAddress += VRAMAddressIncrement
     }
 }
