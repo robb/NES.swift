@@ -25,6 +25,54 @@ class CPUSpec: QuickSpec {
             }
         }
 
+        describe("Stepping a CPU") {
+            beforeEach {
+                // Fill the RAM with NOPs
+                let RAM = Array<UInt8>(count: 0x0800, repeatedValue: 0x1A)
+
+                CPU.RAM[RAM.startIndex..<RAM.endIndex] = RAM[RAM.startIndex..<RAM.endIndex]
+                CPU.PC = 0x0200
+
+                expect(CPU.cycles).to(equal(0))
+            }
+
+            it("should increase the cycle count") {
+                CPU.step()
+
+                expect(CPU.cycles).to(equal(2))
+            }
+
+            it("should advance the program counter") {
+                CPU.step()
+
+                expect(CPU.PC).to(equal(0x0201))
+            }
+
+            describe("that is stalled") {
+                beforeEach {
+                    CPU.stallCycles = 1
+                }
+
+                it("should not perform any work") {
+                    CPU.step()
+
+                    expect(CPU.PC).to(equal(0x0200))
+                }
+
+                it("should decrease the stall cycle counter") {
+                    CPU.step()
+
+                    expect(CPU.stallCycles).to(equal(0))
+                }
+
+                it("should increase the cycle count") {
+                    CPU.step()
+
+                    expect(CPU.cycles).to(equal(1))
+                }
+            }
+        }
+
         describe("Performing an interrupt") {
             beforeEach {
                 // Set the entire RAM to `NOP` instructions.

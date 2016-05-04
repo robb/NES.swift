@@ -32,6 +32,9 @@ internal final class CPU {
     /// The interrupt that will be evaluated on the next step.
     var interrupt: Interrupt = .None
 
+    /// The number of cycles the CPU should be stalling.
+    var stallCycles: Int = 0
+
     /// The console this CPU is owned by.
     unowned let console: Console
 

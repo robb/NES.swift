@@ -22,6 +22,12 @@ internal extension CPU {
     }
 
     func step() {
+        guard stallCycles == 0 else {
+            cycles += 1
+            stallCycles -= 1
+            return
+        }
+
         switch interrupt {
         case .None:
             break
