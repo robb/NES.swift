@@ -1,220 +1,107 @@
 import Foundation
 
 internal extension CPU {
-    func absolute(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Address {
-        let address = read16(PC &+ 1)
-
-        cycles += cyclesSpent
-        PC += 3
-
-        return address
+    func absolute() -> Address {
+        return advanceProgramCounter()
     }
 
-    func absolute(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> UInt8 {
-        let address = read16(PC &+ 1)
-        let operand = read(address)
-
-        cycles += cyclesSpent
-        PC += 3
-
-        return operand
+    func absolute() -> UInt8 {
+        return read(advanceProgramCounter())
     }
 
-    func absoluteX(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Address {
-        let address = read16(PC &+ 1) &+ Address(X)
+    func absoluteX(incursPageBoundaryCost: Bool) -> Address {
+        let address = advanceProgramCounter() &+ Address(X)
 
-        PC += 3
-        cycles += cyclesSpent
-
-        if differentPages(address, address &- Address(X)) {
-            cycles += pageBoundaryCost
+        if incursPageBoundaryCost && differentPages(address, address &- Address(X)) {
+            cycles += 1
         }
 
         return address
     }
 
-    func absoluteX(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> UInt8 {
-        let address = read16(PC &+ 1) &+ Address(X)
-        let operand = read(address)
-
-        PC += 3
-        cycles += cyclesSpent
-
-        if differentPages(address, address &- Address(X)) {
-            cycles += pageBoundaryCost
-        }
-
-        return operand
+    func absoluteX(incursPageBoundaryCost: Bool) -> UInt8 {
+        return read(absoluteX(incursPageBoundaryCost))
     }
 
-    func absoluteY(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Address {
-        let address = read16(PC &+ 1) &+ Address(Y)
+    func absoluteY(incursPageBoundaryCost: Bool) -> Address {
+        let address = advanceProgramCounter() &+ Address(Y)
 
-        cycles += cyclesSpent
-        PC += 3
-
-        if differentPages(address, address &- Address(Y)) {
-            cycles += pageBoundaryCost
+        if incursPageBoundaryCost && differentPages(address, address &- Address(Y)) {
+            cycles += 1
         }
 
         return address
     }
 
-    func absoluteY(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> UInt8 {
-        let address = read16(PC &+ 1) &+ Address(Y)
-        let operand = read(address)
-
-        cycles += cyclesSpent
-        PC += 3
-
-        if differentPages(address, address &- Address(Y)) {
-            cycles += pageBoundaryCost
-        }
-
-        return operand
+    func absoluteY(incursPageBoundaryCost: Bool) -> UInt8 {
+        return read(absoluteY(incursPageBoundaryCost))
     }
 
-    func accumulator(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Void {
-        cycles += cyclesSpent
-        PC += 1
-
-        return
+    func accumulator() -> Void {
     }
 
-    func immediate(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> UInt8 {
-        let operand = read(PC &+ 1)
-
-        cycles += cyclesSpent
-        PC += 2
-
-        return operand
+    func immediate() -> UInt8 {
+        return advanceProgramCounter()
     }
 
-    func implied(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Void {
-        cycles += cyclesSpent
-        PC += 1
+    func implied() -> Void {
     }
 
-    func indexedIndirect(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> UInt8 {
-        let address = buggyRead16(UInt16(read(PC &+ 1) &+ X))
-        let operand = read(address)
+    func indexedIndirect() -> Address {
+        let address = Address(advanceProgramCounter() &+ X)
 
-        cycles += cyclesSpent
-        PC += 2
-
-        return operand
+        return buggyRead16(address)
     }
 
-    func indexedIndirect(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Address {
-        let direct = UInt16(read(PC &+ 1) &+ X)
-        let address = buggyRead16(direct)
-
-        cycles += cyclesSpent
-        PC += 2
-
-        return address
+    func indexedIndirect() -> UInt8 {
+        return read(indexedIndirect())
     }
 
-    func indirect(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Address {
-        let address = read16(PC &+ 1)
-        let operand = buggyRead16(address)
-
-        cycles += cyclesSpent
-        PC += 3
-
-        return operand
+    func indirect() -> Address {
+        return buggyRead16(advanceProgramCounter())
     }
 
-    func indirectIndexed(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> UInt8 {
-        let address = buggyRead16(Address(read(PC &+ 1))) &+ Address(Y)
-        let operand = read(address)
+    func indirectIndexed(incursPageBoundaryCost: Bool) -> Address {
+        let address = buggyRead16(Address(0x00, advanceProgramCounter())) &+ Address(Y)
 
-        cycles += cyclesSpent
-        PC += 2
-
-        if differentPages(address, address &- Address(Y)) {
-            cycles += pageBoundaryCost
-        }
-
-        return operand
-    }
-
-    func indirectIndexed(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Address {
-        let address = buggyRead16(Address(read(PC &+ 1))) &+ Address(Y)
-
-        cycles += cyclesSpent
-        PC += 2
-
-        if differentPages(address, address &- Address(Y)) {
-            cycles += pageBoundaryCost
+        if incursPageBoundaryCost && differentPages(address, address &- Address(Y)) {
+            cycles += 1
         }
 
         return address
     }
 
-    func relative(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> UInt8 {
-        let offset = read(PC &+ 1)
-
-        cycles += cyclesSpent
-        PC += 2
-
-        return offset
+    func indirectIndexed(incursPageBoundaryCost: Bool) -> UInt8 {
+        return read(indirectIndexed(incursPageBoundaryCost))
     }
 
-    func zeroPage(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> UInt8 {
-        let address = Address(0, read(PC &+ 1))
-        let operand = read(address)
-
-        cycles += cyclesSpent
-        PC += 2
-
-        return operand
+    func relative() -> UInt8 {
+        return advanceProgramCounter()
     }
 
-    func zeroPage(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Address {
-        let address = Address(0, read(PC &+ 1))
+    func zeroPage() -> UInt8 {
+        let address = Address(0, advanceProgramCounter())
 
-        cycles += cyclesSpent
-        PC += 2
-
-        return address
+        return read(address)
     }
 
-    func zeroPageX(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> UInt8 {
-        let address = Address(read(PC &+ 1) &+ X)
-        let operand = read(address)
-
-        cycles += cyclesSpent
-        PC += 2
-
-        return operand
+    func zeroPage() -> Address {
+        return Address(0, advanceProgramCounter())
     }
 
-    func zeroPageX(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Address {
-        let address = Address(read(PC &+ 1) &+ X)
-
-        cycles += cyclesSpent
-        PC += 2
-
-        return address
+    func zeroPageX() -> Address {
+        return Address(advanceProgramCounter() &+ X)
     }
 
-    func zeroPageY(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> UInt8 {
-        let address = Address(read(PC &+ 1) &+ Y)
-        let operand = read(address)
-
-        cycles += cyclesSpent
-        PC += 2
-
-        return operand
+    func zeroPageX() -> UInt8 {
+        return read(zeroPageX())
     }
 
-    func zeroPageY(cyclesSpent: UInt64, _ pageBoundaryCost: UInt64) -> Address {
-        let address = Address(read(PC &+ 1) &+ Y)
+    func zeroPageY() -> Address {
+        return Address(advanceProgramCounter() &+ Y)
+    }
 
-        cycles += cyclesSpent
-        PC += 2
-
-        return address
+    func zeroPageY() -> UInt8 {
+        return read(zeroPageY())
     }
 }

@@ -33,6 +33,24 @@ extension CPU: IO {
     }
 }
 
+internal extension CPU {
+    func advanceProgramCounter() -> UInt8 {
+        let result = read(PC)
+
+        PC = PC &+ 1
+
+        return result
+    }
+
+    func advanceProgramCounter() -> UInt16 {
+        let result = read16(PC)
+
+        PC = PC &+ 2
+
+        return result
+    }
+}
+
 /// Stack access.
 internal extension CPU {
     static let StackOffset: Address = 0x0100
