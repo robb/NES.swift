@@ -3,7 +3,7 @@ import Foundation
 /// The CPU of the NES.
 internal final class CPU {
     /// The number of cycles the CPU has run for.
-    var cycles: UInt64 = 0
+    var cycles: Int = 0
 
     /// The PC register.
     ///
