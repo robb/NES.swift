@@ -9,13 +9,13 @@ private func pad(string: String, length: Int, character: Character = " ") -> Str
 }
 
 internal func format(value: UInt16) -> String {
-    let hexString = String(value, radix: 16)
+    let hexString = String(value, radix: 16, uppercase: true)
 
     return "0x\(pad(hexString, length: 4, character: "0"))"
 }
 
 internal func format(value: UInt8) -> String {
-    let hexString = String(value, radix: 16)
+    let hexString = String(value, radix: 16, uppercase: true)
 
     return "0x\(pad(hexString, length: 2, character: "0"))"
 }
