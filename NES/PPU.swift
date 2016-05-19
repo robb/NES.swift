@@ -1,6 +1,10 @@
 import Foundation
 
 internal final class PPU {
+    var cycle: Int = 0
+
+    var scanLine: Int = 241
+
     /// The PPU Control register.
     var PPUCTRL: UInt8 = 0
 

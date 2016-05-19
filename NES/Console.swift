@@ -21,4 +21,18 @@ public final class Console {
         CPU = NES.CPU(console: self)
         PPU = NES.PPU(console: self)
     }
+
+    public func step() {
+        let before = CPU.cycles
+
+        CPU.step()
+
+        let after = CPU.cycles
+
+        let PPUCycles = (after - before) * 3
+
+        for _ in 0..<PPUCycles {
+            PPU.step()
+        }
+    }
 }

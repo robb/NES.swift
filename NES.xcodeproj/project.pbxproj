@@ -40,6 +40,7 @@
 		54D3FCE21ADDB255003CFF4C /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D3FCE11ADDB255003CFF4C /* Mapper.swift */; };
 		54D8BDED1CEDC62900F8C3BC /* nestest.log in Resources */ = {isa = PBXBuildFile; fileRef = 54D8BDEC1CEDC62900F8C3BC /* nestest.log */; };
 		54D8BDEF1CEDCBFD00F8C3BC /* Matcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D8BDEE1CEDCBFD00F8C3BC /* Matcher.swift */; };
+		54D8BDF11CEDD50800F8C3BC /* PPU+Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D8BDF01CEDD50800F8C3BC /* PPU+Step.swift */; };
 		54E08FEE1CC67AC300C9AA49 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E08FED1CC67AC300C9AA49 /* Helper.swift */; };
 /* End PBXBuildFile section */
 
@@ -103,6 +104,7 @@
 		54D3FCE11ADDB255003CFF4C /* Mapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
 		54D8BDEC1CEDC62900F8C3BC /* nestest.log */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nestest.log; sourceTree = "<group>"; };
 		54D8BDEE1CEDCBFD00F8C3BC /* Matcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matcher.swift; sourceTree = "<group>"; };
+		54D8BDF01CEDD50800F8C3BC /* PPU+Step.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PPU+Step.swift"; sourceTree = "<group>"; };
 		54E08FED1CC67AC300C9AA49 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -174,6 +176,7 @@
 				546E4ECE1CCBEDBA00DD2704 /* PPU.swift */,
 				540E001B1CD577C500C9669B /* PPU+Flags.swift */,
 				542BC4331CD44987000E211F /* PPU+IO.swift */,
+				54D8BDF01CEDD50800F8C3BC /* PPU+Step.swift */,
 				542436641CD804BA0084DDDF /* UInt8+Bitset.swift */,
 				548605EB1ACFFF1B00198A72 /* Supporting Files */,
 			);
@@ -352,6 +355,7 @@
 				54339ADB1ADDB57600632DE9 /* Cartridge.swift in Sources */,
 				54C21E171CC823AE00B96C00 /* CPU+Interrupts.swift in Sources */,
 				54E08FEE1CC67AC300C9AA49 /* Helper.swift in Sources */,
+				54D8BDF11CEDD50800F8C3BC /* PPU+Step.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

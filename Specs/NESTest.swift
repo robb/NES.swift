@@ -25,12 +25,12 @@ class NESTest: QuickSpec {
             CPU.PC = 0xC000
 
             for state in log.dropLast() {
-                expect(CPU).to(match(state))
+                expect(console).to(match(state))
 
-                CPU.step()
+                console.step()
             }
 
-            expect(CPU).to(match(log.last))
+            expect(console).to(match(log.last))
 
             expect(CPU.PC).to(equal(0xC66E))
 

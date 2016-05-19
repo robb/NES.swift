@@ -2,15 +2,17 @@
 
 import Nimble
 
-func match(state: ConsoleState?) -> Nimble.NonNilMatcherFunc<CPU> {
+func match(state: ConsoleState?) -> Nimble.NonNilMatcherFunc<Console> {
     return NonNilMatcherFunc { actualExpression, failureMessage in
         guard let state = state else {
             return false
         }
 
-        guard let CPU = try actualExpression.evaluate() else {
+        guard let console = try actualExpression.evaluate() else {
             return false
         }
+
+        let CPU = console.CPU
 
         guard CPU.A == state.A else {
             failureMessage.postfixMessage = "have an A register value of \(format(state.A))"
@@ -43,6 +45,22 @@ func match(state: ConsoleState?) -> Nimble.NonNilMatcherFunc<CPU> {
         guard CPU.SP == state.SP else {
             failureMessage.postfixMessage = "have a stack pointer value of \(format(state.SP))"
             failureMessage.actualValue = format(CPU.SP)
+
+            return false
+        }
+
+        let PPU = console.PPU
+
+        guard PPU.cycle == state.cycle else {
+            failureMessage.postfixMessage = "to be at PPU cycle \(state.cycle)"
+            failureMessage.actualValue = "\(PPU.cycle)"
+
+            return false
+        }
+
+        guard PPU.scanLine == state.scanLine else {
+            failureMessage.postfixMessage = "to be at PPU scan line \(state.scanLine)"
+            failureMessage.actualValue = "\(PPU.scanLine)"
 
             return false
         }
