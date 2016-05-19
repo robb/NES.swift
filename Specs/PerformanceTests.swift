@@ -14,7 +14,7 @@ class PerformanceTest: XCTestCase {
             console.CPU.PC = 0xC000
 
             while (console.CPU.PC != 0xC66E) {
-                console.CPU.step()
+                console.step()
             }
         }
     }
