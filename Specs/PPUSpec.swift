@@ -281,5 +281,41 @@ class PPUSpec: QuickSpec {
                 }
             }
         }
+
+        describe("Having the CPU write to OAMDMA") {
+            it("should copy the given memory page to the OAM") {
+                let values = Array<UInt8>(count: 256, repeatedValue: 0x23)
+
+                CPU.RAM[0x0400..<0x0500] = ArraySlice(values)
+
+                CPU.write(.OAMDMAAddress, 0x04)
+
+                expect(PPU.OAM).to(equal(values))
+            }
+
+            describe("if the PPU is on an even cycle") {
+                beforeEach {
+                    PPU.cycle = 0
+
+                    CPU.write(.OAMDMAAddress, 0x20)
+                }
+
+                it("should stall the CPU for 513 cycles") {
+                    expect(CPU.stallCycles).to(equal(513))
+                }
+            }
+
+            describe("if the PPU is on an odd cycle") {
+                beforeEach {
+                    PPU.cycle = 1
+
+                    CPU.write(.OAMDMAAddress, 0x20)
+                }
+
+                it("should stall the CPU for 514 cycles") {
+                    expect(CPU.stallCycles).to(equal(514))
+                }
+            }
+        }
     }
 }

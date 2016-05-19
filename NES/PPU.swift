@@ -65,6 +65,9 @@ internal final class PPU {
         return data
     }
 
+    /// The OAM DMA register.
+    var OAMDMA: UInt8 = 0
+
     /// Holds the last value written to any of the above registers.
     ///
     /// Setting this will also affect the five lowest bits of PPUSTATUS.
@@ -88,7 +91,7 @@ internal final class PPU {
     unowned let console: Console
 
     /// The CPU.
-    var CPU: IO! {
+    var CPU: NES.CPU! {
         return console.CPU
     }
 
@@ -152,5 +155,18 @@ internal final class PPU {
     /// Must be called after the CPU has written PPUDATA.
     func didWritePPUDATA() {
         VRAMAddress += VRAMAddressIncrement
+    }
+
+    /// Must be called after the CPU has written OAMDMA.
+    func didWriteOAMDMA() {
+        for offset in 0x0000..<0x0100 {
+            let address = Address(OAMDMA, UInt8(offset))
+
+            OAM[Int(OAMADDR)] = CPU.read(address)
+
+            OAMADDR = OAMADDR &+ 1
+        }
+
+        CPU.stallCycles += cycle % 2 == 0 ? 513 : 514
     }
 }

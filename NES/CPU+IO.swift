@@ -109,6 +109,9 @@ internal extension Address {
 
     /// The address of the PPU's PPUDATA register in the CPU's address space.
     static let PPUDATAAddress: Address = 0x2007
+
+    /// The address of the PPU's OAMDMA register in the CPU's address space.
+    static let OAMDMAAddress: Address = 0x4014
 }
 
 /// Maps CPU memory addresses to PPU registers.
@@ -156,6 +159,10 @@ private extension PPU {
             defer { didWritePPUDATA() }
 
             PPUDATA = value
+        case Address.OAMDMAAddress:
+            defer { didWriteOAMDMA() }
+
+            OAMDMA = value
         default:
             fatalError("Attempt to write illegal PPU register address \(format(address)).")
         }
