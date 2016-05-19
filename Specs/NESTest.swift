@@ -7,9 +7,11 @@ class NESTest: QuickSpec {
     override func spec() {
         var console: Console! = nil
 
-        var cpu: CPU! {
+        var CPU: NES.CPU! {
             return console.CPU
         }
+
+        let log: [ConsoleState] = loadLog()
 
         beforeEach {
             let path = NSBundle(forClass: CartridgeSpec.self).pathForResource("nestest", ofType: "nes") ?? ""
@@ -20,14 +22,20 @@ class NESTest: QuickSpec {
         }
 
         it("should pass the nestest.nes test") {
-            cpu.PC = 0xC000
+            CPU.PC = 0xC000
 
-            while (cpu.PC != 0xC66E) {
-                cpu.step()
+            for state in log.dropLast() {
+                expect(CPU).to(match(state))
+
+                CPU.step()
             }
 
-            expect(cpu.read(0x0002)).to(equal(0x00))
-            expect(cpu.read(0x0003)).to(equal(0x00))
+            expect(CPU).to(match(log.last))
+
+            expect(CPU.PC).to(equal(0xC66E))
+
+            expect(CPU.read(0x0002)).to(equal(0x00))
+            expect(CPU.read(0x0003)).to(equal(0x00))
         }
     }
 }
