@@ -1,10 +1,6 @@
 import Foundation
 
 internal final class PPU {
-    var cycle: Int = 0
-
-    var scanLine: Int = 241
-
     /// The PPU Control register.
     var PPUCTRL: UInt8 = 0
 
@@ -77,6 +73,10 @@ internal final class PPU {
         }
     }
 
+    var cycle: Int = 0
+
+    var scanLine: Int = 241
+
     var VRAMAddress: Address = 0
 
     var temporaryVRAMAddress: Address = 0
@@ -110,7 +110,9 @@ internal final class PPU {
         self.console = console
         self.VRAM = VRAM
     }
+}
 
+internal extension PPU {
     /// Must be called after the CPU has read PPUSTATUS.
     func didReadPPUSTATUS() {
         VBlankStarted = false
