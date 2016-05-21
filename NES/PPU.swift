@@ -77,11 +77,22 @@ internal final class PPU {
 
     var scanLine: Int = 241
 
+    var frame: Int = 0
+
     var VRAMAddress: Address = 0
 
     var temporaryVRAMAddress: Address = 0
 
-    var horizontalScrollPosition: UInt8 = 0
+    /// Bits 0 through 2 of `PPUSCROLL` represent the fine X position.
+    var fineX: UInt8 = 0
+
+    var highTileByte: UInt8 = 0
+
+    var lowTileByte: UInt8 = 0
+
+    var attributeTableByte: UInt8 = 0
+
+    var nameTableByte: UInt8 = 0
 
     /// Toggled by writing to PPUSCROLL or PPUADDR, cleared by reading
     /// PPUSTATUS.
@@ -128,7 +139,7 @@ internal extension PPU {
     func didWritePPUSCROLL() {
         if !secondWrite {
             temporaryVRAMAddress = (temporaryVRAMAddress & 0xFFE0) | (UInt16(PPUSCROLL) >> 3)
-            horizontalScrollPosition = PPUSCROLL & 0x07
+            fineX = PPUSCROLL & 0x07
         } else {
             temporaryVRAMAddress = (temporaryVRAMAddress & 0x8FFF) | UInt16(PPUSCROLL & 0x07) << 12
             temporaryVRAMAddress = (temporaryVRAMAddress & 0xFC1F) | UInt16(PPUSCROLL & 0xF8) << 2

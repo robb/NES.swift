@@ -184,7 +184,7 @@ class PPUSpec: QuickSpec {
                 }
 
                 it("should update the horizontal scroll position") {
-                    expect(PPU.horizontalScrollPosition).to(equal(0x05))
+                    expect(PPU.fineX).to(equal(0x05))
                 }
 
                 it("should update the temporary VRAM address") {
