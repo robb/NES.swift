@@ -106,6 +106,10 @@ internal final class PPU {
         return console.CPU
     }
 
+    var frontBuffer: ScreenBuffer = ScreenBuffer()
+
+    var backBuffer: ScreenBuffer = ScreenBuffer()
+
     /// The mapper the PPU reads from.
     var mapper: IO! {
         return console.mapper

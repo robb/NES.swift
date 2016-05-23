@@ -42,6 +42,7 @@
 		54D8BDEF1CEDCBFD00F8C3BC /* Matcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D8BDEE1CEDCBFD00F8C3BC /* Matcher.swift */; };
 		54D8BDF11CEDD50800F8C3BC /* PPU+Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D8BDF01CEDD50800F8C3BC /* PPU+Step.swift */; };
 		54E08FEE1CC67AC300C9AA49 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E08FED1CC67AC300C9AA49 /* Helper.swift */; };
+		54E65A971CF35B3E00317EEC /* ScreenBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E65A961CF35B3E00317EEC /* ScreenBuffer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,7 @@
 		54D8BDEE1CEDCBFD00F8C3BC /* Matcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matcher.swift; sourceTree = "<group>"; };
 		54D8BDF01CEDD50800F8C3BC /* PPU+Step.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PPU+Step.swift"; sourceTree = "<group>"; };
 		54E08FED1CC67AC300C9AA49 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		54E65A961CF35B3E00317EEC /* ScreenBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenBuffer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 				540E001B1CD577C500C9669B /* PPU+Flags.swift */,
 				542BC4331CD44987000E211F /* PPU+IO.swift */,
 				54D8BDF01CEDD50800F8C3BC /* PPU+Step.swift */,
+				54E65A961CF35B3E00317EEC /* ScreenBuffer.swift */,
 				542436641CD804BA0084DDDF /* UInt8+Bitset.swift */,
 				548605EB1ACFFF1B00198A72 /* Supporting Files */,
 			);
@@ -348,6 +351,7 @@
 				542436651CD804BA0084DDDF /* UInt8+Bitset.swift in Sources */,
 				540E001C1CD577C500C9669B /* PPU+Flags.swift in Sources */,
 				54C21E151CC822CD00B96C00 /* CPU+IO.swift in Sources */,
+				54E65A971CF35B3E00317EEC /* ScreenBuffer.swift in Sources */,
 				546E4ECD1CCBEA4700DD2704 /* Console.swift in Sources */,
 				54C573261AD2F8B000A37AE0 /* Address.swift in Sources */,
 				548606051ACFFF2D00198A72 /* CPU.swift in Sources */,

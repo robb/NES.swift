@@ -55,6 +55,7 @@ private extension PPU {
             if scanLine > 260 {
                 scanLine = -1
                 frame += 1
+                swap(&frontBuffer, &backBuffer)
             }
         }
     }
