@@ -128,6 +128,13 @@ internal final class PPU {
 }
 
 internal extension PPU {
+    /// Must be called after the CPU has written PPUCTRL.
+    func didWritePPUCTRL() {
+        if NMIEnabled && VBlankStarted {
+            CPU.triggerNMI()
+        }
+    }
+
     /// Must be called after the CPU has read PPUSTATUS.
     func didReadPPUSTATUS() {
         VBlankStarted = false

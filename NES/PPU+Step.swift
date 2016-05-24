@@ -40,6 +40,21 @@ internal extension PPU {
                 copyY()
             }
         }
+
+        if scanLine == 241 && cycle == 1 {
+            VBlankStarted = true
+
+            if NMIEnabled && VBlankStarted {
+                CPU.triggerNMI()
+            }
+        }
+
+        if preRenderScanline && cycle == 1 {
+            VBlankStarted = false
+
+            spriteOverflow = false
+            spriteZeroHit = false
+        }
     }
 }
 

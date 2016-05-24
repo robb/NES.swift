@@ -138,6 +138,8 @@ private extension PPU {
 
         switch address {
         case Address.PPUCTRLAddress:
+            defer { didWritePPUCTRL() }
+
             PPUCTRL = value
         case Address.PPUMASKAddress:
             PPUMASK = value
