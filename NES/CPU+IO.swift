@@ -29,7 +29,7 @@ extension CPU: IO {
         case 0x4000..<0x4014, 0x04015:
             // TODO: Implement APU
             break
-        case 0x4016:
+        case 0x4016, 0x4017:
             // TODO: Implement Controller
             break
         case 0x6000..<0x10000:
