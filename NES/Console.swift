@@ -28,6 +28,8 @@ public final class Console {
 
         CPU = NES.CPU(console: self)
         PPU = NES.PPU(console: self)
+
+        CPU.PC = CPU.read16(0xFFFC)
     }
 
     public func step() {
