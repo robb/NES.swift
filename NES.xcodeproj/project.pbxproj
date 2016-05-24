@@ -43,10 +43,23 @@
 		54D8BDF11CEDD50800F8C3BC /* PPU+Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D8BDF01CEDD50800F8C3BC /* PPU+Step.swift */; };
 		54E08FEE1CC67AC300C9AA49 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E08FED1CC67AC300C9AA49 /* Helper.swift */; };
 		54E65A971CF35B3E00317EEC /* ScreenBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E65A961CF35B3E00317EEC /* ScreenBuffer.swift */; };
+		54E65A9F1CF35F0000317EEC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E65A9E1CF35F0000317EEC /* AppDelegate.swift */; };
+		54E65AA11CF35F0000317EEC /* NESScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E65AA01CF35F0000317EEC /* NESScene.swift */; };
+		54E65AA51CF35F0000317EEC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54E65AA41CF35F0000317EEC /* Assets.xcassets */; };
+		54E65AA81CF35F0000317EEC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54E65AA61CF35F0000317EEC /* MainMenu.xib */; };
+		54E65AB31CF35F2100317EEC /* NES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 548605E81ACFFF1B00198A72 /* NES.framework */; };
+		54E65AB41CF35F2100317EEC /* NES.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 548605E81ACFFF1B00198A72 /* NES.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		548605F51ACFFF1C00198A72 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 548605DF1ACFFF1B00198A72 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 548605E71ACFFF1B00198A72;
+			remoteInfo = NES;
+		};
+		54E65AB51CF35F2100317EEC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 548605DF1ACFFF1B00198A72 /* Project object */;
 			proxyType = 1;
@@ -66,6 +79,17 @@
 				548606131AD0153D00198A72 /* Quick.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		54E65AB71CF35F2100317EEC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				54E65AB41CF35F2100317EEC /* NES.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -108,6 +132,12 @@
 		54D8BDF01CEDD50800F8C3BC /* PPU+Step.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PPU+Step.swift"; sourceTree = "<group>"; };
 		54E08FED1CC67AC300C9AA49 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		54E65A961CF35B3E00317EEC /* ScreenBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenBuffer.swift; sourceTree = "<group>"; };
+		54E65A9C1CF35F0000317EEC /* Emulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Emulator.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		54E65A9E1CF35F0000317EEC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		54E65AA01CF35F0000317EEC /* NESScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NESScene.swift; sourceTree = "<group>"; };
+		54E65AA41CF35F0000317EEC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		54E65AA71CF35F0000317EEC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		54E65AA91CF35F0000317EEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +158,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		54E65A991CF35F0000317EEC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				54E65AB31CF35F2100317EEC /* NES.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -144,6 +182,7 @@
 			children = (
 				548605EA1ACFFF1B00198A72 /* NES */,
 				548605F71ACFFF1C00198A72 /* Specs */,
+				54E65A9D1CF35F0000317EEC /* Emulator */,
 				5486060C1AD0143200198A72 /* Frameworks */,
 				548605E91ACFFF1B00198A72 /* Products */,
 			);
@@ -154,6 +193,7 @@
 			children = (
 				548605E81ACFFF1B00198A72 /* NES.framework */,
 				548605F31ACFFF1C00198A72 /* Specs.xctest */,
+				54E65A9C1CF35F0000317EEC /* Emulator.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -230,6 +270,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		54E65A9D1CF35F0000317EEC /* Emulator */ = {
+			isa = PBXGroup;
+			children = (
+				54E65A9E1CF35F0000317EEC /* AppDelegate.swift */,
+				54E65AA41CF35F0000317EEC /* Assets.xcassets */,
+				54E65AA91CF35F0000317EEC /* Info.plist */,
+				54E65AA61CF35F0000317EEC /* MainMenu.xib */,
+				54E65AA01CF35F0000317EEC /* NESScene.swift */,
+			);
+			path = Emulator;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -281,6 +333,25 @@
 			productReference = 548605F31ACFFF1C00198A72 /* Specs.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		54E65A9B1CF35F0000317EEC /* Emulator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 54E65AAA1CF35F0000317EEC /* Build configuration list for PBXNativeTarget "Emulator" */;
+			buildPhases = (
+				54E65A981CF35F0000317EEC /* Sources */,
+				54E65A991CF35F0000317EEC /* Frameworks */,
+				54E65A9A1CF35F0000317EEC /* Resources */,
+				54E65AB71CF35F2100317EEC /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				54E65AB61CF35F2100317EEC /* PBXTargetDependency */,
+			);
+			name = Emulator;
+			productName = Emulator;
+			productReference = 54E65A9C1CF35F0000317EEC /* Emulator.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -297,6 +368,9 @@
 					548605F21ACFFF1C00198A72 = {
 						CreatedOnToolsVersion = 6.3;
 					};
+					54E65A9B1CF35F0000317EEC = {
+						CreatedOnToolsVersion = 7.3;
+					};
 				};
 			};
 			buildConfigurationList = 548605E21ACFFF1B00198A72 /* Build configuration list for PBXProject "NES" */;
@@ -305,6 +379,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 548605DE1ACFFF1B00198A72;
 			productRefGroup = 548605E91ACFFF1B00198A72 /* Products */;
@@ -313,6 +388,7 @@
 			targets = (
 				548605E71ACFFF1B00198A72 /* NES */,
 				548605F21ACFFF1C00198A72 /* Specs */,
+				54E65A9B1CF35F0000317EEC /* Emulator */,
 			);
 		};
 /* End PBXProject section */
@@ -331,6 +407,15 @@
 			files = (
 				544E4F531AE29116007C8DCD /* nestest.nes in Resources */,
 				54D8BDED1CEDC62900F8C3BC /* nestest.log in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		54E65A9A1CF35F0000317EEC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				54E65AA51CF35F0000317EEC /* Assets.xcassets in Resources */,
+				54E65AA81CF35F0000317EEC /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,6 +464,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		54E65A981CF35F0000317EEC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				54E65AA11CF35F0000317EEC /* NESScene.swift in Sources */,
+				54E65A9F1CF35F0000317EEC /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -387,7 +481,23 @@
 			target = 548605E71ACFFF1B00198A72 /* NES */;
 			targetProxy = 548605F51ACFFF1C00198A72 /* PBXContainerItemProxy */;
 		};
+		54E65AB61CF35F2100317EEC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 548605E71ACFFF1B00198A72 /* NES */;
+			targetProxy = 54E65AB51CF35F2100317EEC /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		54E65AA61CF35F0000317EEC /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				54E65AA71CF35F0000317EEC /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		548605FC1ACFFF1C00198A72 /* Debug */ = {
@@ -561,6 +671,39 @@
 			};
 			name = Release;
 		};
+		54E65AAB1CF35F0000317EEC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				INFOPLIST_FILE = Emulator/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.robertboehnke.NES.emulator.Emulator;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		54E65AAC1CF35F0000317EEC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				INFOPLIST_FILE = Emulator/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.robertboehnke.NES.emulator.Emulator;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -587,6 +730,15 @@
 			buildConfigurations = (
 				548606021ACFFF1C00198A72 /* Debug */,
 				548606031ACFFF1C00198A72 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		54E65AAA1CF35F0000317EEC /* Build configuration list for PBXNativeTarget "Emulator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				54E65AAB1CF35F0000317EEC /* Debug */,
+				54E65AAC1CF35F0000317EEC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

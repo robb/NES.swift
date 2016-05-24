@@ -3,9 +3,17 @@ import Foundation
 public final class Console {
     internal private(set) var CPU: NES.CPU! = nil
 
+    public var frames: Int {
+        return PPU.frame
+    }
+
     internal private(set) var mapper: IO! = nil
 
     internal private(set) var PPU: NES.PPU! = nil
+
+    public var screenData: NSData {
+        return PPU.frontBuffer.pixelData
+    }
 
     public convenience init(cartridge: Cartridge) {
         precondition(cartridge.mapper == 000 || cartridge.mapper == 002)
@@ -33,6 +41,16 @@ public final class Console {
 
         for _ in 0..<PPUCycles {
             PPU.step()
+        }
+    }
+
+    public func step(time time: NSTimeInterval) {
+        let frequency = 1789773.0
+
+        let target = CPU.cycles + Int(time * frequency)
+
+        while CPU.cycles < target {
+            step()
         }
     }
 }
