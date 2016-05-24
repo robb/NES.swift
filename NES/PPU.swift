@@ -20,10 +20,10 @@ internal final class PPU {
     /// This property proxies the PPU's OAM at the address held by OAMADDR.
     var OAMDATA: UInt8 {
         get {
-            return OAM[Int(OAMADDR)]
+            return OAM[OAMADDR]
         }
         set {
-            OAM[Int(OAMADDR)] = newValue
+            OAM[OAMADDR] = newValue
         }
     }
 
@@ -194,7 +194,7 @@ internal extension PPU {
         for offset in 0x0000..<0x0100 {
             let address = Address(OAMDMA, UInt8(offset))
 
-            OAM[Int(OAMADDR)] = CPU.read(address)
+            OAM[OAMADDR] = CPU.read(address)
 
             OAMADDR = OAMADDR &+ 1
         }

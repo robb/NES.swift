@@ -4,7 +4,7 @@ extension CPU: IO {
     func read(address: Address) -> UInt8 {
         switch address {
         case 0..<0x2000:
-            return RAM[Int(address % 0x0800)]
+            return RAM[address % 0x0800]
         case 0x2000..<0x4000:
             let wrappedAddress = 0x2000 + address % 8
 
@@ -19,7 +19,7 @@ extension CPU: IO {
     func write(address: Address, _ value: UInt8) {
         switch Int(address) {
         case 0x0000..<0x2000:
-            RAM[Int(address % 0x0800)] = value
+            RAM[address % 0x0800] = value
         case 0x2000..<0x4000:
             let wrappedAddress = 0x2000 + address % 8
 

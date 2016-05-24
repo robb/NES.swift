@@ -8,9 +8,9 @@ extension PPU: IO {
         case 0x0000 ..< 0x2000:
             return mapper.read(wrappedAddress)
         case 0x3F00 ..< 0x4000:
-            return palette[Int(wrappedAddress % 32)]
+            return palette[wrappedAddress % 32]
         default:
-            return VRAM[Int(wrappedAddress % 0x0800)]
+            return VRAM[wrappedAddress % 0x0800]
         }
     }
 
@@ -21,9 +21,9 @@ extension PPU: IO {
         case 0x0000 ..< 0x2000:
             mapper.write(wrappedAddress, value)
         case 0x3F00 ..< 0x4000:
-            palette[Int(wrappedAddress % 32)] = value
+            palette[wrappedAddress % 32] = value
         default:
-            VRAM[Int(wrappedAddress % 0x0800)] = value
+            VRAM[wrappedAddress % 0x0800] = value
         }
     }
 }

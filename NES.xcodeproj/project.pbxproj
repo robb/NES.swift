@@ -32,6 +32,7 @@
 		548606121AD0153C00198A72 /* Nimble.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 548606081AD0142900198A72 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		548606131AD0153D00198A72 /* Quick.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 548606091AD0142900198A72 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		548F59811AE292CE007EC4D2 /* NESTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548F59801AE292CE007EC4D2 /* NESTest.swift */; };
+		54B1BAFF1CF49679004A1A70 /* Array+Indexing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B1BAFE1CF49679004A1A70 /* Array+Indexing.swift */; };
 		54C21E131CC8213500B96C00 /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C21E121CC8213500B96C00 /* IO.swift */; };
 		54C21E151CC822CD00B96C00 /* CPU+IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C21E141CC822CD00B96C00 /* CPU+IO.swift */; };
 		54C21E171CC823AE00B96C00 /* CPU+Interrupts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C21E161CC823AE00B96C00 /* CPU+Interrupts.swift */; };
@@ -121,6 +122,7 @@
 		548606091AD0142900198A72 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/Mac/Quick.framework; sourceTree = "<group>"; };
 		5486060F1AD0146500198A72 /* CPUSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPUSpec.swift; sourceTree = "<group>"; };
 		548F59801AE292CE007EC4D2 /* NESTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NESTest.swift; sourceTree = "<group>"; };
+		54B1BAFE1CF49679004A1A70 /* Array+Indexing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Indexing.swift"; sourceTree = "<group>"; };
 		54C21E121CC8213500B96C00 /* IO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IO.swift; sourceTree = "<group>"; };
 		54C21E141CC822CD00B96C00 /* CPU+IO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPU+IO.swift"; sourceTree = "<group>"; };
 		54C21E161CC823AE00B96C00 /* CPU+Interrupts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPU+Interrupts.swift"; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 			children = (
 				548605ED1ACFFF1C00198A72 /* NES.h */,
 				54C573251AD2F8B000A37AE0 /* Address.swift */,
+				54B1BAFE1CF49679004A1A70 /* Array+Indexing.swift */,
 				54339ADA1ADDB57600632DE9 /* Cartridge.swift */,
 				546E4ECC1CCBEA4700DD2704 /* Console.swift */,
 				548606041ACFFF2D00198A72 /* CPU.swift */,
@@ -433,6 +436,7 @@
 				546054A31AD018CE00CFD098 /* CPU+Instructions.swift in Sources */,
 				54C21E131CC8213500B96C00 /* IO.swift in Sources */,
 				542BC4341CD44987000E211F /* PPU+IO.swift in Sources */,
+				54B1BAFF1CF49679004A1A70 /* Array+Indexing.swift in Sources */,
 				542436651CD804BA0084DDDF /* UInt8+Bitset.swift in Sources */,
 				540E001C1CD577C500C9669B /* PPU+Flags.swift in Sources */,
 				54C21E151CC822CD00B96C00 /* CPU+IO.swift in Sources */,
