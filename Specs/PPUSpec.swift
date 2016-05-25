@@ -355,5 +355,62 @@ class PPUSpec: QuickSpec {
                 expect(PPU.tileAddress).to(equal(0b0010_1100_1010_1010))
             }
         }
+
+        describe("incrementing the X position") {
+            it("should increase the coarse X position") {
+                PPU.coarseX = 0x00
+
+                for _ in 0 ..< 3 {
+                    PPU.incrementX()
+                }
+
+                expect(PPU.coarseX).to(equal(0x03))
+            }
+
+            it("should toggle the horizontal name table when wrapping") {
+                PPU.coarseX = 0x1F
+                PPU.nametable = 0x00
+
+                PPU.incrementX()
+
+                expect(PPU.coarseX).to(equal(0x00))
+                expect(PPU.nametable).to(equal(0x01))
+            }
+        }
+
+        describe("incrementing the Y position") {
+            it("should increase the fine Y position") {
+                PPU.fineY = 0x00
+                PPU.coarseY = 0x00
+
+                for _ in 0 ..< 3 {
+                    PPU.incrementY()
+                }
+
+                expect(PPU.fineY).to(equal(0x03))
+            }
+
+            it("should increment the coarse Y position when wrapping") {
+                PPU.fineY = 0x07
+                PPU.coarseY = 0x00
+
+                PPU.incrementY()
+
+                expect(PPU.fineY).to(equal(0x00))
+                expect(PPU.coarseY).to(equal(0x01))
+            }
+
+            it("should toggle the vertical name table when coarse Y rolls beyond 0x1D") {
+                PPU.fineY = 0x07
+                PPU.coarseY = 0x1D
+                PPU.nametable = 0x00
+
+                PPU.incrementY()
+
+                expect(PPU.fineY).to(equal(0x00))
+                expect(PPU.coarseY).to(equal(0x00))
+                expect(PPU.nametable).to(equal(0x02))
+            }
+        }
     }
 }

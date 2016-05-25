@@ -58,7 +58,7 @@ internal extension PPU {
     }
 }
 
-private extension PPU {
+internal extension PPU {
     func advanceCycleAndScanLine() {
         cycle += 1
 
