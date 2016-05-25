@@ -39,7 +39,6 @@ internal final class Cartridge {
         let flags6 = array[6]
         let flags7 = array[7]
         let PRGRAMSize = Int(array[8])
-        let flags9 = array[7]
 
         var offset = 16
 
