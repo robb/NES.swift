@@ -33,6 +33,7 @@
 		548606131AD0153D00198A72 /* Quick.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 548606091AD0142900198A72 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		548F59811AE292CE007EC4D2 /* NESTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548F59801AE292CE007EC4D2 /* NESTest.swift */; };
 		54B1BAFF1CF49679004A1A70 /* Array+Indexing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B1BAFE1CF49679004A1A70 /* Array+Indexing.swift */; };
+		54B1BB011CF5C629004A1A70 /* PaletteColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B1BB001CF5C629004A1A70 /* PaletteColors.swift */; };
 		54C21E131CC8213500B96C00 /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C21E121CC8213500B96C00 /* IO.swift */; };
 		54C21E151CC822CD00B96C00 /* CPU+IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C21E141CC822CD00B96C00 /* CPU+IO.swift */; };
 		54C21E171CC823AE00B96C00 /* CPU+Interrupts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C21E161CC823AE00B96C00 /* CPU+Interrupts.swift */; };
@@ -123,6 +124,7 @@
 		5486060F1AD0146500198A72 /* CPUSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPUSpec.swift; sourceTree = "<group>"; };
 		548F59801AE292CE007EC4D2 /* NESTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NESTest.swift; sourceTree = "<group>"; };
 		54B1BAFE1CF49679004A1A70 /* Array+Indexing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Indexing.swift"; sourceTree = "<group>"; };
+		54B1BB001CF5C629004A1A70 /* PaletteColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaletteColors.swift; sourceTree = "<group>"; };
 		54C21E121CC8213500B96C00 /* IO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IO.swift; sourceTree = "<group>"; };
 		54C21E141CC822CD00B96C00 /* CPU+IO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPU+IO.swift"; sourceTree = "<group>"; };
 		54C21E161CC823AE00B96C00 /* CPU+Interrupts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPU+Interrupts.swift"; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				54E08FED1CC67AC300C9AA49 /* Helper.swift */,
 				54C21E121CC8213500B96C00 /* IO.swift */,
 				54D3FCE11ADDB255003CFF4C /* Mapper.swift */,
+				54B1BB001CF5C629004A1A70 /* PaletteColors.swift */,
 				546E4ECE1CCBEDBA00DD2704 /* PPU.swift */,
 				540E001B1CD577C500C9669B /* PPU+Flags.swift */,
 				542BC4331CD44987000E211F /* PPU+IO.swift */,
@@ -430,6 +433,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5441466D1AD2C41C00EFDAD6 /* CPU+AddressingModes.swift in Sources */,
+				54B1BB011CF5C629004A1A70 /* PaletteColors.swift in Sources */,
 				546E4ECF1CCBEDBA00DD2704 /* PPU.swift in Sources */,
 				54D3FCE21ADDB255003CFF4C /* Mapper.swift in Sources */,
 				54C21E191CC937B600B96C00 /* CPU+Flags.swift in Sources */,
