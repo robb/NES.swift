@@ -317,5 +317,43 @@ class PPUSpec: QuickSpec {
                 }
             }
         }
+
+        describe("Setting the VRAM address") {
+            it("should update the coarse X position") {
+                PPU.VRAMAddress = 0b0000_0000_0001_1111
+
+                expect(PPU.coarseX).to(equal(0b0001_1111))
+            }
+
+            it("should update the coarse Y position") {
+                PPU.VRAMAddress = 0b0000_0011_1110_0000
+
+                expect(PPU.coarseY).to(equal(0b0001_1111))
+            }
+
+            it("should update the selected nametable") {
+                PPU.VRAMAddress = 0b0000_1100_0000_0000
+
+                expect(PPU.nametable).to(equal(0b0000_0011))
+            }
+
+            it("should update the fine Y position") {
+                PPU.VRAMAddress = 0b0111_0000_0000_0000
+
+                expect(PPU.fineY).to(equal(0b0000_0111))
+            }
+
+            it("should update the attribute address") {
+                PPU.VRAMAddress = 0b0000_1011_1001_0100
+
+                expect(PPU.attributeAddress).to(equal(0b0010_1011_1111_1101))
+            }
+
+            it("should update the tile address") {
+                PPU.VRAMAddress = 0b0000_1100_1010_1010
+
+                expect(PPU.tileAddress).to(equal(0b0010_1100_1010_1010))
+            }
+        }
     }
 }
