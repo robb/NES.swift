@@ -30,7 +30,7 @@ class CPUSpec: QuickSpec {
                 // Fill the RAM with NOPs
                 let RAM = Array<UInt8>(count: 0x0800, repeatedValue: 0x1A)
 
-                CPU.RAM[RAM.startIndex..<RAM.endIndex] = RAM[RAM.startIndex..<RAM.endIndex]
+                CPU.RAM[RAM.startIndex ..< RAM.endIndex] = RAM[RAM.startIndex ..< RAM.endIndex]
                 CPU.PC = 0x0200
 
                 expect(CPU.cycles).to(equal(0))
@@ -78,7 +78,7 @@ class CPUSpec: QuickSpec {
                 // Set the entire RAM to `NOP` instructions.
                 let RAM = Array<UInt8>(count: 0x0800, repeatedValue: 0x1A)
 
-                CPU.RAM[RAM.startIndex..<RAM.endIndex] = RAM[RAM.startIndex..<RAM.endIndex]
+                CPU.RAM[RAM.startIndex ..< RAM.endIndex] = RAM[RAM.startIndex ..< RAM.endIndex]
 
                 CPU.write16(NES.CPU.IRQInterruptVector, 0x0100)
 

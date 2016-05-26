@@ -286,7 +286,7 @@ class PPUSpec: QuickSpec {
             it("should copy the given memory page to the OAM") {
                 let values = Array<UInt8>(count: 256, repeatedValue: 0x23)
 
-                CPU.RAM[0x0400..<0x0500] = ArraySlice(values)
+                CPU.RAM[0x0400 ..< 0x0500] = ArraySlice(values)
 
                 CPU.write(.OAMDMAAddress, 0x04)
 
