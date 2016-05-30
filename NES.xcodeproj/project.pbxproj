@@ -16,7 +16,6 @@
 		54339ADB1ADDB57600632DE9 /* Cartridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54339ADA1ADDB57600632DE9 /* Cartridge.swift */; };
 		54339ADD1ADDB5FC00632DE9 /* CartridgeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54339ADC1ADDB5FC00632DE9 /* CartridgeSpec.swift */; };
 		5441466D1AD2C41C00EFDAD6 /* CPU+AddressingModes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5441466C1AD2C41C00EFDAD6 /* CPU+AddressingModes.swift */; };
-		544E4F531AE29116007C8DCD /* nestest.nes in Resources */ = {isa = PBXBuildFile; fileRef = 544E4F521AE29116007C8DCD /* nestest.nes */; };
 		546054A31AD018CE00CFD098 /* CPU+Instructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546054A21AD018CE00CFD098 /* CPU+Instructions.swift */; };
 		546054A51AD01A5700CFD098 /* InstructionsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546054A41AD01A5700CFD098 /* InstructionsSpec.swift */; };
 		546E4ECD1CCBEA4700DD2704 /* Console.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546E4ECC1CCBEA4700DD2704 /* Console.swift */; };
@@ -32,6 +31,8 @@
 		548606121AD0153C00198A72 /* Nimble.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 548606081AD0142900198A72 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		548606131AD0153D00198A72 /* Quick.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 548606091AD0142900198A72 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		548F59811AE292CE007EC4D2 /* NESTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548F59801AE292CE007EC4D2 /* NESTest.swift */; };
+		549994131CFC8B7600C859F4 /* nestest.log in Resources */ = {isa = PBXBuildFile; fileRef = 5499940B1CFC8B7600C859F4 /* nestest.log */; };
+		549994141CFC8B7600C859F4 /* nestest.nes in Resources */ = {isa = PBXBuildFile; fileRef = 5499940C1CFC8B7600C859F4 /* nestest.nes */; };
 		54B1BAFF1CF49679004A1A70 /* Array+Indexing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B1BAFE1CF49679004A1A70 /* Array+Indexing.swift */; };
 		54B1BB011CF5C629004A1A70 /* PaletteColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B1BB001CF5C629004A1A70 /* PaletteColors.swift */; };
 		54C21E131CC8213500B96C00 /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C21E121CC8213500B96C00 /* IO.swift */; };
@@ -40,7 +41,6 @@
 		54C21E191CC937B600B96C00 /* CPU+Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C21E181CC937B600B96C00 /* CPU+Flags.swift */; };
 		54C573261AD2F8B000A37AE0 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C573251AD2F8B000A37AE0 /* Address.swift */; };
 		54D3FCE21ADDB255003CFF4C /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D3FCE11ADDB255003CFF4C /* Mapper.swift */; };
-		54D8BDED1CEDC62900F8C3BC /* nestest.log in Resources */ = {isa = PBXBuildFile; fileRef = 54D8BDEC1CEDC62900F8C3BC /* nestest.log */; };
 		54D8BDEF1CEDCBFD00F8C3BC /* Matcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D8BDEE1CEDCBFD00F8C3BC /* Matcher.swift */; };
 		54D8BDF11CEDD50800F8C3BC /* PPU+Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D8BDF01CEDD50800F8C3BC /* PPU+Step.swift */; };
 		54E08FEE1CC67AC300C9AA49 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E08FED1CC67AC300C9AA49 /* Helper.swift */; };
@@ -106,7 +106,6 @@
 		54339ADA1ADDB57600632DE9 /* Cartridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cartridge.swift; sourceTree = "<group>"; };
 		54339ADC1ADDB5FC00632DE9 /* CartridgeSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartridgeSpec.swift; sourceTree = "<group>"; };
 		5441466C1AD2C41C00EFDAD6 /* CPU+AddressingModes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPU+AddressingModes.swift"; sourceTree = "<group>"; };
-		544E4F521AE29116007C8DCD /* nestest.nes */ = {isa = PBXFileReference; lastKnownFileType = file; path = nestest.nes; sourceTree = "<group>"; };
 		546054A21AD018CE00CFD098 /* CPU+Instructions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPU+Instructions.swift"; sourceTree = "<group>"; };
 		546054A41AD01A5700CFD098 /* InstructionsSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionsSpec.swift; sourceTree = "<group>"; };
 		546E4ECC1CCBEA4700DD2704 /* Console.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Console.swift; sourceTree = "<group>"; };
@@ -116,13 +115,15 @@
 		548605E81ACFFF1B00198A72 /* NES.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NES.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		548605EC1ACFFF1B00198A72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		548605ED1ACFFF1C00198A72 /* NES.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NES.h; sourceTree = "<group>"; };
-		548605F31ACFFF1C00198A72 /* Specs.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Specs.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		548605F31ACFFF1C00198A72 /* NES Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NES Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		548605F91ACFFF1C00198A72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		548606041ACFFF2D00198A72 /* CPU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPU.swift; sourceTree = "<group>"; };
 		548606081AD0142900198A72 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/Mac/Nimble.framework; sourceTree = "<group>"; };
 		548606091AD0142900198A72 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/Mac/Quick.framework; sourceTree = "<group>"; };
 		5486060F1AD0146500198A72 /* CPUSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPUSpec.swift; sourceTree = "<group>"; };
 		548F59801AE292CE007EC4D2 /* NESTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NESTest.swift; sourceTree = "<group>"; };
+		5499940B1CFC8B7600C859F4 /* nestest.log */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nestest.log; sourceTree = "<group>"; };
+		5499940C1CFC8B7600C859F4 /* nestest.nes */ = {isa = PBXFileReference; lastKnownFileType = file; path = nestest.nes; sourceTree = "<group>"; };
 		54B1BAFE1CF49679004A1A70 /* Array+Indexing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Indexing.swift"; sourceTree = "<group>"; };
 		54B1BB001CF5C629004A1A70 /* PaletteColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaletteColors.swift; sourceTree = "<group>"; };
 		54C21E121CC8213500B96C00 /* IO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IO.swift; sourceTree = "<group>"; };
@@ -131,7 +132,6 @@
 		54C21E181CC937B600B96C00 /* CPU+Flags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPU+Flags.swift"; sourceTree = "<group>"; };
 		54C573251AD2F8B000A37AE0 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		54D3FCE11ADDB255003CFF4C /* Mapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
-		54D8BDEC1CEDC62900F8C3BC /* nestest.log */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nestest.log; sourceTree = "<group>"; };
 		54D8BDEE1CEDCBFD00F8C3BC /* Matcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matcher.swift; sourceTree = "<group>"; };
 		54D8BDF01CEDD50800F8C3BC /* PPU+Step.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PPU+Step.swift"; sourceTree = "<group>"; };
 		54E08FED1CC67AC300C9AA49 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
@@ -173,19 +173,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		54339ADF1ADDB67000632DE9 /* Test ROMs */ = {
-			isa = PBXGroup;
-			children = (
-				544E4F521AE29116007C8DCD /* nestest.nes */,
-			);
-			name = "Test ROMs";
-			sourceTree = "<group>";
-		};
 		548605DE1ACFFF1B00198A72 = {
 			isa = PBXGroup;
 			children = (
 				548605EA1ACFFF1B00198A72 /* NES */,
-				548605F71ACFFF1C00198A72 /* Specs */,
+				548605F71ACFFF1C00198A72 /* NES Tests */,
+				549994031CFC8B7600C859F4 /* Test Roms */,
 				54E65A9D1CF35F0000317EEC /* Emulator */,
 				5486060C1AD0143200198A72 /* Frameworks */,
 				548605E91ACFFF1B00198A72 /* Products */,
@@ -196,7 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				548605E81ACFFF1B00198A72 /* NES.framework */,
-				548605F31ACFFF1C00198A72 /* Specs.xctest */,
+				548605F31ACFFF1C00198A72 /* NES Tests.xctest */,
 				54E65A9C1CF35F0000317EEC /* Emulator.app */,
 			);
 			name = Products;
@@ -240,7 +233,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		548605F71ACFFF1C00198A72 /* Specs */ = {
+		548605F71ACFFF1C00198A72 /* NES Tests */ = {
 			isa = PBXGroup;
 			children = (
 				54339ADC1ADDB5FC00632DE9 /* CartridgeSpec.swift */,
@@ -251,9 +244,8 @@
 				5423F73A1CECC83B009CE6D1 /* PerformanceTests.swift */,
 				540E001F1CD5801B00C9669B /* PPUSpec.swift */,
 				548605F81ACFFF1C00198A72 /* Supporting Files */,
-				54339ADF1ADDB67000632DE9 /* Test ROMs */,
 			);
-			path = Specs;
+			path = "NES Tests";
 			sourceTree = "<group>";
 		};
 		548605F81ACFFF1C00198A72 /* Supporting Files */ = {
@@ -261,7 +253,6 @@
 			children = (
 				548605F91ACFFF1C00198A72 /* Info.plist */,
 				547F2EE21ADDBB6900B9A8C6 /* DummyMapper.swift */,
-				54D8BDEC1CEDC62900F8C3BC /* nestest.log */,
 				54D8BDEE1CEDCBFD00F8C3BC /* Matcher.swift */,
 			);
 			name = "Supporting Files";
@@ -274,6 +265,23 @@
 				548606091AD0142900198A72 /* Quick.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		549994031CFC8B7600C859F4 /* Test Roms */ = {
+			isa = PBXGroup;
+			children = (
+				5499940A1CFC8B7600C859F4 /* Nestest */,
+			);
+			path = "Test Roms";
+			sourceTree = "<group>";
+		};
+		5499940A1CFC8B7600C859F4 /* Nestest */ = {
+			isa = PBXGroup;
+			children = (
+				5499940B1CFC8B7600C859F4 /* nestest.log */,
+				5499940C1CFC8B7600C859F4 /* nestest.nes */,
+			);
+			path = Nestest;
 			sourceTree = "<group>";
 		};
 		54E65A9D1CF35F0000317EEC /* Emulator */ = {
@@ -320,9 +328,9 @@
 			productReference = 548605E81ACFFF1B00198A72 /* NES.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		548605F21ACFFF1C00198A72 /* Specs */ = {
+		548605F21ACFFF1C00198A72 /* NES Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 548606011ACFFF1C00198A72 /* Build configuration list for PBXNativeTarget "Specs" */;
+			buildConfigurationList = 548606011ACFFF1C00198A72 /* Build configuration list for PBXNativeTarget "NES Tests" */;
 			buildPhases = (
 				548605EF1ACFFF1C00198A72 /* Sources */,
 				548605F01ACFFF1C00198A72 /* Frameworks */,
@@ -334,9 +342,9 @@
 			dependencies = (
 				548605F61ACFFF1C00198A72 /* PBXTargetDependency */,
 			);
-			name = Specs;
+			name = "NES Tests";
 			productName = Specs;
-			productReference = 548605F31ACFFF1C00198A72 /* Specs.xctest */;
+			productReference = 548605F31ACFFF1C00198A72 /* NES Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		54E65A9B1CF35F0000317EEC /* Emulator */ = {
@@ -393,7 +401,7 @@
 			projectRoot = "";
 			targets = (
 				548605E71ACFFF1B00198A72 /* NES */,
-				548605F21ACFFF1C00198A72 /* Specs */,
+				548605F21ACFFF1C00198A72 /* NES Tests */,
 				54E65A9B1CF35F0000317EEC /* Emulator */,
 			);
 		};
@@ -411,8 +419,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				544E4F531AE29116007C8DCD /* nestest.nes in Resources */,
-				54D8BDED1CEDC62900F8C3BC /* nestest.log in Resources */,
+				549994141CFC8B7600C859F4 /* nestest.nes in Resources */,
+				549994131CFC8B7600C859F4 /* nestest.log in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -653,7 +661,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = Specs/Info.plist;
+				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.robertboehnke.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -671,7 +679,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
-				INFOPLIST_FILE = Specs/Info.plist;
+				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.robertboehnke.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -733,7 +741,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		548606011ACFFF1C00198A72 /* Build configuration list for PBXNativeTarget "Specs" */ = {
+		548606011ACFFF1C00198A72 /* Build configuration list for PBXNativeTarget "NES Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				548606021ACFFF1C00198A72 /* Debug */,
