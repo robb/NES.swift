@@ -11,15 +11,24 @@ import SpriteKit
         window.setContentSize(NESScene.screenSize)
 
         window.center()
+
+        if let path = ProcessInfo.processInfo.environment["file"] {
+            print(path)
+            open(path: path)
+        }
     }
 
-    @objc func application(_ sender: NSApplication, openFile filename: String) -> Bool {
-        let scene = NESScene(file: filename)
+    @objc func application(_ sender: NSApplication, openFile path: String) -> Bool {
+        open(path: path)
+
+        return true
+    }
+
+    func open(path: String) {
+        let scene = NESScene(file: path)
 
         view!.presentScene(scene)
         view!.ignoresSiblingOrder = true
         view!.showsFPS = true
-
-        return true
     }
 }
