@@ -47,19 +47,19 @@ extension PPU: IO {
         }
     }
 
-    internal func mirrorVRAM(_ address: Address, mirroringMode: MirroringMode = .horizontal) -> Address {
-        let lookup: [[UInt16]] = [
-            [0, 0, 1, 1],
-            [0, 1, 0, 1],
-            [0, 0, 0, 0],
-            [1, 1, 1, 1]
-        ]
+    private static let mirroringLookupTable: [[UInt16]] = [
+        [0, 0, 1, 1],
+        [0, 1, 0, 1],
+        [0, 0, 0, 0],
+        [1, 1, 1, 1]
+    ]
 
+    internal func mirrorVRAM(_ address: Address, mirroringMode: MirroringMode = .horizontal) -> Address {
         let wrappedAddress = (address - 0x2000) % 0x1000
         let table = wrappedAddress / 0x0400
         let offset = wrappedAddress % 0x0400
 
-        return  lookup[mirroringMode.rawValue][table] * 0x0400 + offset
+        return PPU.mirroringLookupTable[mirroringMode.rawValue][table] * 0x0400 + offset
     }
 
     internal func mirrorPalette(_ address: Address) -> Address {
