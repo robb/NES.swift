@@ -12,7 +12,7 @@ public final class Console {
     internal private(set) var ppu: PPU! = nil
 
     public var screenData: Data {
-        return ppu.frontBuffer.pixelData
+        return ppu.frontBuffer.pixels
     }
 
     public convenience init(cartridge: Cartridge) {

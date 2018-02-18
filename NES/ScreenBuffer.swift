@@ -9,12 +9,12 @@ internal struct ScreenBuffer {
 
     static let width = 256
 
-    fileprivate var pixels: Array<RGBA>
+    private(set) var pixels: Data
 
     init() {
         let count = ScreenBuffer.width * ScreenBuffer.height
 
-        pixels = Array<RGBA>(repeating: 0x00000000, count: count)
+        pixels = Data(repeating: 0x00, count: count * ScreenBuffer.componensPerPixel)
     }
 
     private func calculateOffset(_ x: Int, _ y: Int) -> Int {
@@ -28,7 +28,9 @@ internal struct ScreenBuffer {
 
             let offset = calculateOffset(x, y)
 
-            return pixels[offset]
+            return pixels.withUnsafeBytes {
+                return $0.advanced(by: offset).pointee
+            }
         }
         set(pixel) {
             precondition(x < ScreenBuffer.width)
@@ -36,13 +38,10 @@ internal struct ScreenBuffer {
 
             let offset = calculateOffset(x, y)
 
-            pixels[offset] = pixel
+            pixels.withUnsafeMutableBytes {
+                $0.advanced(by: offset).pointee = pixel
+            }
         }
     }
 }
 
-internal extension ScreenBuffer {
-    var pixelData: Data {
-        return Data(bytes: pixels, count: pixels.count * ScreenBuffer.componensPerPixel)
-    }
-}
