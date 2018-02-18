@@ -8,7 +8,7 @@ class CPUSpec: QuickSpec {
         var console: Console! = nil
 
         var cpu: CPU {
-            return console.CPU!
+            return console.cpu!
         }
 
         beforeEach {
@@ -21,17 +21,17 @@ class CPUSpec: QuickSpec {
             }
 
             it("should have interrupts disabled") {
-                expect(cpu.I).to(beTrue())
+                expect(cpu.i).to(beTrue())
             }
         }
 
         describe("Stepping a CPU") {
             beforeEach {
                 // Fill the RAM with NOPs
-                let RAM = Array<UInt8>(count: 0x0800, repeatedValue: 0x1A)
+                let ram = Data(repeating: 0x1A, count: 0x0800)
 
-                cpu.RAM[RAM.startIndex ..< RAM.endIndex] = RAM[RAM.startIndex ..< RAM.endIndex]
-                cpu.PC = 0x0200
+                cpu.ram[ram.startIndex ..< ram.endIndex] = ram[ram.startIndex ..< ram.endIndex]
+                cpu.pc = 0x0200
 
                 expect(cpu.cycles).to(equal(0))
             }
@@ -45,7 +45,7 @@ class CPUSpec: QuickSpec {
             it("should advance the program counter") {
                 cpu.step()
 
-                expect(cpu.PC).to(equal(0x0201))
+                expect(cpu.pc).to(equal(0x0201))
             }
 
             describe("that is stalled") {
@@ -56,7 +56,7 @@ class CPUSpec: QuickSpec {
                 it("should not perform any work") {
                     cpu.step()
 
-                    expect(cpu.PC).to(equal(0x0200))
+                    expect(cpu.pc).to(equal(0x0200))
                 }
 
                 it("should decrease the stall cycle counter") {
@@ -76,18 +76,18 @@ class CPUSpec: QuickSpec {
         describe("Performing an interrupt") {
             beforeEach {
                 // Set the entire RAM to `NOP` instructions.
-                let RAM = Array<UInt8>(count: 0x0800, repeatedValue: 0x1A)
+                let ram = Data(repeating: 0x1A, count: 0x0800)
 
-                cpu.RAM[RAM.startIndex ..< RAM.endIndex] = RAM[RAM.startIndex ..< RAM.endIndex]
+                cpu.ram[ram.startIndex ..< ram.endIndex] = ram[ram.startIndex ..< ram.endIndex]
 
-                cpu.write16(NES.CPU.IRQInterruptVector, 0x0100)
+                cpu.write16(CPU.irqInterruptVector, 0x0100)
 
-                cpu.write16(NES.CPU.NMIInterruptVector, 0x0200)
+                cpu.write16(CPU.nmiInterruptVector, 0x0200)
             }
 
             describe("with the I flag set") {
                 beforeEach {
-                    cpu.I = true
+                    cpu.i = true
                 }
 
                 describe("that is maskable") {
@@ -97,7 +97,7 @@ class CPUSpec: QuickSpec {
                     }
 
                     it("should not have any effect") {
-                        expect(cpu.PC).to(equal(0x0001))
+                        expect(cpu.pc).to(equal(0x0001))
                     }
                 }
 
@@ -108,14 +108,14 @@ class CPUSpec: QuickSpec {
                     }
 
                     it("should execute the NMI interrupt handler") {
-                        expect(cpu.PC).to(equal(0x0201))
+                        expect(cpu.pc).to(equal(0x0201))
                     }
                 }
             }
 
             describe("without the I flag set") {
                 beforeEach {
-                    cpu.I = false
+                    cpu.i = false
                 }
 
                 describe("that is maskable") {
@@ -125,7 +125,7 @@ class CPUSpec: QuickSpec {
                     }
 
                     it("should execute the IRQ interrupt handler") {
-                        expect(cpu.PC).to(equal(0x0101))
+                        expect(cpu.pc).to(equal(0x0101))
                     }
                 }
 
@@ -136,7 +136,7 @@ class CPUSpec: QuickSpec {
                     }
 
                     it("should execute the NMI interrupt handler") {
-                        expect(cpu.PC).to(equal(0x0201))
+                        expect(cpu.pc).to(equal(0x0201))
                     }
                 }
             }

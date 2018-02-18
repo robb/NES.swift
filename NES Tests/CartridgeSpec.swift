@@ -6,12 +6,12 @@ import Quick
 class CartridgeSpec: QuickSpec {
     override func spec() {
         describe("Loading a .nes file") {
-            var cartridge: Cartridge! = .None
+            var cartridge: Cartridge! = .none
 
             beforeEach {
-                let path = NSBundle(forClass: CartridgeSpec.self).pathForResource("nestest", ofType: "nes") ?? ""
+                let path = Bundle(for: CartridgeSpec.self).path(forResource: "nestest", ofType: "nes") ?? ""
 
-                cartridge = Cartridge.load(path)
+                cartridge = Cartridge.load(path: path)
             }
 
             it("should not be .None") {

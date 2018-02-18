@@ -2,69 +2,58 @@
 
 import Nimble
 
-func match(state: ConsoleState?) -> Nimble.NonNilMatcherFunc<Console> {
-    return NonNilMatcherFunc { actualExpression, failureMessage in
-        guard let state = state else {
-            return false
+func match(state: ConsoleState) -> Predicate<Console?> {
+    return Predicate { actual in
+        let msg: ExpectationMessage
+
+        guard let value = try actual.evaluate(), let console = value else {
+            msg = .expectedTo("match <\(state)>")
+
+            return PredicateResult(status: .fail, message: msg.appendedBeNilHint())
         }
 
-        guard let console = try actualExpression.evaluate() else {
-            return false
+        let cpu = console.cpu!
+
+        guard cpu.a == state.a else {
+            msg = .expectedTo("have an A register value of <\(format(state.a))>, got <\(format(cpu.a))>")
+
+            return PredicateResult(bool: false, message: msg)
         }
 
-        let CPU = console.CPU
+        guard cpu.x == state.x else {
+            msg = .expectedTo("have an X register value of <\(format(state.x))>, got <\(format(cpu.x))>")
 
-        guard CPU.A == state.A else {
-            failureMessage.postfixMessage = "have an A register value of \(format(state.A))"
-            failureMessage.actualValue = format(CPU.A)
-
-            return false
+            return PredicateResult(bool: false, message: msg)
         }
 
-        guard CPU.X == state.X else {
-            failureMessage.postfixMessage = "have an X register value of \(format(state.X))"
-            failureMessage.actualValue = format(CPU.X)
+        guard cpu.y == state.y else {
+            msg = .expectedTo("have a Y register value of <\(format(state.y))>, got <\(format(cpu.y))>")
 
-            return false
+            return PredicateResult(bool: false, message: msg)
         }
 
-        guard CPU.Y == state.Y else {
-            failureMessage.postfixMessage = "have an Y register value of \(format(state.Y))"
-            failureMessage.actualValue = format(CPU.Y)
+        guard cpu.p == state.p else {
+            msg = .expectedTo("have a P register value of <\(format(state.p))>, got <\(format(cpu.p))>")
 
-            return false
+            return PredicateResult(bool: false, message: msg)
         }
 
-        guard CPU.P == state.P else {
-            failureMessage.postfixMessage = "have an P register value of \(format(state.P))"
-            failureMessage.actualValue = format(CPU.P)
+        guard cpu.sp == state.sp else {
+            msg = .expectedTo("have a stack pointer value of <\(format(state.sp))>, got <\(format(cpu.sp))>")
 
-            return false
+            return PredicateResult(bool: false, message: msg)
         }
 
-        guard CPU.SP == state.SP else {
-            failureMessage.postfixMessage = "have a stack pointer value of \(format(state.SP))"
-            failureMessage.actualValue = format(CPU.SP)
+        let ppu = console.ppu!
 
-            return false
+        guard ppu.cycle == state.cycle else {
+            msg = .expectedTo("be at PPU cycle <\(state.cycle)>, got <\(ppu.cycle)>")
+
+            return PredicateResult(bool: false, message: msg)
         }
 
-        let PPU = console.PPU
+        msg = .expectedTo("be at PPU scan line <\(state.scanLine)>, got <\(ppu.scanLine)>")
 
-        guard PPU.cycle == state.cycle else {
-            failureMessage.postfixMessage = "to be at PPU cycle \(state.cycle)"
-            failureMessage.actualValue = "\(PPU.cycle)"
-
-            return false
-        }
-
-        guard PPU.scanLine == state.scanLine else {
-            failureMessage.postfixMessage = "to be at PPU scan line \(state.scanLine)"
-            failureMessage.actualValue = "\(PPU.scanLine)"
-
-            return false
-        }
-
-        return true
+        return PredicateResult(bool: ppu.scanLine == state.scanLine, message: msg)
     }
 }

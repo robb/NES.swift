@@ -4,16 +4,16 @@ import XCTest
 
 class PerformanceTest: XCTestCase {
     func testPerformance() {
-        let path = NSBundle(forClass: CartridgeSpec.self).pathForResource("nestest", ofType: "nes") ?? ""
+        let path = Bundle(for: CartridgeSpec.self).path(forResource: "nestest", ofType: "nes") ?? ""
 
-        let cartridge = Cartridge.load(path)
+        let cartridge = Cartridge.load(path: path)
 
         let console = Console(cartridge: cartridge!)
 
-        measureBlock {
-            console.CPU.PC = 0xC000
+        measure {
+            console.cpu.pc = 0xC000
 
-            while (console.CPU.PC != 0xC66E) {
+            while (console.cpu.pc != 0xC66E) {
                 console.step()
             }
         }
