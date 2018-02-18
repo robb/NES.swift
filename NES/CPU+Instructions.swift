@@ -323,7 +323,7 @@ internal extension CPU {
 
     /// `RTS` - Return from Subroutine
     func rts() {
-        pc = pop16() + 1
+        pc = pop16() &+ 1
     }
 
     /// `SBC` - Subtract with Carry

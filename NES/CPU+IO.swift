@@ -7,7 +7,7 @@ extension CPU: IO {
         case 0x0000 ..< 0x2000:
             return ram[address % 0x0800]
         case 0x2000 ..< 0x4000:
-            let wrappedAddress = 0x2000 + address % 8
+            let wrappedAddress = 0x2000 &+ address % 8
 
             return ppu.readRegister(wrappedAddress)
         case 0x4000 ... 0x6000:
@@ -22,7 +22,7 @@ extension CPU: IO {
         case 0x0000 ..< 0x2000:
             ram[address % 0x0800] = value
         case 0x2000 ..< 0x4000:
-            let wrappedAddress = 0x2000 + address % 8
+            let wrappedAddress = 0x2000 &+ address % 8
 
             ppu.writeRegister(wrappedAddress, value: value)
         case 0x4014:

@@ -26,13 +26,13 @@ internal extension CPU {
         php()
         pc = read16(address)
         i = true
-        cycles += 7
+        cycles = cycles &+ 7
     }
 
     func step() {
         guard stallCycles == 0 else {
-            cycles += 1
-            stallCycles -= 1
+            cycles = cycles &+ 1
+            stallCycles = stallCycles &- 1
             return
         }
 
@@ -49,7 +49,7 @@ internal extension CPU {
 
         let opcode: UInt8 = advanceProgramCounter()
 
-        cycles += cyclesSpent(opcode)
+        cycles = cycles &+ cyclesSpent(opcode)
 
         switch opcode {
         case 0x00: perform(implied,         brk)
