@@ -15,12 +15,16 @@ public final class Console {
         return ppu.frontBuffer.pixels
     }
 
-    public convenience init(cartridge: Cartridge) {
+    public convenience init(cartridge: Cartridge, initialAddress: UInt16? = nil) {
         precondition(cartridge.mapper == 000 || cartridge.mapper == 002)
 
         let mapper = Mapper002(cartridge: cartridge)
 
         self.init(mapper: mapper)
+
+        if let pc = initialAddress {
+            cpu.pc = pc
+        }
     }
 
     init(mapper: Mapper) {
@@ -62,5 +66,9 @@ public final class Console {
         while cpu.cycles < target {
             step()
         }
+    }
+
+    public var cycles: Int {
+        return cpu.cycles
     }
 }

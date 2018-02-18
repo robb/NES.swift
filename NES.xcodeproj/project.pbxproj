@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		540E001C1CD577C500C9669B /* PPU+Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540E001B1CD577C500C9669B /* PPU+Flags.swift */; };
 		540E00201CD5801B00C9669B /* PPUSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540E001F1CD5801B00C9669B /* PPUSpec.swift */; };
-		5423F73B1CECC83B009CE6D1 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5423F73A1CECC83B009CE6D1 /* PerformanceTests.swift */; };
+		54141E7A203945D10005F553 /* nestest.nes in Resources */ = {isa = PBXBuildFile; fileRef = 5499940C1CFC8B7600C859F4 /* nestest.nes */; };
 		5423F73F1CEDC029009CE6D1 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5423F73E1CEDC029009CE6D1 /* Log.swift */; };
 		542436651CD804BA0084DDDF /* UInt8+Bitset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542436641CD804BA0084DDDF /* UInt8+Bitset.swift */; };
 		542BC4341CD44987000E211F /* PPU+IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542BC4331CD44987000E211F /* PPU+IO.swift */; };
@@ -53,6 +53,8 @@
 		54E65AA81CF35F0000317EEC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54E65AA61CF35F0000317EEC /* MainMenu.xib */; };
 		54E65AB31CF35F2100317EEC /* NES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 548605E81ACFFF1B00198A72 /* NES.framework */; };
 		54E65AB41CF35F2100317EEC /* NES.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 548605E81ACFFF1B00198A72 /* NES.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		54FADE95203945220099198B /* NES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 548605E81ACFFF1B00198A72 /* NES.framework */; };
+		54FADE9B2039452D0099198B /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5423F73A1CECC83B009CE6D1 /* PerformanceTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,13 @@
 			remoteInfo = NES;
 		};
 		54E65AB51CF35F2100317EEC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 548605DF1ACFFF1B00198A72 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 548605E71ACFFF1B00198A72;
+			remoteInfo = NES;
+		};
+		54FADE96203945220099198B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 548605DF1ACFFF1B00198A72 /* Project object */;
 			proxyType = 1;
@@ -146,6 +155,8 @@
 		54E65AA41CF35F0000317EEC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		54E65AA71CF35F0000317EEC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		54E65AA91CF35F0000317EEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		54FADE90203945210099198B /* NES Performance Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NES Performance Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		54FADE94203945220099198B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +185,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		54FADE8D203945210099198B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				54FADE95203945220099198B /* NES.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -182,6 +201,7 @@
 			children = (
 				548605EA1ACFFF1B00198A72 /* NES */,
 				548605F71ACFFF1C00198A72 /* NES Tests */,
+				54FADE91203945220099198B /* NES Performance Tests */,
 				549994031CFC8B7600C859F4 /* Test Roms */,
 				54E65A9D1CF35F0000317EEC /* Emulator */,
 				5486060C1AD0143200198A72 /* Frameworks */,
@@ -195,6 +215,7 @@
 				548605E81ACFFF1B00198A72 /* NES.framework */,
 				548605F31ACFFF1C00198A72 /* NES Tests.xctest */,
 				54E65A9C1CF35F0000317EEC /* Emulator.app */,
+				54FADE90203945210099198B /* NES Performance Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -247,7 +268,6 @@
 				546054A41AD01A5700CFD098 /* InstructionsSpec.swift */,
 				5423F73E1CEDC029009CE6D1 /* Log.swift */,
 				548F59801AE292CE007EC4D2 /* NESTest.swift */,
-				5423F73A1CECC83B009CE6D1 /* PerformanceTests.swift */,
 				540E001F1CD5801B00C9669B /* PPUSpec.swift */,
 				548605F81ACFFF1C00198A72 /* Supporting Files */,
 			);
@@ -300,6 +320,15 @@
 				54E65AA01CF35F0000317EEC /* NESScene.swift */,
 			);
 			path = Emulator;
+			sourceTree = "<group>";
+		};
+		54FADE91203945220099198B /* NES Performance Tests */ = {
+			isa = PBXGroup;
+			children = (
+				5423F73A1CECC83B009CE6D1 /* PerformanceTests.swift */,
+				54FADE94203945220099198B /* Info.plist */,
+			);
+			path = "NES Performance Tests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -372,13 +401,31 @@
 			productReference = 54E65A9C1CF35F0000317EEC /* Emulator.app */;
 			productType = "com.apple.product-type.application";
 		};
+		54FADE8F203945210099198B /* NES Performance Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 54FADE9A203945220099198B /* Build configuration list for PBXNativeTarget "NES Performance Tests" */;
+			buildPhases = (
+				54FADE8C203945210099198B /* Sources */,
+				54FADE8D203945210099198B /* Frameworks */,
+				54FADE8E203945210099198B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				54FADE97203945220099198B /* PBXTargetDependency */,
+			);
+			name = "NES Performance Tests";
+			productName = "NES Performance Tests";
+			productReference = 54FADE90203945210099198B /* NES Performance Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		548605DF1ACFFF1B00198A72 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Robert Böhnke";
 				TargetAttributes = {
@@ -392,6 +439,11 @@
 					};
 					54E65A9B1CF35F0000317EEC = {
 						CreatedOnToolsVersion = 7.3;
+					};
+					54FADE8F203945210099198B = {
+						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = QGW24SFH76;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -410,6 +462,7 @@
 			targets = (
 				548605E71ACFFF1B00198A72 /* NES */,
 				548605F21ACFFF1C00198A72 /* NES Tests */,
+				54FADE8F203945210099198B /* NES Performance Tests */,
 				54E65A9B1CF35F0000317EEC /* Emulator */,
 			);
 		};
@@ -438,6 +491,14 @@
 			files = (
 				54E65AA51CF35F0000317EEC /* Assets.xcassets in Resources */,
 				54E65AA81CF35F0000317EEC /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		54FADE8E203945210099198B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				54141E7A203945D10005F553 /* nestest.nes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,7 +541,6 @@
 			files = (
 				548F59811AE292CE007EC4D2 /* NESTest.swift in Sources */,
 				548606101AD0146500198A72 /* CPUSpec.swift in Sources */,
-				5423F73B1CECC83B009CE6D1 /* PerformanceTests.swift in Sources */,
 				547F2EE31ADDBB6900B9A8C6 /* DummyMapper.swift in Sources */,
 				546054A51AD01A5700CFD098 /* InstructionsSpec.swift in Sources */,
 				540E00201CD5801B00C9669B /* PPUSpec.swift in Sources */,
@@ -499,6 +559,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		54FADE8C203945210099198B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				54FADE9B2039452D0099198B /* PerformanceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -511,6 +579,11 @@
 			isa = PBXTargetDependency;
 			target = 548605E71ACFFF1B00198A72 /* NES */;
 			targetProxy = 54E65AB51CF35F2100317EEC /* PBXContainerItemProxy */;
+		};
+		54FADE97203945220099198B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 548605E71ACFFF1B00198A72 /* NES */;
+			targetProxy = 54FADE96203945220099198B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -576,6 +649,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -623,7 +697,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = "compile-time";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -696,7 +771,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.robertboehnke.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -749,7 +823,51 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.robertboehnke.NES.emulator.Emulator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+			};
+			name = Release;
+		};
+		54FADE98203945220099198B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = QGW24SFH76;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "NES Performance Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.robertboehnke.NES-Performance-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		54FADE99203945220099198B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = QGW24SFH76;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "NES Performance Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.robertboehnke.NES-Performance-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -788,6 +906,15 @@
 			buildConfigurations = (
 				54E65AAB1CF35F0000317EEC /* Debug */,
 				54E65AAC1CF35F0000317EEC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		54FADE9A203945220099198B /* Build configuration list for PBXNativeTarget "NES Performance Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				54FADE98203945220099198B /* Debug */,
+				54FADE99203945220099198B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
