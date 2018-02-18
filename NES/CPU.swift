@@ -49,9 +49,9 @@ internal final class CPU {
     }
 
     /// The RAM the CPU reads from.
-    var ram: Array<UInt8>
+    var ram: Data
 
-    init(console: Console, ram: Array<UInt8> = Array(repeating: 0x00, count: 0x800)) {
+    init(console: Console, ram: Data = Data(repeating: 0x00, count: 0x800)) {
         self.console = console
         self.ram = ram
     }

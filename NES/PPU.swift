@@ -116,10 +116,10 @@ internal final class PPU {
     }
 
     /// The VRAM the PPU reads from.
-    var vram: Array<UInt8>
+    var vram: Data
 
     /// The Object Attribute Memory.
-    var oam: Array<UInt8> = Array(repeating: 0x00, count: 0x0100)
+    var oam: Data = Data(repeating: 0x00, count: 0x0100)
 
     /// The palette data.
     var palette: [UInt8] = [
@@ -129,7 +129,7 @@ internal final class PPU {
         0x08, 0x3A, 0x00, 0x02, 0x00, 0x20, 0x2C, 0x08
     ]
 
-    init(console: Console, vram: Array<UInt8> = Array(repeating: 0x00, count: 0x800)) {
+    init(console: Console, vram: Data = Data(repeating: 0x00, count: 0x800)) {
         self.console = console
         self.vram = vram
     }
