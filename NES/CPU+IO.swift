@@ -1,6 +1,7 @@
 import Foundation
 
 extension CPU: IO {
+    @discardableResult
     func read(_ address: Address) -> UInt8 {
         switch address {
         case 0x0000 ..< 0x2000:

@@ -8,6 +8,7 @@ internal enum MirroringMode: Int {
 }
 
 extension PPU: IO {
+    @discardableResult
     func read(_ address: Address) -> UInt8 {
         let wrappedAddress = address % 0x4000
 
