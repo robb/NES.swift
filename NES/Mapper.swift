@@ -17,7 +17,7 @@ internal final class Mapper002: IO {
     }
 
     func read(_ address: Address) -> UInt8 {
-        switch Int(address) {
+        switch address {
         case 0x0000 ..< 0x2000:
             return cartridge.chrrom[address]
         case 0x2000 ..< 0x6000:
@@ -30,7 +30,7 @@ internal final class Mapper002: IO {
             let prgAddress = prgBanks.0 * 0x4000 + (address - 0x8000)
 
             return cartridge.prgrom[prgAddress]
-        case 0xC000 ..< 0x10000:
+        case 0xC000 ... 0xFFFF:
             let prgAddress = prgBanks.1 * 0x4000 + (address - 0xC000)
 
             return cartridge.prgrom[prgAddress]
@@ -40,7 +40,7 @@ internal final class Mapper002: IO {
     }
 
     func write(_ address: Address, _ value: UInt8) {
-        switch Int(address) {
+        switch address {
         case 0x0000 ..< 0x2000:
             cartridge.chrrom[address] = value
         case 0x2000 ..< 0x6000:
@@ -49,7 +49,7 @@ internal final class Mapper002: IO {
             let SRAMAddress = address - 0x6000
 
             cartridge.sram[SRAMAddress] = value
-        case 0x8000 ..< 0x10000:
+        case 0x8000 ... 0xFFFF:
             prgBanks.0 = UInt16(value) % numberOfBanks
         default:
             fatalError("Unhandled mapper address \(format(address)).")

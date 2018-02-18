@@ -18,7 +18,7 @@ extension CPU: IO {
     }
 
     func write(_ address: Address, _ value: UInt8) {
-        switch Int(address) {
+        switch address {
         case 0x0000 ..< 0x2000:
             ram[address % 0x0800] = value
         case 0x2000 ..< 0x4000:
@@ -33,7 +33,7 @@ extension CPU: IO {
         case 0x4016, 0x4017:
             // TODO: Implement Controller
             break
-        case 0x6000 ..< 0x10000:
+        case 0x6000 ... 0xFFFF:
             mapper.write(address, value)
         default:
             fatalError("Attempt to write illegal memory address \(format(address)).")
