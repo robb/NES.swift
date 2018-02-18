@@ -12,14 +12,14 @@ extension IO {
         let low  = read(address)
         let high = read(address + 1)
 
-        return UInt16(high, low)
+        return UInt16(high: high, low: low)
     }
 
     func buggyRead16(_ address: Address) -> UInt16 {
         let low  = read(address)
         let high = read((address & 0xFF00) | UInt16(UInt8(address & 0xFF) &+ 1))
 
-        return UInt16(high, low)
+        return UInt16(high: high, low: low)
     }
 
     func write16(_ address: Address, _ value: UInt16) {

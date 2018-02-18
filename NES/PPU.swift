@@ -191,8 +191,8 @@ internal extension PPU {
 
     /// Must be called after the CPU has written OAMDMA.
     func didWriteOAMDMA() {
-        for offset in 0x0000 ..< 0x0100 {
-            let address = Address(OAMDMA, UInt8(offset))
+        for offset: UInt8 in 0x00 ... 0xFF {
+            let address = Address(page: OAMDMA, offset: offset)
 
             OAM[OAMADDR] = CPU.read(address)
 
