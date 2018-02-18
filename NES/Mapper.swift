@@ -1,8 +1,18 @@
 import Foundation
 
+internal class Mapper: IO {
+    func read(_ address: Address) -> UInt8 {
+        return 0x00
+    }
+
+    func write(_ address: Address, _ value: UInt8) {
+
+    }
+}
+
 internal typealias Mapper000 = Mapper002
 
-internal final class Mapper002: IO {
+internal final class Mapper002: Mapper {
     private var cartridge: Cartridge
 
     private var prgBanks: (UInt16, UInt16)
@@ -16,7 +26,7 @@ internal final class Mapper002: IO {
         prgBanks = (0, numberOfBanks - 1)
     }
 
-    func read(_ address: Address) -> UInt8 {
+    override func read(_ address: Address) -> UInt8 {
         switch address {
         case 0x0000 ..< 0x2000:
             return cartridge.chrrom[address]
@@ -39,7 +49,7 @@ internal final class Mapper002: IO {
         }
     }
 
-    func write(_ address: Address, _ value: UInt8) {
+    override func write(_ address: Address, _ value: UInt8) {
         switch address {
         case 0x0000 ..< 0x2000:
             cartridge.chrrom[address] = value

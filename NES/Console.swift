@@ -7,7 +7,7 @@ public final class Console {
         return ppu.frame
     }
 
-    internal private(set) var mapper: IO! = nil
+    internal private(set) var mapper: Mapper! = nil
 
     internal private(set) var ppu: PPU! = nil
 
@@ -23,7 +23,7 @@ public final class Console {
         self.init(mapper: mapper)
     }
 
-    init(mapper: IO) {
+    init(mapper: Mapper) {
         self.mapper = mapper
 
         cpu = CPU(console: self)

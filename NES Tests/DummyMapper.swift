@@ -1,14 +1,14 @@
 @testable import NES
 
 /// A mapper that has no internal logic.
-internal class DummyMapper: IO {
-    private var memory: Array<UInt8> = Array(count: 0x10000, repeatedValue: 0xFF)
+internal final class DummyMapper: Mapper {
+    private var memory: Array<UInt8> = Array(repeating: 0xFF, count: 0x10000)
 
-    func read(_ address: Address) -> UInt8 {
+    override func read(_ address: Address) -> UInt8 {
         return memory[address]
     }
 
-    func write(address: Address, _ value: UInt8) {
+    override func write(_ address: Address, _ value: UInt8) {
         memory[address] = value
     }
 }
