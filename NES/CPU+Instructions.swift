@@ -2,7 +2,7 @@ import Foundation
 
 internal extension CPU {
     /// `ADC` - Add with Carry
-    func adc(_ value: UInt8) {
+    func adc(value: UInt8) {
         let accumulator = a
         let carry: UInt8 = c ? 0x01 : 0x00
 
@@ -13,7 +13,7 @@ internal extension CPU {
     }
 
     /// `AND` - Logical AND
-    func and(_ value: UInt8) {
+    func and(value: UInt8) {
         updateAZN(a & value)
     }
 
@@ -24,7 +24,7 @@ internal extension CPU {
     }
 
     /// `ASL` - Arithmetic Shift Left
-    func asl(_ address: Address) {
+    func asl(address: Address) {
         let value = read(address)
         c = (value & 0x80) != 0
 
@@ -33,7 +33,7 @@ internal extension CPU {
         write(address, result)
     }
 
-    private func branch(_ offset: UInt8) {
+    private func branch(offset: UInt8) {
         let address: Address
 
         if (offset & 0x80) == 0 {
@@ -47,28 +47,28 @@ internal extension CPU {
     }
 
     /// `BCC` - Branch if Carry Clear
-    func bcc(_ offset: UInt8) {
+    func bcc(offset: UInt8) {
         if !c {
-            branch(offset)
+            branch(offset: offset)
         }
     }
 
     /// `BCS` - Branch if Carry Set
-    func bcs(_ offset: UInt8) {
+    func bcs(offset: UInt8) {
         if c {
-            branch(offset)
+            branch(offset: offset)
         }
     }
 
     /// `BEQ` - Branch if Equal
-    func beq(_ offset: UInt8) {
+    func beq(offset: UInt8) {
         if z {
-            branch(offset)
+            branch(offset: offset)
         }
     }
 
     /// `BIT` - Bit Test
-    func bit(_ address: Address) {
+    func bit(address: Address) {
         let value = read(address)
 
         z = (a & value) == 0
@@ -79,21 +79,21 @@ internal extension CPU {
     /// `BMI` - Branch if Minus
     func bmi(offset: UInt8) {
         if n {
-            branch(offset)
+            branch(offset: offset)
         }
     }
 
     /// `BNE` - Branch if Not Equal
     func bne(offset: UInt8) {
         if !z {
-            branch(offset)
+            branch(offset: offset)
         }
     }
 
     /// `BPL` - Branch if Positive
     func bpl(offset: UInt8) {
         if !n {
-            branch(offset)
+            branch(offset: offset)
         }
     }
 
@@ -108,14 +108,14 @@ internal extension CPU {
     /// `BVC` - Branch if Overflow Clear
     func bvc(offset: UInt8) {
         if !v {
-            branch(offset)
+            branch(offset: offset)
         }
     }
 
     /// `BVS` - Branch if Overflow Clear
     func bvs(offset: UInt8) {
         if v {
-            branch(offset)
+            branch(offset: offset)
         }
     }
 
@@ -145,22 +145,22 @@ internal extension CPU {
     }
 
     /// `CMP` - Compare
-    func cmp(_ value: UInt8) {
+    func cmp(value: UInt8) {
         compare(a, value)
     }
 
     /// `CPX` - Compare X Register
-    func cpx(_ value: UInt8) {
+    func cpx(value: UInt8) {
         compare(x, value)
     }
 
     /// `CPY` - Compare Y Register
-    func cpy(_ value: UInt8) {
+    func cpy(value: UInt8) {
         compare(y, value)
     }
 
     /// `DEC` - Increment Memory
-    func dec(_ address: Address) {
+    func dec(address: Address) {
         let result = read(address) &- 1
         updateZN(result)
         write(address, result)
@@ -179,12 +179,12 @@ internal extension CPU {
     }
 
     /// `EOR` - Logical Exclusive OR
-    func eor(_ value: UInt8) {
+    func eor(value: UInt8) {
         updateAZN(a ^ value)
     }
 
     /// `INC` - Increment Memory
-    func inc(_ address: Address) {
+    func inc(address: Address) {
         let result = read(address) &+ 1
         updateZN(result)
         write(address, result)
@@ -203,29 +203,29 @@ internal extension CPU {
     }
 
     /// `JMP` - Jump
-    func jmp(_ address: Address) {
+    func jmp(address: Address) {
         pc = address
     }
 
     /// `JSR` - Jump to Subroutine
-    func jsr(_ address: Address) {
+    func jsr(address: Address) {
         push16(pc - 1)
         pc = address
     }
 
     /// `LDA` - Load Accumulator
-    func lda(_ value: UInt8) {
+    func lda(value: UInt8) {
         updateAZN(value)
     }
 
     /// `LDX` - Load X Register
-    func ldx(_ value: UInt8) {
+    func ldx(value: UInt8) {
         x = value
         updateZN(value)
     }
 
     /// `LDY` - Load Y Register
-    func ldy(_ value: UInt8) {
+    func ldy(value: UInt8) {
         y = value
         updateZN(value)
     }
@@ -237,7 +237,7 @@ internal extension CPU {
     }
 
     /// `LSR` - Logical Shift Right
-    func lsr(_ address: Address) {
+    func lsr(address: Address) {
         let value = read(address)
         c = (value & 0x01) != 0
 
@@ -251,7 +251,7 @@ internal extension CPU {
     }
 
     /// `ORA` - Logical Inclusive OR
-    func ora(_ value: UInt8) {
+    func ora(value: UInt8) {
         updateAZN(a | value)
     }
 
@@ -284,7 +284,7 @@ internal extension CPU {
     }
 
     /// `ROL` - Rotate Left
-    func rol(_ address: Address) {
+    func rol(address: Address) {
         let existing: UInt8 = c ? 0x01 : 0x00
 
         let value = read(address)
@@ -304,7 +304,7 @@ internal extension CPU {
     }
 
     /// `ROR` - Rotate Right
-    func ror(_ address: Address) {
+    func ror(address: Address) {
         let existing: UInt8 = c ? 0x80 : 0x00
 
         let value = read(address)
@@ -327,7 +327,7 @@ internal extension CPU {
     }
 
     /// `SBC` - Subtract with Carry
-    func sbc(_ value: UInt8) {
+    func sbc(value: UInt8) {
         let accumulator = a
         let carry: UInt8 = c ? 0x01 : 0x00
 
@@ -353,17 +353,17 @@ internal extension CPU {
     }
 
     /// `STA` - Store accumulator
-    func sta(_ address: Address) {
+    func sta(address: Address) {
         write(address, a)
     }
 
     /// `STX` - Store X register
-    func stx(_ address: Address) {
+    func stx(address: Address) {
         write(address, x)
     }
 
     /// `STY` - Store Y register
-    func sty(_ address: Address) {
+    func sty(address: Address) {
         write(address, y)
     }
 
@@ -403,23 +403,23 @@ internal extension CPU {
 
 extension CPU {
     /// `DCP` - ???
-    func dcp(_ address: Address) {
+    func dcp(address: Address) {
         let value = read(address) &- 1
         write(address, value)
-        cmp(value)
+        cmp(value: value)
     }
 
     /// `DOP` - Double NOP
     func dop(_: UInt8) { }
 
     /// `ISC` - ???
-    func isc(_ address: Address) {
-        inc(address)
-        sbc(read(address))
+    func isc(address: Address) {
+        inc(address: address)
+        sbc(value: read(address))
     }
 
     /// `LAX` - ???
-    func lax(_ address: Address) {
+    func lax(address: Address) {
         let value = read(address)
         a = value
         x = value
@@ -427,32 +427,32 @@ extension CPU {
     }
 
     /// `SAX` - ???
-    func sax(_ address: Address) {
+    func sax(address: Address) {
         write(address, a & x)
     }
 
     /// `SLO` - ???
-    func slo(_ address: Address) {
-        asl(address)
-        ora(read(address))
+    func slo(address: Address) {
+        asl(address: address)
+        ora(value: read(address))
     }
 
     /// `SRE` - ???
-    func sre(_ address: Address) {
-        lsr(address)
-        eor(read(address))
+    func sre(address: Address) {
+        lsr(address: address)
+        eor(value: read(address))
     }
 
     /// `RLA` - ???
-    func rla(_ address: Address) {
-        rol(address)
-        and(read(address))
+    func rla(address: Address) {
+        rol(address: address)
+        and(value: read(address))
     }
 
     /// `RRA` - ???
-    func rra(_ address: Address) {
-        ror(address)
-        adc(read(address))
+    func rra(address: Address) {
+        ror(address: address)
+        adc(value: read(address))
     }
 
     /// `TOP` - Triple NOP
