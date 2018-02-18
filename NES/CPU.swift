@@ -8,29 +8,29 @@ internal final class CPU {
     /// The PC register.
     ///
     /// This register holds the program counter.
-    var PC: UInt16 = 0
+    var pc: UInt16 = 0
 
     /// The SP register.
     ///
     /// This register holds the stack pointer.
-    var SP: UInt8 = 0xFD
+    var sp: UInt8 = 0xFD
 
     /// The P register.
     ///
     /// This register holds the processor flags.
-    var P: UInt8 = 0x24
+    var p: UInt8 = 0x24
 
     /// The A register.
-    var A: UInt8 = 0
+    var a: UInt8 = 0
 
     /// The X register.
-    var X: UInt8 = 0
+    var x: UInt8 = 0
 
     /// The Y register.
-    var Y: UInt8 = 0
+    var y: UInt8 = 0
 
     /// The interrupt that will be evaluated on the next step.
-    var interrupt: Interrupt = .None
+    var interrupt: Interrupt = .none
 
     /// The number of cycles the CPU should be stalling.
     var stallCycles: Int = 0
@@ -44,15 +44,15 @@ internal final class CPU {
     }
 
     /// The PPU.
-    var PPU: NES.PPU! {
-        return console.PPU
+    var ppu: PPU! {
+        return console.ppu
     }
 
     /// The RAM the CPU reads from.
-    var RAM: Array<UInt8>
+    var ram: Array<UInt8>
 
-    init(console: Console, RAM: Array<UInt8> = Array(repeating: 0x00, count: 0x800)) {
+    init(console: Console, ram: Array<UInt8> = Array(repeating: 0x00, count: 0x800)) {
         self.console = console
-        self.RAM = RAM
+        self.ram = ram
     }
 }

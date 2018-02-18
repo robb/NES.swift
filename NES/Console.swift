@@ -1,18 +1,18 @@
 import Foundation
 
 public final class Console {
-    internal private(set) var CPU: NES.CPU! = nil
+    internal private(set) var cpu: CPU! = nil
 
     public var frames: Int {
-        return PPU.frame
+        return ppu.frame
     }
 
     internal private(set) var mapper: IO! = nil
 
-    internal private(set) var PPU: NES.PPU! = nil
+    internal private(set) var ppu: PPU! = nil
 
     public var screenData: Data {
-        return PPU.frontBuffer.pixelData
+        return ppu.frontBuffer.pixelData
     }
 
     public convenience init(cartridge: Cartridge) {
@@ -26,32 +26,32 @@ public final class Console {
     init(mapper: IO) {
         self.mapper = mapper
 
-        CPU = NES.CPU(console: self)
-        PPU = NES.PPU(console: self)
+        cpu = CPU(console: self)
+        ppu = PPU(console: self)
 
-        CPU.PC = CPU.read16(0xFFFC)
+        cpu.pc = cpu.read16(0xFFFC)
     }
 
     public func step() {
-        let before = CPU.cycles
+        let before = cpu.cycles
 
-        CPU.step()
+        cpu.step()
 
-        let after = CPU.cycles
+        let after = cpu.cycles
 
         let PPUCycles = (after - before) * 3
 
         for _ in 0 ..< PPUCycles {
-            PPU.step()
+            ppu.step()
         }
     }
 
     public func step(time: TimeInterval) {
         let frequency = 1789773.0
 
-        let target = CPU.cycles + Int(time * frequency)
+        let target = cpu.cycles + Int(time * frequency)
 
-        while CPU.cycles < target {
+        while cpu.cycles < target {
             step()
         }
     }

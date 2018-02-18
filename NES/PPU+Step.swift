@@ -42,15 +42,15 @@ internal extension PPU {
         }
 
         if scanLine == 241 && cycle == 1 {
-            VBlankStarted = true
+            verticalBlankStarted = true
 
-            if NMIEnabled && VBlankStarted {
-                CPU.triggerNMI()
+            if nmiEnabled && verticalBlankStarted {
+                cpu.triggerNMI()
             }
         }
 
         if preRenderScanline && cycle == 1 {
-            VBlankStarted = false
+            verticalBlankStarted = false
 
             spriteOverflow = false
             spriteZeroHit = false
@@ -76,11 +76,11 @@ internal extension PPU {
     }
 
     func copyX() {
-        VRAMAddress = (VRAMAddress & 0xFBE0) | (temporaryVRAMAddress & 0x041F)
+        vramAddress = (vramAddress & 0xFBE0) | (temporaryVRAMAddress & 0x041F)
     }
 
     func copyY() {
-        VRAMAddress = (VRAMAddress & 0x841F) | (temporaryVRAMAddress & 0x7BE0)
+        vramAddress = (vramAddress & 0x841F) | (temporaryVRAMAddress & 0x7BE0)
     }
 
     func fetchAttributeTableByte() {
@@ -159,36 +159,36 @@ internal extension PPU {
     /// Bits 0 through 4 of `VRAMAddress` represent the coarse X position.
     var coarseX: UInt8 {
         get {
-            return UInt8(truncatingIfNeeded: VRAMAddress & 0x001F)
+            return UInt8(truncatingIfNeeded: vramAddress & 0x001F)
         }
         set {
             precondition(newValue <= 0x1F)
 
-            VRAMAddress = (VRAMAddress & 0xFFE0) | UInt16(newValue)
+            vramAddress = (vramAddress & 0xFFE0) | UInt16(newValue)
         }
     }
 
     /// Bits 5 through 9 of `VRAMAddress` represent the coarse Y position.
     var coarseY: UInt8 {
         get {
-            return UInt8(truncatingIfNeeded: (VRAMAddress & 0x03E0) >> 5)
+            return UInt8(truncatingIfNeeded: (vramAddress & 0x03E0) >> 5)
         }
         set {
             precondition(newValue <= 0x1F)
 
-            VRAMAddress = (VRAMAddress & 0xFC1F) | UInt16(newValue) << 5
+            vramAddress = (vramAddress & 0xFC1F) | UInt16(newValue) << 5
         }
     }
 
     /// Bits 12 through 14 `VRAMAddress` represent the fine Y position.
     var fineY: UInt8 {
         get {
-            return UInt8(truncatingIfNeeded: (VRAMAddress & 0x7000) >> 12)
+            return UInt8(truncatingIfNeeded: (vramAddress & 0x7000) >> 12)
         }
         set {
             precondition(newValue <= 0x07)
 
-            VRAMAddress = (VRAMAddress & 0x8FFF) | UInt16(newValue) << 12
+            vramAddress = (vramAddress & 0x8FFF) | UInt16(newValue) << 12
         }
     }
 
@@ -196,12 +196,12 @@ internal extension PPU {
     /// nametable.
     var nametable: UInt8 {
         get {
-            return UInt8(truncatingIfNeeded: (VRAMAddress & 0x0C00) >> 10)
+            return UInt8(truncatingIfNeeded: (vramAddress & 0x0C00) >> 10)
         }
         set {
             precondition(newValue <= 0x03)
 
-            VRAMAddress = (VRAMAddress & 0xF3FF) | UInt16(newValue) << 10
+            vramAddress = (vramAddress & 0xF3FF) | UInt16(newValue) << 10
         }
     }
 
@@ -209,7 +209,7 @@ internal extension PPU {
     /// `nametable`) represent the address of the current tile, relative to the
     /// the first name table enty at `0x2000`.
     var tileAddress: Address {
-        return 0x2000 | (VRAMAddress & 0x0FFF)
+        return 0x2000 | (vramAddress & 0x0FFF)
     }
 }
 

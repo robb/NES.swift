@@ -4,11 +4,11 @@ extension CPU: IO {
     func read(_ address: Address) -> UInt8 {
         switch address {
         case 0x0000 ..< 0x2000:
-            return RAM[address % 0x0800]
+            return ram[address % 0x0800]
         case 0x2000 ..< 0x4000:
             let wrappedAddress = 0x2000 + address % 8
 
-            return PPU.readRegister(wrappedAddress)
+            return ppu.readRegister(wrappedAddress)
         case 0x4000 ... 0x6000:
             return 0x00
         default:
@@ -19,13 +19,13 @@ extension CPU: IO {
     func write(_ address: Address, _ value: UInt8) {
         switch Int(address) {
         case 0x0000 ..< 0x2000:
-            RAM[address % 0x0800] = value
+            ram[address % 0x0800] = value
         case 0x2000 ..< 0x4000:
             let wrappedAddress = 0x2000 + address % 8
 
-            PPU.writeRegister(wrappedAddress, value: value)
+            ppu.writeRegister(wrappedAddress, value: value)
         case 0x4014:
-            PPU.writeRegister(address, value: value)
+            ppu.writeRegister(address, value: value)
         case 0x4000 ..< 0x4014, 0x04015:
             // TODO: Implement APU
             break
@@ -42,17 +42,17 @@ extension CPU: IO {
 
 internal extension CPU {
     func advanceProgramCounter() -> UInt8 {
-        let result = read(PC)
+        let result = read(pc)
 
-        PC = PC &+ 1
+        pc = pc &+ 1
 
         return result
     }
 
     func advanceProgramCounter() -> UInt16 {
-        let result = read16(PC)
+        let result = read16(pc)
 
-        PC = PC &+ 2
+        pc = pc &+ 2
 
         return result
     }
@@ -60,11 +60,11 @@ internal extension CPU {
 
 /// Stack access.
 internal extension CPU {
-    static let StackOffset: Address = 0x0100
+    static let stackOffset: Address = 0x0100
 
     func push(_ byte: UInt8) {
-        write(CPU.StackOffset | UInt16(SP), byte)
-        SP = SP &- 1
+        write(CPU.stackOffset | UInt16(sp), byte)
+        sp = sp &- 1
     }
 
     func push16(_ value: UInt16) {
@@ -73,8 +73,8 @@ internal extension CPU {
     }
 
     func pop() -> UInt8 {
-        SP = SP &+ 1
-        return read(CPU.StackOffset | UInt16(SP))
+        sp = sp &+ 1
+        return read(CPU.stackOffset | UInt16(sp))
     }
 
     func pop16() -> UInt16 {
@@ -87,44 +87,44 @@ internal extension CPU {
 
 internal extension Address {
     /// The address of the PPU's PPUCTRL register in the CPU's address space.
-    static let PPUCTRLAddress: Address = 0x2000
+    static let ppuctrlAddress: Address = 0x2000
 
     /// The address of the PPU's PPUMASK register in the CPU's address space.
-    static let PPUMASKAddress: Address = 0x2001
+    static let ppumaskAddress: Address = 0x2001
 
     /// The address of the PPU's PPUSTATUS register in the CPU's address space.
-    static let PPUSTATUSAddress: Address = 0x2002
+    static let ppustatusAddress: Address = 0x2002
 
     /// The address of the PPU's OAMADDR register in the CPU's address space.
-    static let OAMADDRAddress: Address = 0x2003
+    static let oamaddrAddress: Address = 0x2003
 
     /// The address of the PPU's OAMDATA register in the CPU's address space.
-    static let OAMDATAAddress: Address = 0x2004
+    static let oamdataAddress: Address = 0x2004
 
     /// The address of the PPU's PPUSCROLL register in the CPU's address space.
-    static let PPUSCROLLAddress: Address = 0x2005
+    static let ppuscrollAddress: Address = 0x2005
 
     /// The address of the PPU's PPUADDR register in the CPU's address space.
-    static let PPUADDRAddress: Address = 0x2006
+    static let ppuaddrAddress: Address = 0x2006
 
     /// The address of the PPU's PPUDATA register in the CPU's address space.
-    static let PPUDATAAddress: Address = 0x2007
+    static let ppudataAddress: Address = 0x2007
 
     /// The address of the PPU's OAMDMA register in the CPU's address space.
-    static let OAMDMAAddress: Address = 0x4014
+    static let oamdmaAddress: Address = 0x4014
 }
 
 /// Maps CPU memory addresses to PPU registers.
 private extension PPU {
     func readRegister(_ address: Address) -> UInt8 {
         switch address {
-        case Address.PPUSTATUSAddress:
+        case Address.ppustatusAddress:
             defer { didReadPPUSTATUS() }
 
-            return PPUSTATUS
-        case Address.OAMDATAAddress:
-            return OAMDATA
-        case Address.PPUDATAAddress:
+            return ppustatus
+        case Address.oamdataAddress:
+            return oamdata
+        case Address.ppudataAddress:
             defer { didReadPPUDATA() }
 
             return bufferedPPUDATA
@@ -137,34 +137,34 @@ private extension PPU {
         register = value
 
         switch address {
-        case Address.PPUCTRLAddress:
+        case Address.ppuctrlAddress:
             defer { didWritePPUCTRL() }
 
-            PPUCTRL = value
-        case Address.PPUMASKAddress:
-            PPUMASK = value
-        case Address.OAMADDRAddress:
-            OAMADDR = value
-        case Address.OAMDATAAddress:
+            ppuctrl = value
+        case Address.ppumaskAddress:
+            ppumask = value
+        case Address.oamaddrAddress:
+            oamaddr = value
+        case Address.oamdataAddress:
             defer { didWriteOAMDATA() }
 
-            OAMDATA = value
-        case Address.PPUSCROLLAddress:
+            oamdata = value
+        case Address.ppuscrollAddress:
             defer { didWritePPUSCROLL() }
 
-            PPUSCROLL = value
-        case Address.PPUADDRAddress:
+            ppuscroll = value
+        case Address.ppuaddrAddress:
             defer { didWritePPUADDR() }
 
-            PPUADDR = value
-        case Address.PPUDATAAddress:
+            ppuaddr = value
+        case Address.ppudataAddress:
             defer { didWritePPUDATA() }
 
-            PPUDATA = value
-        case Address.OAMDMAAddress:
+            ppudata = value
+        case Address.oamdmaAddress:
             defer { didWriteOAMDMA() }
 
-            OAMDMA = value
+            oamdma = value
         default:
             fatalError("Attempt to write illegal PPU register address \(format(address)).")
         }

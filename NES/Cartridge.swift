@@ -1,15 +1,15 @@
 import Foundation
 
 public final class Cartridge {
-    internal var CHRROM: Data
+    internal var chrrom: Data
 
     internal let mapper: UInt8
 
-    internal var PRGRAM: Data
+    internal var prgram: Data
 
-    internal let PRGROM: Data
+    internal let prgrom: Data
 
-    internal var SRAM: Data
+    internal var sram: Data
 
     public static func load(path: String) -> Cartridge? {
         let data = try? Data(contentsOf: URL(fileURLWithPath: path))
@@ -30,11 +30,11 @@ public final class Cartridge {
 
         if magic != 0x4E45531A { return nil }
 
-        let PRGROMSize = Int(data[4])
-        let CHRROMSize = Int(data[5])
+        let prgromSize = Int(data[4])
+        let chrromSize = Int(data[5])
         let flags6 = data[6]
         let flags7 = data[7]
-        let PRGRAMSize = Int(data[8])
+        let prgramSize = Int(data[8])
 
         var offset = 16
 
@@ -43,16 +43,15 @@ public final class Cartridge {
             offset += 512
         }
 
+        prgrom = data.subdata(in: offset ..< offset + 16384 * prgromSize)
+        offset += 16384 * prgromSize
 
-        PRGROM = data.subdata(in: offset ..< offset + 16384 * PRGROMSize)
-        offset += 16384 * PRGROMSize
+        chrrom = data.subdata(in: offset ..< offset + 8192 * chrromSize)
+        offset += 8192 * chrromSize
 
-        CHRROM = data.subdata(in: offset ..< offset + 8192 * CHRROMSize)
-        offset += 8192 * CHRROMSize
+        prgram = Data(repeating: 0x00, count: prgramSize)
 
-        PRGRAM = Data(repeating: 0x00, count: PRGRAMSize)
-
-        SRAM = Data(repeating: 0x00, count: 0x2000)
+        sram = Data(repeating: 0x00, count: 0x2000)
 
         mapper = (flags7 & 0xF0) | (flags6 >> 4)
     }

@@ -1,10 +1,10 @@
 import Foundation
 
 internal enum MirroringMode: Int {
-    case Horizontal = 0
-    case Vertical = 1
-    case FirstScreen = 2
-    case SecondScreen = 3
+    case horizontal = 0
+    case vertical = 1
+    case firstScreen = 2
+    case secondScreen = 3
 }
 
 extension PPU: IO {
@@ -17,7 +17,7 @@ extension PPU: IO {
         case 0x2000 ..< 0x3F00:
             let mirrored = mirrorVRAM(wrappedAddress)
 
-            return VRAM[mirrored]
+            return vram[mirrored]
         case 0x3F00 ..< 0x4000:
             let mirrored = mirrorPalette(wrappedAddress)
 
@@ -36,7 +36,7 @@ extension PPU: IO {
         case 0x2000 ..< 0x3F00:
             let mirrored = mirrorVRAM(wrappedAddress)
 
-            VRAM[mirrored] = value
+            vram[mirrored] = value
         case 0x3F00 ..< 0x4000:
             let mirrored = mirrorPalette(wrappedAddress)
 
@@ -46,7 +46,7 @@ extension PPU: IO {
         }
     }
 
-    internal func mirrorVRAM(_ address: Address, mirroringMode: MirroringMode = .Horizontal) -> Address {
+    internal func mirrorVRAM(_ address: Address, mirroringMode: MirroringMode = .horizontal) -> Address {
         let lookup: [[UInt16]] = [
             [0, 0, 1, 1],
             [0, 1, 0, 1],

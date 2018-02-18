@@ -3,35 +3,35 @@ import Foundation
 /// Convenient access to the flags in the PPUCTRL register.
 internal extension PPU {
     var nametableOffset: Address {
-        return 0x2000 + UInt16(PPUCTRL & 0x03) * 0x0400
+        return 0x2000 + UInt16(ppuctrl & 0x03) * 0x0400
     }
 
-    var VRAMAddressIncrement: UInt16 {
-        return PPUCTRL[2] ? 32 : 1
+    var vramAddressIncrement: UInt16 {
+        return ppuctrl[2] ? 32 : 1
     }
 
     var spritePatternTableAddress: UInt16 {
-        return PPUCTRL[3] ? 0x1000 : 0x0000
+        return ppuctrl[3] ? 0x1000 : 0x0000
     }
 
     var backgroundPatternTableAddress: UInt16 {
-        return PPUCTRL[4] ? 0x1000 : 0x0000
+        return ppuctrl[4] ? 0x1000 : 0x0000
     }
 
     var useLargeSprites: Bool {
-        return PPUCTRL[5]
+        return ppuctrl[5]
     }
 
-    var EXTPinsEnabled: Bool {
-        return PPUCTRL[6]
+    var extPinsEnabled: Bool {
+        return ppuctrl[6]
     }
 
-    var NMIEnabled: Bool {
+    var nmiEnabled: Bool {
         get {
-            return PPUCTRL[7]
+            return ppuctrl[7]
         }
         set(flag) {
-            PPUCTRL[7] = flag
+            ppuctrl[7] = flag
         }
     }
 }
@@ -39,35 +39,35 @@ internal extension PPU {
 /// Convenient access to the flags in the PPUMASK register.
 internal extension PPU {
     var grayscale: Bool {
-        return PPUMASK[0]
+        return ppumask[0]
     }
 
     var showLeftBackground: Bool {
-        return PPUMASK[1]
+        return ppumask[1]
     }
 
     var showLeftSprites: Bool {
-        return PPUMASK[2]
+        return ppumask[2]
     }
 
     var showBackground: Bool {
-        return PPUMASK[3]
+        return ppumask[3]
     }
 
     var showSprites: Bool {
-        return PPUMASK[4]
+        return ppumask[4]
     }
 
     var emphasizeRed: Bool {
-        return PPUMASK[5]
+        return ppumask[5]
     }
 
     var emphasizeGreen: Bool {
-        return PPUMASK[6]
+        return ppumask[6]
     }
 
     var emphasizeBlue: Bool {
-        return PPUMASK[7]
+        return ppumask[7]
     }
 }
 
@@ -75,28 +75,28 @@ internal extension PPU {
 internal extension PPU {
     var spriteOverflow: Bool {
         get {
-            return PPUSTATUS[5]
+            return ppustatus[5]
         }
         set {
-            PPUSTATUS[5] = newValue
+            ppustatus[5] = newValue
         }
     }
 
     var spriteZeroHit: Bool {
         get {
-            return PPUSTATUS[6]
+            return ppustatus[6]
         }
         set {
-            PPUSTATUS[6] = newValue
+            ppustatus[6] = newValue
         }
     }
 
-    var VBlankStarted: Bool {
+    var verticalBlankStarted: Bool {
         get {
-            return PPUSTATUS[7]
+            return ppustatus[7]
         }
         set {
-            PPUSTATUS[7] = newValue
+            ppustatus[7] = newValue
         }
     }
 }

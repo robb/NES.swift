@@ -7,7 +7,7 @@ class CPUSpec: QuickSpec {
     override func spec() {
         var console: Console! = nil
 
-        var CPU: NES.CPU {
+        var cpu: CPU {
             return console.CPU!
         }
 
@@ -17,11 +17,11 @@ class CPUSpec: QuickSpec {
 
         describe("A new CPU") {
             it("should initialize with no cycles") {
-                expect(CPU.cycles).to(equal(0))
+                expect(cpu.cycles).to(equal(0))
             }
 
             it("should have interrupts disabled") {
-                expect(CPU.I).to(beTrue())
+                expect(cpu.I).to(beTrue())
             }
         }
 
@@ -30,45 +30,45 @@ class CPUSpec: QuickSpec {
                 // Fill the RAM with NOPs
                 let RAM = Array<UInt8>(count: 0x0800, repeatedValue: 0x1A)
 
-                CPU.RAM[RAM.startIndex ..< RAM.endIndex] = RAM[RAM.startIndex ..< RAM.endIndex]
-                CPU.PC = 0x0200
+                cpu.RAM[RAM.startIndex ..< RAM.endIndex] = RAM[RAM.startIndex ..< RAM.endIndex]
+                cpu.PC = 0x0200
 
-                expect(CPU.cycles).to(equal(0))
+                expect(cpu.cycles).to(equal(0))
             }
 
             it("should increase the cycle count") {
-                CPU.step()
+                cpu.step()
 
-                expect(CPU.cycles).to(equal(2))
+                expect(cpu.cycles).to(equal(2))
             }
 
             it("should advance the program counter") {
-                CPU.step()
+                cpu.step()
 
-                expect(CPU.PC).to(equal(0x0201))
+                expect(cpu.PC).to(equal(0x0201))
             }
 
             describe("that is stalled") {
                 beforeEach {
-                    CPU.stallCycles = 1
+                    cpu.stallCycles = 1
                 }
 
                 it("should not perform any work") {
-                    CPU.step()
+                    cpu.step()
 
-                    expect(CPU.PC).to(equal(0x0200))
+                    expect(cpu.PC).to(equal(0x0200))
                 }
 
                 it("should decrease the stall cycle counter") {
-                    CPU.step()
+                    cpu.step()
 
-                    expect(CPU.stallCycles).to(equal(0))
+                    expect(cpu.stallCycles).to(equal(0))
                 }
 
                 it("should increase the cycle count") {
-                    CPU.step()
+                    cpu.step()
 
-                    expect(CPU.cycles).to(equal(1))
+                    expect(cpu.cycles).to(equal(1))
                 }
             }
         }
@@ -78,65 +78,65 @@ class CPUSpec: QuickSpec {
                 // Set the entire RAM to `NOP` instructions.
                 let RAM = Array<UInt8>(count: 0x0800, repeatedValue: 0x1A)
 
-                CPU.RAM[RAM.startIndex ..< RAM.endIndex] = RAM[RAM.startIndex ..< RAM.endIndex]
+                cpu.RAM[RAM.startIndex ..< RAM.endIndex] = RAM[RAM.startIndex ..< RAM.endIndex]
 
-                CPU.write16(NES.CPU.IRQInterruptVector, 0x0100)
+                cpu.write16(NES.CPU.IRQInterruptVector, 0x0100)
 
-                CPU.write16(NES.CPU.NMIInterruptVector, 0x0200)
+                cpu.write16(NES.CPU.NMIInterruptVector, 0x0200)
             }
 
             describe("with the I flag set") {
                 beforeEach {
-                    CPU.I = true
+                    cpu.I = true
                 }
 
                 describe("that is maskable") {
                     beforeEach {
-                        CPU.triggerIRQ()
-                        CPU.step()
+                        cpu.triggerIRQ()
+                        cpu.step()
                     }
 
                     it("should not have any effect") {
-                        expect(CPU.PC).to(equal(0x0001))
+                        expect(cpu.PC).to(equal(0x0001))
                     }
                 }
 
                 describe("that is not maskable") {
                     beforeEach {
-                        CPU.triggerNMI()
-                        CPU.step()
+                        cpu.triggerNMI()
+                        cpu.step()
                     }
 
                     it("should execute the NMI interrupt handler") {
-                        expect(CPU.PC).to(equal(0x0201))
+                        expect(cpu.PC).to(equal(0x0201))
                     }
                 }
             }
 
             describe("without the I flag set") {
                 beforeEach {
-                    CPU.I = false
+                    cpu.I = false
                 }
 
                 describe("that is maskable") {
                     beforeEach {
-                        CPU.triggerIRQ()
-                        CPU.step()
+                        cpu.triggerIRQ()
+                        cpu.step()
                     }
 
                     it("should execute the IRQ interrupt handler") {
-                        expect(CPU.PC).to(equal(0x0101))
+                        expect(cpu.PC).to(equal(0x0101))
                     }
                 }
 
                 describe("that is not maskable") {
                     beforeEach {
-                        CPU.triggerNMI()
-                        CPU.step()
+                        cpu.triggerNMI()
+                        cpu.step()
                     }
 
                     it("should execute the NMI interrupt handler") {
-                        expect(CPU.PC).to(equal(0x0201))
+                        expect(cpu.PC).to(equal(0x0201))
                     }
                 }
             }

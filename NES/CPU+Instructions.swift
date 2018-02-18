@@ -2,32 +2,31 @@ import Foundation
 
 internal extension CPU {
     /// `ADC` - Add with Carry
-    func ADC(_ value: UInt8) {
-        let a: UInt8 = A
-        let b: UInt8 = value
-        let c: UInt8 = C ? 1 : 0
+    func adc(_ value: UInt8) {
+        let accumulator = a
+        let carry: UInt8 = c ? 0x01 : 0x00
 
-        updateAZN(a &+ b &+ c)
+        updateAZN(accumulator &+ value &+ carry)
 
-        C = UInt16(a) + UInt16(b) + UInt16(c) > 0xFF
-        V = (a ^ b) & 0x80 == 0 && (a ^ A) & 0x80 != 0
+        c = UInt16(accumulator) + UInt16(value) + UInt16(carry) > 0x00FF
+        v = (accumulator ^ value) & 0x80 == 0 && (accumulator ^ a) & 0x80 != 0
     }
 
     /// `AND` - Logical AND
-    func AND(_ value: UInt8) {
-        updateAZN(A & value)
+    func and(_ value: UInt8) {
+        updateAZN(a & value)
     }
 
     /// `ASL` - Arithmetic Shift Left
-    func ASL() {
-        C = (A & 0x80) != 0
-        updateAZN(A << 1)
+    func asl() {
+        c = (a & 0x80) != 0
+        updateAZN(a << 1)
     }
 
     /// `ASL` - Arithmetic Shift Left
-    func ASL(_ address: Address) {
+    func asl(_ address: Address) {
         let value = read(address)
-        C = (value & 0x80) != 0
+        c = (value & 0x80) != 0
 
         let result = value << 1
         updateZN(result)
@@ -38,209 +37,209 @@ internal extension CPU {
         let address: Address
 
         if (offset & 0x80) == 0 {
-            address = PC &+ UInt16(offset)
+            address = pc &+ UInt16(offset)
         } else {
-            address = PC &+ UInt16(offset) &- 0x0100
+            address = pc &+ UInt16(offset) &- 0x0100
         }
 
-        cycles += differentPages(PC, address) ? 2 : 1
-        PC = address
+        cycles += differentPages(pc, address) ? 2 : 1
+        pc = address
     }
 
     /// `BCC` - Branch if Carry Clear
-    func BCC(_ offset: UInt8) {
-        if !C {
+    func bcc(_ offset: UInt8) {
+        if !c {
             branch(offset)
         }
     }
 
     /// `BCS` - Branch if Carry Set
-    func BCS(_ offset: UInt8) {
-        if C {
+    func bcs(_ offset: UInt8) {
+        if c {
             branch(offset)
         }
     }
 
     /// `BEQ` - Branch if Equal
-    func BEQ(_ offset: UInt8) {
-        if Z {
+    func beq(_ offset: UInt8) {
+        if z {
             branch(offset)
         }
     }
 
     /// `BIT` - Bit Test
-    func BIT(_ address: Address) {
+    func bit(_ address: Address) {
         let value = read(address)
 
-        Z = (A & value) == 0
-        V = (0x40 & value) != 0
-        N = (0x80 & value) != 0
+        z = (a & value) == 0
+        v = (0x40 & value) != 0
+        n = (0x80 & value) != 0
     }
 
     /// `BMI` - Branch if Minus
-    func BMI(offset: UInt8) {
-        if N {
+    func bmi(offset: UInt8) {
+        if n {
             branch(offset)
         }
     }
 
     /// `BNE` - Branch if Not Equal
-    func BNE(offset: UInt8) {
-        if !Z {
+    func bne(offset: UInt8) {
+        if !z {
             branch(offset)
         }
     }
 
     /// `BPL` - Branch if Positive
-    func BPL(offset: UInt8) {
-        if !N {
+    func bpl(offset: UInt8) {
+        if !n {
             branch(offset)
         }
     }
 
     /// `BRK` - Force Interrupt
-    func BRK() {
-        push16(PC)
-        push(P)
-        B = true
-        PC = read16(CPU.IRQInterruptVector)
+    func brk() {
+        push16(pc)
+        push(p)
+        b = true
+        pc = read16(CPU.irqInterruptVector)
     }
 
     /// `BVC` - Branch if Overflow Clear
-    func BVC(offset: UInt8) {
-        if !V {
+    func bvc(offset: UInt8) {
+        if !v {
             branch(offset)
         }
     }
 
     /// `BVS` - Branch if Overflow Clear
-    func BVS(offset: UInt8) {
-        if V {
+    func bvs(offset: UInt8) {
+        if v {
             branch(offset)
         }
     }
 
     /// `CLC` - Clear Carry Flag
-    func CLC() {
-        C = false
+    func clc() {
+        c = false
     }
 
     /// `CLD` - Clear Decimal Mode
-    func CLD() {
-        D = false
+    func cld() {
+        d = false
     }
 
     /// `CLI` - Clear Interrupt Disable
-    func CLI() {
-        I = false
+    func cli() {
+        i = false
     }
 
     /// `CLV` - Clear Overflow Flag
-    func CLV() {
-        V = false
+    func clv() {
+        v = false
     }
 
     private func compare(_ a: UInt8, _ b: UInt8) {
         updateZN(a &- b)
-        C = a >= b
+        c = a >= b
     }
 
     /// `CMP` - Compare
-    func CMP(_ value: UInt8) {
-        compare(A, value)
+    func cmp(_ value: UInt8) {
+        compare(a, value)
     }
 
     /// `CPX` - Compare X Register
-    func CPX(_ value: UInt8) {
-        compare(X, value)
+    func cpx(_ value: UInt8) {
+        compare(x, value)
     }
 
     /// `CPY` - Compare Y Register
-    func CPY(_ value: UInt8) {
-        compare(Y, value)
+    func cpy(_ value: UInt8) {
+        compare(y, value)
     }
 
     /// `DEC` - Increment Memory
-    func DEC(_ address: Address) {
+    func dec(_ address: Address) {
         let result = read(address) &- 1
         updateZN(result)
         write(address, result)
     }
 
     /// `DEX` - Decrement X Register
-    func DEX() {
-        X = X &- 1
-        updateZN(X)
+    func dex() {
+        x = x &- 1
+        updateZN(x)
     }
 
     /// `DEY` - Decrement Y Register
-    func DEY() {
-        Y = Y &- 1
-        updateZN(Y)
+    func dey() {
+        y = y &- 1
+        updateZN(y)
     }
 
     /// `EOR` - Logical Exclusive OR
-    func EOR(_ value: UInt8) {
-        updateAZN(A ^ value)
+    func eor(_ value: UInt8) {
+        updateAZN(a ^ value)
     }
 
     /// `INC` - Increment Memory
-    func INC(_ address: Address) {
+    func inc(_ address: Address) {
         let result = read(address) &+ 1
         updateZN(result)
         write(address, result)
     }
 
     /// `INX` - Increment X Register
-    func INX() {
-        X = X &+ 1
-        updateZN(X)
+    func inx() {
+        x = x &+ 1
+        updateZN(x)
     }
 
     /// `INY` - Increment Y Register
-    func INY() {
-        Y = Y &+ 1
-        updateZN(Y)
+    func iny() {
+        y = y &+ 1
+        updateZN(y)
     }
 
     /// `JMP` - Jump
-    func JMP(_ address: Address) {
-        PC = address
+    func jmp(_ address: Address) {
+        pc = address
     }
 
     /// `JSR` - Jump to Subroutine
-    func JSR(_ address: Address) {
-        push16(PC - 1)
-        PC = address
+    func jsr(_ address: Address) {
+        push16(pc - 1)
+        pc = address
     }
 
     /// `LDA` - Load Accumulator
-    func LDA(_ value: UInt8) {
+    func lda(_ value: UInt8) {
         updateAZN(value)
     }
 
     /// `LDX` - Load X Register
-    func LDX(_ value: UInt8) {
-        X = value
+    func ldx(_ value: UInt8) {
+        x = value
         updateZN(value)
     }
 
     /// `LDY` - Load Y Register
-    func LDY(_ value: UInt8) {
-        Y = value
+    func ldy(_ value: UInt8) {
+        y = value
         updateZN(value)
     }
 
     /// `LSR` - Logical Shift Right
-    func LSR() {
-        C = (A & 0x01) != 0
-        updateAZN(A >> 1)
+    func lsr() {
+        c = (a & 0x01) != 0
+        updateAZN(a >> 1)
     }
 
     /// `LSR` - Logical Shift Right
-    func LSR(_ address: Address) {
+    func lsr(_ address: Address) {
         let value = read(address)
-        C = (value & 0x01) != 0
+        c = (value & 0x01) != 0
 
         let result = value >> 1
         updateZN(result)
@@ -248,48 +247,48 @@ internal extension CPU {
     }
 
     /// `NOP` - No Operation
-    func NOP() {
+    func nop() {
     }
 
     /// `ORA` - Logical Inclusive OR
-    func ORA(_ value: UInt8) {
-        updateAZN(A | value)
+    func ora(_ value: UInt8) {
+        updateAZN(a | value)
     }
 
     /// `PHA` - Push Accumulator
-    func PHA() {
-        push(A)
+    func pha() {
+        push(a)
     }
 
     /// `PHP` - Push Processor Status
-    func PHP() {
-        push(P | 0x10)
+    func php() {
+        push(p | 0x10)
     }
 
     /// `PLA` - Pull Accumulator
-    func PLA() {
+    func pla() {
         updateAZN(pop())
     }
 
     /// `PLP` - Pull Processor Status
-    func PLP() {
-        P = pop() & 0xEF | 0x20
+    func plp() {
+        p = pop() & 0xEF | 0x20
     }
 
     /// `ROL` - Rotate Left
-    func ROL() {
-        let existing: UInt8 = C ? 0x01 : 0x00
+    func rol() {
+        let existing: UInt8 = c ? 0x01 : 0x00
 
-        C = (A & 0x80) != 0
-        updateAZN((A << 1) | existing)
+        c = (a & 0x80) != 0
+        updateAZN((a << 1) | existing)
     }
 
     /// `ROL` - Rotate Left
-    func ROL(_ address: Address) {
-        let existing: UInt8 = C ? 0x01 : 0x00
+    func rol(_ address: Address) {
+        let existing: UInt8 = c ? 0x01 : 0x00
 
         let value = read(address)
-        C = (value & 0x80) != 0
+        c = (value & 0x80) != 0
 
         let result = (value << 1) | existing
         updateZN(result)
@@ -297,166 +296,165 @@ internal extension CPU {
     }
 
     /// `ROR` - Rotate Right
-    func ROR() {
-        let existing: UInt8 = C ? 0x80 : 0x00
+    func ror() {
+        let existing: UInt8 = c ? 0x80 : 0x00
 
-        C = (A & 0x01) != 0
-        updateAZN((A >> 1) | existing)
-    }
-
-    /// `RTI` - Return from Interrupt
-    func RTI() {
-        P = pop() & 0xEF | 0x20
-        PC = pop16()
-    }
-
-    /// `RTS` - Return from Subroutine
-    func RTS() {
-        PC = pop16() + 1
+        c = (a & 0x01) != 0
+        updateAZN((a >> 1) | existing)
     }
 
     /// `ROR` - Rotate Right
-    func ROR(_ address: Address) {
-        let existing: UInt8 = C ? 0x80 : 0x00
+    func ror(_ address: Address) {
+        let existing: UInt8 = c ? 0x80 : 0x00
 
         let value = read(address)
-        C = (value & 0x01) != 0
+        c = (value & 0x01) != 0
 
         let result = (value >> 1) | existing
         updateZN(result)
         write(address, result)
     }
 
+    /// `RTI` - Return from Interrupt
+    func rti() {
+        p = pop() & 0xEF | 0x20
+        pc = pop16()
+    }
+
+    /// `RTS` - Return from Subroutine
+    func rts() {
+        pc = pop16() + 1
+    }
+
     /// `SBC` - Subtract with Carry
-    func SBC(_ value: UInt8) {
-        let a: UInt8 = A
-        let b: UInt8 = value
-        let c: UInt8 = C ? 1 : 0
+    func sbc(_ value: UInt8) {
+        let accumulator = a
+        let carry: UInt8 = c ? 0x01 : 0x00
 
-        updateAZN(a &- b &- (1 - c))
+        updateAZN(accumulator &- value &- (1 - carry))
 
-        C = Int16(a) - Int16(b) - Int16(1 - c) >= 0
-        V = (a ^ b) & 0x80 != 0 && (a ^ A) & 0x80 != 0
+        c = Int16(accumulator) - Int16(value) - Int16(1 - carry) >= 0
+        v = (accumulator ^ value) & 0x80 != 0 && (accumulator ^ a) & 0x80 != 0
     }
 
     /// `SEI` - Set Interrupt Disable
-    func SEI() {
-        I = true
+    func sei() {
+        i = true
     }
 
     /// `SEC` - Set Carry Flag
-    func SEC() {
-        C = true
+    func sec() {
+        c = true
     }
 
     /// `SED` - Set Decimal Flag
-    func SED() {
-        D = true
+    func sed() {
+        d = true
     }
 
     /// `STA` - Store accumulator
-    func STA(_ address: Address) {
-        write(address, A)
+    func sta(_ address: Address) {
+        write(address, a)
     }
 
     /// `STX` - Store X register
-    func STX(_ address: Address) {
-        write(address, X)
+    func stx(_ address: Address) {
+        write(address, x)
     }
 
     /// `STY` - Store Y register
-    func STY(_ address: Address) {
-        write(address, Y)
+    func sty(_ address: Address) {
+        write(address, y)
     }
 
     /// `TAX` - Transfer Accumulator to X
-    func TAX() {
-        X = A
-        updateZN(X)
+    func tax() {
+        x = a
+        updateZN(x)
     }
 
     /// `TAY` - Transfer Accumulator to Y
-    func TAY() {
-        Y = A
-        updateZN(Y)
+    func tay() {
+        y = a
+        updateZN(y)
     }
 
     /// `TSX` - Transfer Stack Pointer to X
-    func TSX() {
-        X = SP
-        updateZN(X)
+    func tsx() {
+        x = sp
+        updateZN(x)
     }
 
     /// `TXA` - Transfer X to Accumulator
-    func TXA() {
-        updateAZN(X)
+    func txa() {
+        updateAZN(x)
     }
 
     /// `TXS` - Transfer X to Stack Pointer
-    func TXS() {
-        SP = X
+    func txs() {
+        sp = x
     }
 
     /// `TYA` - Transfer Y to Accumulator
-    func TYA() {
-        updateAZN(Y)
+    func tya() {
+        updateAZN(y)
     }
 }
 
 extension CPU {
     /// `DCP` - ???
-    func DCP(_ address: Address) {
+    func dcp(_ address: Address) {
         let value = read(address) &- 1
         write(address, value)
-        CMP(value)
+        cmp(value)
     }
 
     /// `DOP` - Double NOP
-    func DOP(_: UInt8) { }
+    func dop(_: UInt8) { }
 
     /// `ISC` - ???
-    func ISC(_ address: Address) {
-        INC(address)
-        SBC(read(address))
+    func isc(_ address: Address) {
+        inc(address)
+        sbc(read(address))
     }
 
     /// `LAX` - ???
-    func LAX(_ address: Address) {
+    func lax(_ address: Address) {
         let value = read(address)
-        A = value
-        X = value
+        a = value
+        x = value
         updateZN(value)
     }
 
     /// `SAX` - ???
-    func SAX(_ address: Address) {
-        write(address, A & X)
+    func sax(_ address: Address) {
+        write(address, a & x)
     }
 
     /// `SLO` - ???
-    func SLO(_ address: Address) {
-        ASL(address)
-        ORA(read(address))
+    func slo(_ address: Address) {
+        asl(address)
+        ora(read(address))
     }
 
     /// `SRE` - ???
-    func SRE(_ address: Address) {
-        LSR(address)
-        EOR(read(address))
+    func sre(_ address: Address) {
+        lsr(address)
+        eor(read(address))
     }
 
     /// `RLA` - ???
-    func RLA(_ address: Address) {
-        ROL(address)
-        AND(read(address))
+    func rla(_ address: Address) {
+        rol(address)
+        and(read(address))
     }
 
     /// `RRA` - ???
-    func RRA(_ address: Address) {
-        ROR(address)
-        ADC(read(address))
+    func rra(_ address: Address) {
+        ror(address)
+        adc(read(address))
     }
 
     /// `TOP` - Triple NOP
-    func TOP(_: UInt16) { }
+    func top(_: UInt16) { }
 }

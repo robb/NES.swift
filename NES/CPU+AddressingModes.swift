@@ -10,9 +10,9 @@ internal extension CPU {
     }
 
     func absoluteX(incursPageBoundaryCost: Bool) -> Address {
-        let address = advanceProgramCounter() &+ Address(X)
+        let address = advanceProgramCounter() &+ Address(x)
 
-        if incursPageBoundaryCost && differentPages(address, address &- Address(X)) {
+        if incursPageBoundaryCost && differentPages(address, address &- Address(x)) {
             cycles += 1
         }
 
@@ -24,9 +24,9 @@ internal extension CPU {
     }
 
     func absoluteY(incursPageBoundaryCost: Bool) -> Address {
-        let address = advanceProgramCounter() &+ Address(Y)
+        let address = advanceProgramCounter() &+ Address(y)
 
-        if incursPageBoundaryCost && differentPages(address, address &- Address(Y)) {
+        if incursPageBoundaryCost && differentPages(address, address &- Address(y)) {
             cycles += 1
         }
 
@@ -48,7 +48,7 @@ internal extension CPU {
     }
 
     func indexedIndirect() -> Address {
-        let address = Address(advanceProgramCounter() &+ X)
+        let address = Address(advanceProgramCounter() &+ x)
 
         return buggyRead16(address)
     }
@@ -62,9 +62,9 @@ internal extension CPU {
     }
 
     func indirectIndexed(incursPageBoundaryCost: Bool) -> Address {
-        let address = buggyRead16(Address(page: 0x00, offset: advanceProgramCounter())) &+ Address(Y)
+        let address = buggyRead16(Address(page: 0x00, offset: advanceProgramCounter())) &+ Address(y)
 
-        if incursPageBoundaryCost && differentPages(address, address &- Address(Y)) {
+        if incursPageBoundaryCost && differentPages(address, address &- Address(y)) {
             cycles += 1
         }
 
@@ -90,7 +90,7 @@ internal extension CPU {
     }
 
     func zeroPageX() -> Address {
-        return Address(page: 0, offset: advanceProgramCounter() &+ X)
+        return Address(page: 0, offset: advanceProgramCounter() &+ x)
     }
 
     func zeroPageX() -> UInt8 {
@@ -98,7 +98,7 @@ internal extension CPU {
     }
 
     func zeroPageY() -> Address {
-        return Address(page: 0, offset: advanceProgramCounter() &+ Y)
+        return Address(page: 0, offset: advanceProgramCounter() &+ y)
     }
 
     func zeroPageY() -> UInt8 {

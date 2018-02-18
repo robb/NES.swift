@@ -1,26 +1,26 @@
 import Foundation
 
 internal enum Interrupt {
-    case None
-    case IRQ
-    case NMI
+    case none
+    case irq
+    case nmi
 }
 
 /// Interrupts.
 internal extension CPU {
-    static let IRQInterruptVector: Address = 0xFFFE
+    static let irqInterruptVector: Address = 0xFFFE
 
-    static let NMIInterruptVector: Address = 0xFFFA
+    static let nmiInterruptVector: Address = 0xFFFA
 
     /// Causes a interrupt to occur, if it is not inhibited by the `I` flag.
     func triggerIRQ() {
-        guard !I else { return }
+        guard !i else { return }
 
-        interrupt = .IRQ
+        interrupt = .irq
     }
 
     /// Causes a non-maskable interrupt to occur.
     func triggerNMI() {
-        interrupt = .NMI
+        interrupt = .nmi
     }
 }
