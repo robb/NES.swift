@@ -51,7 +51,7 @@ internal final class CPU {
     /// The RAM the CPU reads from.
     var RAM: Array<UInt8>
 
-    init(console: Console, RAM: Array<UInt8> = Array(count: 0x800, repeatedValue: 0x00)) {
+    init(console: Console, RAM: Array<UInt8> = Array(repeating: 0x00, count: 0x800)) {
         self.console = console
         self.RAM = RAM
     }

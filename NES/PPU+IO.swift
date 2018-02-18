@@ -8,7 +8,7 @@ internal enum MirroringMode: Int {
 }
 
 extension PPU: IO {
-    func read(address: Address) -> UInt8 {
+    func read(_ address: Address) -> UInt8 {
         let wrappedAddress = address % 0x4000
 
         switch wrappedAddress {
@@ -27,7 +27,7 @@ extension PPU: IO {
         }
     }
 
-    func write(address: Address, _ value: UInt8) {
+    func write(_ address: Address, _ value: UInt8) {
         let wrappedAddress = address % 0x4000
 
         switch wrappedAddress {
@@ -46,7 +46,7 @@ extension PPU: IO {
         }
     }
 
-    internal func mirrorVRAM(address: Address, mirroringMode: MirroringMode = .Horizontal) -> Address {
+    internal func mirrorVRAM(_ address: Address, mirroringMode: MirroringMode = .Horizontal) -> Address {
         let lookup: [[UInt16]] = [
             [0, 0, 1, 1],
             [0, 1, 0, 1],
@@ -61,7 +61,7 @@ extension PPU: IO {
         return  lookup[mirroringMode.rawValue][table] * 0x0400 + offset
     }
 
-    internal func mirrorPalette(address: Address) -> Address {
+    internal func mirrorPalette(_ address: Address) -> Address {
         return address % 32
     }
 }

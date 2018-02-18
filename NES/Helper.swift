@@ -4,18 +4,18 @@ private func pad(string: String, length: Int, character: Character = " ") -> Str
     if length <= string.characters.count {
         return string
     } else {
-        return String(count: length - string.characters.count, repeatedValue: character) + string
+        return String(repeating: character, count: length - string.characters.count) + string
     }
 }
 
-internal func format(value: UInt16) -> String {
+internal func format(_ value: UInt16) -> String {
     let hexString = String(value, radix: 16, uppercase: true)
 
-    return "0x\(pad(hexString, length: 4, character: "0"))"
+    return "0x\(pad(string: hexString, length: 4, character: "0"))"
 }
 
-internal func format(value: UInt8) -> String {
+internal func format(_ value: UInt8) -> String {
     let hexString = String(value, radix: 16, uppercase: true)
 
-    return "0x\(pad(hexString, length: 2, character: "0"))"
+    return "0x\(pad(string: hexString, length: 2, character: "0"))"
 }

@@ -3,21 +3,21 @@ import Foundation
 internal typealias RGBA = UInt32
 
 internal struct ScreenBuffer {
-    private static let componensPerPixel = 4
+    fileprivate static let componensPerPixel = 4
 
     static let height = 240
 
     static let width = 256
 
-    private var pixels: Array<RGBA>
+    fileprivate var pixels: Array<RGBA>
 
     init() {
         let count = ScreenBuffer.width * ScreenBuffer.height
 
-        pixels = Array<RGBA>(count: count, repeatedValue: 0x00000000)
+        pixels = Array<RGBA>(repeating: 0x00000000, count: count)
     }
 
-    private func calculateOffset(x: Int, _ y: Int) -> Int {
+    private func calculateOffset(_ x: Int, _ y: Int) -> Int {
         return x + y * ScreenBuffer.width
     }
 

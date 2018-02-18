@@ -20,7 +20,7 @@ internal extension CPU {
     }
 
     func absoluteX(incursPageBoundaryCost: Bool) -> UInt8 {
-        return read(absoluteX(incursPageBoundaryCost))
+        return read(absoluteX(incursPageBoundaryCost: incursPageBoundaryCost))
     }
 
     func absoluteY(incursPageBoundaryCost: Bool) -> Address {
@@ -34,7 +34,7 @@ internal extension CPU {
     }
 
     func absoluteY(incursPageBoundaryCost: Bool) -> UInt8 {
-        return read(absoluteY(incursPageBoundaryCost))
+        return read(absoluteY(incursPageBoundaryCost: incursPageBoundaryCost))
     }
 
     func accumulator() -> Void {
@@ -72,7 +72,7 @@ internal extension CPU {
     }
 
     func indirectIndexed(incursPageBoundaryCost: Bool) -> UInt8 {
-        return read(indirectIndexed(incursPageBoundaryCost))
+        return read(indirectIndexed(incursPageBoundaryCost: incursPageBoundaryCost))
     }
 
     func relative() -> UInt8 {

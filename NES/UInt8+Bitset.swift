@@ -24,10 +24,10 @@ internal extension UInt8 {
 
     subscript(bit: Int) -> Bool {
         get {
-            return get(bit)
+            return get(bit: bit)
         }
         set(value) {
-            set(bit, value)
+            set(bit: bit, value)
         }
     }
 }

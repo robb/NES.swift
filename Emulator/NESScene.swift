@@ -13,7 +13,7 @@ class NESScene: SKScene {
     static let screenSize = CGSize(width: 256, height: 240)
 
     init(file: String) {
-        let cartridge = Cartridge.load(file)!
+        let cartridge = Cartridge.load(path: file)!
 
         console = Console(cartridge: cartridge)
 
@@ -23,7 +23,7 @@ class NESScene: SKScene {
 
         super.init(size: NESScene.screenSize)
 
-        scaleMode = .AspectFit
+        scaleMode = .aspectFit
 
         addChild(node)
     }
@@ -32,14 +32,14 @@ class NESScene: SKScene {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func update(currentTime: CFTimeInterval) {
+    override func update(_ currentTime: CFTimeInterval) {
         let delta = currentTime - (lastTime ?? currentTime)
 
         console.step(time: delta)
 
         if console.frames > lastFrame {
-            let texture = SKTexture(data: console.screenData, size: NESScene.screenSize, flipped: true)
-            texture.filteringMode = .Nearest
+            let texture = SKTexture(data: console.screenData as Data, size: NESScene.screenSize, flipped: true)
+            texture.filteringMode = .nearest
 
             node.texture = texture
 

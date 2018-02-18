@@ -1,19 +1,19 @@
 import Foundation
 
 internal extension CPU {
-    private func perform<A>(addressingMode: Void -> A, _ instruction: A -> Void) {
+    private func perform<A>(_ addressingMode: () -> A, _ instruction: (A) -> Void) {
         instruction(addressingMode())
     }
 
-    private func perform<A>(addressingMode: Bool -> A, _ instruction: A -> Void) {
+    private func perform<A>(_ addressingMode: (Bool) -> A, _ instruction: (A) -> Void) {
         instruction(addressingMode(false))
     }
 
-    private func perform<A>(addressingMode: Bool -> A, _ instruction: A -> Void, incursPageBoundaryCost: Bool) {
+    private func perform<A>(_ addressingMode: (Bool) -> A, _ instruction: (A) -> Void, incursPageBoundaryCost: Bool) {
         instruction(addressingMode(incursPageBoundaryCost))
     }
 
-    private func performInterrupt(address: Address) {
+    private func performInterrupt(_ address: Address) {
         push16(PC)
         PHP()
         PC = read16(address)
@@ -281,7 +281,7 @@ internal extension CPU {
         }
     }
 
-    func cyclesSpent(opcode: UInt8) -> Int {
+    func cyclesSpent(_ opcode: UInt8) -> Int {
         switch opcode {
         case 0x09, 0x0A, 0x10, 0x18, 0x1A, 0x29, 0x2A, 0x30, 0x38, 0x3A, 0x49,
              0x4A, 0x50, 0x58, 0x5A, 0x69, 0x6A, 0x70, 0x78, 0x7A, 0x80, 0x82,

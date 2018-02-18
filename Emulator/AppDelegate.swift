@@ -5,7 +5,7 @@ import SpriteKit
     @IBOutlet weak var view: SKView!
     @IBOutlet weak var window: NSWindow!
 
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
+    @objc func applicationDidFinishLaunching(_ notification: Notification) {
         window.contentAspectRatio = NESScene.screenSize
         window.contentMinSize = NESScene.screenSize
         window.setContentSize(NESScene.screenSize)
@@ -13,7 +13,7 @@ import SpriteKit
         window.center()
     }
 
-    func application(sender: NSApplication, openFile filename: String) -> Bool {
+    @objc func application(_ sender: NSApplication, openFile filename: String) -> Bool {
         let scene = NESScene(file: filename)
 
         view!.presentScene(scene)

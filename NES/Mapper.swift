@@ -16,7 +16,7 @@ internal final class Mapper002: IO {
         PRGBanks = (0, numberOfBanks - 1)
     }
 
-    func read(address: Address) -> UInt8 {
+    func read(_ address: Address) -> UInt8 {
         switch Int(address) {
         case 0x0000 ..< 0x2000:
             return cartridge.CHRROM[address]
@@ -39,7 +39,7 @@ internal final class Mapper002: IO {
         }
     }
 
-    func write(address: Address, _ value: UInt8) {
+    func write(_ address: Address, _ value: UInt8) {
         switch Int(address) {
         case 0x0000 ..< 0x2000:
             cartridge.CHRROM[address] = value

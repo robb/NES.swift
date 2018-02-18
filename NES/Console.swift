@@ -46,7 +46,7 @@ public final class Console {
         }
     }
 
-    public func step(time time: NSTimeInterval) {
+    public func step(time: TimeInterval) {
         let frequency = 1789773.0
 
         let target = CPU.cycles + Int(time * frequency)

@@ -149,17 +149,17 @@ internal extension PPU {
     /// the current attribute, relative to the first attribute table entry of
     /// the currently selected `nametable`.
     var attributeAddress: Address {
-        return 0x2000
-             | UInt16(nametable) << 10
-             | 0x03C0
-             | UInt16(coarseY >> 2) << 3
-             | UInt16(coarseX >> 2)
+        let n = UInt16(nametable) << 10
+        let y = UInt16(coarseY >> 2) << 3
+        let x = UInt16(coarseX >> 2)
+
+        return 0x2000 | n | 0x03C0 | x | y
     }
 
     /// Bits 0 through 4 of `VRAMAddress` represent the coarse X position.
     var coarseX: UInt8 {
         get {
-            return UInt8(truncatingBitPattern: VRAMAddress & 0x001F)
+            return UInt8(truncatingIfNeeded: VRAMAddress & 0x001F)
         }
         set {
             precondition(newValue <= 0x1F)
@@ -171,7 +171,7 @@ internal extension PPU {
     /// Bits 5 through 9 of `VRAMAddress` represent the coarse Y position.
     var coarseY: UInt8 {
         get {
-            return UInt8(truncatingBitPattern: (VRAMAddress & 0x03E0) >> 5)
+            return UInt8(truncatingIfNeeded: (VRAMAddress & 0x03E0) >> 5)
         }
         set {
             precondition(newValue <= 0x1F)
@@ -183,7 +183,7 @@ internal extension PPU {
     /// Bits 12 through 14 `VRAMAddress` represent the fine Y position.
     var fineY: UInt8 {
         get {
-            return UInt8(truncatingBitPattern: (VRAMAddress & 0x7000) >> 12)
+            return UInt8(truncatingIfNeeded: (VRAMAddress & 0x7000) >> 12)
         }
         set {
             precondition(newValue <= 0x07)
@@ -196,7 +196,7 @@ internal extension PPU {
     /// nametable.
     var nametable: UInt8 {
         get {
-            return UInt8(truncatingBitPattern: (VRAMAddress & 0x0C00) >> 10)
+            return UInt8(truncatingIfNeeded: (VRAMAddress & 0x0C00) >> 10)
         }
         set {
             precondition(newValue <= 0x03)

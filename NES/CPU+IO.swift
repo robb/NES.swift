@@ -1,7 +1,7 @@
 import Foundation
 
 extension CPU: IO {
-    func read(address: Address) -> UInt8 {
+    func read(_ address: Address) -> UInt8 {
         switch address {
         case 0x0000 ..< 0x2000:
             return RAM[address % 0x0800]
@@ -16,7 +16,7 @@ extension CPU: IO {
         }
     }
 
-    func write(address: Address, _ value: UInt8) {
+    func write(_ address: Address, _ value: UInt8) {
         switch Int(address) {
         case 0x0000 ..< 0x2000:
             RAM[address % 0x0800] = value
@@ -62,12 +62,12 @@ internal extension CPU {
 internal extension CPU {
     static let StackOffset: Address = 0x0100
 
-    func push(byte: UInt8) {
+    func push(_ byte: UInt8) {
         write(CPU.StackOffset | UInt16(SP), byte)
         SP = SP &- 1
     }
 
-    func push16(value: UInt16) {
+    func push16(_ value: UInt16) {
         push(UInt8(value >> 8))
         push(UInt8(value & 0xFF))
     }
@@ -116,7 +116,7 @@ internal extension Address {
 
 /// Maps CPU memory addresses to PPU registers.
 private extension PPU {
-    func readRegister(address: Address) -> UInt8 {
+    func readRegister(_ address: Address) -> UInt8 {
         switch address {
         case Address.PPUSTATUSAddress:
             defer { didReadPPUSTATUS() }
@@ -133,7 +133,7 @@ private extension PPU {
         }
     }
 
-    func writeRegister(address: Address, value: UInt8) {
+    func writeRegister(_ address: Address, value: UInt8) {
         register = value
 
         switch address {

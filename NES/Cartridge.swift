@@ -14,10 +14,10 @@ public final class Cartridge {
     public static func load(path: String) -> Cartridge? {
         return NSData(contentsOfFile: path)
             .map { data -> [UInt8] in
-                let count = data.length / sizeof(UInt8)
-                var array = Array<UInt8>(count: count, repeatedValue: 0)
+                let count = data.length / MemoryLayout<UInt8>.size
+                var array = Array<UInt8>(repeating: 0, count: count)
 
-                data.getBytes(&array, length:count * sizeof(UInt8))
+                data.getBytes(&array, length:count * MemoryLayout<UInt8>.size)
 
                 return array
             }
@@ -27,10 +27,12 @@ public final class Cartridge {
     }
 
     init?(array: [UInt8]) {
-        let magic: UInt32 = UInt32(array[0]) << 24
-                          | UInt32(array[1]) << 16
-                          | UInt32(array[2]) << 8
-                          | UInt32(array[3])
+        let a = UInt32(array[0]) << 24
+        let b = UInt32(array[1]) << 16
+        let c = UInt32(array[2]) << 8
+        let d = UInt32(array[3])
+
+        let magic: UInt32 = a | b | c | d
 
         if magic != 0x4E45531A { return nil }
 
@@ -53,9 +55,9 @@ public final class Cartridge {
         CHRROM = Array(array[offset ..< offset + 8192 * CHRROMSize])
         offset += 8192 * CHRROMSize
 
-        PRGRAM = Array<UInt8>(count: PRGRAMSize, repeatedValue: 0x00)
+        PRGRAM = Array<UInt8>(repeating: 0x00, count: PRGRAMSize)
 
-        SRAM = Array<UInt8>(count: 0x2000, repeatedValue: 0x00)
+        SRAM = Array<UInt8>(repeating: 0x00, count: 0x2000)
 
         mapper = (flags7 & 0xF0) | (flags6 >> 4)
     }

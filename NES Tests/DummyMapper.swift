@@ -4,7 +4,7 @@
 internal class DummyMapper: IO {
     private var memory: Array<UInt8> = Array(count: 0x10000, repeatedValue: 0xFF)
 
-    func read(address: Address) -> UInt8 {
+    func read(_ address: Address) -> UInt8 {
         return memory[address]
     }
 

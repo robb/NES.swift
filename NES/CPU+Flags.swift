@@ -92,14 +92,14 @@ internal extension CPU {
 
     /// A convenience method for setting the A register as well as the Zero and
     /// Negative flags.
-    func updateAZN(value: UInt8) {
+    func updateAZN(_ value: UInt8) {
         A = value
         Z = value == 0
         N = value & 0x80 != 0
     }
 
     /// A convenience method for setting the Zero and Negative flags.
-    func updateZN(value: UInt8) {
+    func updateZN(_ value: UInt8) {
         Z = value == 0
         N = value & 0x80 != 0
     }
