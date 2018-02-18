@@ -1,15 +1,23 @@
 import Foundation
 
 internal extension CPU {
-    private func perform<A>(_ addressingMode: () -> A, _ instruction: (A) -> Void) {
+    private func perform(_ addressingMode: () -> Void, _ instruction: () -> Void) {
+        instruction()
+    }
+
+    private func perform(_ addressingMode: () -> Address, _ instruction: (Address) -> Void) {
         instruction(addressingMode())
     }
 
-    private func perform<A>(_ addressingMode: (Bool) -> A, _ instruction: (A) -> Void) {
-        instruction(addressingMode(false))
+    private func perform(_ addressingMode: () -> UInt8, _ instruction: (UInt8) -> Void) {
+        instruction(addressingMode())
     }
 
-    private func perform<A>(_ addressingMode: (Bool) -> A, _ instruction: (A) -> Void, incursPageBoundaryCost: Bool) {
+    private func perform(_ addressingMode: (Bool) -> Address, _ instruction: (Address) -> Void, incursPageBoundaryCost: Bool = false) {
+        instruction(addressingMode(incursPageBoundaryCost))
+    }
+
+    private func perform(_ addressingMode: (Bool) -> UInt8, _ instruction: (UInt8) -> Void, incursPageBoundaryCost: Bool = false) {
         instruction(addressingMode(incursPageBoundaryCost))
     }
 
