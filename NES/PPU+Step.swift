@@ -242,7 +242,7 @@ private extension PPU {
         return preRenderScanline || visibleLine
     }
 
-    var VBlankLine: Bool {
+    var verticalBlankLine: Bool {
         return scanLine >= 241 && scanLine <= 260
     }
 

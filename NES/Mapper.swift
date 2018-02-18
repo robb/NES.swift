@@ -46,9 +46,9 @@ internal final class Mapper002: IO {
         case 0x2000 ..< 0x6000:
             fatalError("Unhandled mapper address \(format(address)).")
         case 0x6000 ..< 0x8000:
-            let SRAMAddress = address - 0x6000
+            let sramAddress = address - 0x6000
 
-            cartridge.sram[SRAMAddress] = value
+            cartridge.sram[sramAddress] = value
         case 0x8000 ... 0xFFFF:
             prgBanks.0 = UInt16(value) % numberOfBanks
         default:
