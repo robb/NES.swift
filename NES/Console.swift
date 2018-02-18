@@ -7,7 +7,7 @@ public final class Console {
         return ppu.frame
     }
 
-    internal private(set) var mapper: Mapper! = nil
+    internal let mapper: Mapper
 
     internal private(set) var ppu: PPU! = nil
 
@@ -26,10 +26,18 @@ public final class Console {
     init(mapper: Mapper) {
         self.mapper = mapper
 
-        cpu = CPU(console: self)
-        ppu = PPU(console: self)
+        cpu = CPU(mapper: mapper)
+        ppu = PPU(mapper: mapper)
+
+        cpu.ppu = ppu
+        ppu.cpu = cpu
 
         cpu.pc = cpu.read16(0xFFFC)
+    }
+
+    deinit {
+        cpu.ppu = nil
+        ppu.cpu = nil
     }
 
     public func step() {

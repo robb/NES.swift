@@ -35,24 +35,17 @@ internal final class CPU {
     /// The number of cycles the CPU should be stalling.
     var stallCycles: Int = 0
 
-    /// The console this CPU is owned by.
-    unowned let console: Console
-
     /// The mapper the CPU reads from.
-    var mapper: IO! {
-        return console.mapper
-    }
+    let mapper: Mapper
 
     /// The PPU.
-    var ppu: PPU! {
-        return console.ppu
-    }
+    var ppu: PPU!
 
     /// The RAM the CPU reads from.
     var ram: Data
 
-    init(console: Console, ram: Data = Data(repeating: 0x00, count: 0x800)) {
-        self.console = console
+    init(mapper: Mapper, ram: Data = Data(repeating: 0x00, count: 0x800)) {
+        self.mapper = mapper
         self.ram = ram
     }
 }

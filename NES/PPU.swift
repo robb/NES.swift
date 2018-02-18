@@ -98,22 +98,15 @@ internal final class PPU {
     /// PPUSTATUS.
     var secondWrite: Bool = false
 
-    /// The console this CPU is owned by.
-    unowned let console: Console
-
     /// The CPU.
-    var cpu: CPU! {
-        return console.cpu
-    }
+    var cpu: CPU!
 
     var frontBuffer: ScreenBuffer = ScreenBuffer()
 
     var backBuffer: ScreenBuffer = ScreenBuffer()
 
     /// The mapper the PPU reads from.
-    var mapper: IO! {
-        return console.mapper
-    }
+    let mapper: Mapper
 
     /// The VRAM the PPU reads from.
     var vram: Data
@@ -129,8 +122,8 @@ internal final class PPU {
         0x08, 0x3A, 0x00, 0x02, 0x00, 0x20, 0x2C, 0x08
     ]
 
-    init(console: Console, vram: Data = Data(repeating: 0x00, count: 0x800)) {
-        self.console = console
+    init(mapper: Mapper, vram: Data = Data(repeating: 0x00, count: 0x800)) {
+        self.mapper = mapper
         self.vram = vram
     }
 }
