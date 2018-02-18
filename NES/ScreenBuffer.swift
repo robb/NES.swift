@@ -42,7 +42,7 @@ internal struct ScreenBuffer {
 }
 
 internal extension ScreenBuffer {
-    var pixelData: NSData {
-        return NSData(bytes: pixels, length: pixels.count * ScreenBuffer.componensPerPixel)
+    var pixelData: Data {
+        return Data(bytes: pixels, count: pixels.count * ScreenBuffer.componensPerPixel)
     }
 }

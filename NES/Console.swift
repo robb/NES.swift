@@ -11,7 +11,7 @@ public final class Console {
 
     internal private(set) var PPU: NES.PPU! = nil
 
-    public var screenData: NSData {
+    public var screenData: Data {
         return PPU.frontBuffer.pixelData
     }
 
