@@ -5,10 +5,14 @@ internal extension PPU {
         advanceCycleAndScanLine()
 
         if renderingEnabled {
+            if visibleCycle && visibleLine {
+                renderPixel()
+            }
+
             if renderLine && fetchCycle {
+                shift()
+
                 switch cycle % 8 {
-                case 0:
-                    break
                 case 1:
                     fetchNameTableByte()
                 case 3:
@@ -17,6 +21,8 @@ internal extension PPU {
                     fetchLowTileByte()
                 case 7:
                     fetchHighTileByte()
+                case 0:
+                    feedShiftRegisters()
                 default:
                     break
                 }
@@ -59,6 +65,22 @@ internal extension PPU {
 }
 
 internal extension PPU {
+    func renderPixel() {
+        let (x, y) = (cycle - 1, scanLine)
+
+        backBuffer[x, y] = convertPaletteColor(paletteColor: palette[mirrorPalette(backgroundPixel)])
+    }
+
+    var backgroundPixel: UInt8 {
+        guard showBackground else { return 0x00 }
+
+        let data = tileData >> ((7 - fineX) * 4)
+
+        return UInt8(truncatingIfNeeded: data & 0x0F)
+    }
+}
+
+internal extension PPU {
     func advanceCycleAndScanLine() {
         cycle += 1
 
@@ -84,7 +106,12 @@ internal extension PPU {
     }
 
     func fetchAttributeTableByte() {
-        attributeTableByte = read(attributeAddress)
+        let attributeTableShift = (coarseY & 0x02) << 1 | (coarseX & 0x02)
+
+        let result = ((read(attributeAddress) >> attributeTableShift) & 0x03)
+
+        lowAttributeTableByte  = result[0] ? 0xFF : 0x00
+        highAttributeTableByte = result[1] ? 0xFF : 0x00
     }
 
     func fetchLowTileByte() {
@@ -101,6 +128,29 @@ internal extension PPU {
                     | UInt16(fineY)
 
         highTileByte = read(address + 0x08)
+    }
+
+    func shift() {
+        tileData <<= 4
+
+        let a = UInt32(shiftRegisters.highAttribute & 0x80) >> 4
+        let b = UInt32(shiftRegisters.lowAttribute  & 0x80) >> 5
+        let c = UInt32(shiftRegisters.highTile      & 0x80) >> 6
+        let d = UInt32(shiftRegisters.lowTile       & 0x80) >> 7
+
+        tileData |= a | b | c | d
+
+        shiftRegisters.highAttribute <<= 1
+        shiftRegisters.lowAttribute <<= 1
+        shiftRegisters.highTile <<= 1
+        shiftRegisters.lowTile <<= 1
+    }
+
+    func feedShiftRegisters() {
+        shiftRegisters.highAttribute = highAttributeTableByte
+        shiftRegisters.lowAttribute = lowAttributeTableByte
+        shiftRegisters.highTile = highTileByte
+        shiftRegisters.lowTile = lowTileByte
     }
 
     func fetchNameTableByte() {
@@ -153,7 +203,7 @@ internal extension PPU {
         let y = UInt16(coarseY >> 2) << 3
         let x = UInt16(coarseX >> 2)
 
-        return 0x2000 | n | 0x03C0 | x | y
+        return 0x23C0 | n | x | y
     }
 
     /// Bits 0 through 4 of `VRAMAddress` represent the coarse X position.
