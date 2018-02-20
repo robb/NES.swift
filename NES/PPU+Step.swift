@@ -68,7 +68,13 @@ internal extension PPU {
     func renderPixel() {
         let (x, y) = (cycle - 1, scanLine)
 
-        backBuffer[x, y] = convertPaletteColor(paletteColor: palette[mirrorPalette(backgroundPixel)])
+        let mirrored = mirrorPalette(backgroundPixel)
+
+        let color = palette[mirrored]
+
+        let rgba = convertPaletteColor(paletteColor: color)
+
+        backBuffer[x, y] = rgba
     }
 
     var backgroundPixel: UInt8 {
