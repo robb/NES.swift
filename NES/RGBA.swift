@@ -1,0 +1,76 @@
+import Foundation
+
+internal typealias RGBA = UInt32
+
+extension RGBA {
+    static func from(paletteColor: UInt8) -> RGBA {
+        switch paletteColor & 0x3F {
+        case 0x00: return 0xFF666666
+        case 0x01: return 0xFF882A00
+        case 0x02: return 0xFFA71214
+        case 0x03: return 0xFFA4003B
+        case 0x04: return 0xFF7E005C
+        case 0x05: return 0xFF40006E
+        case 0x06: return 0xFF00066C
+        case 0x07: return 0xFF001D56
+        case 0x08: return 0xFF003533
+        case 0x09: return 0xFF00480B
+        case 0x0A: return 0xFF005200
+        case 0x0B: return 0xFF084F00
+        case 0x0C: return 0xFF4D4000
+        case 0x0D: return 0xFF000000
+        case 0x0E: return 0xFF000000
+        case 0x0F: return 0xFF000000
+        case 0x10: return 0xFFADADAD
+        case 0x11: return 0xFFD95F15
+        case 0x12: return 0xFFFF4042
+        case 0x13: return 0xFFFE2775
+        case 0x14: return 0xFFCC1AA0
+        case 0x15: return 0xFF7B1EB7
+        case 0x16: return 0xFF2031B5
+        case 0x17: return 0xFF004E99
+        case 0x18: return 0xFF006D6B
+        case 0x19: return 0xFF008738
+        case 0x1A: return 0xFF00930C
+        case 0x1B: return 0xFF328F00
+        case 0x1C: return 0xFF8D7C00
+        case 0x1D: return 0xFF000000
+        case 0x1E: return 0xFF000000
+        case 0x1F: return 0xFF000000
+        case 0x20: return 0xFFFFFEFF
+        case 0x21: return 0xFFFFB064
+        case 0x22: return 0xFFFF9092
+        case 0x23: return 0xFFFF76C6
+        case 0x24: return 0xFFFF6AF3
+        case 0x25: return 0xFFCC6EFE
+        case 0x26: return 0xFF7081FE
+        case 0x27: return 0xFF229EEA
+        case 0x28: return 0xFF00BEBC
+        case 0x29: return 0xFF00D888
+        case 0x2A: return 0xFF30E45C
+        case 0x2B: return 0xFF82E045
+        case 0x2C: return 0xFFDECD48
+        case 0x2D: return 0xFF4F4F4F
+        case 0x2E: return 0xFF000000
+        case 0x2F: return 0xFF000000
+        case 0x30: return 0xFFFFFEFF
+        case 0x31: return 0xFFFFDFC0
+        case 0x32: return 0xFFFFD2D3
+        case 0x33: return 0xFFFFC8E8
+        case 0x34: return 0xFFFFC2FB
+        case 0x35: return 0xFFEAC4FE
+        case 0x36: return 0xFFC5CCFE
+        case 0x37: return 0xFFA5D8F7
+        case 0x38: return 0xFF94E5E4
+        case 0x39: return 0xFF96EFCF
+        case 0x3A: return 0xFFABF4BD
+        case 0x3B: return 0xFFCCF3B3
+        case 0x3C: return 0xFFF2EBB5
+        case 0x3D: return 0xFFB8B8B8
+        case 0x3E: return 0xFF000000
+        case 0x3F: return 0xFF000000
+        default:
+            return 0xFF000000
+        }
+    }
+}

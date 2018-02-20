@@ -1,9 +1,7 @@
 import Foundation
 
-internal typealias RGBA = UInt32
-
-internal struct ScreenBuffer {
-    fileprivate static let componensPerPixel = 4
+final internal class ScreenBuffer {
+    static let componensPerPixel = 4
 
     static let height = 240
 
