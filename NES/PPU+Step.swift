@@ -287,7 +287,7 @@ private extension PPU {
     }
 
     var preRenderScanline: Bool {
-        return scanLine == -1
+        return scanLine < 0
     }
 
     var renderingEnabled: Bool {
