@@ -72,7 +72,7 @@ internal extension PPU {
 
         let color = palette[mirrored]
 
-        let rgba = convertPaletteColor(paletteColor: color)
+        let rgba = RGBA(paletteColor: color)
 
         backBuffer[x, y] = rgba
     }
