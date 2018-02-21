@@ -15,6 +15,7 @@
 		542BC4341CD44987000E211F /* PPU+IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542BC4331CD44987000E211F /* PPU+IO.swift */; };
 		54339ADB1ADDB57600632DE9 /* Cartridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54339ADA1ADDB57600632DE9 /* Cartridge.swift */; };
 		54339ADD1ADDB5FC00632DE9 /* CartridgeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54339ADC1ADDB5FC00632DE9 /* CartridgeSpec.swift */; };
+		5435E6DF203D27AD001C9A2F /* plumber.nes in Resources */ = {isa = PBXBuildFile; fileRef = 5435E6DE203D278B001C9A2F /* plumber.nes */; };
 		5441466D1AD2C41C00EFDAD6 /* CPU+AddressingModes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5441466C1AD2C41C00EFDAD6 /* CPU+AddressingModes.swift */; };
 		546054A31AD018CE00CFD098 /* CPU+Instructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546054A21AD018CE00CFD098 /* CPU+Instructions.swift */; };
 		546054A51AD01A5700CFD098 /* InstructionsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546054A41AD01A5700CFD098 /* InstructionsSpec.swift */; };
@@ -116,6 +117,7 @@
 		542BC4331CD44987000E211F /* PPU+IO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PPU+IO.swift"; sourceTree = "<group>"; };
 		54339ADA1ADDB57600632DE9 /* Cartridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cartridge.swift; sourceTree = "<group>"; };
 		54339ADC1ADDB5FC00632DE9 /* CartridgeSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartridgeSpec.swift; sourceTree = "<group>"; };
+		5435E6DE203D278B001C9A2F /* plumber.nes */ = {isa = PBXFileReference; lastKnownFileType = file; path = plumber.nes; sourceTree = "<group>"; };
 		5441466C1AD2C41C00EFDAD6 /* CPU+AddressingModes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPU+AddressingModes.swift"; sourceTree = "<group>"; };
 		546054A21AD018CE00CFD098 /* CPU+Instructions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPU+Instructions.swift"; sourceTree = "<group>"; };
 		546054A41AD01A5700CFD098 /* InstructionsSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionsSpec.swift; sourceTree = "<group>"; };
@@ -196,6 +198,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5435E6DD203D2723001C9A2F /* Performance */ = {
+			isa = PBXGroup;
+			children = (
+				5435E6DE203D278B001C9A2F /* plumber.nes */,
+			);
+			path = Performance;
+			sourceTree = "<group>";
+		};
 		548605DE1ACFFF1B00198A72 = {
 			isa = PBXGroup;
 			children = (
@@ -297,6 +307,7 @@
 		549994031CFC8B7600C859F4 /* Test Roms */ = {
 			isa = PBXGroup;
 			children = (
+				5435E6DD203D2723001C9A2F /* Performance */,
 				5499940A1CFC8B7600C859F4 /* Nestest */,
 			);
 			path = "Test Roms";
@@ -499,6 +510,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5435E6DF203D27AD001C9A2F /* plumber.nes in Resources */,
 				54141E7A203945D10005F553 /* nestest.nes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

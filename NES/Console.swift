@@ -58,10 +58,10 @@ public final class Console {
         }
     }
 
-    public func step(time: TimeInterval) {
-        let frequency = 1789773.0
+    public static let frequency = 1789773.0
 
-        let target = cpu.cycles + Int(time * frequency)
+    public func step(time: TimeInterval) {
+        let target = cpu.cycles + Int(time * Console.frequency)
 
         while cpu.cycles < target {
             step()
