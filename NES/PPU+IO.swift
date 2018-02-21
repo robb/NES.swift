@@ -47,13 +47,6 @@ extension PPU: IO {
         }
     }
 
-    private static let mirroringLookupTable: [UInt16] = [
-        0, 0, 1, 1, // horizontal
-        0, 1, 0, 1, // vertical
-        0, 0, 0, 0, // firstScreen
-        1, 1, 1, 1  // secondScreen
-    ]
-
     internal func mirrorVRAM(_ address: Address, mirroringMode: MirroringMode = .vertical) -> Address {
         let wrappedAddress = (address - 0x2000) % 0x1000
         let index: UInt16 = wrappedAddress / 0x0400
