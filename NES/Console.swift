@@ -12,7 +12,7 @@ public final class Console {
     internal private(set) var ppu: PPU! = nil
 
     public var screenData: Data {
-        return ppu.frontBuffer.pixels
+        return Data(bytesNoCopy: ppu.frontBuffer.pixels.baseAddress!, count: ppu.frontBuffer.pixels.count, deallocator: .none)
     }
 
     public convenience init(cartridge: Cartridge, initialAddress: UInt16? = nil) {

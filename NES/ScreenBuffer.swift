@@ -7,12 +7,20 @@ final internal class ScreenBuffer {
 
     static let width = 256
 
-    private(set) var pixels: Data
+    static let pixelCount = ScreenBuffer.width * ScreenBuffer.height
+
+    let pointer: UnsafeMutablePointer<RGBA>
+
+    private(set) var pixels: UnsafeMutableBufferPointer<RGBA>
 
     init() {
-        let count = ScreenBuffer.width * ScreenBuffer.height
+        pointer = .allocate(capacity: ScreenBuffer.pixelCount)
 
-        pixels = Data(repeating: 0x00, count: count * ScreenBuffer.componensPerPixel)
+        pixels = UnsafeMutableBufferPointer(start: pointer, count: ScreenBuffer.pixelCount)
+    }
+
+    func deallocate() {
+        pointer.deallocate(capacity: ScreenBuffer.pixelCount)
     }
 
     private func calculateOffset(_ x: Int, _ y: Int) -> Int {
@@ -26,9 +34,7 @@ final internal class ScreenBuffer {
 
             let offset = calculateOffset(x, y)
 
-            return pixels.withUnsafeBytes {
-                return $0.advanced(by: offset).pointee
-            }
+            return pixels[offset]
         }
         set(pixel) {
             precondition(x < ScreenBuffer.width)
@@ -36,9 +42,7 @@ final internal class ScreenBuffer {
 
             let offset = calculateOffset(x, y)
 
-            pixels.withUnsafeMutableBytes {
-                $0.advanced(by: offset).pointee = pixel
-            }
+            pixels[offset] = pixel
         }
     }
 }

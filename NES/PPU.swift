@@ -140,6 +140,8 @@ internal final class PPU {
     }
 
     deinit {
+        backBuffer.deallocate()
+        frontBuffer.deallocate()
         oam.deallocate()
         palette.deallocate()
         vram.deallocate()
