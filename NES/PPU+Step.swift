@@ -139,12 +139,12 @@ internal extension PPU {
     func shift() {
         tileData <<= 4
 
-        let a = UInt32(shiftRegisters.highAttribute & 0x80) >> 4
-        let b = UInt32(shiftRegisters.lowAttribute  & 0x80) >> 5
-        let c = UInt32(shiftRegisters.highTile      & 0x80) >> 6
-        let d = UInt32(shiftRegisters.lowTile       & 0x80) >> 7
+        let a = (shiftRegisters.highAttribute & 0x80) >> 4
+        let b = (shiftRegisters.lowAttribute  & 0x80) >> 5
+        let c = (shiftRegisters.highTile      & 0x80) >> 6
+        let d = (shiftRegisters.lowTile       & 0x80) >> 7
 
-        tileData |= a | b | c | d
+        tileData |= UInt32(truncatingIfNeeded: a | b | c | d)
 
         shiftRegisters.highAttribute <<= 1
         shiftRegisters.lowAttribute <<= 1
