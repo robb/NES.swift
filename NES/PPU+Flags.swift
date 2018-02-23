@@ -39,35 +39,39 @@ internal extension PPU {
 /// Convenient access to the flags in the PPUMASK register.
 internal extension PPU {
     var grayscale: Bool {
-        return ppumask[0]
+        return ppumask & 0x01 > 0
     }
 
     var showLeftBackground: Bool {
-        return ppumask[1]
+        return ppumask & 0x02 > 0
     }
 
     var showLeftSprites: Bool {
-        return ppumask[2]
+        return ppumask & 0x04 > 0
     }
 
     var showBackground: Bool {
-        return ppumask[3]
+        return ppumask & 0x08 > 0
     }
 
     var showSprites: Bool {
-        return ppumask[4]
+        return ppumask & 0x10 > 0
     }
 
     var emphasizeRed: Bool {
-        return ppumask[5]
+        return ppumask & 0x20 > 0
     }
 
     var emphasizeGreen: Bool {
-        return ppumask[6]
+        return ppumask & 0x40 > 0
     }
 
     var emphasizeBlue: Bool {
-        return ppumask[7]
+        return ppumask & 0x80 > 0
+    }
+
+    var renderingEnabled: Bool {
+        return ppumask & 0x18 > 0
     }
 }
 

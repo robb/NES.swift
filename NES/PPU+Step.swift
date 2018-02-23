@@ -290,10 +290,6 @@ private extension PPU {
         return scanLine < 0
     }
 
-    var renderingEnabled: Bool {
-        return showBackground || showSprites
-    }
-
     var renderLine: Bool {
         return preRenderScanline || visibleLine
     }
