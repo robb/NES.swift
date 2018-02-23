@@ -1,6 +1,6 @@
 import Foundation
 
-final internal class ScreenBuffer {
+internal struct ScreenBuffer {
     static let componensPerPixel = 4
 
     static let height = 240
