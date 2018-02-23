@@ -1,15 +1,15 @@
 import Foundation
 
 public final class Cartridge {
-    internal var chrrom: Data
+    internal var chrrom: UnsafeMutableRawBufferPointer
 
     internal let mapper: UInt8
 
-    internal var prgram: Data
+    internal var prgram: UnsafeMutableRawBufferPointer
 
-    internal let prgrom: Data
+    internal let prgrom: UnsafeMutableRawBufferPointer
 
-    internal var sram: Data
+    internal var sram: UnsafeMutableRawBufferPointer
 
     public static func load(path: String) -> Cartridge? {
         let data = try? Data(contentsOf: URL(fileURLWithPath: path))
@@ -43,16 +43,23 @@ public final class Cartridge {
             offset += 512
         }
 
-        prgrom = data.subdata(in: offset ..< offset + 16384 * prgromSize)
+        prgrom = .from(data: data[offset ..< offset + 16384 * prgromSize])
         offset += 16384 * prgromSize
 
-        chrrom = data.subdata(in: offset ..< offset + 8192 * chrromSize)
+        chrrom = .from(data: data[offset ..< offset + 8192 * chrromSize])
         offset += 8192 * chrromSize
 
-        prgram = Data(repeating: 0x00, count: prgramSize)
+        prgram = .allocate(count: prgramSize, initializeWith: 0x00)
 
-        sram = Data(repeating: 0x00, count: 0x2000)
+        sram = .allocate(count: prgramSize, initializeWith: 0x00)
 
         mapper = (flags7 & 0xF0) | (flags6 >> 4)
+    }
+
+    deinit {
+        prgrom.deallocate()
+        chrrom.deallocate()
+        prgram.deallocate()
+        sram.deallocate()
     }
 }

@@ -42,10 +42,14 @@ internal final class CPU {
     var ppu: PPU!
 
     /// The RAM the CPU reads from.
-    var ram: Data
+    var ram: UnsafeMutableRawBufferPointer
 
-    init(mapper: Mapper, ram: Data = Data(repeating: 0x00, count: 0x800)) {
+    init(mapper: Mapper, ram data: Data = Data(repeating: 0x00, count: 0x800)) {
         self.mapper = mapper
-        self.ram = ram
+        self.ram = .from(data: data)
+    }
+
+    deinit {
+        ram.deallocate()
     }
 }

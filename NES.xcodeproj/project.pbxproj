@@ -36,7 +36,6 @@
 		548F59811AE292CE007EC4D2 /* NESTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548F59801AE292CE007EC4D2 /* NESTest.swift */; };
 		549994131CFC8B7600C859F4 /* nestest.log in Resources */ = {isa = PBXBuildFile; fileRef = 5499940B1CFC8B7600C859F4 /* nestest.log */; };
 		549994141CFC8B7600C859F4 /* nestest.nes in Resources */ = {isa = PBXBuildFile; fileRef = 5499940C1CFC8B7600C859F4 /* nestest.nes */; };
-		54B1BAFF1CF49679004A1A70 /* Data+Indexing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B1BAFE1CF49679004A1A70 /* Data+Indexing.swift */; };
 		54B1BB011CF5C629004A1A70 /* RGBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B1BB001CF5C629004A1A70 /* RGBA.swift */; };
 		54C21E131CC8213500B96C00 /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C21E121CC8213500B96C00 /* IO.swift */; };
 		54C21E151CC822CD00B96C00 /* CPU+IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C21E141CC822CD00B96C00 /* CPU+IO.swift */; };
@@ -54,6 +53,8 @@
 		54E65AA81CF35F0000317EEC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54E65AA61CF35F0000317EEC /* MainMenu.xib */; };
 		54E65AB31CF35F2100317EEC /* NES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 548605E81ACFFF1B00198A72 /* NES.framework */; };
 		54E65AB41CF35F2100317EEC /* NES.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 548605E81ACFFF1B00198A72 /* NES.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		54EF66DD203FCA8E00388C74 /* UnsafeMutableRawBufferPointer+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EF66DC203FCA8E00388C74 /* UnsafeMutableRawBufferPointer+Convenience.swift */; };
+		54EF66DF203FCB2A00388C74 /* UnsafeMutableRawBufferPointer+Indexing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EF66DE203FCB2A00388C74 /* UnsafeMutableRawBufferPointer+Indexing.swift */; };
 		54FADE95203945220099198B /* NES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 548605E81ACFFF1B00198A72 /* NES.framework */; };
 		54FADE9B2039452D0099198B /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5423F73A1CECC83B009CE6D1 /* PerformanceTests.swift */; };
 /* End PBXBuildFile section */
@@ -139,7 +140,6 @@
 		548F59801AE292CE007EC4D2 /* NESTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NESTest.swift; sourceTree = "<group>"; };
 		5499940B1CFC8B7600C859F4 /* nestest.log */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nestest.log; sourceTree = "<group>"; };
 		5499940C1CFC8B7600C859F4 /* nestest.nes */ = {isa = PBXFileReference; lastKnownFileType = file; path = nestest.nes; sourceTree = "<group>"; };
-		54B1BAFE1CF49679004A1A70 /* Data+Indexing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Indexing.swift"; sourceTree = "<group>"; };
 		54B1BB001CF5C629004A1A70 /* RGBA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RGBA.swift; sourceTree = "<group>"; };
 		54C21E121CC8213500B96C00 /* IO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IO.swift; sourceTree = "<group>"; };
 		54C21E141CC822CD00B96C00 /* CPU+IO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPU+IO.swift"; sourceTree = "<group>"; };
@@ -157,6 +157,8 @@
 		54E65AA41CF35F0000317EEC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		54E65AA71CF35F0000317EEC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		54E65AA91CF35F0000317EEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		54EF66DC203FCA8E00388C74 /* UnsafeMutableRawBufferPointer+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnsafeMutableRawBufferPointer+Convenience.swift"; sourceTree = "<group>"; };
+		54EF66DE203FCB2A00388C74 /* UnsafeMutableRawBufferPointer+Indexing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnsafeMutableRawBufferPointer+Indexing.swift"; sourceTree = "<group>"; };
 		54FADE90203945210099198B /* NES Performance Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NES Performance Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FADE94203945220099198B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -245,11 +247,9 @@
 				54C21E161CC823AE00B96C00 /* CPU+Interrupts.swift */,
 				54C21E141CC822CD00B96C00 /* CPU+IO.swift */,
 				5476128F1ADAF8D100AEBE14 /* CPU+Step.swift */,
-				54B1BAFE1CF49679004A1A70 /* Data+Indexing.swift */,
 				54E08FED1CC67AC300C9AA49 /* Helper.swift */,
 				54C21E121CC8213500B96C00 /* IO.swift */,
 				54D3FCE11ADDB255003CFF4C /* Mapper.swift */,
-				5463884E203BF60D00336361 /* Palette.swift */,
 				546E4ECE1CCBEDBA00DD2704 /* PPU.swift */,
 				540E001B1CD577C500C9669B /* PPU+Flags.swift */,
 				542BC4331CD44987000E211F /* PPU+IO.swift */,
@@ -258,6 +258,8 @@
 				54E65A961CF35B3E00317EEC /* ScreenBuffer.swift */,
 				542436641CD804BA0084DDDF /* UInt8+Bitset.swift */,
 				5460A68E20390C02001A48F0 /* UInt16+Convenience.swift */,
+				54EF66DC203FCA8E00388C74 /* UnsafeMutableRawBufferPointer+Convenience.swift */,
+				54EF66DE203FCB2A00388C74 /* UnsafeMutableRawBufferPointer+Indexing.swift */,
 				548605EB1ACFFF1B00198A72 /* Supporting Files */,
 			);
 			path = NES;
@@ -528,9 +530,10 @@
 				54D3FCE21ADDB255003CFF4C /* Mapper.swift in Sources */,
 				54C21E191CC937B600B96C00 /* CPU+Flags.swift in Sources */,
 				546054A31AD018CE00CFD098 /* CPU+Instructions.swift in Sources */,
+				54EF66DF203FCB2A00388C74 /* UnsafeMutableRawBufferPointer+Indexing.swift in Sources */,
 				54C21E131CC8213500B96C00 /* IO.swift in Sources */,
 				542BC4341CD44987000E211F /* PPU+IO.swift in Sources */,
-				54B1BAFF1CF49679004A1A70 /* Data+Indexing.swift in Sources */,
+				54EF66DD203FCA8E00388C74 /* UnsafeMutableRawBufferPointer+Convenience.swift in Sources */,
 				5460A68F20390C02001A48F0 /* UInt16+Convenience.swift in Sources */,
 				542436651CD804BA0084DDDF /* UInt8+Bitset.swift in Sources */,
 				540E001C1CD577C500C9669B /* PPU+Flags.swift in Sources */,
