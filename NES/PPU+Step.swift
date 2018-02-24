@@ -47,17 +47,19 @@ internal extension PPU {
             }
         }
 
-        if scanLine == 241 && cycle == 1 {
-            verticalBlankStarted = true
+        if cycle == 1 {
+            if scanLine == 241 {
+                verticalBlankStarted = true
 
-            nmiTriggered = nmiTriggered || (nmiEnabled && verticalBlankStarted)
-        }
+                nmiTriggered = nmiTriggered || (nmiEnabled && verticalBlankStarted)
+            }
 
-        if preRenderScanline && cycle == 1 {
-            verticalBlankStarted = false
+            if preRenderScanline {
+                verticalBlankStarted = false
 
-            spriteOverflow = false
-            spriteZeroHit = false
+                spriteOverflow = false
+                spriteZeroHit = false
+            }
         }
     }
 }
