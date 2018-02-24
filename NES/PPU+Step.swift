@@ -50,9 +50,7 @@ internal extension PPU {
         if scanLine == 241 && cycle == 1 {
             verticalBlankStarted = true
 
-            if nmiEnabled && verticalBlankStarted {
-                cpu.triggerNMI()
-            }
+            nmiTriggered = nmiTriggered || (nmiEnabled && verticalBlankStarted)
         }
 
         if preRenderScanline && cycle == 1 {

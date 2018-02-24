@@ -56,6 +56,11 @@ public final class Console {
         for _ in 0 ..< PPUCycles {
             ppu.step()
         }
+
+        if ppu.nmiTriggered {
+            ppu.nmiTriggered = false
+            cpu.triggerNMI()
+        }
     }
 
     public static let frequency = 1789773.0

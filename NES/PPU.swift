@@ -83,6 +83,8 @@ internal final class PPU {
 
     var temporaryVRAMAddress: Address = 0
 
+    var nmiTriggered: Bool = false
+
     /// Bits 0 through 2 of `PPUSCROLL` represent the fine X position.
     var fineX: UInt8 = 0
 
