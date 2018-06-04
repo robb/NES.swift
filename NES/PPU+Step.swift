@@ -9,28 +9,26 @@ internal extension PPU {
                 renderPixel()
             }
 
-            if renderLine && fetchCycle {
-                shift()
-
-                switch cycle % 8 {
-                case 1:
-                    fetchNameTableByte()
-                case 3:
-                    fetchAttributeTableByte()
-                case 5:
-                    fetchLowTileByte()
-                case 7:
-                    fetchHighTileByte()
-                case 0:
-                    feedShiftRegisters()
-                default:
-                    break
-                }
-            }
-
             if renderLine {
-                if fetchCycle && cycle % 8 == 0 {
-                    incrementX()
+                if fetchCycle {
+                    shift()
+
+                    switch cycle % 8 {
+                    case 1:
+                        fetchNameTableByte()
+                    case 3:
+                        fetchAttributeTableByte()
+                    case 5:
+                        fetchLowTileByte()
+                    case 7:
+                        fetchHighTileByte()
+                    case 0:
+                        feedShiftRegisters()
+
+                        incrementX()
+                    default:
+                        break
+                    }
                 }
 
                 if cycle == 256 {
