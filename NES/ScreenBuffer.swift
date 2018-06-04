@@ -20,7 +20,7 @@ internal struct ScreenBuffer {
     }
 
     func deallocate() {
-        pointer.deallocate(capacity: ScreenBuffer.pixelCount)
+        pointer.deallocate()
     }
 
     private func calculateOffset(_ x: Int, _ y: Int) -> Int {

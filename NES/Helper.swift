@@ -1,10 +1,10 @@
 import Foundation
 
 private func pad(string: String, length: Int, character: Character = " ") -> String {
-    if length <= string.characters.count {
+    if length <= string.count {
         return string
     } else {
-        return String(repeating: character, count: length - string.characters.count) + string
+        return String(repeating: character, count: length - string.count) + string
     }
 }
 
