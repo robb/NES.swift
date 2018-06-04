@@ -45,6 +45,8 @@ public final class Console {
     }
 
     public func step() {
+        let (cpu, ppu) = (self.cpu!, self.ppu!)
+
         let before = cpu.cycles
 
         cpu.step()
