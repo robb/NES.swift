@@ -9,7 +9,7 @@ internal extension CPU {
         return read(advanceProgramCounter())
     }
 
-    func absoluteX(incursPageBoundaryCost: Bool) -> Address {
+    func absoluteX(_ incursPageBoundaryCost: Bool = false) -> Address {
         let address = advanceProgramCounter() &+ Address(x)
 
         if incursPageBoundaryCost && differentPages(address, address &- Address(x)) {
@@ -19,11 +19,11 @@ internal extension CPU {
         return address
     }
 
-    func absoluteX(incursPageBoundaryCost: Bool) -> UInt8 {
-        return read(absoluteX(incursPageBoundaryCost: incursPageBoundaryCost))
+    func absoluteX(_ incursPageBoundaryCost: Bool = false) -> UInt8 {
+        return read(absoluteX(incursPageBoundaryCost))
     }
 
-    func absoluteY(incursPageBoundaryCost: Bool) -> Address {
+    func absoluteY(_ incursPageBoundaryCost: Bool = false) -> Address {
         let address = advanceProgramCounter() &+ Address(y)
 
         if incursPageBoundaryCost && differentPages(address, address &- Address(y)) {
@@ -33,8 +33,8 @@ internal extension CPU {
         return address
     }
 
-    func absoluteY(incursPageBoundaryCost: Bool) -> UInt8 {
-        return read(absoluteY(incursPageBoundaryCost: incursPageBoundaryCost))
+    func absoluteY(_ incursPageBoundaryCost: Bool = false) -> UInt8 {
+        return read(absoluteY(incursPageBoundaryCost))
     }
 
     func accumulator() -> Void {
@@ -61,7 +61,7 @@ internal extension CPU {
         return buggyRead16(advanceProgramCounter())
     }
 
-    func indirectIndexed(incursPageBoundaryCost: Bool) -> Address {
+    func indirectIndexed(_ incursPageBoundaryCost: Bool = false) -> Address {
         let address = buggyRead16(Address(page: 0x00, offset: advanceProgramCounter())) &+ Address(y)
 
         if incursPageBoundaryCost && differentPages(address, address &- Address(y)) {
@@ -71,8 +71,8 @@ internal extension CPU {
         return address
     }
 
-    func indirectIndexed(incursPageBoundaryCost: Bool) -> UInt8 {
-        return read(indirectIndexed(incursPageBoundaryCost: incursPageBoundaryCost))
+    func indirectIndexed(_ incursPageBoundaryCost: Bool = false) -> UInt8 {
+        return read(indirectIndexed(incursPageBoundaryCost))
     }
 
     func relative() -> UInt8 {
