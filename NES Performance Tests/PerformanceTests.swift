@@ -22,14 +22,10 @@ class PerformanceTest: XCTestCase {
 
         let cartridge = Cartridge.load(path: path)!
 
-        let cycles = Int(3 * Console.frequency)
-
         measure {
             let console = Console(cartridge: cartridge)
 
-            while console.cycles < cycles {
-                console.step()
-            }
+            console.step(time: 3)
         }
     }
 }
