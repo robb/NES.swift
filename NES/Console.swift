@@ -1,15 +1,15 @@
 import Foundation
 
 public final class Console {
-    internal private(set) var cpu: CPU! = nil
+    private let cpu: CPU
 
     public var frames: Int {
         return ppu.frame
     }
 
-    internal let mapper: Mapper
+    private let mapper: Mapper
 
-    internal private(set) var ppu: PPU! = nil
+    private let ppu: PPU
 
     public var screenData: Data {
         return Data(bytesNoCopy: ppu.frontBuffer.pixels.baseAddress!, count: ppu.frontBuffer.pixels.count, deallocator: .none)
@@ -45,8 +45,6 @@ public final class Console {
     }
 
     public func step() {
-        let (cpu, ppu) = (self.cpu!, self.ppu!)
-
         let before = cpu.cycles
 
         cpu.step()
