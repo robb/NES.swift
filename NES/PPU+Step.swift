@@ -135,26 +135,22 @@ internal extension PPU {
     }
 
     func shift() {
+        let a = (shiftRegisters & 0x80000000) >> 28
+        let b = (shiftRegisters & 0x00800000) >> 21
+        let c = (shiftRegisters & 0x00008000) >> 14
+        let d = (shiftRegisters & 0x00000080) >> 7
+
         tileData <<= 4
+        tileData |= a | b | c | d
 
-        let a = (shiftRegisters.highAttribute & 0x80) >> 4
-        let b = (shiftRegisters.lowAttribute  & 0x80) >> 5
-        let c = (shiftRegisters.highTile      & 0x80) >> 6
-        let d = (shiftRegisters.lowTile       & 0x80) >> 7
-
-        tileData |= UInt32(truncatingIfNeeded: a | b | c | d)
-
-        shiftRegisters.highAttribute <<= 1
-        shiftRegisters.lowAttribute <<= 1
-        shiftRegisters.highTile <<= 1
-        shiftRegisters.lowTile <<= 1
+        shiftRegisters <<= 1
     }
 
     func feedShiftRegisters() {
-        shiftRegisters.highAttribute = highAttributeTableByte
-        shiftRegisters.lowAttribute = lowAttributeTableByte
-        shiftRegisters.highTile = highTileByte
-        shiftRegisters.lowTile = lowTileByte
+        shiftRegisters = UInt32(truncatingIfNeeded: highAttributeTableByte) << 24
+                       | UInt32(truncatingIfNeeded: lowAttributeTableByte)  << 16
+                       | UInt32(truncatingIfNeeded: highTileByte)           << 8
+                       | UInt32(truncatingIfNeeded: lowTileByte)
     }
 
     func fetchNameTableByte() {
