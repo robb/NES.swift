@@ -131,13 +131,14 @@ internal extension PPU {
     }
 
     func shift() {
-        let a = (shiftRegisters & 0x80000000) >> 28
-        let b = (shiftRegisters & 0x00800000) >> 21
-        let c = (shiftRegisters & 0x00008000) >> 14
-        let d = (shiftRegisters & 0x00000080) >> 7
+        let registers = shiftRegisters
 
-        tileData <<= 4
-        tileData |= a | b | c | d
+        let a = (registers & 0x80000000) >> 28
+        let b = (registers & 0x00800000) >> 21
+        let c = (registers & 0x00008000) >> 14
+        let d = (registers & 0x00000080) >> 7
+
+        tileData = (tileData << 4) | a | b | c | d
 
         shiftRegisters <<= 1
     }
