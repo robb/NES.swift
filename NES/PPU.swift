@@ -116,13 +116,13 @@ internal final class PPU {
     let mapper: Mapper
 
     /// The VRAM the PPU reads from.
-    var vram: UnsafeMutableRawBufferPointer
+    var vram: UnsafeMutableBufferPointer<UInt8>
 
     /// The Object Attribute Memory.
-    var oam: UnsafeMutableRawBufferPointer = .allocate(count: 0x0100, initializeWith: 0x00)
+    var oam: UnsafeMutableBufferPointer<UInt8> = .allocate(count: 0x0100, initializeWith: 0x00)
 
     /// The palette data.
-    var palette: UnsafeMutableRawBufferPointer = [
+    var palette: UnsafeMutableBufferPointer<UInt8> = [
         0x09, 0x01, 0x00, 0x01, 0x00, 0x02, 0x02, 0x0D,
         0x08, 0x10, 0x08, 0x24, 0x00, 0x00, 0x04, 0x2C,
         0x09, 0x01, 0x34, 0x03, 0x00, 0x04, 0x00, 0x14,
@@ -131,7 +131,7 @@ internal final class PPU {
 
     init(mapper: Mapper, vram: Data = Data(repeating: 0x00, count: 0x800)) {
         self.mapper = mapper
-        self.vram = .from(data: vram)
+        self.vram = .from(source: vram)
     }
 
     deinit {

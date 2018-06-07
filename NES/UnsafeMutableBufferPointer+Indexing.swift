@@ -1,7 +1,7 @@
 import Foundation
 
-internal extension UnsafeMutableRawBufferPointer {
-    subscript(index: UInt16) -> UInt8 {
+internal extension UnsafeMutableBufferPointer {
+    subscript(index: UInt16) -> Element {
         get {
             return self[Int(bitPattern: UInt(truncatingIfNeeded: index))]
         }
@@ -10,7 +10,7 @@ internal extension UnsafeMutableRawBufferPointer {
         }
     }
 
-    subscript(index: UInt8) -> UInt8 {
+    subscript(index: UInt8) -> Element {
         get {
             return self[Int(bitPattern: UInt(truncatingIfNeeded: index))]
         }
