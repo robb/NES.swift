@@ -129,8 +129,11 @@ internal final class PPU {
         0x08, 0x3A, 0x00, 0x02, 0x00, 0x20, 0x2C, 0x08
     ]
 
+    var precomputedPalette: UnsafeMutableBufferPointer<RGBA>
+
     init(mapper: Mapper, vram: Data = Data(repeating: 0x00, count: 0x800)) {
         self.mapper = mapper
+        self.precomputedPalette = .from(source: palette.map(RGBA.from))
         self.vram = .from(source: vram)
     }
 
@@ -139,6 +142,7 @@ internal final class PPU {
         frontBuffer.deallocate()
         oam.deallocate()
         palette.deallocate()
+        precomputedPalette.deallocate()
         vram.deallocate()
     }
 }

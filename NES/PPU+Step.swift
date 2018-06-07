@@ -68,11 +68,7 @@ internal extension PPU {
 
         let mirrored = mirrorPalette(backgroundPixel)
 
-        let color = palette[mirrored]
-
-        let rgba = RGBA.from(paletteColor: color)
-
-        backBuffer[x, y] = rgba
+        backBuffer[x, y] = precomputedPalette[mirrored]
     }
 
     var backgroundPixel: UInt8 {

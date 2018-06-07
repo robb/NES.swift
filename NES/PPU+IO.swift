@@ -42,6 +42,7 @@ extension PPU: IO {
             let mirrored = mirrorPalette(wrappedAddress)
 
             palette[mirrored] = value
+            precomputedPalette[mirrored] = RGBA.from(paletteColor: value)
         default:
             fatalError("Attempt to wirte illegal PPU memory address \(format(address)).")
         }
