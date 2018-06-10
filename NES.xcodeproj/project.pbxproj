@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		540B132720CD7E21000BDB6B /* PaletteIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540B132620CD7E21000BDB6B /* PaletteIndex.swift */; };
 		540E001C1CD577C500C9669B /* PPU+Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540E001B1CD577C500C9669B /* PPU+Flags.swift */; };
 		540E00201CD5801B00C9669B /* PPUSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540E001F1CD5801B00C9669B /* PPUSpec.swift */; };
 		54141E7A203945D10005F553 /* nestest.nes in Resources */ = {isa = PBXBuildFile; fileRef = 5499940C1CFC8B7600C859F4 /* nestest.nes */; };
@@ -111,6 +112,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		540B132620CD7E21000BDB6B /* PaletteIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteIndex.swift; sourceTree = "<group>"; };
 		540E001B1CD577C500C9669B /* PPU+Flags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PPU+Flags.swift"; sourceTree = "<group>"; };
 		540E001F1CD5801B00C9669B /* PPUSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPUSpec.swift; sourceTree = "<group>"; };
 		5423F73A1CECC83B009CE6D1 /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 				54C21E121CC8213500B96C00 /* IO.swift */,
 				54D3FCE11ADDB255003CFF4C /* Mapper.swift */,
 				548605ED1ACFFF1C00198A72 /* NES.h */,
+				540B132620CD7E21000BDB6B /* PaletteIndex.swift */,
 				546E4ECE1CCBEDBA00DD2704 /* PPU.swift */,
 				540E001B1CD577C500C9669B /* PPU+Flags.swift */,
 				542BC4331CD44987000E211F /* PPU+IO.swift */,
@@ -542,6 +545,7 @@
 				54E65A971CF35B3E00317EEC /* ScreenBuffer.swift in Sources */,
 				546E4ECD1CCBEA4700DD2704 /* Console.swift in Sources */,
 				54DA450120C940180051A40F /* UnsafeMutableBufferPointer+Convenience.swift in Sources */,
+				540B132720CD7E21000BDB6B /* PaletteIndex.swift in Sources */,
 				54C573261AD2F8B000A37AE0 /* Address.swift in Sources */,
 				548606051ACFFF2D00198A72 /* CPU.swift in Sources */,
 				547612901ADAF8D100AEBE14 /* CPU+Step.swift in Sources */,
