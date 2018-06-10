@@ -121,7 +121,7 @@ internal extension PPU {
 
             guard 0 <= offset && offset <= 7 else { continue }
 
-            let color = sprite.data[nibble: 7 - offset]
+            let color = sprite.data[nibble: offset]
 
             if !color.isOpaque {
                 continue
@@ -162,27 +162,21 @@ internal extension PPU {
                     | UInt16(row)
         }
 
-        var lowTileByte = read(address)
-        var highTileByte = read(address + 8)
+        let lowTileByte  = read(address)
+        let highTileByte = read(address + 8)
         let palette = sprite.palette << 2
 
         var data: UInt32 = 0
-        for _ in 0 ..< 8 {
-            let a = (lowTileByte  & 0x80) >> 7
-            let b = (highTileByte & 0x80) >> 6
 
-            lowTileByte  <<= 1
-            highTileByte <<= 1
+        for i in 0 ..< 8 {
+            let a =  (lowTileByte  & (0x01 << i)) >> i
+            let b = ((highTileByte & (0x01 << i)) >> i) << 1
 
-            data <<= 4
-            data |= UInt32(truncatingIfNeeded: palette | a | b)
-        }
-
-        if sprite.isFlippedHorizontally {
-            // Reverse the nibbles
-            data = ((data >>  4) & 0x0F0F0F0F) | ((data & 0x0F0F0F0F) <<  4)
-            data = ((data >>  8) & 0x00FF00FF) | ((data & 0x00FF00FF) <<  8)
-            data = ( data >> 16              ) | ( data               << 16)
+            if sprite.isFlippedHorizontally {
+                data[nibble: i] = palette | a | b
+            } else {
+                data[nibble: 7 - i] = palette | a | b
+            }
         }
 
         return data
