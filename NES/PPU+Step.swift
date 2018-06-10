@@ -108,9 +108,7 @@ internal extension PPU {
     private func renderBackgroundPixel() -> PaletteIndex {
         guard showBackground else { return 0x00 }
 
-        let data = tileData >> ((7 - fineX) * 4)
-
-        return PaletteIndex(truncatingIfNeeded: data & 0x0F)
+        return tileData[nibble: Int(7 - fineX)]
     }
 
     private func renderSpritePixel() -> (ResolvedSprite, PaletteIndex) {
@@ -123,9 +121,7 @@ internal extension PPU {
 
             guard offset >= 0 && offset <= 7 else { continue }
 
-            let x = 7 - UInt8(offset)
-
-            let color = PaletteIndex(truncatingIfNeeded: (sprite.data >> UInt8(x * 4)) & 0x0F)
+            let color = sprite.data[nibble: 7 - offset]
 
             if !color.isOpaque {
                 continue
