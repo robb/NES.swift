@@ -11,8 +11,6 @@ internal extension PPU {
 
             if renderLine {
                 if fetchCycle {
-                    shift()
-
                     switch cycle % 8 {
                     case 1:
                         fetchNameTableByte()
@@ -23,9 +21,9 @@ internal extension PPU {
                     case 7:
                         fetchHighTileByte()
                     case 0:
-                        feedShiftRegisters()
-
                         incrementX()
+
+                        updateTileData()
                     default:
                         break
                     }
@@ -72,8 +70,6 @@ internal extension PPU {
 
 internal extension PPU {
     func renderPixel() {
-        let (x, y) = (cycle - 1, scanLine)
-
         let backgroundColor = renderBackgroundPixel()
         let (sprite, spriteColor) = renderSpritePixel()
 
@@ -108,7 +104,7 @@ internal extension PPU {
     private func renderBackgroundPixel() -> PaletteIndex {
         guard showBackground else { return 0x00 }
 
-        return tileData[nibble: Int(7 - fineX)]
+        return currentTileData[nibble: Int(7 - fineX) - (x % 8)]
     }
 
     private func renderSpritePixel() -> (ResolvedSprite, PaletteIndex) {
@@ -233,24 +229,18 @@ internal extension PPU {
         highTileByte = read(address + 0x08)
     }
 
-    func shift() {
-        let registers = shiftRegisters
+    func updateTileData() {
+        swap(&currentTileData, &nextTileData)
 
-        let a = (registers & 0x80000000) >> 28
-        let b = (registers & 0x00800000) >> 21
-        let c = (registers & 0x00008000) >> 14
-        let d = (registers & 0x00000080) >> 7
+        let palette = (lowAttributeTableByte  & 0x01) << 2
+                    | (highAttributeTableByte & 0x01) << 3
 
-        tileData = (tileData << 4) | a | b | c | d
+        for i in 0 ..< 8 {
+            let a =  (lowTileByte  & (0x01 << i)) >> i
+            let b = ((highTileByte & (0x01 << i)) >> i) << 1
 
-        shiftRegisters <<= 1
-    }
-
-    func feedShiftRegisters() {
-        shiftRegisters = UInt32(truncatingIfNeeded: highAttributeTableByte) << 24
-                       | UInt32(truncatingIfNeeded: lowAttributeTableByte)  << 16
-                       | UInt32(truncatingIfNeeded: highTileByte)           << 8
-                       | UInt32(truncatingIfNeeded: lowTileByte)
+            nextTileData[nibble: i] = palette | a | b
+        }
     }
 
     func fetchNameTableByte() {
@@ -394,6 +384,14 @@ internal extension PPU {
 }
 
 private extension PPU {
+    var x: Int {
+        return cycle - 1
+    }
+
+    var y: Int {
+        return scanLine
+    }
+
     var evenFrame: Bool {
         return frame % 2 == 0
     }

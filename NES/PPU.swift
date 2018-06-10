@@ -93,11 +93,11 @@ internal final class PPU {
 
     var lowAttributeTableByte: UInt8 = 0
 
-    // highAttribute lowAttribute highTile lowTile
-    var shiftRegisters: UInt32 = 0
+    /// The data being prepared for the next tile.
+    var nextTileData: UInt32 = 0
 
-    /// Used as a shift register for tile data.
-    var tileData: UInt32 = 0
+    /// The data being drawn for the current tile.
+    var currentTileData: UInt32 = 0
 
     var nameTableByte: UInt8 = 0
 
