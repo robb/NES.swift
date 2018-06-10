@@ -45,6 +45,14 @@ internal extension PPU {
             }
         }
 
+        if renderingEnabled && cycle == 257 {
+            if visibleLine {
+                fetchSprites()
+            } else {
+                currentSpriteCount = 0
+            }
+        }
+
         if cycle == 1 {
             if scanLine == 241 {
                 verticalBlankStarted = true
@@ -66,17 +74,122 @@ internal extension PPU {
     func renderPixel() {
         let (x, y) = (cycle - 1, scanLine)
 
-        let mirrored = mirrorPalette(renderBackgroundPixel())
+        let backgroundColor = renderBackgroundPixel()
+        let (sprite, spriteColor) = renderSpritePixel()
+
+        // TODO: Check `showLeftSprites` and `showLeftBackground`.
+
+        let color: UInt8
+
+        switch (backgroundColor.isOpaque, spriteColor.isOpaque) {
+        case (false, false):
+            color = 0x00
+        case (false, true):
+            color = spriteColor
+        case (true, false):
+            color = backgroundColor
+        default:
+            if sprite.index == 0 && x < 255 {
+                spriteZeroHit = true
+            }
+
+            if sprite.isInFront {
+                color = spriteColor
+            } else {
+                color = backgroundColor
+            }
+        }
+
+        let mirrored = mirrorPalette(color)
 
         backBuffer[x, y] = precomputedPalette[mirrored]
     }
 
-    private func renderBackgroundPixel() -> UInt8 {
+    private func renderBackgroundPixel() -> PaletteIndex {
         guard showBackground else { return 0x00 }
 
         let data = tileData >> ((7 - fineX) * 4)
 
-        return UInt8(truncatingIfNeeded: data & 0x0F)
+        return PaletteIndex(truncatingIfNeeded: data & 0x0F)
+    }
+
+    private func renderSpritePixel() -> (ResolvedSprite, PaletteIndex) {
+        guard showSprites else { return (currentSprites[0], 0x00) }
+
+        for i in 0 ..< currentSpriteCount {
+            let sprite = currentSprites[i]
+
+            let offset = (cycle - 1) - Int(truncatingIfNeeded: sprite.x)
+
+            guard offset >= 0 && offset <= 7 else { continue }
+
+            let x = 7 - UInt8(offset)
+
+            let color = PaletteIndex(truncatingIfNeeded: (sprite.data >> UInt8(x * 4)) & 0x0F)
+
+            if !color.isOpaque {
+                continue
+            }
+
+            return (sprite, color | 0x10)
+        }
+
+        return (currentSprites[0], 0x00)
+    }
+
+    private func fetchSpriteData(for sprite: Sprite) -> UInt32 {
+        var row = scanLine - Int(bitPattern: UInt(truncatingIfNeeded: sprite.y))
+
+        let address: Address
+        if !useLargeSprites {
+            if sprite.isFlippedVertically {
+                row = 7 - row
+            }
+
+            address = spritePatternTableAddress
+                    | UInt16(sprite.tile) << 4
+                    | UInt16(row)
+        } else {
+            if sprite.isFlippedVertically {
+                row = 15 - row
+            }
+
+            var tile = sprite.tile & 0xF0
+
+            if row > 7 {
+                tile += 1
+                row -= 8
+            }
+
+            address = sprite.patternTableAddress
+                    | UInt16(sprite.tile) << 4
+                    | UInt16(row)
+        }
+
+        var lowTileByte = read(address)
+        var highTileByte = read(address + 8)
+        let palette = sprite.palette << 2
+
+        var data: UInt32 = 0
+        for _ in 0 ..< 8 {
+            let a = (lowTileByte  & 0x80) >> 7
+            let b = (highTileByte & 0x80) >> 6
+
+            lowTileByte  <<= 1
+            highTileByte <<= 1
+
+            data <<= 4
+            data |= UInt32(truncatingIfNeeded: palette | a | b)
+        }
+
+        if sprite.isFlippedHorizontally {
+            // Reverse the nibbles
+            data = ((data >>  4) & 0x0F0F0F0F) | ((data & 0x0F0F0F0F) <<  4)
+            data = ((data >>  8) & 0x00FF00FF) | ((data & 0x00FF00FF) <<  8)
+            data = ( data >> 16              ) | ( data               << 16)
+        }
+
+        return data
     }
 }
 
@@ -185,6 +298,31 @@ internal extension PPU {
             }
         } else {
             fineY += 1
+        }
+    }
+}
+
+internal extension PPU {
+    func fetchSprites() {
+        let width = useLargeSprites ? 16 : 8
+
+        currentSpriteCount = 0
+
+        for (index, sprite) in sprites.enumerated() {
+            let row = scanLine - Int(bitPattern: UInt(truncatingIfNeeded: sprite.y))
+
+            guard row >= 0 && row < width else { continue }
+
+            guard currentSpriteCount < 8 else {
+                spriteOverflow = true
+                break
+            }
+
+            currentSprites[currentSpriteCount].data = fetchSpriteData(for: sprite)
+            currentSprites[currentSpriteCount].x = sprite.x
+            currentSprites[currentSpriteCount].isInFront = sprite.isInFront
+            currentSprites[currentSpriteCount].index = UInt8(truncatingIfNeeded: index)
+            currentSpriteCount += 1
         }
     }
 }
