@@ -119,7 +119,7 @@ internal extension PPU {
 
             let offset = (cycle - 1) - Int(truncatingIfNeeded: sprite.x)
 
-            guard offset >= 0 && offset <= 7 else { continue }
+            guard 0 <= offset && offset <= 7 else { continue }
 
             let color = sprite.data[nibble: 7 - offset]
 
@@ -307,7 +307,7 @@ internal extension PPU {
         for (index, sprite) in sprites.enumerated() {
             let row = scanLine - Int(bitPattern: UInt(truncatingIfNeeded: sprite.y))
 
-            guard row >= 0 && row < width else { continue }
+            guard 0 <= row && row < width else { continue }
 
             guard currentSpriteCount < 8 else {
                 spriteOverflow = true
