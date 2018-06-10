@@ -65,17 +65,17 @@ extension PPU: IO {
         }
     }
 
-    internal func mirrorPalette(_ address: Address) -> UInt8 {
+    internal func mirrorPalette(_ address: Address) -> PaletteIndex {
         return mirrorPalette(UInt8(truncatingIfNeeded: address))
     }
 
-    internal func mirrorPalette(_ offset: UInt8) -> UInt8 {
-        let wrappedOffset = offset % 32
+    internal func mirrorPalette(_ offset: PaletteIndex) -> PaletteIndex {
+        var wrappedIndex = offset % 64
 
-        if wrappedOffset % 4 == 0 {
-            return 0x00
+        if wrappedIndex >= 16 && !wrappedIndex.isOpaque {
+            wrappedIndex -= 16
         }
 
-        return wrappedOffset
+        return wrappedIndex
     }
 }
