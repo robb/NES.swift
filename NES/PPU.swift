@@ -121,6 +121,16 @@ internal final class PPU {
     /// The Object Attribute Memory.
     var oam: UnsafeMutableBufferPointer<UInt8> = .allocate(count: 0x0100, initializeWith: 0x00)
 
+    /// Aliased to `oam`.
+    var sprites: UnsafeBufferPointer<Sprite>
+
+
+    /// Holds the sprites for the current scan line.
+    var currentSprites: UnsafeMutableBufferPointer<ResolvedSprite> = .allocate(count: 8, initializeWith: ResolvedSprite())
+
+    /// The number of sprites on the current scan line.
+    var currentSpriteCount: UInt8 = 0
+
     /// The palette data.
     var palette: UnsafeMutableBufferPointer<UInt8> = [
         0x09, 0x01, 0x00, 0x01, 0x00, 0x02, 0x02, 0x0D,
@@ -134,6 +144,9 @@ internal final class PPU {
     init(mapper: Mapper, vram: Data = Data(repeating: 0x00, count: 0x800)) {
         self.mapper = mapper
         self.precomputedPalette = .from(source: palette.map(RGBA.from))
+
+        self.sprites = UnsafeBufferPointer<Sprite>(start: UnsafePointer<Sprite>(OpaquePointer(oam.baseAddress)), count: 64)
+
         self.vram = .from(source: vram)
     }
 
