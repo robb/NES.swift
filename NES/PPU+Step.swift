@@ -89,7 +89,7 @@ internal extension PPU {
         case (true, false):
             color = backgroundColor
         default:
-            if sprite.index == 0 && x < 255 {
+            if sprite.index == 0 {
                 spriteZeroHit = true
             }
 
