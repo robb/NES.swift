@@ -22,7 +22,6 @@ internal extension UInt32 {
         self |= UInt32(truncatingIfNeeded: value & 0x0F) << offset
     }
 
-
     subscript(nibble nibble: Int) -> UInt8 {
         get {
             return get(nibble: nibble)
