@@ -66,12 +66,12 @@ internal extension PPU {
     func renderPixel() {
         let (x, y) = (cycle - 1, scanLine)
 
-        let mirrored = mirrorPalette(backgroundPixel)
+        let mirrored = mirrorPalette(renderBackgroundPixel())
 
         backBuffer[x, y] = precomputedPalette[mirrored]
     }
 
-    var backgroundPixel: UInt8 {
+    private func renderBackgroundPixel() -> UInt8 {
         guard showBackground else { return 0x00 }
 
         let data = tileData >> ((7 - fineX) * 4)
