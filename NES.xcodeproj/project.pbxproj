@@ -12,6 +12,7 @@
 		540E001C1CD577C500C9669B /* PPU+Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540E001B1CD577C500C9669B /* PPU+Flags.swift */; };
 		540E00201CD5801B00C9669B /* PPUSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540E001F1CD5801B00C9669B /* PPUSpec.swift */; };
 		54141E7A203945D10005F553 /* nestest.nes in Resources */ = {isa = PBXBuildFile; fileRef = 5499940C1CFC8B7600C859F4 /* nestest.nes */; };
+		5414FB7720CE8FE80098B7CA /* young-monkey.nes in Resources */ = {isa = PBXBuildFile; fileRef = 5414FB7620CE8FCA0098B7CA /* young-monkey.nes */; };
 		5423F73F1CEDC029009CE6D1 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5423F73E1CEDC029009CE6D1 /* Log.swift */; };
 		542436651CD804BA0084DDDF /* UInt8+Bitset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542436641CD804BA0084DDDF /* UInt8+Bitset.swift */; };
 		542BC4341CD44987000E211F /* PPU+IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542BC4331CD44987000E211F /* PPU+IO.swift */; };
@@ -116,6 +117,7 @@
 		540B132820CD8EC9000BDB6B /* UInt32+Nibble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt32+Nibble.swift"; sourceTree = "<group>"; };
 		540E001B1CD577C500C9669B /* PPU+Flags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PPU+Flags.swift"; sourceTree = "<group>"; };
 		540E001F1CD5801B00C9669B /* PPUSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPUSpec.swift; sourceTree = "<group>"; };
+		5414FB7620CE8FCA0098B7CA /* young-monkey.nes */ = {isa = PBXFileReference; lastKnownFileType = file; path = "young-monkey.nes"; sourceTree = "<group>"; };
 		5423F73A1CECC83B009CE6D1 /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
 		5423F73E1CEDC029009CE6D1 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		542436641CD804BA0084DDDF /* UInt8+Bitset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt8+Bitset.swift"; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				5435E6DE203D278B001C9A2F /* plumber.nes */,
+				5414FB7620CE8FCA0098B7CA /* young-monkey.nes */,
 			);
 			path = Performance;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5414FB7720CE8FE80098B7CA /* young-monkey.nes in Resources */,
 				5435E6DF203D27AD001C9A2F /* plumber.nes in Resources */,
 				54141E7A203945D10005F553 /* nestest.nes in Resources */,
 			);

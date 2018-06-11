@@ -17,15 +17,15 @@ class PerformanceTest: XCTestCase {
         }
     }
 
-    func testPlumber() {
-        let path = Bundle(for: PerformanceTest.self).path(forResource: "plumber", ofType: "nes") ?? ""
+    func testYoungMonkey() {
+        let path = Bundle(for: PerformanceTest.self).path(forResource: "young-monkey", ofType: "nes") ?? ""
 
         let cartridge = Cartridge.load(path: path)!
 
         measure {
             let console = Console(cartridge: cartridge)
 
-            console.step(time: 3)
+            console.step(time: 10)
         }
     }
 }
