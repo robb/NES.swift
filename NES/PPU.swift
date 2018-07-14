@@ -166,6 +166,8 @@ internal extension PPU {
         if nmiEnabled && verticalBlankStarted {
             cpu.triggerNMI()
         }
+
+        temporaryVRAMAddress = (temporaryVRAMAddress & 0xF3FF) | (UInt16(ppuctrl & 0x03) << 10)
     }
 
     /// Must be called after the CPU has read PPUSTATUS.
