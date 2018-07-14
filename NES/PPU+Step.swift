@@ -104,7 +104,9 @@ internal extension PPU {
     private func renderBackgroundPixel() -> PaletteIndex {
         guard showBackground else { return 0x00 }
 
-        return currentTileData[nibble: Int(7 - fineX) - (x % 8)]
+        let fineX = Int(self.fineX)
+
+        return tileData[nibble: 8 + (7 - fineX) - (x % 8)]
     }
 
     private func renderSpritePixel() -> (ResolvedSprite, PaletteIndex) {
@@ -230,7 +232,7 @@ internal extension PPU {
     }
 
     func updateTileData() {
-        swap(&currentTileData, &nextTileData)
+        tileData <<= 32
 
         let palette = (lowAttributeTableByte  & 0x01) << 2
                     | (highAttributeTableByte & 0x01) << 3
@@ -239,7 +241,7 @@ internal extension PPU {
             let a =  (lowTileByte  & (0x01 << i)) >> i
             let b = ((highTileByte & (0x01 << i)) >> i) << 1
 
-            nextTileData[nibble: i] = palette | a | b
+            tileData[nibble: 16 + i] = palette | a | b
         }
     }
 

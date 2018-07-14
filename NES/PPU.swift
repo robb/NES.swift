@@ -96,11 +96,8 @@ internal final class PPU {
 
     var lowAttributeTableByte: UInt8 = 0
 
-    /// The data being prepared for the next tile.
-    var nextTileData: UInt32 = 0
-
     /// The data being drawn for the current tile.
-    var currentTileData: UInt32 = 0
+    var tileData: UInt64 = 0
 
     var nameTableByte: UInt8 = 0
 
