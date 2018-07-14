@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		540B132720CD7E21000BDB6B /* PaletteIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540B132620CD7E21000BDB6B /* PaletteIndex.swift */; };
-		540B132920CD8EC9000BDB6B /* UInt32+Nibble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540B132820CD8EC9000BDB6B /* UInt32+Nibble.swift */; };
+		540B132920CD8EC9000BDB6B /* UnsignedInteger+Nibble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540B132820CD8EC9000BDB6B /* UnsignedInteger+Nibble.swift */; };
 		540E001C1CD577C500C9669B /* PPU+Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540E001B1CD577C500C9669B /* PPU+Flags.swift */; };
 		540E00201CD5801B00C9669B /* PPUSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540E001F1CD5801B00C9669B /* PPUSpec.swift */; };
 		54141E7A203945D10005F553 /* nestest.nes in Resources */ = {isa = PBXBuildFile; fileRef = 5499940C1CFC8B7600C859F4 /* nestest.nes */; };
@@ -59,7 +59,6 @@
 		54FADE95203945220099198B /* NES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 548605E81ACFFF1B00198A72 /* NES.framework */; };
 		54FADE9B2039452D0099198B /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5423F73A1CECC83B009CE6D1 /* PerformanceTests.swift */; };
 		54FF800320FA1DB200CAA600 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FF800220FA1DB200CAA600 /* Controller.swift */; };
-		54FF800520FA3C2200CAA600 /* UInt64+Nibble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FF800420FA3C2200CAA600 /* UInt64+Nibble.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,7 +111,7 @@
 
 /* Begin PBXFileReference section */
 		540B132620CD7E21000BDB6B /* PaletteIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteIndex.swift; sourceTree = "<group>"; };
-		540B132820CD8EC9000BDB6B /* UInt32+Nibble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt32+Nibble.swift"; sourceTree = "<group>"; };
+		540B132820CD8EC9000BDB6B /* UnsignedInteger+Nibble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnsignedInteger+Nibble.swift"; sourceTree = "<group>"; };
 		540E001B1CD577C500C9669B /* PPU+Flags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PPU+Flags.swift"; sourceTree = "<group>"; };
 		540E001F1CD5801B00C9669B /* PPUSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPUSpec.swift; sourceTree = "<group>"; };
 		5414FB7620CE8FCA0098B7CA /* young-monkey.nes */ = {isa = PBXFileReference; lastKnownFileType = file; path = "young-monkey.nes"; sourceTree = "<group>"; };
@@ -166,7 +165,6 @@
 		54FADE90203945210099198B /* NES Performance Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NES Performance Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FADE94203945220099198B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		54FF800220FA1DB200CAA600 /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
-		54FF800420FA3C2200CAA600 /* UInt64+Nibble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt64+Nibble.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,8 +265,7 @@
 				54B466B320CD500900112459 /* Sprite.swift */,
 				542436641CD804BA0084DDDF /* UInt8+Bitset.swift */,
 				5460A68E20390C02001A48F0 /* UInt16+Convenience.swift */,
-				540B132820CD8EC9000BDB6B /* UInt32+Nibble.swift */,
-				54FF800420FA3C2200CAA600 /* UInt64+Nibble.swift */,
+				540B132820CD8EC9000BDB6B /* UnsignedInteger+Nibble.swift */,
 				54DA450020C940180051A40F /* UnsafeMutableBufferPointer+Convenience.swift */,
 				54F73D1B20C9406800CA089F /* UnsafeMutableBufferPointer+Indexing.swift */,
 				548605EB1ACFFF1B00198A72 /* Supporting Files */,
@@ -548,7 +545,6 @@
 				54B466B420CD500900112459 /* Sprite.swift in Sources */,
 				54F73D1C20C9406900CA089F /* UnsafeMutableBufferPointer+Indexing.swift in Sources */,
 				540E001C1CD577C500C9669B /* PPU+Flags.swift in Sources */,
-				54FF800520FA3C2200CAA600 /* UInt64+Nibble.swift in Sources */,
 				54C21E151CC822CD00B96C00 /* CPU+IO.swift in Sources */,
 				54E65A971CF35B3E00317EEC /* ScreenBuffer.swift in Sources */,
 				546E4ECD1CCBEA4700DD2704 /* Console.swift in Sources */,
@@ -561,7 +557,7 @@
 				54C21E171CC823AE00B96C00 /* CPU+Interrupts.swift in Sources */,
 				54E08FEE1CC67AC300C9AA49 /* Helper.swift in Sources */,
 				54D8BDF11CEDD50800F8C3BC /* PPU+Step.swift in Sources */,
-				540B132920CD8EC9000BDB6B /* UInt32+Nibble.swift in Sources */,
+				540B132920CD8EC9000BDB6B /* UnsignedInteger+Nibble.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

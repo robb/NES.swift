@@ -1,12 +1,12 @@
 import Foundation
 
-internal extension UInt64 {
+internal extension UnsignedInteger where Self: FixedWidthInteger {
     func get(nibble: Int) -> UInt8 {
         precondition(0 <= nibble && nibble <= 7)
 
         let offset = nibble * 4
 
-        let mask = UInt64(0x0F &<< offset)
+        let mask = Self(0x0F &<< offset)
 
         return UInt8(truncatingIfNeeded: (self & mask) &>> offset)
     }
@@ -16,10 +16,10 @@ internal extension UInt64 {
 
         let offset = nibble * 4
 
-        let mask = UInt64(0x0F &<< offset)
+        let mask = Self(0x0F &<< offset)
 
         self &= ~mask
-        self |= UInt64(truncatingIfNeeded: value & 0x0F) &<< offset
+        self |= Self(truncatingIfNeeded: value & 0x0F) &<< offset
     }
 
     subscript(nibble nibble: Int) -> UInt8 {
