@@ -33,8 +33,6 @@
 		5486060D1AD0144100198A72 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 548606081AD0142900198A72 /* Nimble.framework */; };
 		5486060E1AD0144100198A72 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 548606091AD0142900198A72 /* Quick.framework */; };
 		548606101AD0146500198A72 /* CPUSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5486060F1AD0146500198A72 /* CPUSpec.swift */; };
-		548606121AD0153C00198A72 /* Nimble.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 548606081AD0142900198A72 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		548606131AD0153D00198A72 /* Quick.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 548606091AD0142900198A72 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		548F59811AE292CE007EC4D2 /* NESTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548F59801AE292CE007EC4D2 /* NESTest.swift */; };
 		549994131CFC8B7600C859F4 /* nestest.log in Resources */ = {isa = PBXBuildFile; fileRef = 5499940B1CFC8B7600C859F4 /* nestest.log */; };
 		549994141CFC8B7600C859F4 /* nestest.nes in Resources */ = {isa = PBXBuildFile; fileRef = 5499940C1CFC8B7600C859F4 /* nestest.nes */; };
@@ -94,8 +92,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				548606121AD0153C00198A72 /* Nimble.framework in Copy Frameworks */,
-				548606131AD0153D00198A72 /* Quick.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;

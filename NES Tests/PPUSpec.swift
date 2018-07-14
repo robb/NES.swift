@@ -8,11 +8,11 @@ class PPUSpec: QuickSpec {
         var console: Console! = nil
 
         var cpu: CPU {
-            return console.cpu!
+            return console.cpu
         }
 
         var ppu: PPU {
-            return console.ppu!
+            return console.ppu
         }
 
         beforeEach {
@@ -284,13 +284,14 @@ class PPUSpec: QuickSpec {
 
         describe("Having the CPU write to OAMDMA") {
             it("should copy the given memory page to the OAM") {
-                let values = Data(repeating: 0x23, count: 256)
+                let values = UnsafeMutableBufferPointer<UInt8>.allocate(capacity: 256)
+                values.assign(repeating: 0x23)
 
-                cpu.ram[0x0400 ..< 0x0500] = Data(values)
+                cpu.ram[0x0400 ..< 0x0500] = values[values.startIndex ..< values.endIndex]
 
                 cpu.write(.oamdmaAddress, 0x04)
 
-                expect(ppu.oam).to(equal(values))
+                expect(Array(ppu.oam)).to(equal(Array(values)))
             }
 
             describe("if the PPU is on an even cycle") {

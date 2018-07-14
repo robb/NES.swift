@@ -1,7 +1,7 @@
 import Foundation
 
 public final class Console {
-    private let cpu: CPU
+    internal let cpu: CPU
 
     public var controller1: Buttons {
         get {
@@ -27,7 +27,7 @@ public final class Console {
 
     private let mapper: Mapper
 
-    private let ppu: PPU
+    internal let ppu: PPU
 
     public var screenData: Data {
         return Data(bytesNoCopy: ppu.frontBuffer.pixels.baseAddress!, count: ppu.frontBuffer.pixels.count, deallocator: .none)

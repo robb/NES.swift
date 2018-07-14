@@ -12,7 +12,7 @@ func match(state: ConsoleState) -> Predicate<Console?> {
             return PredicateResult(status: .fail, message: msg.appendedBeNilHint())
         }
 
-        let cpu = console.cpu!
+        let cpu = console.cpu
 
         guard cpu.a == state.a else {
             msg = .expectedTo("have an A register value of <\(format(state.a))>, got <\(format(cpu.a))>")
@@ -44,7 +44,7 @@ func match(state: ConsoleState) -> Predicate<Console?> {
             return PredicateResult(bool: false, message: msg)
         }
 
-        let ppu = console.ppu!
+        let ppu = console.ppu
 
         guard ppu.cycle == state.cycle else {
             msg = .expectedTo("be at PPU cycle <\(state.cycle)>, got <\(ppu.cycle)>")

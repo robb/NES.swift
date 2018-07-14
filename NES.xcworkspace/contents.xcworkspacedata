@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "container:NES.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:External/Nimble-7.1.0/Nimble.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:External/Quick-1.3.0/Quick.xcodeproj">
+   </FileRef>
+</Workspace>

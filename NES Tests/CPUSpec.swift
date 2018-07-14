@@ -8,7 +8,7 @@ class CPUSpec: QuickSpec {
         var console: Console! = nil
 
         var cpu: CPU {
-            return console.cpu!
+            return console.cpu
         }
 
         beforeEach {
@@ -28,9 +28,7 @@ class CPUSpec: QuickSpec {
         describe("Stepping a CPU") {
             beforeEach {
                 // Fill the RAM with NOPs
-                let ram = Data(repeating: 0x1A, count: 0x0800)
-
-                cpu.ram[ram.startIndex ..< ram.endIndex] = ram[ram.startIndex ..< ram.endIndex]
+                cpu.ram.assign(repeating: 0x1A)
                 cpu.pc = 0x0200
 
                 expect(cpu.cycles).to(equal(0))
@@ -76,9 +74,7 @@ class CPUSpec: QuickSpec {
         describe("Performing an interrupt") {
             beforeEach {
                 // Set the entire RAM to `NOP` instructions.
-                let ram = Data(repeating: 0x1A, count: 0x0800)
-
-                cpu.ram[ram.startIndex ..< ram.endIndex] = ram[ram.startIndex ..< ram.endIndex]
+                cpu.ram.assign(repeating: 0x1A)
 
                 cpu.write16(CPU.irqInterruptVector, 0x0100)
 

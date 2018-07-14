@@ -5,11 +5,11 @@ internal final class DummyMapper: Mapper {
     private var memory: Array<UInt8> = Array(repeating: 0xFF, count: 0x10000)
 
     override func read(_ address: Address) -> UInt8 {
-        return memory[address]
+        return memory[Int(address)]
     }
 
     override func write(_ address: Address, _ value: UInt8) {
-        memory[address] = value
+        memory[Int(address)] = value
     }
 }
 
