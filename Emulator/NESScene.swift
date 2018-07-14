@@ -32,6 +32,52 @@ class NESScene: SKScene {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func keyDown(with event: NSEvent) {
+        switch event.keyCode {
+        case 0x007E:
+            console.controller1.insert(.up)
+        case 0x007D:
+            console.controller1.insert(.down)
+        case 0x007B:
+            console.controller1.insert(.left)
+        case 0x007C:
+            console.controller1.insert(.right)
+        case 0x0006: // Z
+            console.controller1.insert(.a)
+        case 0x0007: // X
+            console.controller1.insert(.b)
+        case 0x24: // Return
+            console.controller1.insert(.start)
+        case 0x3C: // Right Shift
+            console.controller1.insert(.select)
+        default:
+            super.keyDown(with: event)
+        }
+    }
+
+    override func keyUp(with event: NSEvent) {
+        switch event.keyCode {
+        case 0x007E:
+            console.controller1.remove(.up)
+        case 0x007D:
+            console.controller1.remove(.down)
+        case 0x007B:
+            console.controller1.remove(.left)
+        case 0x007C:
+            console.controller1.remove(.right)
+        case 0x0006: // Z
+            console.controller1.remove(.a)
+        case 0x0007: // X
+            console.controller1.remove(.b)
+        case 0x24: // Return
+            console.controller1.remove(.start)
+        case 0x3C: // Right Shift
+            console.controller1.remove(.select)
+        default:
+            super.keyUp(with: event)
+        }
+    }
+
     override func update(_ currentTime: CFTimeInterval) {
         let delta = currentTime - (lastTime ?? currentTime)
 

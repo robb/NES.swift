@@ -3,6 +3,24 @@ import Foundation
 public final class Console {
     private let cpu: CPU
 
+    public var controller1: Buttons {
+        get {
+            return cpu.controller1.pressed
+        }
+        set {
+            cpu.controller1.pressed = newValue
+        }
+    }
+
+    public var controller2: Buttons {
+        get {
+            return cpu.controller2.pressed
+        }
+        set {
+            cpu.controller2.pressed = newValue
+        }
+    }
+
     public var frames: Int {
         return ppu.frame
     }

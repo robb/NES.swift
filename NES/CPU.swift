@@ -44,6 +44,10 @@ internal final class CPU {
     /// The RAM the CPU reads from.
     var ram: UnsafeMutableBufferPointer<UInt8>
 
+    var controller1: Controller = Controller()
+
+    var controller2: Controller = Controller()
+
     init(mapper: Mapper, ram data: Data = Data(repeating: 0x00, count: 0x800)) {
         self.mapper = mapper
         self.ram = .from(source: data)

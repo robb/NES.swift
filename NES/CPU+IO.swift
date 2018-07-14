@@ -10,7 +10,13 @@ extension CPU: IO {
             let wrappedAddress = 0x2000 &+ address % 8
 
             return ppu.readRegister(wrappedAddress)
-        case 0x4000 ... 0x6000:
+        case 0x4000 ..< 0x4016:
+            return 0x00
+        case 0x4016:
+            return controller1.read()
+        case 0x4017:
+            return controller2.read()
+        case 0x4018 ... 0x6000:
             return 0x00
         default:
             return mapper.read(address)
@@ -30,9 +36,10 @@ extension CPU: IO {
         case 0x4000 ..< 0x4014, 0x04015:
             // TODO: Implement APU
             break
-        case 0x4016, 0x4017:
-            // TODO: Implement Controller
-            break
+        case 0x4016:
+            return controller1.write(value: value)
+        case 0x4017:
+            return controller2.write(value: value)
         case 0x6000 ... 0xFFFF:
             mapper.write(address, value)
         default:

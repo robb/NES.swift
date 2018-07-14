@@ -60,6 +60,7 @@
 		54F73D1C20C9406900CA089F /* UnsafeMutableBufferPointer+Indexing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F73D1B20C9406800CA089F /* UnsafeMutableBufferPointer+Indexing.swift */; };
 		54FADE95203945220099198B /* NES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 548605E81ACFFF1B00198A72 /* NES.framework */; };
 		54FADE9B2039452D0099198B /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5423F73A1CECC83B009CE6D1 /* PerformanceTests.swift */; };
+		54FF800320FA1DB200CAA600 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FF800220FA1DB200CAA600 /* Controller.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -167,6 +168,7 @@
 		54F73D1B20C9406800CA089F /* UnsafeMutableBufferPointer+Indexing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnsafeMutableBufferPointer+Indexing.swift"; sourceTree = "<group>"; };
 		54FADE90203945210099198B /* NES Performance Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NES Performance Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FADE94203945220099198B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		54FF800220FA1DB200CAA600 /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +247,7 @@
 				54C573251AD2F8B000A37AE0 /* Address.swift */,
 				54339ADA1ADDB57600632DE9 /* Cartridge.swift */,
 				546E4ECC1CCBEA4700DD2704 /* Console.swift */,
+				54FF800220FA1DB200CAA600 /* Controller.swift */,
 				548606041ACFFF2D00198A72 /* CPU.swift */,
 				5441466C1AD2C41C00EFDAD6 /* CPU+AddressingModes.swift */,
 				54C21E181CC937B600B96C00 /* CPU+Flags.swift */,
@@ -541,6 +544,7 @@
 				54C21E131CC8213500B96C00 /* IO.swift in Sources */,
 				542BC4341CD44987000E211F /* PPU+IO.swift in Sources */,
 				5460A68F20390C02001A48F0 /* UInt16+Convenience.swift in Sources */,
+				54FF800320FA1DB200CAA600 /* Controller.swift in Sources */,
 				542436651CD804BA0084DDDF /* UInt8+Bitset.swift in Sources */,
 				54B466B420CD500900112459 /* Sprite.swift in Sources */,
 				54F73D1C20C9406900CA089F /* UnsafeMutableBufferPointer+Indexing.swift in Sources */,
