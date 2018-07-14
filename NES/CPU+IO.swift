@@ -50,19 +50,15 @@ extension CPU: IO {
 
 internal extension CPU {
     func advanceProgramCounter() -> UInt8 {
-        let result = read(pc)
+        defer { pc = pc &+ 1 }
 
-        pc = pc &+ 1
-
-        return result
+        return read(pc)
     }
 
     func advanceProgramCounter() -> UInt16 {
-        let result = read16(pc)
+        defer { pc = pc &+ 2 }
 
-        pc = pc &+ 2
-
-        return result
+        return read16(pc)
     }
 }
 
