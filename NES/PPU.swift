@@ -85,6 +85,9 @@ internal final class PPU {
 
     var nmiTriggered: Bool = false
 
+    /// Bits 0 through 2 of `PPUSCROLL` represent the fine X position.
+    var fineX: UInt8 = 0
+
     var highTileByte: UInt8 = 0
 
     var lowTileByte: UInt8 = 0
@@ -183,6 +186,7 @@ internal extension PPU {
     func didWritePPUSCROLL() {
         if !secondWrite {
             temporaryVRAMAddress = (temporaryVRAMAddress & 0xFFE0) | (UInt16(ppuscroll) >> 3)
+            fineX = ppuscroll & 0x07
         } else {
             temporaryVRAMAddress = (temporaryVRAMAddress & 0x8FFF) | UInt16(ppuscroll & 0x07) << 12
             temporaryVRAMAddress = (temporaryVRAMAddress & 0xFC1F) | UInt16(ppuscroll & 0xF8) << 2

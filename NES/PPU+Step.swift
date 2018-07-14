@@ -345,11 +345,6 @@ internal extension PPU {
         }
     }
 
-    /// Bits 0 through 2 of `PPUSCROLL` represent the fine X position.
-    var fineX: UInt8 {
-        return ppuscroll & 0x07
-    }
-
     /// Bits 12 through 14 `VRAMAddress` represent the fine Y position.
     var fineY: UInt8 {
         get {
