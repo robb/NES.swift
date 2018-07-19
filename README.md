@@ -16,4 +16,5 @@ A NES emulator written in Swift.
 #### Emulator.app
 
 - [x] Load `.nes` files
+- [x] _Playable_
 - [ ] UI
