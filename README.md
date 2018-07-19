@@ -2,4 +2,18 @@
 
 A NES emulator written in Swift.
 
-Currently hibernating but I might start working on this again in the future. :zzz:
+### TODOs:
+
+#### NES.framework
+
+- [x] CPU
+- [x] PPU
+- [ ] APU
+- [x] Controller Support
+- [ ] Store/load savegames
+- [ ] Record/store/load demos
+
+#### Emulator.app
+
+- [x] Load `.nes` files
+- [ ] UI
