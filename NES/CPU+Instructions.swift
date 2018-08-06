@@ -112,7 +112,7 @@ internal extension CPU {
         }
     }
 
-    /// `BVS` - Branch if Overflow Clear
+    /// `BVS` - Branch if Overflow Set
     func bvs(_ offset: UInt8) {
         if v {
             branch(offset)
