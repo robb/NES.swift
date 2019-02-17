@@ -124,7 +124,6 @@ internal final class PPU {
     /// Aliased to `oam`.
     var sprites: UnsafeBufferPointer<Sprite>
 
-
     /// Holds the sprites for the current scan line.
     var currentSprites: UnsafeMutableBufferPointer<ResolvedSprite> = .allocate(count: 8, initializeWith: ResolvedSprite())
 
