@@ -43,13 +43,13 @@ internal extension PPU {
                 if preRenderScanline && cycle >= 280 && cycle <= 304 {
                     copyY()
                 }
-            }
 
-            if renderingEnabled && cycle == 257 {
-                if visibleLine {
-                    fetchSprites()
-                } else {
-                    currentSpriteCount = 0
+                if cycle == 257 {
+                    if visibleLine {
+                        fetchSprites()
+                    } else {
+                        currentSpriteCount = 0
+                    }
                 }
             }
 
