@@ -31,7 +31,11 @@ internal final class Mapper002: Mapper {
         case 0x0000 ..< 0x2000:
             return cartridge.chrrom[address]
         case 0x2000 ..< 0x6000:
+            #if DEBUG
             fatalError("Attempt to read illegal mapper address \(format(address)).")
+            #else
+            fatalError("Attempt to read illegal mapper address.")
+            #endif
         case 0x6000 ..< 0x8000:
             let sramAddress = address - 0x6000
 
@@ -45,7 +49,11 @@ internal final class Mapper002: Mapper {
 
             return cartridge.prgrom[prgAddress]
         default:
+            #if DEBUG
             fatalError("Unhandled mapper address \(format(address)).")
+            #else
+            fatalError("Unhandled mapper address.")
+            #endif
         }
     }
 

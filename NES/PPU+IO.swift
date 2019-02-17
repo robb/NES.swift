@@ -24,7 +24,11 @@ extension PPU: IO {
 
             return palette[mirrored]
         default:
+            #if DEBUG
             fatalError("Attempt to read illegal PPU memory address \(format(address)).")
+            #else
+            fatalError("Attempt to read illegal PPU memory address.")
+            #endif
         }
     }
 
