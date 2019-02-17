@@ -70,8 +70,8 @@ internal extension PPU {
 
 internal extension PPU {
     func renderPixel() {
-        let backgroundColor = renderBackgroundPixel()
-        let (isSpriteZero, isInFront, spriteColor) = renderSpritePixel()
+        let backgroundColor = resolveBackgroundPixel()
+        let (isSpriteZero, isInFront, spriteColor) = resolveSpritePixel()
 
         // TODO: Check `showLeftSprites` and `showLeftBackground`.
 
@@ -101,7 +101,7 @@ internal extension PPU {
         backBuffer[x, y] = precomputedPalette[mirrored]
     }
 
-    private func renderBackgroundPixel() -> PaletteIndex {
+    private func resolveBackgroundPixel() -> PaletteIndex {
         guard showBackground else { return 0x00 }
 
         let fineX = Int(self.fineX)
@@ -109,7 +109,7 @@ internal extension PPU {
         return tileData[nibble: 8 + (7 - fineX) - (x % 8)]
     }
 
-    private func renderSpritePixel() -> (spriteZeroHit: Bool, isInFront: Bool, PaletteIndex) {
+    private func resolveSpritePixel() -> (spriteZeroHit: Bool, isInFront: Bool, PaletteIndex) {
         guard showSprites else { return (true, false, 0x00) }
 
         for i in 0 ..< currentSpriteCount {
