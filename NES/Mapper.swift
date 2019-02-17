@@ -13,7 +13,7 @@ internal class Mapper: IO {
 internal typealias Mapper000 = Mapper002
 
 internal final class Mapper002: Mapper {
-    private var cartridge: Cartridge
+    private let cartridge: Cartridge
 
     private var prgBanks: (UInt16, UInt16)
 
