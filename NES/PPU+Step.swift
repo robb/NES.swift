@@ -71,7 +71,7 @@ internal extension PPU {
 internal extension PPU {
     func renderPixel() {
         let backgroundColor = renderBackgroundPixel()
-        let (sprite, spriteColor) = renderSpritePixel()
+        let (isSpriteZero, isInFront, spriteColor) = renderSpritePixel()
 
         // TODO: Check `showLeftSprites` and `showLeftBackground`.
 
@@ -85,11 +85,11 @@ internal extension PPU {
         case (true, false):
             color = backgroundColor
         default:
-            if sprite.index == 0 {
+            if isSpriteZero {
                 spriteZeroHit = true
             }
 
-            if sprite.isInFront {
+            if isInFront {
                 color = spriteColor
             } else {
                 color = backgroundColor
@@ -109,26 +109,24 @@ internal extension PPU {
         return tileData[nibble: 8 + (7 - fineX) - (x % 8)]
     }
 
-    private func renderSpritePixel() -> (ResolvedSprite, PaletteIndex) {
-        guard showSprites else { return (currentSprites[0], 0x00) }
+    private func renderSpritePixel() -> (spriteZeroHit: Bool, isInFront: Bool, PaletteIndex) {
+        guard showSprites else { return (true, false, 0x00) }
 
         for i in 0 ..< currentSpriteCount {
             let sprite = currentSprites[i]
 
-            let offset = (cycle - 1) - Int(truncatingIfNeeded: sprite.x)
+            let offset = x - Int(truncatingIfNeeded: sprite.x)
 
             guard 0 <= offset && offset <= 7 else { continue }
 
             let color = sprite.data[nibble: offset]
 
-            if !color.isOpaque {
-                continue
-            }
+            if !color.isOpaque { continue }
 
-            return (sprite, color | 0x10)
+            return (spriteZeroHit: i == 0, isInFront: sprite.isInFront, color | 0x10)
         }
 
-        return (currentSprites[0], 0x00)
+        return (true, false, 0x00)
     }
 
     private func fetchSpriteData(for sprite: Sprite) -> UInt32 {
@@ -303,7 +301,6 @@ internal extension PPU {
             currentSprites[currentSpriteCount].data = fetchSpriteData(for: sprite)
             currentSprites[currentSpriteCount].x = sprite.x
             currentSprites[currentSpriteCount].isInFront = sprite.isInFront
-            currentSprites[currentSpriteCount].index = currentSpriteCount
             currentSpriteCount += 1
         }
     }
