@@ -65,11 +65,7 @@ public final class Console {
 
         let after = cpu.cycles
 
-        let PPUCycles = (after - before) * 3
-
-        for _ in 0 ..< PPUCycles {
-            ppu.step()
-        }
+        ppu.step(steps: 3 * (after - before))
 
         if ppu.nmiTriggered {
             ppu.nmiTriggered = false

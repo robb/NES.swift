@@ -1,68 +1,71 @@
 import Foundation
 
 internal extension PPU {
-    func step() {
-        advanceCycleAndScanLine()
+    func step(steps: Int = 1) {
+        for _ in 0 ..< steps {
 
-        if renderingEnabled {
-            if visibleCycle && visibleLine {
-                renderPixel()
-            }
+            advanceCycleAndScanLine()
 
-            if renderLine {
-                if fetchCycle {
-                    switch cycle % 8 {
-                    case 1:
-                        fetchNameTableByte()
-                    case 3:
-                        fetchAttributeTableByte()
-                    case 5:
-                        fetchLowTileByte()
-                    case 7:
-                        fetchHighTileByte()
-                    case 0:
-                        incrementX()
+            if renderingEnabled {
+                if visibleCycle && visibleLine {
+                    renderPixel()
+                }
 
-                        updateTileData()
-                    default:
-                        break
+                if renderLine {
+                    if fetchCycle {
+                        switch cycle % 8 {
+                        case 1:
+                            fetchNameTableByte()
+                        case 3:
+                            fetchAttributeTableByte()
+                        case 5:
+                            fetchLowTileByte()
+                        case 7:
+                            fetchHighTileByte()
+                        case 0:
+                            incrementX()
+
+                            updateTileData()
+                        default:
+                            break
+                        }
+                    }
+
+                    if cycle == 256 {
+                        incrementY()
+                    }
+
+                    if cycle == 257 {
+                        copyX()
                     }
                 }
 
-                if cycle == 256 {
-                    incrementY()
-                }
-
-                if cycle == 257 {
-                    copyX()
+                if preRenderScanline && cycle >= 280 && cycle <= 304 {
+                    copyY()
                 }
             }
 
-            if preRenderScanline && cycle >= 280 && cycle <= 304 {
-                copyY()
-            }
-        }
-
-        if renderingEnabled && cycle == 257 {
-            if visibleLine {
-                fetchSprites()
-            } else {
-                currentSpriteCount = 0
-            }
-        }
-
-        if cycle == 1 {
-            if scanLine == 241 {
-                verticalBlankStarted = true
-
-                nmiTriggered = nmiTriggered || (nmiEnabled && verticalBlankStarted)
+            if renderingEnabled && cycle == 257 {
+                if visibleLine {
+                    fetchSprites()
+                } else {
+                    currentSpriteCount = 0
+                }
             }
 
-            if preRenderScanline {
-                verticalBlankStarted = false
+            if cycle == 1 {
+                if scanLine == 241 {
+                    verticalBlankStarted = true
 
-                spriteOverflow = false
-                spriteZeroHit = false
+                    nmiTriggered = nmiTriggered || (nmiEnabled && verticalBlankStarted)
+                }
+
+                if preRenderScanline {
+                    verticalBlankStarted = false
+
+                    spriteOverflow = false
+                    spriteZeroHit = false
+                }
             }
         }
     }
