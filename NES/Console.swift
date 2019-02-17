@@ -25,8 +25,6 @@ public final class Console {
         return ppu.frame
     }
 
-    private let mapper: Mapper
-
     internal let ppu: PPU
 
     public var screenData: Data {
@@ -46,8 +44,6 @@ public final class Console {
     }
 
     init(mapper: Mapper) {
-        self.mapper = mapper
-
         cpu = CPU(mapper: mapper)
         ppu = PPU(mapper: mapper)
 
