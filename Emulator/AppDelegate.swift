@@ -10,8 +10,6 @@ import SpriteKit
         window.contentMinSize = NESScene.screenSize
         window.setContentSize(NESScene.screenSize)
 
-        window.center()
-
         if let path = ProcessInfo.processInfo.environment["file"] {
             print(path)
             open(path: path)
