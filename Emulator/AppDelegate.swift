@@ -8,7 +8,6 @@ import SpriteKit
     @objc func applicationDidFinishLaunching(_ notification: Notification) {
         window.contentAspectRatio = NESScene.screenSize
         window.contentMinSize = NESScene.screenSize
-        window.setContentSize(NESScene.screenSize)
 
         if let path = ProcessInfo.processInfo.environment["file"] {
             print(path)
