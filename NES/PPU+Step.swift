@@ -290,7 +290,7 @@ internal extension PPU {
 
         currentSpriteCount = 0
 
-        for (index, sprite) in sprites.enumerated() {
+        for sprite in sprites {
             let row = scanLine - Int(bitPattern: UInt(truncatingIfNeeded: sprite.y))
 
             guard 0 <= row && row < width else { continue }
@@ -303,7 +303,7 @@ internal extension PPU {
             currentSprites[currentSpriteCount].data = fetchSpriteData(for: sprite)
             currentSprites[currentSpriteCount].x = sprite.x
             currentSprites[currentSpriteCount].isInFront = sprite.isInFront
-            currentSprites[currentSpriteCount].index = UInt8(truncatingIfNeeded: index)
+            currentSprites[currentSpriteCount].index = currentSpriteCount
             currentSpriteCount += 1
         }
     }
