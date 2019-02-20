@@ -39,4 +39,6 @@ internal struct ResolvedSprite {
     var x: UInt8 = 0x00
 
     var isInFront: Bool = false
+
+    var isSpriteZero: Bool = false
 }

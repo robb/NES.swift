@@ -126,7 +126,7 @@ internal extension PPU {
 
             if !color.isOpaque { continue }
 
-            return (spriteZeroHit: i == 0, isInFront: sprite.isInFront, color | 0x10)
+            return (spriteZeroHit: sprite.isSpriteZero, isInFront: sprite.isInFront, color | 0x10)
         }
 
         return (true, false, 0x00)
@@ -291,7 +291,7 @@ internal extension PPU {
 
         currentSpriteCount = 0
 
-        for sprite in sprites {
+        for (index, sprite) in sprites.enumerated() {
             let row = scanLine - Int(bitPattern: UInt(truncatingIfNeeded: sprite.y))
 
             guard 0 <= row && row < width else { continue }
@@ -304,6 +304,7 @@ internal extension PPU {
             currentSprites[currentSpriteCount].data = fetchSpriteData(for: sprite)
             currentSprites[currentSpriteCount].x = sprite.x
             currentSprites[currentSpriteCount].isInFront = sprite.isInFront
+            currentSprites[currentSpriteCount].isSpriteZero = index == 0
             currentSpriteCount += 1
         }
     }
