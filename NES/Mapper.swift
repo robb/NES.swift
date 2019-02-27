@@ -1,10 +1,12 @@
 import Foundation
 
 internal class Mapper: IO {
+    @inline(__always)
     func read(_ address: Address) -> UInt8 {
         return 0x00
     }
 
+    @inline(__always)
     func write(_ address: Address, _ value: UInt8) {
 
     }
@@ -26,6 +28,7 @@ internal final class Mapper002: Mapper {
         prgBanks = (0, numberOfBanks - 1)
     }
 
+    @inline(__always)
     override func read(_ address: Address) -> UInt8 {
         switch address {
         case 0x0000 ..< 0x2000:
@@ -57,6 +60,7 @@ internal final class Mapper002: Mapper {
         }
     }
 
+    @inline(__always)
     override func write(_ address: Address, _ value: UInt8) {
         switch address {
         case 0x0000 ..< 0x2000:

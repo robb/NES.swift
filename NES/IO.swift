@@ -8,6 +8,7 @@ internal protocol IO: class {
 }
 
 extension IO {
+    @inline(__always)
     func read16(_ address: Address) -> UInt16 {
         let low  = read(address)
         let high = read(address + 1)
@@ -15,6 +16,7 @@ extension IO {
         return UInt16(high: high, low: low)
     }
 
+    @inline(__always)
     func buggyRead16(_ address: Address) -> UInt16 {
         let low  = read(address)
         let high = read((address & 0xFF00) | UInt16(UInt8(address & 0xFF) &+ 1))
@@ -22,6 +24,7 @@ extension IO {
         return UInt16(high: high, low: low)
     }
 
+    @inline(__always)
     func write16(_ address: Address, _ value: UInt16) {
         let low  = UInt8(value & 0xFF)
         let high = UInt8(value >> 8)
