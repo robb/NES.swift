@@ -38,7 +38,6 @@
 		549994141CFC8B7600C859F4 /* nestest.nes in Resources */ = {isa = PBXBuildFile; fileRef = 5499940C1CFC8B7600C859F4 /* nestest.nes */; };
 		54B1BB011CF5C629004A1A70 /* RGBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B1BB001CF5C629004A1A70 /* RGBA.swift */; };
 		54B466B420CD500900112459 /* Sprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B466B320CD500900112459 /* Sprite.swift */; };
-		54C21E131CC8213500B96C00 /* IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C21E121CC8213500B96C00 /* IO.swift */; };
 		54C21E151CC822CD00B96C00 /* CPU+IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C21E141CC822CD00B96C00 /* CPU+IO.swift */; };
 		54C21E171CC823AE00B96C00 /* CPU+Interrupts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C21E161CC823AE00B96C00 /* CPU+Interrupts.swift */; };
 		54C21E191CC937B600B96C00 /* CPU+Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C21E181CC937B600B96C00 /* CPU+Flags.swift */; };
@@ -144,7 +143,6 @@
 		5499940C1CFC8B7600C859F4 /* nestest.nes */ = {isa = PBXFileReference; lastKnownFileType = file; path = nestest.nes; sourceTree = "<group>"; };
 		54B1BB001CF5C629004A1A70 /* RGBA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RGBA.swift; sourceTree = "<group>"; };
 		54B466B320CD500900112459 /* Sprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprite.swift; sourceTree = "<group>"; };
-		54C21E121CC8213500B96C00 /* IO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IO.swift; sourceTree = "<group>"; };
 		54C21E141CC822CD00B96C00 /* CPU+IO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPU+IO.swift"; sourceTree = "<group>"; };
 		54C21E161CC823AE00B96C00 /* CPU+Interrupts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPU+Interrupts.swift"; sourceTree = "<group>"; };
 		54C21E181CC937B600B96C00 /* CPU+Flags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPU+Flags.swift"; sourceTree = "<group>"; };
@@ -252,7 +250,6 @@
 				54C21E141CC822CD00B96C00 /* CPU+IO.swift */,
 				5476128F1ADAF8D100AEBE14 /* CPU+Step.swift */,
 				54E08FED1CC67AC300C9AA49 /* Helper.swift */,
-				54C21E121CC8213500B96C00 /* IO.swift */,
 				54D3FCE11ADDB255003CFF4C /* Mapper.swift */,
 				548605ED1ACFFF1C00198A72 /* NES.h */,
 				540B132620CD7E21000BDB6B /* PaletteIndex.swift */,
@@ -537,7 +534,6 @@
 				54D3FCE21ADDB255003CFF4C /* Mapper.swift in Sources */,
 				54C21E191CC937B600B96C00 /* CPU+Flags.swift in Sources */,
 				546054A31AD018CE00CFD098 /* CPU+Instructions.swift in Sources */,
-				54C21E131CC8213500B96C00 /* IO.swift in Sources */,
 				542BC4341CD44987000E211F /* PPU+IO.swift in Sources */,
 				5460A68F20390C02001A48F0 /* UInt16+Convenience.swift in Sources */,
 				54FF800320FA1DB200CAA600 /* Controller.swift in Sources */,

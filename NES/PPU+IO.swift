@@ -7,7 +7,7 @@ internal enum MirroringMode {
     case secondScreen
 }
 
-extension PPU: IO {
+extension PPU {
     @discardableResult
     @inline(__always)
     func read(_ address: Address) -> UInt8 {

@@ -1,6 +1,6 @@
 import Foundation
 
-internal class Mapper: IO {
+internal class Mapper {
     @inline(__always)
     func read(_ address: Address) -> UInt8 {
         return 0x00

@@ -1,6 +1,6 @@
 import Foundation
 
-extension CPU: IO {
+extension CPU {
     @discardableResult
     @inlinable
     func read(_ address: Address) -> UInt8 {
@@ -22,6 +22,22 @@ extension CPU: IO {
         default:
             return mapper.read(address)
         }
+    }
+
+    @inline(__always)
+    func read16(_ address: Address) -> UInt16 {
+        let low  = read(address)
+        let high = read(address + 1)
+
+        return UInt16(high: high, low: low)
+    }
+
+    @inline(__always)
+    func buggyRead16(_ address: Address) -> UInt16 {
+        let low  = read(address)
+        let high = read((address & 0xFF00) | UInt16(UInt8(address & 0xFF) &+ 1))
+
+        return UInt16(high: high, low: low)
     }
 
     @inlinable
@@ -47,6 +63,15 @@ extension CPU: IO {
         default:
             fatalError("Attempt to write illegal memory address \(format(address)).")
         }
+    }
+
+    @inline(__always)
+    func write16(_ address: Address, _ value: UInt16) {
+        let low  = UInt8(value & 0xFF)
+        let high = UInt8(value >> 8)
+
+        write(address, low)
+        write(address + 1, high)
     }
 }
 
