@@ -72,6 +72,7 @@ internal extension PPU {
 }
 
 internal extension PPU {
+    @inline(__always)
     func renderPixel() {
         let backgroundColor = resolveBackgroundPixel()
         let (isSpriteZero, isInFront, spriteColor) = resolveSpritePixel()
