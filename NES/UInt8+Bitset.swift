@@ -22,7 +22,7 @@ internal extension UInt8 {
         return (self & mask) != 0
     }
 
-    subscript(bit: Int) -> Bool {
+    subscript(bit bit: Int) -> Bool {
         get {
             return get(bit: bit)
         }

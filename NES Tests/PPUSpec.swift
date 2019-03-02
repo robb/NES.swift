@@ -233,7 +233,7 @@ class PPUSpec: QuickSpec {
 
             describe("if the VRAM increment flag is not set") {
                 beforeEach {
-                    ppu.ppuctrl[2] = false
+                    ppu.ppuctrl[bit: 2] = false
                 }
 
                 it("should increment the VRAM address by 1") {
@@ -245,7 +245,7 @@ class PPUSpec: QuickSpec {
 
             describe("if the VRAM increment flag is set") {
                 beforeEach {
-                    ppu.ppuctrl[2] = true
+                    ppu.ppuctrl[bit: 2] = true
                 }
 
                 it("should increment the VRAM address by 32") {
@@ -259,7 +259,7 @@ class PPUSpec: QuickSpec {
         describe("Having the CPU write to PPUDATA") {
             describe("if the VRAM increment flag is not set") {
                 beforeEach {
-                    ppu.ppuctrl[2] = false
+                    ppu.ppuctrl[bit: 2] = false
                 }
 
                 it("should increment the VRAM address by 1") {
@@ -271,7 +271,7 @@ class PPUSpec: QuickSpec {
 
             describe("if the VRAM increment flag is set") {
                 beforeEach {
-                    ppu.ppuctrl[2] = true
+                    ppu.ppuctrl[bit: 2] = true
                 }
 
                 it("should increment the VRAM address by 32") {

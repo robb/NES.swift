@@ -22,7 +22,7 @@ struct Controller {
     }
 
     mutating func write(value: UInt8) {
-        strobing = value[0]
+        strobing = value[bit: 0]
 
         if strobing {
             index = 0

@@ -8,10 +8,10 @@ internal extension CPU {
     /// subtraction resulted in no borrow.
     var c: Bool {
         get {
-            return p[0]
+            return p[bit: 0]
         }
         set {
-            p[0] = newValue
+            p[bit: 0] = newValue
         }
     }
 
@@ -20,10 +20,10 @@ internal extension CPU {
     /// If `true`, the last operation resulted in `0`.
     var z: Bool {
         get {
-            return p[1]
+            return p[bit: 1]
         }
         set {
-            p[1] = newValue
+            p[bit: 1] = newValue
         }
     }
 
@@ -32,10 +32,10 @@ internal extension CPU {
     /// If `true`, only non-maskable interrupts can be triggered.
     var i: Bool {
         get {
-            return p[2]
+            return p[bit: 2]
         }
         set {
-            p[2] = newValue
+            p[bit: 2] = newValue
         }
     }
 
@@ -46,10 +46,10 @@ internal extension CPU {
     /// completeness.
     var d: Bool {
         get {
-            return p[3]
+            return p[bit: 3]
         }
         set {
-            p[3] = newValue
+            p[bit: 3] = newValue
         }
     }
 
@@ -58,10 +58,10 @@ internal extension CPU {
     /// Set by `BRK`.
     var b: Bool {
         get {
-            return p[5]
+            return p[bit: 5]
         }
         set {
-            p[5] = newValue
+            p[bit: 5] = newValue
         }
     }
 
@@ -71,10 +71,10 @@ internal extension CPU {
     /// 6th bit of the last `BIT` was set.
     var v: Bool {
         get {
-            return p[6]
+            return p[bit: 6]
         }
         set {
-            p[6] = newValue
+            p[bit: 6] = newValue
         }
     }
 
@@ -83,10 +83,10 @@ internal extension CPU {
     /// If `true`, the last operation resulted in a negative number.
     var n: Bool {
         get {
-            return p[7]
+            return p[bit: 7]
         }
         set {
-            p[7] = newValue
+            p[bit: 7] = newValue
         }
     }
 

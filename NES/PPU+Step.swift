@@ -212,8 +212,8 @@ internal extension PPU {
 
         let result = ((read(attributeAddress) >> attributeTableShift) & 0x03)
 
-        lowAttributeTableByte  = result[0] ? 0xFF : 0x00
-        highAttributeTableByte = result[1] ? 0xFF : 0x00
+        lowAttributeTableByte  = result[bit: 0] ? 0xFF : 0x00
+        highAttributeTableByte = result[bit: 1] ? 0xFF : 0x00
     }
 
     func fetchLowTileByte() {

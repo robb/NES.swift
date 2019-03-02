@@ -12,7 +12,7 @@ internal struct Sprite {
 
 extension Sprite {
     var patternTableAddress: Address {
-        return tile[0] ? 0x1000 : 0x0000
+        return tile[bit: 0] ? 0x1000 : 0x0000
     }
 
     var palette: UInt8 {
@@ -20,15 +20,15 @@ extension Sprite {
     }
 
     var isInFront: Bool {
-        return !attributes[5]
+        return !attributes[bit: 5]
     }
 
     var isFlippedHorizontally: Bool {
-        return attributes[6]
+        return attributes[bit: 6]
     }
 
     var isFlippedVertically: Bool {
-        return attributes[7]
+        return attributes[bit: 7]
     }
 }
 
