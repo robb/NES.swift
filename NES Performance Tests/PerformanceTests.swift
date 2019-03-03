@@ -25,7 +25,7 @@ class PerformanceTest: XCTestCase {
         measure {
             let console = Console(cartridge: cartridge)
 
-            console.step(time: 10)
+            console.step(time: 60)
         }
     }
 }
