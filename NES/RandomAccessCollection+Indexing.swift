@@ -1,6 +1,6 @@
 import Foundation
 
-internal extension UnsafeMutableBufferPointer {
+internal extension RandomAccessCollection where Index == Int, Self: MutableCollection {
     subscript(index: UInt16) -> Element {
         get {
             return self[Int(bitPattern: UInt(truncatingIfNeeded: index))]

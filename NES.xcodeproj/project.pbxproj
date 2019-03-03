@@ -53,7 +53,7 @@
 		54E65AA81CF35F0000317EEC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54E65AA61CF35F0000317EEC /* MainMenu.xib */; };
 		54E65AB31CF35F2100317EEC /* NES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 548605E81ACFFF1B00198A72 /* NES.framework */; };
 		54E65AB41CF35F2100317EEC /* NES.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 548605E81ACFFF1B00198A72 /* NES.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		54F73D1C20C9406900CA089F /* UnsafeMutableBufferPointer+Indexing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F73D1B20C9406800CA089F /* UnsafeMutableBufferPointer+Indexing.swift */; };
+		54F73D1C20C9406900CA089F /* RandomAccessCollection+Indexing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F73D1B20C9406800CA089F /* RandomAccessCollection+Indexing.swift */; };
 		54FADE95203945220099198B /* NES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 548605E81ACFFF1B00198A72 /* NES.framework */; };
 		54FADE9B2039452D0099198B /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5423F73A1CECC83B009CE6D1 /* PerformanceTests.swift */; };
 		54FF800320FA1DB200CAA600 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FF800220FA1DB200CAA600 /* Controller.swift */; };
@@ -157,7 +157,7 @@
 		54E65AA41CF35F0000317EEC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		54E65AA71CF35F0000317EEC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		54E65AA91CF35F0000317EEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		54F73D1B20C9406800CA089F /* UnsafeMutableBufferPointer+Indexing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnsafeMutableBufferPointer+Indexing.swift"; sourceTree = "<group>"; };
+		54F73D1B20C9406800CA089F /* RandomAccessCollection+Indexing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RandomAccessCollection+Indexing.swift"; sourceTree = "<group>"; };
 		54FADE90203945210099198B /* NES Performance Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NES Performance Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FADE94203945220099198B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		54FF800220FA1DB200CAA600 /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
@@ -255,13 +255,13 @@
 				540E001B1CD577C500C9669B /* PPU+Flags.swift */,
 				542BC4331CD44987000E211F /* PPU+IO.swift */,
 				54D8BDF01CEDD50800F8C3BC /* PPU+Step.swift */,
+				54F73D1B20C9406800CA089F /* RandomAccessCollection+Indexing.swift */,
 				54B1BB001CF5C629004A1A70 /* RGBA.swift */,
 				54E65A961CF35B3E00317EEC /* ScreenBuffer.swift */,
 				54B466B320CD500900112459 /* Sprite.swift */,
 				542436641CD804BA0084DDDF /* UInt8+Bitset.swift */,
-				540B132820CD8EC9000BDB6B /* UnsignedInteger+Nibble.swift */,
 				54DA450020C940180051A40F /* UnsafeMutableBufferPointer+Convenience.swift */,
-				54F73D1B20C9406800CA089F /* UnsafeMutableBufferPointer+Indexing.swift */,
+				540B132820CD8EC9000BDB6B /* UnsignedInteger+Nibble.swift */,
 				548605EB1ACFFF1B00198A72 /* Supporting Files */,
 			);
 			path = NES;
@@ -536,7 +536,7 @@
 				54FF800320FA1DB200CAA600 /* Controller.swift in Sources */,
 				542436651CD804BA0084DDDF /* UInt8+Bitset.swift in Sources */,
 				54B466B420CD500900112459 /* Sprite.swift in Sources */,
-				54F73D1C20C9406900CA089F /* UnsafeMutableBufferPointer+Indexing.swift in Sources */,
+				54F73D1C20C9406900CA089F /* RandomAccessCollection+Indexing.swift in Sources */,
 				540E001C1CD577C500C9669B /* PPU+Flags.swift in Sources */,
 				54C21E151CC822CD00B96C00 /* CPU+IO.swift in Sources */,
 				54E65A971CF35B3E00317EEC /* ScreenBuffer.swift in Sources */,
