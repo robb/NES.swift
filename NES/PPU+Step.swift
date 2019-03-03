@@ -234,17 +234,30 @@ internal extension PPU {
     }
 
     func updateTileData() {
-        tileData <<= 32
+        /// Spreads the lower 8 bit of the input four bits apart each, e.g.
+        ///
+        /// ```
+        /// spread(0b11111111) == 0b00010001000100010001000100010001
+        /// ```
+        func spread(_ input: UInt8) -> UInt64 {
+            var x = UInt64(truncatingIfNeeded: input)
 
-        let palette = (lowAttributeTableByte  & 0x01) << 2
-                    | (highAttributeTableByte & 0x01) << 3
+            x = (x | (x << 8)) & 0x00FF00FF
+            x = (x | (x << 4)) & 0x0F0F0F0F
+            x = (x | (x << 2)) & 0x33333333
+            x = (x | (x << 1)) & 0x55555555
+            x = (x | (x << 8)) & 0x00FF00FF
+            x = (x | (x << 4)) & 0x0F0F0F0F
+            x = (x | (x << 2)) & 0x33333333
 
-        for i in 0 ..< 8 {
-            let a =  (lowTileByte  & (0x01 << i)) >> i
-            let b = ((highTileByte & (0x01 << i)) >> i) << 1
-
-            tileData[nibble: 16 + i] = palette | a | b
+            return x
         }
+
+        tileData = tileData << 32
+            | spread(lowTileByte)
+            | spread(highTileByte)           << 1
+            | spread(lowAttributeTableByte)  << 2
+            | spread(highAttributeTableByte) << 3
     }
 
     func fetchNameTableByte() {
