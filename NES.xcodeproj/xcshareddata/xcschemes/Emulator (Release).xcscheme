@@ -70,6 +70,13 @@
             ReferencedContainer = "container:NES.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "file"
+            value = "$(SRCROOT)/Test Roms/Performance/plumber.nes"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
