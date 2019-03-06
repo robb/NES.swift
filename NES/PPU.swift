@@ -20,10 +20,32 @@ internal final class PPU {
     /// This property proxies the PPU's OAM at the address held by OAMADDR.
     var oamdata: UInt8 {
         get {
-            return oam[oamaddr]
+            switch oamaddr % 4 {
+            case 0:
+                return oam[oamaddr / 4].y
+            case 1:
+                return oam[oamaddr / 4].tile
+            case 2:
+                return oam[oamaddr / 4].attributes
+            case 3:
+                return oam[oamaddr / 4].x
+            default:
+                fatalError()
+            }
         }
         set {
-            oam[oamaddr] = newValue
+            switch oamaddr % 4 {
+            case 0:
+                oam[oamaddr / 4].y = newValue
+            case 1:
+                oam[oamaddr / 4].tile = newValue
+            case 2:
+                oam[oamaddr / 4].attributes = newValue
+            case 3:
+                oam[oamaddr / 4].x = newValue
+            default:
+                fatalError()
+            }
         }
     }
 
@@ -116,46 +138,32 @@ internal final class PPU {
     let mapper: Mapper
 
     /// The VRAM the PPU reads from.
-    var vram: UnsafeMutableBufferPointer<UInt8>
+    var vram: ContiguousArray<UInt8>
 
     /// The Object Attribute Memory.
-    var oam: UnsafeMutableBufferPointer<UInt8> = .allocate(count: 0x0100, initializeWith: 0x00)
-
-    /// Aliased to `oam`.
-    var sprites: UnsafeBufferPointer<Sprite>
+    var oam: ContiguousArray<Sprite> = ContiguousArray(repeating: Sprite(), count: 64)
 
     /// Holds the sprites for the current scan line.
-    var currentSprites: UnsafeMutableBufferPointer<ResolvedSprite> = .allocate(count: 8, initializeWith: ResolvedSprite())
+    var currentSprites: ContiguousArray<ResolvedSprite> = ContiguousArray(repeating: ResolvedSprite(), count: 8)
 
     /// The number of sprites on the current scan line.
     var currentSpriteCount: UInt8 = 0
 
     /// The palette data.
-    var palette: UnsafeMutableBufferPointer<UInt8> = [
+    var palette: ContiguousArray<UInt8> = [
         0x09, 0x01, 0x00, 0x01, 0x00, 0x02, 0x02, 0x0D,
         0x08, 0x10, 0x08, 0x24, 0x00, 0x00, 0x04, 0x2C,
         0x09, 0x01, 0x34, 0x03, 0x00, 0x04, 0x00, 0x14,
         0x08, 0x3A, 0x00, 0x02, 0x00, 0x20, 0x2C, 0x08
     ]
 
-    var precomputedPalette: UnsafeMutableBufferPointer<RGBA>
+    var precomputedPalette: ContiguousArray<RGBA>
 
     init(mapper: Mapper, vram: Data = Data(repeating: 0x00, count: 0x800)) {
         self.mapper = mapper
-        self.precomputedPalette = .from(source: palette.map(RGBA.from))
+        self.precomputedPalette = ContiguousArray(palette.map(RGBA.from))
 
-        self.sprites = UnsafeBufferPointer<Sprite>(start: UnsafePointer<Sprite>(OpaquePointer(oam.baseAddress)), count: 64)
-
-        self.vram = .from(source: vram)
-    }
-
-    deinit {
-        backBuffer.deallocate()
-        frontBuffer.deallocate()
-        oam.deallocate()
-        palette.deallocate()
-        precomputedPalette.deallocate()
-        vram.deallocate()
+        self.vram = ContiguousArray(vram)
     }
 }
 
@@ -220,7 +228,20 @@ internal extension PPU {
         for offset: UInt8 in 0x00 ... 0xFF {
             let address = Address(page: oamdma, offset: offset)
 
-            oam[oamaddr] = cpu.read(address)
+            let newValue = cpu.read(address)
+
+            switch oamaddr % 4 {
+            case 0:
+                oam[oamaddr / 4].y = newValue
+            case 1:
+                oam[oamaddr / 4].tile = newValue
+            case 2:
+                oam[oamaddr / 4].attributes = newValue
+            case 3:
+                oam[oamaddr / 4].x = newValue
+            default:
+                fatalError()
+            }
 
             oamaddr = oamaddr &+ 1
         }

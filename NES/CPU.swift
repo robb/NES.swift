@@ -42,7 +42,7 @@ internal final class CPU {
     var ppu: PPU!
 
     /// The RAM the CPU reads from.
-    var ram: UnsafeMutableBufferPointer<UInt8>
+    var ram: ContiguousArray<UInt8>
 
     var controller1: Controller = Controller()
 
@@ -50,10 +50,6 @@ internal final class CPU {
 
     init(mapper: Mapper, ram data: Data = Data(repeating: 0x00, count: 0x800)) {
         self.mapper = mapper
-        self.ram = .from(source: data)
-    }
-
-    deinit {
-        ram.deallocate()
+        self.ram = ContiguousArray(data)
     }
 }

@@ -284,8 +284,7 @@ class PPUSpec: QuickSpec {
 
         describe("Having the CPU write to OAMDMA") {
             it("should copy the given memory page to the OAM") {
-                let values = UnsafeMutableBufferPointer<UInt8>.allocate(capacity: 256)
-                values.assign(repeating: 0x23)
+                let values = ContiguousArray<UInt8>(repeating: 0x23, count: 256)
 
                 cpu.ram[0x0400 ..< 0x0500] = values[values.startIndex ..< values.endIndex]
 

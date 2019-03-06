@@ -305,7 +305,7 @@ internal extension PPU {
 
         currentSpriteCount = 0
 
-        for (index, sprite) in sprites.enumerated() {
+        for (index, sprite) in oam.enumerated() {
             let row = scanLine - Int(bitPattern: UInt(truncatingIfNeeded: sprite.y))
 
             guard 0 <= row && row < width else { continue }

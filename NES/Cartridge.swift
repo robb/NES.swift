@@ -1,15 +1,15 @@
 import Foundation
 
 public final class Cartridge {
-    internal var chrrom: UnsafeMutableBufferPointer<UInt8>
+    internal var chrrom: ContiguousArray<UInt8>
 
     internal let mapper: UInt8
 
-    internal var prgram: UnsafeMutableBufferPointer<UInt8>
+    internal var prgram: ContiguousArray<UInt8>
 
-    internal let prgrom: UnsafeMutableBufferPointer<UInt8>
+    internal let prgrom: ContiguousArray<UInt8>
 
-    internal var sram: UnsafeMutableBufferPointer<UInt8>
+    internal var sram: ContiguousArray<UInt8>
 
     public static func load(path: String) -> Cartridge? {
         let data = try? Data(contentsOf: URL(fileURLWithPath: path))
@@ -43,23 +43,16 @@ public final class Cartridge {
             offset += 512
         }
 
-        prgrom = .from(source: data[offset ..< offset + 16384 * prgromSize])
+        prgrom = ContiguousArray(data[offset ..< offset + 16384 * prgromSize])
         offset += 16384 * prgromSize
 
-        chrrom = .from(source: data[offset ..< offset + 8192 * chrromSize])
+        chrrom = ContiguousArray(data[offset ..< offset + 8192 * chrromSize])
         offset += 8192 * chrromSize
 
-        prgram = .allocate(count: prgramSize, initializeWith: 0x00)
+        prgram = ContiguousArray(repeating: 0x00, count: prgramSize)
 
-        sram = .allocate(count: prgramSize, initializeWith: 0x00)
+        sram = ContiguousArray(repeating: 0x00, count: prgramSize)
 
         mapper = (flags7 & 0xF0) | (flags6 >> 4)
-    }
-
-    deinit {
-        prgrom.deallocate()
-        chrrom.deallocate()
-        prgram.deallocate()
-        sram.deallocate()
     }
 }
