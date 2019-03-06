@@ -8,13 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		540B132720CD7E21000BDB6B /* PaletteIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540B132620CD7E21000BDB6B /* PaletteIndex.swift */; };
-		540B132920CD8EC9000BDB6B /* UnsignedInteger+Nibble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540B132820CD8EC9000BDB6B /* UnsignedInteger+Nibble.swift */; };
+		540B132920CD8EC9000BDB6B /* UnsignedInteger+Masking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540B132820CD8EC9000BDB6B /* UnsignedInteger+Masking.swift */; };
 		540E001C1CD577C500C9669B /* PPU+Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540E001B1CD577C500C9669B /* PPU+Flags.swift */; };
 		540E00201CD5801B00C9669B /* PPUSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540E001F1CD5801B00C9669B /* PPUSpec.swift */; };
 		54141E7A203945D10005F553 /* nestest.nes in Resources */ = {isa = PBXBuildFile; fileRef = 5499940C1CFC8B7600C859F4 /* nestest.nes */; };
 		5414FB7720CE8FE80098B7CA /* young-monkey.nes in Resources */ = {isa = PBXBuildFile; fileRef = 5414FB7620CE8FCA0098B7CA /* young-monkey.nes */; };
 		5423F73F1CEDC029009CE6D1 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5423F73E1CEDC029009CE6D1 /* Log.swift */; };
-		542436651CD804BA0084DDDF /* UInt8+Bitset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542436641CD804BA0084DDDF /* UInt8+Bitset.swift */; };
 		542BC4341CD44987000E211F /* PPU+IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542BC4331CD44987000E211F /* PPU+IO.swift */; };
 		54339ADB1ADDB57600632DE9 /* Cartridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54339ADA1ADDB57600632DE9 /* Cartridge.swift */; };
 		54339ADD1ADDB5FC00632DE9 /* CartridgeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54339ADC1ADDB5FC00632DE9 /* CartridgeSpec.swift */; };
@@ -109,13 +108,12 @@
 
 /* Begin PBXFileReference section */
 		540B132620CD7E21000BDB6B /* PaletteIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteIndex.swift; sourceTree = "<group>"; };
-		540B132820CD8EC9000BDB6B /* UnsignedInteger+Nibble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnsignedInteger+Nibble.swift"; sourceTree = "<group>"; };
+		540B132820CD8EC9000BDB6B /* UnsignedInteger+Masking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnsignedInteger+Masking.swift"; sourceTree = "<group>"; };
 		540E001B1CD577C500C9669B /* PPU+Flags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PPU+Flags.swift"; sourceTree = "<group>"; };
 		540E001F1CD5801B00C9669B /* PPUSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPUSpec.swift; sourceTree = "<group>"; };
 		5414FB7620CE8FCA0098B7CA /* young-monkey.nes */ = {isa = PBXFileReference; lastKnownFileType = file; path = "young-monkey.nes"; sourceTree = "<group>"; };
 		5423F73A1CECC83B009CE6D1 /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
 		5423F73E1CEDC029009CE6D1 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
-		542436641CD804BA0084DDDF /* UInt8+Bitset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt8+Bitset.swift"; sourceTree = "<group>"; };
 		542BC4331CD44987000E211F /* PPU+IO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PPU+IO.swift"; sourceTree = "<group>"; };
 		54339ADA1ADDB57600632DE9 /* Cartridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cartridge.swift; sourceTree = "<group>"; };
 		54339ADC1ADDB5FC00632DE9 /* CartridgeSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartridgeSpec.swift; sourceTree = "<group>"; };
@@ -259,9 +257,8 @@
 				54B1BB001CF5C629004A1A70 /* RGBA.swift */,
 				54E65A961CF35B3E00317EEC /* ScreenBuffer.swift */,
 				54B466B320CD500900112459 /* Sprite.swift */,
-				542436641CD804BA0084DDDF /* UInt8+Bitset.swift */,
 				54DA450020C940180051A40F /* UnsafeMutableBufferPointer+Convenience.swift */,
-				540B132820CD8EC9000BDB6B /* UnsignedInteger+Nibble.swift */,
+				540B132820CD8EC9000BDB6B /* UnsignedInteger+Masking.swift */,
 				548605EB1ACFFF1B00198A72 /* Supporting Files */,
 			);
 			path = NES;
@@ -534,7 +531,6 @@
 				546054A31AD018CE00CFD098 /* CPU+Instructions.swift in Sources */,
 				542BC4341CD44987000E211F /* PPU+IO.swift in Sources */,
 				54FF800320FA1DB200CAA600 /* Controller.swift in Sources */,
-				542436651CD804BA0084DDDF /* UInt8+Bitset.swift in Sources */,
 				54B466B420CD500900112459 /* Sprite.swift in Sources */,
 				54F73D1C20C9406900CA089F /* RandomAccessCollection+Indexing.swift in Sources */,
 				540E001C1CD577C500C9669B /* PPU+Flags.swift in Sources */,
@@ -550,7 +546,7 @@
 				54C21E171CC823AE00B96C00 /* CPU+Interrupts.swift in Sources */,
 				54E08FEE1CC67AC300C9AA49 /* Helper.swift in Sources */,
 				54D8BDF11CEDD50800F8C3BC /* PPU+Step.swift in Sources */,
-				540B132920CD8EC9000BDB6B /* UnsignedInteger+Nibble.swift in Sources */,
+				540B132920CD8EC9000BDB6B /* UnsignedInteger+Masking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
