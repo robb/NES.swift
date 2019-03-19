@@ -1,6 +1,6 @@
 # NES
 
-A NES emulator written in Swift.
+An NES emulator written in Swift.
 
 ### TODOs:
 
