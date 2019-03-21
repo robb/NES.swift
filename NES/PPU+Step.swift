@@ -1,5 +1,5 @@
 import Foundation
-import simd
+
 
 internal extension PPU {
     func step(steps: Int = 1) {
@@ -163,24 +163,13 @@ internal extension PPU {
                     | UInt16(row)
         }
 
-        let lowTileByte  = read(address)
-        let highTileByte = read(address + 8)
-        let palette = sprite.palette << 2
+        let spriteData = UInt32.interleaving(read(address), read(address + 8), sprite.lowPaletteByte, sprite.highPaletteByte)
 
-        var data: UInt32 = 0
-
-        for i in 0 ..< 8 {
-            let a =  (lowTileByte  & (0x01 << i)) >> i
-            let b = ((highTileByte & (0x01 << i)) >> i) << 1
-
-            if sprite.isFlippedHorizontally {
-                data[nibble: i] = palette | a | b
-            } else {
-                data[nibble: 7 - i] = palette | a | b
-            }
+        if sprite.isFlippedHorizontally {
+            return spriteData
+        } else {
+            return spriteData.reversedNibbleOrder
         }
-
-        return data
     }
 }
 
@@ -237,47 +226,10 @@ internal extension PPU {
     /// Updates `tileData` such that its higher 32 bits contain the data for the
     /// current tile while the lower 32 bits contain the data for the next tile.
     func updateTileData() {
-        // We need to interleave `lowTileByte`, `highTileByte`,
-        // `lowAttributeTableByte` and `highAttributeTableByte` such that each
-        // nibble of the resulting `newTileData` contains one bit of the inputs.
-        //
-        // E.g. given:
-        // ```
-        // lowTileByte            = xxxxxxxx
-        // highTileByte           = yyyyyyyy
-        // lowAttributeTableByte  = zzzzzzzz
-        // highAttributeTableByte = wwwwwwww
-        // ```
-        //
-        // we want
-        //
-        // ```
-        // newTileData = wzyxwzyxwzyxwzyxwzyxwzyxwzyxwzyx
-        // ```
-        // .
-        var newTileData: uint4 = uint4(
-            UInt32(truncatingIfNeeded: lowTileByte),
-            UInt32(truncatingIfNeeded: highTileByte),
-            UInt32(truncatingIfNeeded: lowAttributeTableByte),
-            UInt32(truncatingIfNeeded: highAttributeTableByte)
-        )
-
-        // Spread out each byte over 32 bits, e.g.
-        // `0b11111111` becomes `0b00010001000100010001000100010001`
-        newTileData = (newTileData | (newTileData &<< 8)) & 0x00FF00FF
-        newTileData = (newTileData | (newTileData &<< 4)) & 0x0F0F0F0F
-        newTileData = (newTileData | (newTileData &<< 2)) & 0x33333333
-        newTileData = (newTileData | (newTileData &<< 1)) & 0x55555555
-        newTileData = (newTileData | (newTileData &<< 8)) & 0x00FF00FF
-        newTileData = (newTileData | (newTileData &<< 4)) & 0x0F0F0F0F
-        newTileData = (newTileData | (newTileData &<< 2)) & 0x33333333
-
-        // Offset each 32-bit integer by one bit so that we can OR them without
-        // collision.
-        newTileData &<<= uint4(0, 1, 2, 3)
+        let newTileData = UInt32.interleaving(lowTileByte, highTileByte, lowAttributeTableByte, highAttributeTableByte)
 
         // Shift `tileData` and replace the lower 32 bits with the new data.
-        tileData = tileData << 32 | UInt64(truncatingIfNeeded: newTileData.x | newTileData.y | newTileData.z | newTileData.w)
+        tileData = tileData << 32 | UInt64(truncatingIfNeeded: newTileData)
     }
 
     func fetchNameTableByte() {

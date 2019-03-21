@@ -15,8 +15,12 @@ extension Sprite {
         return tile[bit: 0] ? 0x1000 : 0x0000
     }
 
-    var palette: UInt8 {
-        return attributes & 0x03
+    var lowPaletteByte: UInt8 {
+        return (attributes & 0x01) * 0xFF
+    }
+
+    var highPaletteByte: UInt8 {
+        return ((attributes & 0x02) >> 1) * 0xFF
     }
 
     var isInFront: Bool {
