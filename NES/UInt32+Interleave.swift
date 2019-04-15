@@ -2,8 +2,8 @@ import Foundation
 import simd
 
 internal extension UInt32 {
-    /// Interleaves its inputs such that nibble of the resulting value contains
-    /// one bit of each input byte.
+    /// Interleaves its inputs such that each nibble of the resulting value
+    /// contains one bit of each input byte.
     ///
     /// E.g. given:
     /// ```
