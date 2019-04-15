@@ -7,7 +7,7 @@ internal extension UInt32 {
     ///
     /// E.g. given:
     /// ```
-    /// x  = xxxxxxxx
+    /// x = xxxxxxxx
     /// y = yyyyyyyy
     /// z = zzzzzzzz
     /// w = wwwwwwww
