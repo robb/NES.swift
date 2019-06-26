@@ -5,7 +5,7 @@ public final class Console {
 
     public var controller1: Buttons {
         get {
-            return cpu.controller1.pressed
+            cpu.controller1.pressed
         }
         set {
             cpu.controller1.pressed = newValue
@@ -14,7 +14,7 @@ public final class Console {
 
     public var controller2: Buttons {
         get {
-            return cpu.controller2.pressed
+            cpu.controller2.pressed
         }
         set {
             cpu.controller2.pressed = newValue
@@ -22,13 +22,13 @@ public final class Console {
     }
 
     public var frames: Int {
-        return ppu.frame
+        ppu.frame
     }
 
     internal let ppu: PPU
 
     public var screenData: Data {
-        return Data(bytesNoCopy: ppu.frontBuffer.pixels.baseAddress!, count: ppu.frontBuffer.pixels.count, deallocator: .none)
+        Data(bytesNoCopy: ppu.frontBuffer.pixels.baseAddress!, count: ppu.frontBuffer.pixels.count, deallocator: .none)
     }
 
     public convenience init(cartridge: Cartridge, initialAddress: UInt16? = nil) {
@@ -84,6 +84,6 @@ public final class Console {
     }
 
     public var cycles: Int {
-        return cpu.cycles
+        cpu.cycles
     }
 }

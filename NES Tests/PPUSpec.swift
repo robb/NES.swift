@@ -8,11 +8,11 @@ class PPUSpec: QuickSpec {
         var console: Console! = nil
 
         var cpu: CPU {
-            return console.cpu
+            console.cpu
         }
 
         var ppu: PPU {
-            return console.ppu
+            console.ppu
         }
 
         beforeEach {

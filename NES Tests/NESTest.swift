@@ -8,7 +8,7 @@ class NESTest: QuickSpec {
         var console: Console! = nil
 
         var cpu: CPU! {
-            return console.cpu
+            console.cpu
         }
 
         let log: [ConsoleState] = loadLog()

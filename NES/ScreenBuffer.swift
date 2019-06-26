@@ -24,7 +24,7 @@ internal struct ScreenBuffer {
     }
 
     private func calculateOffset(_ x: Int, _ y: Int) -> Int {
-        return x + y * ScreenBuffer.width
+        x + y * ScreenBuffer.width
     }
 
     subscript(x: Int, y: Int) -> RGBA {

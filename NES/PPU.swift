@@ -60,7 +60,7 @@ internal final class PPU {
     /// This property proxies the PPU's VRAM at the address held by VRAMAddress.
     var ppudata: UInt8 {
         get {
-            return read(vramAddress)
+            read(vramAddress)
         }
         set {
             write(vramAddress, newValue)

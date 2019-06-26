@@ -16,7 +16,7 @@ public final class Cartridge {
 
         return data
             .flatMap { data in
-                return Cartridge(data: data)
+                Cartridge(data: data)
             }
     }
 

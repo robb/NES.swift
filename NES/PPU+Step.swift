@@ -313,7 +313,7 @@ internal extension PPU {
     /// Bits 0 through 4 of `VRAMAddress` represent the coarse X position.
     var coarseX: UInt8 {
         get {
-            return UInt8(truncatingIfNeeded: vramAddress & 0x001F)
+            UInt8(truncatingIfNeeded: vramAddress & 0x001F)
         }
         set {
             precondition(newValue <= 0x1F)
@@ -325,7 +325,7 @@ internal extension PPU {
     /// Bits 5 through 9 of `VRAMAddress` represent the coarse Y position.
     var coarseY: UInt8 {
         get {
-            return UInt8(truncatingIfNeeded: (vramAddress & 0x03E0) >> 5)
+            UInt8(truncatingIfNeeded: (vramAddress & 0x03E0) >> 5)
         }
         set {
             precondition(newValue <= 0x1F)
@@ -337,7 +337,7 @@ internal extension PPU {
     /// Bits 12 through 14 `VRAMAddress` represent the fine Y position.
     var fineY: UInt8 {
         get {
-            return UInt8(truncatingIfNeeded: (vramAddress & 0x7000) >> 12)
+            UInt8(truncatingIfNeeded: (vramAddress & 0x7000) >> 12)
         }
         set {
             precondition(newValue <= 0x07)
@@ -350,7 +350,7 @@ internal extension PPU {
     /// nametable.
     var nametable: UInt8 {
         get {
-            return UInt8(truncatingIfNeeded: (vramAddress & 0x0C00) >> 10)
+            UInt8(truncatingIfNeeded: (vramAddress & 0x0C00) >> 10)
         }
         set {
             precondition(newValue <= 0x03)
@@ -363,56 +363,56 @@ internal extension PPU {
     /// `nametable`) represent the address of the current tile, relative to the
     /// the first name table enty at `0x2000`.
     var tileAddress: Address {
-        return 0x2000 | (vramAddress & 0x0FFF)
+        0x2000 | (vramAddress & 0x0FFF)
     }
 }
 
 private extension PPU {
     var x: Int {
-        return cycle - 1
+        cycle - 1
     }
 
     var y: Int {
-        return scanLine
+        scanLine
     }
 
     var evenFrame: Bool {
-        return frame % 2 == 0
+        frame % 2 == 0
     }
 
     var fetchCycle: Bool {
-        return preFetchCycle || visibleCycle
+        preFetchCycle || visibleCycle
     }
 
     var postRenderScanline: Bool {
-        return scanLine == 240
+        scanLine == 240
     }
 
     var preFetchCycle: Bool {
-        return cycle >= 321 && cycle <= 336
+        cycle >= 321 && cycle <= 336
     }
 
     var preRenderScanline: Bool {
-        return scanLine < 0
+        scanLine < 0
     }
 
     var renderLine: Bool {
-        return preRenderScanline || visibleLine
+        preRenderScanline || visibleLine
     }
 
     var verticalBlankLine: Bool {
-        return scanLine >= 241 && scanLine <= 260
+        scanLine >= 241 && scanLine <= 260
     }
 
     var verticalScrollReloadCycle: Bool {
-        return cycle >= 280 && cycle <= 304
+        cycle >= 280 && cycle <= 304
     }
 
     var visibleCycle: Bool {
-        return cycle >= 1 && cycle < 257
+        cycle >= 1 && cycle < 257
     }
 
     var visibleLine: Bool {
-        return scanLine >= 0 && scanLine < 240
+        scanLine >= 0 && scanLine < 240
     }
 }

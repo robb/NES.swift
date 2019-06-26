@@ -2,11 +2,11 @@ import Foundation
 
 internal extension CPU {
     func absolute() -> Address {
-        return advanceProgramCounter()
+        advanceProgramCounter()
     }
 
     func absolute() -> UInt8 {
-        return read(advanceProgramCounter())
+        read(advanceProgramCounter())
     }
 
     func absoluteX(_ incursPageBoundaryCost: Bool = false) -> Address {
@@ -20,7 +20,7 @@ internal extension CPU {
     }
 
     func absoluteX(_ incursPageBoundaryCost: Bool = false) -> UInt8 {
-        return read(absoluteX(incursPageBoundaryCost))
+        read(absoluteX(incursPageBoundaryCost))
     }
 
     func absoluteY(_ incursPageBoundaryCost: Bool = false) -> Address {
@@ -34,14 +34,14 @@ internal extension CPU {
     }
 
     func absoluteY(_ incursPageBoundaryCost: Bool = false) -> UInt8 {
-        return read(absoluteY(incursPageBoundaryCost))
+        read(absoluteY(incursPageBoundaryCost))
     }
 
     func accumulator() -> Void {
     }
 
     func immediate() -> UInt8 {
-        return advanceProgramCounter()
+        advanceProgramCounter()
     }
 
     func implied() -> Void {
@@ -54,11 +54,11 @@ internal extension CPU {
     }
 
     func indexedIndirect() -> UInt8 {
-        return read(indexedIndirect())
+        read(indexedIndirect())
     }
 
     func indirect() -> Address {
-        return buggyRead16(advanceProgramCounter())
+        buggyRead16(advanceProgramCounter())
     }
 
     func indirectIndexed(_ incursPageBoundaryCost: Bool = false) -> Address {
@@ -72,11 +72,11 @@ internal extension CPU {
     }
 
     func indirectIndexed(_ incursPageBoundaryCost: Bool = false) -> UInt8 {
-        return read(indirectIndexed(incursPageBoundaryCost))
+        read(indirectIndexed(incursPageBoundaryCost))
     }
 
     func relative() -> UInt8 {
-        return advanceProgramCounter()
+        advanceProgramCounter()
     }
 
     func zeroPage() -> UInt8 {
@@ -86,22 +86,22 @@ internal extension CPU {
     }
 
     func zeroPage() -> Address {
-        return Address(page: 0, offset: advanceProgramCounter())
+        Address(page: 0, offset: advanceProgramCounter())
     }
 
     func zeroPageX() -> Address {
-        return Address(page: 0, offset: advanceProgramCounter() &+ x)
+        Address(page: 0, offset: advanceProgramCounter() &+ x)
     }
 
     func zeroPageX() -> UInt8 {
-        return read(zeroPageX())
+        read(zeroPageX())
     }
 
     func zeroPageY() -> Address {
-        return Address(page: 0, offset: advanceProgramCounter() &+ y)
+        Address(page: 0, offset: advanceProgramCounter() &+ y)
     }
 
     func zeroPageY() -> UInt8 {
-        return read(zeroPageY())
+        read(zeroPageY())
     }
 }

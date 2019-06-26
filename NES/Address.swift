@@ -8,14 +8,14 @@ internal extension Address {
     }
 
     var page: UInt8 {
-        return UInt8(self >> 8)
+        UInt8(self >> 8)
     }
 
     var offset: UInt8 {
-        return UInt8(self & 0xFF)
+        UInt8(self & 0xFF)
     }
 }
 
 internal func differentPages(_ a: Address, _ b: Address) -> Bool {
-    return a.page != b.page
+    a.page != b.page
 }

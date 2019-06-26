@@ -24,7 +24,7 @@ internal extension UnsignedInteger where Self: FixedWidthInteger {
 
     subscript(nibble nibble: Int) -> UInt8 {
         get {
-            return get(nibble: nibble)
+            get(nibble: nibble)
         }
         set {
             set(nibble: nibble, newValue)
@@ -53,7 +53,7 @@ internal extension UnsignedInteger where Self: FixedWidthInteger {
 
     subscript(bit bit: Int) -> Bool {
         get {
-            return get(bit: bit)
+            get(bit: bit)
         }
         set(value) {
             set(bit: bit, value)
