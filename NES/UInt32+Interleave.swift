@@ -20,7 +20,7 @@ internal extension UInt32 {
     /// ```
     /// .
     static func interleaving(_ x: UInt8, _ y: UInt8, _ z: UInt8, _ w: UInt8) -> UInt32 {
-        var bytes = uint4(
+        var bytes = SIMD4<UInt32>(
             UInt32(truncatingIfNeeded: x),
             UInt32(truncatingIfNeeded: y),
             UInt32(truncatingIfNeeded: z),
@@ -37,7 +37,7 @@ internal extension UInt32 {
         bytes = (bytes | (bytes &<< 4)) & 0x0F0F0F0F
         bytes = (bytes | (bytes &<< 2)) & 0x33333333
 
-        bytes &<<= uint4(0, 1, 2, 3)
+        bytes &<<= SIMD4<UInt32>(0, 1, 2, 3)
 
         return bytes.x | bytes.y | bytes.z | bytes.w
     }
