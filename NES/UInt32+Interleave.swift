@@ -45,14 +45,15 @@ internal extension UInt32 {
     var reversedNibbleOrder: UInt32 {
         let spriteData = self
 
-        return
-            (spriteData & 0x0000000F) << 28 |
-            (spriteData & 0x000000F0) << 20 |
-            (spriteData & 0x00000F00) << 12 |
-            (spriteData & 0x0000F000) <<  4 |
-            (spriteData & 0x000F0000) >>  4 |
-            (spriteData & 0x00F00000) >> 12 |
-            (spriteData & 0x0F000000) >> 20 |
-            (spriteData & 0xF0000000) >> 28
+        let a = (spriteData & 0x0000000F) << 28
+        let b = (spriteData & 0x000000F0) << 20
+        let c = (spriteData & 0x00000F00) << 12
+        let d = (spriteData & 0x0000F000) <<  4
+        let e = (spriteData & 0x000F0000) >>  4
+        let f = (spriteData & 0x00F00000) >> 12
+        let g = (spriteData & 0x0F000000) >> 20
+        let h = (spriteData & 0xF0000000) >> 28
+
+        return a | b | c | d | e | f | g | h
     }
 }
